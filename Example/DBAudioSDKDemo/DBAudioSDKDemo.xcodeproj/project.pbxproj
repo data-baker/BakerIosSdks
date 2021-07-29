@@ -1,0 +1,745 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B57BE4D11D72C90F117E140 /* Pods_DBAudioSDKDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17DDDD46D9FDE96E64507DA /* Pods_DBAudioSDKDemoTests.framework */; };
+		2E329E27229661AE39F432CC /* Pods_DBAudioSDKDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1E37E3AB2630571D255469F /* Pods_DBAudioSDKDemo.framework */; };
+		357E964E26B2ADF100A789E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E964D26B2ADF100A789E2 /* AppDelegate.m */; };
+		357E965126B2ADF100A789E2 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E965026B2ADF100A789E2 /* SceneDelegate.m */; };
+		357E965426B2ADF100A789E2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E965326B2ADF100A789E2 /* ViewController.m */; };
+		357E965726B2ADF100A789E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357E965526B2ADF100A789E2 /* Main.storyboard */; };
+		357E965926B2ADF300A789E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 357E965826B2ADF300A789E2 /* Assets.xcassets */; };
+		357E965C26B2ADF300A789E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */; };
+		357E965F26B2ADF300A789E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E965E26B2ADF300A789E2 /* main.m */; };
+		357E966926B2ADF400A789E2 /* DBAudioSDKDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E966826B2ADF400A789E2 /* DBAudioSDKDemoTests.m */; };
+		357E967426B2ADF400A789E2 /* DBAudioSDKDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E967326B2ADF400A789E2 /* DBAudioSDKDemoUITests.m */; };
+		803704A39B26D60127856270 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97525046E02DB8CECF343AE4 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		357E966526B2ADF400A789E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 357E964126B2ADF000A789E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 357E964826B2ADF100A789E2;
+			remoteInfo = DBAudioSDKDemo;
+		};
+		357E967026B2ADF400A789E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 357E964126B2ADF000A789E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 357E964826B2ADF100A789E2;
+			remoteInfo = DBAudioSDKDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0F108CA42338827AEC64C552 /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		3036E1505FF557E7EDEA217B /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3553903BD8F67B8442078CF9 /* Pods-DBAudioSDKDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo.release.xcconfig"; sourceTree = "<group>"; };
+		357E964926B2ADF100A789E2 /* DBAudioSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBAudioSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		357E964C26B2ADF100A789E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		357E964D26B2ADF100A789E2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		357E964F26B2ADF100A789E2 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		357E965026B2ADF100A789E2 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		357E965226B2ADF100A789E2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		357E965326B2ADF100A789E2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		357E965626B2ADF100A789E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		357E965826B2ADF300A789E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		357E965B26B2ADF300A789E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		357E965D26B2ADF300A789E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		357E965E26B2ADF300A789E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		357E966426B2ADF400A789E2 /* DBAudioSDKDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DBAudioSDKDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		357E966826B2ADF400A789E2 /* DBAudioSDKDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBAudioSDKDemoTests.m; sourceTree = "<group>"; };
+		357E966A26B2ADF400A789E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		357E966F26B2ADF400A789E2 /* DBAudioSDKDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DBAudioSDKDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		357E967326B2ADF400A789E2 /* DBAudioSDKDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBAudioSDKDemoUITests.m; sourceTree = "<group>"; };
+		357E967526B2ADF400A789E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		495B6515F5ADB917E4596C8A /* Pods-DBAudioSDKDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemoTests.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemoTests/Pods-DBAudioSDKDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		97525046E02DB8CECF343AE4 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF238E3D868970FA8ECB2670 /* Pods-DBAudioSDKDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo.debug.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		B17DDDD46D9FDE96E64507DA /* Pods_DBAudioSDKDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DBAudioSDKDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C728F4BEF98F3BBB29F3D85C /* Pods-DBAudioSDKDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemoTests/Pods-DBAudioSDKDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D1E37E3AB2630571D255469F /* Pods_DBAudioSDKDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DBAudioSDKDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		357E964626B2ADF100A789E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E329E27229661AE39F432CC /* Pods_DBAudioSDKDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		357E966126B2ADF400A789E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B57BE4D11D72C90F117E140 /* Pods_DBAudioSDKDemoTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		357E966C26B2ADF400A789E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				803704A39B26D60127856270 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		357E964026B2ADF000A789E2 = {
+			isa = PBXGroup;
+			children = (
+				357E964B26B2ADF100A789E2 /* DBAudioSDKDemo */,
+				357E966726B2ADF400A789E2 /* DBAudioSDKDemoTests */,
+				357E967226B2ADF400A789E2 /* DBAudioSDKDemoUITests */,
+				357E964A26B2ADF100A789E2 /* Products */,
+				6E2F4645E2C09BBBEFF43E60 /* Pods */,
+				51CF3080ED0ADC6C0397A584 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		357E964A26B2ADF100A789E2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				357E964926B2ADF100A789E2 /* DBAudioSDKDemo.app */,
+				357E966426B2ADF400A789E2 /* DBAudioSDKDemoTests.xctest */,
+				357E966F26B2ADF400A789E2 /* DBAudioSDKDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		357E964B26B2ADF100A789E2 /* DBAudioSDKDemo */ = {
+			isa = PBXGroup;
+			children = (
+				357E964C26B2ADF100A789E2 /* AppDelegate.h */,
+				357E964D26B2ADF100A789E2 /* AppDelegate.m */,
+				357E964F26B2ADF100A789E2 /* SceneDelegate.h */,
+				357E965026B2ADF100A789E2 /* SceneDelegate.m */,
+				357E965226B2ADF100A789E2 /* ViewController.h */,
+				357E965326B2ADF100A789E2 /* ViewController.m */,
+				357E965526B2ADF100A789E2 /* Main.storyboard */,
+				357E965826B2ADF300A789E2 /* Assets.xcassets */,
+				357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */,
+				357E965D26B2ADF300A789E2 /* Info.plist */,
+				357E965E26B2ADF300A789E2 /* main.m */,
+			);
+			path = DBAudioSDKDemo;
+			sourceTree = "<group>";
+		};
+		357E966726B2ADF400A789E2 /* DBAudioSDKDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				357E966826B2ADF400A789E2 /* DBAudioSDKDemoTests.m */,
+				357E966A26B2ADF400A789E2 /* Info.plist */,
+			);
+			path = DBAudioSDKDemoTests;
+			sourceTree = "<group>";
+		};
+		357E967226B2ADF400A789E2 /* DBAudioSDKDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				357E967326B2ADF400A789E2 /* DBAudioSDKDemoUITests.m */,
+				357E967526B2ADF400A789E2 /* Info.plist */,
+			);
+			path = DBAudioSDKDemoUITests;
+			sourceTree = "<group>";
+		};
+		51CF3080ED0ADC6C0397A584 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1E37E3AB2630571D255469F /* Pods_DBAudioSDKDemo.framework */,
+				97525046E02DB8CECF343AE4 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework */,
+				B17DDDD46D9FDE96E64507DA /* Pods_DBAudioSDKDemoTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E2F4645E2C09BBBEFF43E60 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AF238E3D868970FA8ECB2670 /* Pods-DBAudioSDKDemo.debug.xcconfig */,
+				3553903BD8F67B8442078CF9 /* Pods-DBAudioSDKDemo.release.xcconfig */,
+				0F108CA42338827AEC64C552 /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig */,
+				3036E1505FF557E7EDEA217B /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig */,
+				C728F4BEF98F3BBB29F3D85C /* Pods-DBAudioSDKDemoTests.debug.xcconfig */,
+				495B6515F5ADB917E4596C8A /* Pods-DBAudioSDKDemoTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		357E964826B2ADF100A789E2 /* DBAudioSDKDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 357E967826B2ADF400A789E2 /* Build configuration list for PBXNativeTarget "DBAudioSDKDemo" */;
+			buildPhases = (
+				20790AAE7CF3A4C169CA1A9F /* [CP] Check Pods Manifest.lock */,
+				357E964526B2ADF100A789E2 /* Sources */,
+				357E964626B2ADF100A789E2 /* Frameworks */,
+				357E964726B2ADF100A789E2 /* Resources */,
+				6EEC427BB6EA1E2301A9A6C8 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DBAudioSDKDemo;
+			productName = DBAudioSDKDemo;
+			productReference = 357E964926B2ADF100A789E2 /* DBAudioSDKDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		357E966326B2ADF400A789E2 /* DBAudioSDKDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 357E967B26B2ADF400A789E2 /* Build configuration list for PBXNativeTarget "DBAudioSDKDemoTests" */;
+			buildPhases = (
+				E60F2C37029334BBF6C490DA /* [CP] Check Pods Manifest.lock */,
+				357E966026B2ADF400A789E2 /* Sources */,
+				357E966126B2ADF400A789E2 /* Frameworks */,
+				357E966226B2ADF400A789E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				357E966626B2ADF400A789E2 /* PBXTargetDependency */,
+			);
+			name = DBAudioSDKDemoTests;
+			productName = DBAudioSDKDemoTests;
+			productReference = 357E966426B2ADF400A789E2 /* DBAudioSDKDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		357E966E26B2ADF400A789E2 /* DBAudioSDKDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 357E967E26B2ADF400A789E2 /* Build configuration list for PBXNativeTarget "DBAudioSDKDemoUITests" */;
+			buildPhases = (
+				CC8F7D7CB6FF672A5D09607B /* [CP] Check Pods Manifest.lock */,
+				357E966B26B2ADF400A789E2 /* Sources */,
+				357E966C26B2ADF400A789E2 /* Frameworks */,
+				357E966D26B2ADF400A789E2 /* Resources */,
+				4DBB09843DC7AEBE73B1B8DF /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				357E967126B2ADF400A789E2 /* PBXTargetDependency */,
+			);
+			name = DBAudioSDKDemoUITests;
+			productName = DBAudioSDKDemoUITests;
+			productReference = 357E966F26B2ADF400A789E2 /* DBAudioSDKDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		357E964126B2ADF000A789E2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					357E964826B2ADF100A789E2 = {
+						CreatedOnToolsVersion = 12.3;
+					};
+					357E966326B2ADF400A789E2 = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = 357E964826B2ADF100A789E2;
+					};
+					357E966E26B2ADF400A789E2 = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = 357E964826B2ADF100A789E2;
+					};
+				};
+			};
+			buildConfigurationList = 357E964426B2ADF000A789E2 /* Build configuration list for PBXProject "DBAudioSDKDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 357E964026B2ADF000A789E2;
+			productRefGroup = 357E964A26B2ADF100A789E2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				357E964826B2ADF100A789E2 /* DBAudioSDKDemo */,
+				357E966326B2ADF400A789E2 /* DBAudioSDKDemoTests */,
+				357E966E26B2ADF400A789E2 /* DBAudioSDKDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		357E964726B2ADF100A789E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				357E965C26B2ADF300A789E2 /* LaunchScreen.storyboard in Resources */,
+				357E965926B2ADF300A789E2 /* Assets.xcassets in Resources */,
+				357E965726B2ADF100A789E2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		357E966226B2ADF400A789E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		357E966D26B2ADF400A789E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20790AAE7CF3A4C169CA1A9F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DBAudioSDKDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4DBB09843DC7AEBE73B1B8DF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6EEC427BB6EA1E2301A9A6C8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC8F7D7CB6FF672A5D09607B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E60F2C37029334BBF6C490DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DBAudioSDKDemoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		357E964526B2ADF100A789E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				357E965426B2ADF100A789E2 /* ViewController.m in Sources */,
+				357E964E26B2ADF100A789E2 /* AppDelegate.m in Sources */,
+				357E965F26B2ADF300A789E2 /* main.m in Sources */,
+				357E965126B2ADF100A789E2 /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		357E966026B2ADF400A789E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				357E966926B2ADF400A789E2 /* DBAudioSDKDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		357E966B26B2ADF400A789E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				357E967426B2ADF400A789E2 /* DBAudioSDKDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		357E966626B2ADF400A789E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 357E964826B2ADF100A789E2 /* DBAudioSDKDemo */;
+			targetProxy = 357E966526B2ADF400A789E2 /* PBXContainerItemProxy */;
+		};
+		357E967126B2ADF400A789E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 357E964826B2ADF100A789E2 /* DBAudioSDKDemo */;
+			targetProxy = 357E967026B2ADF400A789E2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		357E965526B2ADF100A789E2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				357E965626B2ADF100A789E2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				357E965B26B2ADF300A789E2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		357E967626B2ADF400A789E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		357E967726B2ADF400A789E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		357E967926B2ADF400A789E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF238E3D868970FA8ECB2670 /* Pods-DBAudioSDKDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VWR2NHV4B6;
+				INFOPLIST_FILE = DBAudioSDKDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shaw.text.DBAudioSDKDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		357E967A26B2ADF400A789E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3553903BD8F67B8442078CF9 /* Pods-DBAudioSDKDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VWR2NHV4B6;
+				INFOPLIST_FILE = DBAudioSDKDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shaw.text.DBAudioSDKDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		357E967C26B2ADF400A789E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C728F4BEF98F3BBB29F3D85C /* Pods-DBAudioSDKDemoTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DBAudioSDKDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shaw.text.DBAudioSDKDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DBAudioSDKDemo.app/DBAudioSDKDemo";
+			};
+			name = Debug;
+		};
+		357E967D26B2ADF400A789E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 495B6515F5ADB917E4596C8A /* Pods-DBAudioSDKDemoTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DBAudioSDKDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shaw.text.DBAudioSDKDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DBAudioSDKDemo.app/DBAudioSDKDemo";
+			};
+			name = Release;
+		};
+		357E967F26B2ADF400A789E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F108CA42338827AEC64C552 /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DBAudioSDKDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shaw.text.DBAudioSDKDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DBAudioSDKDemo;
+			};
+			name = Debug;
+		};
+		357E968026B2ADF400A789E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3036E1505FF557E7EDEA217B /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = DBAudioSDKDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shaw.text.DBAudioSDKDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DBAudioSDKDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		357E964426B2ADF000A789E2 /* Build configuration list for PBXProject "DBAudioSDKDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				357E967626B2ADF400A789E2 /* Debug */,
+				357E967726B2ADF400A789E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		357E967826B2ADF400A789E2 /* Build configuration list for PBXNativeTarget "DBAudioSDKDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				357E967926B2ADF400A789E2 /* Debug */,
+				357E967A26B2ADF400A789E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		357E967B26B2ADF400A789E2 /* Build configuration list for PBXNativeTarget "DBAudioSDKDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				357E967C26B2ADF400A789E2 /* Debug */,
+				357E967D26B2ADF400A789E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		357E967E26B2ADF400A789E2 /* Build configuration list for PBXNativeTarget "DBAudioSDKDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				357E967F26B2ADF400A789E2 /* Debug */,
+				357E968026B2ADF400A789E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 357E964126B2ADF000A789E2 /* Project object */;
+}
