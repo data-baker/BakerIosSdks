@@ -165,7 +165,6 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     [self.socketManager DBZWebSocketClose];
     [self.microphone stop];
     [self logMessage:@"停止识别"];
-    NSLog(@"-------停止识别---------");
 }
 
 
@@ -182,7 +181,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     NSString *message = (NSString *)object;
     NSDictionary *dict = [self dictionaryWithJsonString:message];
     NSDictionary *dataDict = dict[@"data"];
-    NSLog(@"data:%@",dict);
+    [self logMessage:message];
     DBResponseModel *resModel = [[DBResponseModel alloc]init];
     [resModel setValuesForKeysWithDictionary:dataDict];
     
@@ -300,12 +299,10 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     
     NSString *paramString = [self dictionaryToJson:self.onlineRecognizeParameters];
     [self.socketManager sendData:paramString];
-    NSLog(@"paramString:%@",paramString);
+    [self logMessage:paramString];
     self.idx++; //全局语音包序号
-
     self.onlineRecognizeParameters[@"asr_params"][@"audio_data"] = @"5120字节数据";
     [self logMessage:[NSString stringWithFormat:@"上传数据:%@",self.onlineRecognizeParameters]];
-
 
 }
 

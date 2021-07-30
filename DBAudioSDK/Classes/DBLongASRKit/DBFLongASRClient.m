@@ -89,7 +89,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
         [self delegateOnfailureModel:failrModel];
         return ;
     }
-    [self uploadMessage];
+//    [self uploadMessage];
     self.clientId = clientId;
     self.clientSecret = clientSecret;
     [DBAuthentication setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nullable token, NSError * _Nullable error) {
@@ -153,7 +153,6 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     [self.socketManager DBZWebSocketClose];
     [self.microphone stop];
     [self logMessage:@"停止识别"];
-    NSLog(@"-------停止识别---------");
 }
 
 
@@ -169,8 +168,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 - (void)webSocketdidReceiveMessageNote:(id)object {
     NSString *message = (NSString *)object;
     NSDictionary *dict = [self dictionaryWithJsonString:message];
-    NSLog(@"dict%@",dict);
-    
+    [self logMessage:message];
     DBLongResponseModel *resModel = [[DBLongResponseModel alloc]init];
     [resModel setValuesForKeysWithDictionary:dict];
     
@@ -285,8 +283,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     self.onlineRecognizeParameters[@"access_token"] = self.accessToken;
     
     NSString *paramString = [self dictionaryToJson:self.onlineRecognizeParameters];
-    NSLog(@"paramString:%@",paramString);
-
+    [self logMessage:paramString];
     [self.socketManager sendData:paramString];
     self.idx++; //全局语音包序号
     self.onlineRecognizeParameters[@"asr_params"][@"audio_data"] = @"5120字节数据";
