@@ -3,22 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B57BE4D11D72C90F117E140 /* Pods_DBAudioSDKDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17DDDD46D9FDE96E64507DA /* Pods_DBAudioSDKDemoTests.framework */; };
-		2E329E27229661AE39F432CC /* Pods_DBAudioSDKDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1E37E3AB2630571D255469F /* Pods_DBAudioSDKDemo.framework */; };
-		357E964E26B2ADF100A789E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E964D26B2ADF100A789E2 /* AppDelegate.m */; };
-		357E965126B2ADF100A789E2 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E965026B2ADF100A789E2 /* SceneDelegate.m */; };
-		357E965426B2ADF100A789E2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E965326B2ADF100A789E2 /* ViewController.m */; };
-		357E965726B2ADF100A789E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357E965526B2ADF100A789E2 /* Main.storyboard */; };
 		357E965926B2ADF300A789E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 357E965826B2ADF300A789E2 /* Assets.xcassets */; };
 		357E965C26B2ADF300A789E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */; };
 		357E965F26B2ADF300A789E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E965E26B2ADF300A789E2 /* main.m */; };
 		357E966926B2ADF400A789E2 /* DBAudioSDKDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E966826B2ADF400A789E2 /* DBAudioSDKDemoTests.m */; };
 		357E967426B2ADF400A789E2 /* DBAudioSDKDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E967326B2ADF400A789E2 /* DBAudioSDKDemoUITests.m */; };
-		803704A39B26D60127856270 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97525046E02DB8CECF343AE4 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework */; };
+		35CE9A5E26B6B835002D9337 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4826B6B834002D9337 /* AppDelegate.m */; };
+		35CE9A5F26B6B835002D9337 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4A26B6B834002D9337 /* SceneDelegate.m */; };
+		35CE9A6026B6B835002D9337 /* DBASRLongVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4B26B6B834002D9337 /* DBASRLongVC.m */; };
+		35CE9A6126B6B835002D9337 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4D26B6B834002D9337 /* ViewController.m */; };
+		35CE9A6426B6B835002D9337 /* DBASRVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A5326B6B834002D9337 /* DBASRVC.m */; };
+		35CE9A6526B6B835002D9337 /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A5626B6B834002D9337 /* 8.png */; };
+		35CE9A6626B6B835002D9337 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A5726B6B834002D9337 /* 4.png */; };
+		35CE9A6726B6B835002D9337 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A5826B6B834002D9337 /* 5.png */; };
+		35CE9A6826B6B835002D9337 /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A5926B6B834002D9337 /* 7.png */; };
+		35CE9A6926B6B835002D9337 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A5A26B6B834002D9337 /* 6.png */; };
+		35CE9A6A26B6B835002D9337 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A5B26B6B834002D9337 /* 2.png */; };
+		35CE9A6B26B6B835002D9337 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A5C26B6B834002D9337 /* 3.png */; };
+		35CE9A6C26B6B835002D9337 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A5D26B6B834002D9337 /* 1.png */; };
+		35CE9A9E26B6C52E002D9337 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A9C26B6C52E002D9337 /* Main.storyboard */; };
+		44A6E92F28C4164C440ECD6C /* libPods-DBAudioSDKDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FF94512958ADADC1B0DB83 /* libPods-DBAudioSDKDemoTests.a */; };
+		740B9DD46C10E63211A8C6F5 /* libPods-DBAudioSDKDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE39EEC8F7C740B9F329BF74 /* libPods-DBAudioSDKDemo.a */; };
+		D7E218429DBD3977F5481F3D /* libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC1FA24DD0FB15E19ED271C3 /* libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,16 +50,10 @@
 
 /* Begin PBXFileReference section */
 		0F108CA42338827AEC64C552 /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		29FF94512958ADADC1B0DB83 /* libPods-DBAudioSDKDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DBAudioSDKDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3036E1505FF557E7EDEA217B /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3553903BD8F67B8442078CF9 /* Pods-DBAudioSDKDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo.release.xcconfig"; sourceTree = "<group>"; };
 		357E964926B2ADF100A789E2 /* DBAudioSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBAudioSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		357E964C26B2ADF100A789E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		357E964D26B2ADF100A789E2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		357E964F26B2ADF100A789E2 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		357E965026B2ADF100A789E2 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		357E965226B2ADF100A789E2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		357E965326B2ADF100A789E2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		357E965626B2ADF100A789E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		357E965826B2ADF300A789E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		357E965B26B2ADF300A789E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		357E965D26B2ADF300A789E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,12 +64,29 @@
 		357E966F26B2ADF400A789E2 /* DBAudioSDKDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DBAudioSDKDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		357E967326B2ADF400A789E2 /* DBAudioSDKDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBAudioSDKDemoUITests.m; sourceTree = "<group>"; };
 		357E967526B2ADF400A789E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35CE9A4726B6B834002D9337 /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		35CE9A4826B6B834002D9337 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		35CE9A4926B6B834002D9337 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		35CE9A4A26B6B834002D9337 /* SceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		35CE9A4B26B6B834002D9337 /* DBASRLongVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBASRLongVC.m; sourceTree = "<group>"; };
+		35CE9A4C26B6B834002D9337 /* DBASRVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBASRVC.h; sourceTree = "<group>"; };
+		35CE9A4D26B6B834002D9337 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		35CE9A5326B6B834002D9337 /* DBASRVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBASRVC.m; sourceTree = "<group>"; };
+		35CE9A5426B6B834002D9337 /* DBASRLongVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBASRLongVC.h; sourceTree = "<group>"; };
+		35CE9A5626B6B834002D9337 /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
+		35CE9A5726B6B834002D9337 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
+		35CE9A5826B6B834002D9337 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
+		35CE9A5926B6B834002D9337 /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
+		35CE9A5A26B6B834002D9337 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
+		35CE9A5B26B6B834002D9337 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		35CE9A5C26B6B834002D9337 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		35CE9A5D26B6B834002D9337 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		35CE9A9D26B6C52E002D9337 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		495B6515F5ADB917E4596C8A /* Pods-DBAudioSDKDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemoTests.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemoTests/Pods-DBAudioSDKDemoTests.release.xcconfig"; sourceTree = "<group>"; };
-		97525046E02DB8CECF343AE4 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF238E3D868970FA8ECB2670 /* Pods-DBAudioSDKDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo.debug.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		B17DDDD46D9FDE96E64507DA /* Pods_DBAudioSDKDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DBAudioSDKDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC1FA24DD0FB15E19ED271C3 /* libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C728F4BEF98F3BBB29F3D85C /* Pods-DBAudioSDKDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemoTests/Pods-DBAudioSDKDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D1E37E3AB2630571D255469F /* Pods_DBAudioSDKDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DBAudioSDKDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE39EEC8F7C740B9F329BF74 /* libPods-DBAudioSDKDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DBAudioSDKDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E329E27229661AE39F432CC /* Pods_DBAudioSDKDemo.framework in Frameworks */,
+				740B9DD46C10E63211A8C6F5 /* libPods-DBAudioSDKDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B57BE4D11D72C90F117E140 /* Pods_DBAudioSDKDemoTests.framework in Frameworks */,
+				44A6E92F28C4164C440ECD6C /* libPods-DBAudioSDKDemoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				803704A39B26D60127856270 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework in Frameworks */,
+				D7E218429DBD3977F5481F3D /* libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,14 +142,18 @@
 		357E964B26B2ADF100A789E2 /* DBAudioSDKDemo */ = {
 			isa = PBXGroup;
 			children = (
-				357E964C26B2ADF100A789E2 /* AppDelegate.h */,
-				357E964D26B2ADF100A789E2 /* AppDelegate.m */,
-				357E964F26B2ADF100A789E2 /* SceneDelegate.h */,
-				357E965026B2ADF100A789E2 /* SceneDelegate.m */,
-				357E965226B2ADF100A789E2 /* ViewController.h */,
-				357E965326B2ADF100A789E2 /* ViewController.m */,
-				357E965526B2ADF100A789E2 /* Main.storyboard */,
+				35CE9A4826B6B834002D9337 /* AppDelegate.m */,
+				35CE9A5426B6B834002D9337 /* DBASRLongVC.h */,
+				35CE9A4B26B6B834002D9337 /* DBASRLongVC.m */,
+				35CE9A4C26B6B834002D9337 /* DBASRVC.h */,
+				35CE9A5326B6B834002D9337 /* DBASRVC.m */,
+				35CE9A5526B6B834002D9337 /* DBVoiceResource */,
+				35CE9A4726B6B834002D9337 /* SceneDelegate.h */,
+				35CE9A4A26B6B834002D9337 /* SceneDelegate.m */,
+				35CE9A4926B6B834002D9337 /* ViewController.h */,
+				35CE9A4D26B6B834002D9337 /* ViewController.m */,
 				357E965826B2ADF300A789E2 /* Assets.xcassets */,
+				35CE9A9C26B6C52E002D9337 /* Main.storyboard */,
 				357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */,
 				357E965D26B2ADF300A789E2 /* Info.plist */,
 				357E965E26B2ADF300A789E2 /* main.m */,
@@ -154,12 +179,27 @@
 			path = DBAudioSDKDemoUITests;
 			sourceTree = "<group>";
 		};
+		35CE9A5526B6B834002D9337 /* DBVoiceResource */ = {
+			isa = PBXGroup;
+			children = (
+				35CE9A5626B6B834002D9337 /* 8.png */,
+				35CE9A5726B6B834002D9337 /* 4.png */,
+				35CE9A5826B6B834002D9337 /* 5.png */,
+				35CE9A5926B6B834002D9337 /* 7.png */,
+				35CE9A5A26B6B834002D9337 /* 6.png */,
+				35CE9A5B26B6B834002D9337 /* 2.png */,
+				35CE9A5C26B6B834002D9337 /* 3.png */,
+				35CE9A5D26B6B834002D9337 /* 1.png */,
+			);
+			path = DBVoiceResource;
+			sourceTree = "<group>";
+		};
 		51CF3080ED0ADC6C0397A584 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D1E37E3AB2630571D255469F /* Pods_DBAudioSDKDemo.framework */,
-				97525046E02DB8CECF343AE4 /* Pods_DBAudioSDKDemo_DBAudioSDKDemoUITests.framework */,
-				B17DDDD46D9FDE96E64507DA /* Pods_DBAudioSDKDemoTests.framework */,
+				DE39EEC8F7C740B9F329BF74 /* libPods-DBAudioSDKDemo.a */,
+				BC1FA24DD0FB15E19ED271C3 /* libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a */,
+				29FF94512958ADADC1B0DB83 /* libPods-DBAudioSDKDemoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -188,7 +228,6 @@
 				357E964526B2ADF100A789E2 /* Sources */,
 				357E964626B2ADF100A789E2 /* Frameworks */,
 				357E964726B2ADF100A789E2 /* Resources */,
-				6EEC427BB6EA1E2301A9A6C8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,7 +265,6 @@
 				357E966B26B2ADF400A789E2 /* Sources */,
 				357E966C26B2ADF400A789E2 /* Frameworks */,
 				357E966D26B2ADF400A789E2 /* Resources */,
-				4DBB09843DC7AEBE73B1B8DF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -284,9 +322,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35CE9A6B26B6B835002D9337 /* 3.png in Resources */,
+				35CE9A6626B6B835002D9337 /* 4.png in Resources */,
+				35CE9A6526B6B835002D9337 /* 8.png in Resources */,
+				35CE9A6A26B6B835002D9337 /* 2.png in Resources */,
+				35CE9A6926B6B835002D9337 /* 6.png in Resources */,
 				357E965C26B2ADF300A789E2 /* LaunchScreen.storyboard in Resources */,
+				35CE9A9E26B6C52E002D9337 /* Main.storyboard in Resources */,
+				35CE9A6726B6B835002D9337 /* 5.png in Resources */,
 				357E965926B2ADF300A789E2 /* Assets.xcassets in Resources */,
-				357E965726B2ADF100A789E2 /* Main.storyboard in Resources */,
+				35CE9A6C26B6B835002D9337 /* 1.png in Resources */,
+				35CE9A6826B6B835002D9337 /* 7.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,40 +373,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4DBB09843DC7AEBE73B1B8DF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6EEC427BB6EA1E2301A9A6C8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC8F7D7CB6FF672A5D09607B /* [CP] Check Pods Manifest.lock */ = {
@@ -414,10 +426,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				357E965426B2ADF100A789E2 /* ViewController.m in Sources */,
-				357E964E26B2ADF100A789E2 /* AppDelegate.m in Sources */,
+				35CE9A5E26B6B835002D9337 /* AppDelegate.m in Sources */,
+				35CE9A6026B6B835002D9337 /* DBASRLongVC.m in Sources */,
+				35CE9A5F26B6B835002D9337 /* SceneDelegate.m in Sources */,
+				35CE9A6426B6B835002D9337 /* DBASRVC.m in Sources */,
 				357E965F26B2ADF300A789E2 /* main.m in Sources */,
-				357E965126B2ADF100A789E2 /* SceneDelegate.m in Sources */,
+				35CE9A6126B6B835002D9337 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,20 +467,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		357E965526B2ADF100A789E2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				357E965626B2ADF100A789E2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				357E965B26B2ADF300A789E2 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		35CE9A9C26B6C52E002D9337 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				35CE9A9D26B6C52E002D9337 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

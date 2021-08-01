@@ -1,16 +1,39 @@
 PODS:
-  - DBAudioSDK/DBLongASRKit (0.0.1)
+  - DBAudioSDK (1.0.4):
+    - DBAudioSDK/DBLongASRKit (= 1.0.4)
+    - DBAudioSDK/DBShortASRKit (= 1.0.4)
+  - DBAudioSDK/DBLongASRKit (1.0.4)
+  - DBAudioSDK/DBShortASRKit (1.0.4)
+  - IQKeyboardManager (6.5.6)
+  - Masonry (1.1.0)
+  - SocketRocket (0.5.1)
+  - Toast (4.0.0)
 
 DEPENDENCIES:
-  - DBAudioSDK/DBLongASRKit (from `../../`)
+  - DBAudioSDK (from `../../`)
+  - IQKeyboardManager (~> 6.5.6)
+  - Masonry
+  - SocketRocket
+  - Toast (~> 4.0.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - IQKeyboardManager
+    - Masonry
+    - SocketRocket
+    - Toast
 
 EXTERNAL SOURCES:
   DBAudioSDK:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  DBAudioSDK: 63186141d8b661a40d20aa295a2833269cdcdcfe
+  DBAudioSDK: 19835bf911efb5039543a73eb7db76b88d5382d4
+  IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 763568c21d9eef62e040df020e641f8859ee534d
+PODFILE CHECKSUM: 7ddb0e0d6eee894012c8f25ba0c91ae897d9677a
 
 COCOAPODS: 1.10.1

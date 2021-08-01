@@ -1,8 +1,8 @@
 //
 //  ViewController.m
-//  DBAudioSDKDemo
+//  DBASRDemo(002)
 //
-//  Created by linxi on 2021/7/29.
+//  Created by linxi on 2021/2/1.
 //
 
 #import "ViewController.h"
@@ -17,5 +17,9 @@
     [super viewDidLoad];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UIViewController *vc = segue.destinationViewController;
+
+}
 
 @end
