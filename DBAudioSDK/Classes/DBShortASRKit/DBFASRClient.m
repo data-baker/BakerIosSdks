@@ -16,18 +16,18 @@
 #import "DBResponseModel.h"
 
 
-static NSString * LongTimeASRSDKVersion = @"1.0.0";
+static NSString * OneSpeechASRSDKVersion = @"1.0.0";
 
-static NSString * LongTimeASRSDKInstallation = @"LongTimeASRSDKInstallation";
+static NSString * OneSpeechASRSDKInstallation = @"OneSpeechASRSDKInstallation";
 
-static NSString * LongTimeASRSDKStart = @"LongTimeASRSDKStart";
+static NSString * OneSpeechASRSDKStart = @"OneSpeechASRSDKStart";
 
-static NSString * DBLongTimeASRUDID = @"DBLongTimeASRUDID";
+static NSString * DBOneSpeechASRUDID = @"DBOneSpeechASRUDID";
 
 typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
-    DBLongTimeASRUploadLogTypeInstall = 1, // 上传安装统计
-    DBLongTimeASRUploadLogTypeStart = 2, // 上传每日打开统计
-    DBLongTimeASRUploadLogTypeCrash = 3  // 上传错误日志
+    DBOneSpeechASRUploadLogTypeInstall = 1, // 上传安装统计
+    DBOneSpeechASRUploadLogTypeStart = 2, // 上传每日打开统计
+    DBOneSpeechASRUploadLogTypeCrash = 3  // 上传错误日志
 };
 
 typedef NS_ENUM(NSUInteger,DBAsrState) {
@@ -79,18 +79,18 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 - (void)setupClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret{
     DBResponseModel *failrModel = [[DBResponseModel alloc]init];
     if (!clientId) {
-        failrModel.code = DBLongTimeErrorStateCodeClientId;
+        failrModel.code = DBOneSpeechErrorStateCodeClientId;
         failrModel.message = @"缺少ClientId";
         [self delegateOnfailureModel:failrModel];
         return ;
     }
     if (!clientSecret) {
-        failrModel.code = DBLongTimeErrorStateCodeSecret;
+        failrModel.code = DBOneSpeechErrorStateCodeSecret;
         failrModel.message = @"缺少Secret";
         [self delegateOnfailureModel:failrModel];
         return ;
     }
-    [self uploadMessage];
+//    [self uploadMessage];
     self.clientId = clientId;
     self.clientSecret = clientSecret;
     [DBAuthentication setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nullable token, NSError * _Nullable error) {
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
             }
         }else {
             DBResponseModel *failrModel = [[DBResponseModel alloc]init];
-            failrModel.code = DBLongTimeErrorStateCodeToken;
+            failrModel.code = DBOneSpeechErrorStateCodeToken;
             failrModel.message = @"获取token失败";
             [self delegateOnfailureModel:failrModel];
             if (self.delegate && [self.delegate respondsToSelector:@selector(initializationResult:)]) {
@@ -115,7 +115,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 
 - (void)openMicrophone {
     int sample_rate = 0;
-    if (self.sampleRate == DBLongTimeSampleRate8K) {
+    if (self.sampleRate == DBOneSpeechSampleRate8K) {
         sample_rate = 8000;
     }else {
         sample_rate = 16000;
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     [self logMessage:@"私有化部署url"];
 }
 
-- (void)startSocketAndRecognize {
+- (void)startOneSpeechASR {
     [self closedAudioResource];
     [self openMicrophone];
     self.idx = 0;
@@ -156,7 +156,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     [self logMessage:@"socket开始链接"];
 }
 
-- (void)endRecognizeAndCloseSocket {
+- (void)endOneSpeechASR {
     self.asrState = DBAsrStateWillEnd;
 }
 
@@ -197,7 +197,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     //报错
     if (code != 90000) {
         [self logMessage:@"后台报错"];
-        [self endRecognizeAndCloseSocket];
+        [self endOneSpeechASR];
         [self closedAudioResource];
         [self delegateOnfailureModel:resModel];
         return;
@@ -224,7 +224,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 
 - (void)webSocketdidConnectFailed:(id)object {
     DBResponseModel *failrModel = [[DBResponseModel alloc]init];
-    failrModel.code = DBLongTimeErrorNotConnectToServer;
+    failrModel.code = DBOneSpeechErrorNotConnectToServer;
     failrModel.message = @"socket连接失败";
     [self delegateOnfailureModel:failrModel];
 }
@@ -253,7 +253,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     
 //    if (audioData.length != 5120) {
 //        DBLongResponseModel *failrModel = [[DBLongResponseModel alloc]init];
-//        failrModel.code = DBLongTimeErrorStateDataLength;
+//        failrModel.code = DBOneSpeechErrorStateDataLength;
 //        failrModel.message = @"数据长度错误";
 //        [self delegateOnfailureModel:failrModel];
 //    }
@@ -263,13 +263,13 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     
     parameter[@"audio_data"]= audioString;
     
-    if (self.AudioFormat == DBLongTimeAudioFormatWAV) {
+    if (self.AudioFormat == DBOneSpeechAudioFormatWAV) {
         parameter[@"audio_format"] = @"WAV";
     }else {
         parameter[@"audio_format"] = @"PCM";
     }
     
-    if (self.sampleRate == DBLongTimeSampleRate8K) {
+    if (self.sampleRate == DBOneSpeechSampleRate8K) {
         parameter[@"sample_rate"] = @(8000);
     }else {
         parameter[@"sample_rate"] = @(16000);
@@ -316,13 +316,13 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 }
 
 -(void)microphoneonError:(NSInteger)code message:(NSString *)message {
-    [self endRecognizeAndCloseSocket];
+    [self endOneSpeechASR];
     [self closedAudioResource];
     DBResponseModel *failrModel = [[DBResponseModel alloc]init];
     if (code == 10190001) {
-        failrModel.code = DBLongTimeErrorStateNoMicrophone;
+        failrModel.code = DBOneSpeechErrorStateNoMicrophone;
     }else {
-        failrModel.code = DBLongTimeErrorStateMicrophoneErr;
+        failrModel.code = DBOneSpeechErrorStateMicrophoneErr;
     }
     failrModel.message = message;
     [self delegateOnfailureModel:failrModel];
@@ -343,21 +343,21 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 - (void)uploadMessage {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    if ([userDefaults boolForKey:@"DBLongTimeDo_not_upload"]) {
+    if ([userDefaults boolForKey:@"DBOneSpeechDo_not_upload"]) {
         [self logMessage:@"不进行统计上报"];
         return;
     }
     
-    if ([[userDefaults valueForKey:DBLongTimeASRUDID] isEqualToString:@""] || [userDefaults valueForKey:DBLongTimeASRUDID] == nil) {
-        [userDefaults setValue:[self createUuid] forKey:DBLongTimeASRUDID];
+    if ([[userDefaults valueForKey:DBOneSpeechASRUDID] isEqualToString:@""] || [userDefaults valueForKey:DBOneSpeechASRUDID] == nil) {
+        [userDefaults setValue:[self createUuid] forKey:DBOneSpeechASRUDID];
         [userDefaults synchronize];
     }
     
-    if (![userDefaults boolForKey:LongTimeASRSDKInstallation]) {
-        [userDefaults setBool:YES forKey:LongTimeASRSDKInstallation];
+    if (![userDefaults boolForKey:OneSpeechASRSDKInstallation]) {
+        [userDefaults setBool:YES forKey:OneSpeechASRSDKInstallation];
         [userDefaults synchronize];
         //TODO:上传首次安装信息
-        [self upLoadLogWithType:DBLongTimeASRUploadLogTypeInstall];
+//        [self upLoadLogWithType:DBOneSpeechASRUploadLogTypeInstall];
     }
     
     NSDate *date = [NSDate date];
@@ -365,15 +365,15 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *str = [formatter stringFromDate:date];
     
-    if (![[userDefaults valueForKey:LongTimeASRSDKStart] isEqualToString:str]) {
-        [userDefaults setValue:str forKey:LongTimeASRSDKStart];
+    if (![[userDefaults valueForKey:OneSpeechASRSDKStart] isEqualToString:str]) {
+        [userDefaults setValue:str forKey:OneSpeechASRSDKStart];
         [userDefaults synchronize];
         //TODO:上传每日启动信息
-        [self upLoadLogWithType:DBLongTimeASRUploadLogTypeStart];
+//        [self upLoadLogWithType:DBOneSpeechASRUploadLogTypeStart];
     }
     
     //TODO:上传错误日志
-    [self upLoadLogWithType:DBLongTimeASRUploadLogTypeCrash];
+    [self upLoadLogWithType:DBOneSpeechASRUploadLogTypeCrash];
 }
 
 -(NSString*)createUuid{
@@ -385,7 +385,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 - (void)upLoadLogWithType:(DBASRUploadLogType)type {
     NSString * errorInfo;
     NSString * path = [DBUncaughtExceptionHandler shareInstance].exceptionFilePath;
-    if (type == DBLongTimeASRUploadLogTypeCrash) {
+    if (type == DBOneSpeechASRUploadLogTypeCrash) {
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if (![fileManager fileExistsAtPath:path]) {
             [self logMessage:@"没有错误日志"];
@@ -407,25 +407,25 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     parameters[@"sdkClientId"] = self.clientId;//授权clientId ,
     parameters[@"sdkType"] = @"iOS";//sdk类型：IOS/ANDROID/JAVA/... ,
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    parameters[@"sdkUuid"] = [userDefaults valueForKey:DBLongTimeASRUDID];//唯一标志一个客户端 ,
-    parameters[@"sdkVersion"] = LongTimeASRSDKVersion;//sdk版本 ,
+    parameters[@"sdkUuid"] = [userDefaults valueForKey:DBOneSpeechASRUDID];//唯一标志一个客户端 ,
+    parameters[@"sdkVersion"] = OneSpeechASRSDKVersion;//sdk版本 ,
     parameters[@"submitType"] = [NSString stringWithFormat:@"%zd",type];//提交类型：1首次激活 2日常上报 3错误上报
-    parameters[@"sdkName"] = @"LongTimeASR";//区分sdk是asr,tts等SDK类型
+    parameters[@"sdkName"] = @"OneSpeechASR";//区分sdk是asr,tts等SDK类型
     
     [DBNetworkHelper postWithUrlString:@"https://sdkinfo.data-baker.com:8677/sdk-submit/sdk-info/sign-upload" parameters:parameters success:^(NSDictionary * _Nonnull data) {
         if ([data[@"code"] intValue] == 40005) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setBool:YES forKey:@"DBLongTimeDo_not_upload"];
+            [userDefaults setBool:YES forKey:@"DBOneSpeechDo_not_upload"];
             [userDefaults synchronize];
         }else if ([data[@"code"] intValue] == 20000) {
             switch (type) {
-                case DBLongTimeASRUploadLogTypeInstall:
+                case DBOneSpeechASRUploadLogTypeInstall:
                     [self logMessage:@"按装信息上传成功"];
                     break;
-                case DBLongTimeASRUploadLogTypeStart:
+                case DBOneSpeechASRUploadLogTypeStart:
                     [self logMessage:@"启动信息上传成功"];
                     break;
-                case DBLongTimeASRUploadLogTypeCrash:{
+                case DBOneSpeechASRUploadLogTypeCrash:{
                     NSFileManager *fileManager = [NSFileManager defaultManager];
                     if ([fileManager removeItemAtPath:path error:nil]) {
                         [self logMessage:@"崩溃记录文件删除成功"];
@@ -435,13 +435,13 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
             }
         }else {
             switch (type) {
-                case DBLongTimeASRUploadLogTypeInstall:
+                case DBOneSpeechASRUploadLogTypeInstall:
                     [self logMessage:@"按装信息上传失败"];
                     break;
-                case DBLongTimeASRUploadLogTypeStart:
+                case DBOneSpeechASRUploadLogTypeStart:
                     [self logMessage:@"启动信息上传失败"];
                     break;
-                case DBLongTimeASRUploadLogTypeCrash:
+                case DBOneSpeechASRUploadLogTypeCrash:
                     [self logMessage:@"崩溃记录文件删除失败"];
                     break;
             }
@@ -449,13 +449,13 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
         
     } failure:^(NSError * _Nonnull error) {
         switch (type) {
-            case DBLongTimeASRUploadLogTypeInstall:
+            case DBOneSpeechASRUploadLogTypeInstall:
                 [self logMessage:@"按装信息上传失败"];
                 break;
-            case DBLongTimeASRUploadLogTypeStart:
+            case DBOneSpeechASRUploadLogTypeStart:
                 [self logMessage:@"启动信息上传失败"];
                 break;
-            case DBLongTimeASRUploadLogTypeCrash:
+            case DBOneSpeechASRUploadLogTypeCrash:
                 [self logMessage:@"崩溃记录文件删除失败"];
                 break;
         }
@@ -467,7 +467,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     if (self.log) {
         NSLog(@"运行日志:%@",string);
         dispatch_async(dispatch_get_main_queue(), ^{
-//         [DBLogManager saveCriticalSDKRunData:string fileName:@"DBLongTimeASR"];
+//         [DBLogManager saveCriticalSDKRunData:string fileName:@"DBOneSpeechASR"];
         });
     }
 }
@@ -491,7 +491,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     if(err)
     {
         DBResponseModel *failrModel = [[DBResponseModel alloc]init];
-        failrModel.code = DBLongTimeErrorStateDataParse;
+        failrModel.code = DBOneSpeechErrorStateDataParse;
         failrModel.message = @"服务器返回数据解析失败";
         [self delegateOnfailureModel:failrModel];
         return nil;

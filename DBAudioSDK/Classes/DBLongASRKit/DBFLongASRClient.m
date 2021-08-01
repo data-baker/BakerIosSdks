@@ -22,7 +22,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     DBAsrStateDidEnd = 3  // 结束
 };
 
-static NSString * LongTimeASRSDKVersion = @"1.0.0";
+static NSString * LongTimeASRSDKVersion = @"2.0.0";
 
 static NSString * LongTimeASRSDKInstallation = @"LongTimeASRSDKInstallation";
 
@@ -130,7 +130,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     [self logMessage:@"私有化部署url"];
 }
 
-- (void)startSocketAndRecognize {
+- (void)startLongASR {
     [self closedAudioResource];
     self.asrState = DBAsrStateStart;
     [self openMicrophone];
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 }
 
 
-- (void)endRecognizeAndCloseSocket {
+- (void)endLongASR {
     self.asrState = DBAsrStateWillEnd;
 }
 - (void)closedAudioResource {
@@ -322,42 +322,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 }
 
 #pragma -mark 工具
-// 上传统计信息
-- (void)uploadMessage {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    if ([userDefaults boolForKey:@"DBLongTimeDo_not_upload"]) {
-        [self logMessage:@"不进行统计上报"];
-        return;
-    }
-    
-    if ([[userDefaults valueForKey:DBLongTimeASRUDID] isEqualToString:@""] || [userDefaults valueForKey:DBLongTimeASRUDID] == nil) {
-        [userDefaults setValue:[self createUuid] forKey:DBLongTimeASRUDID];
-        [userDefaults synchronize];
-    }
-    
-    if (![userDefaults boolForKey:LongTimeASRSDKInstallation]) {
-        [userDefaults setBool:YES forKey:LongTimeASRSDKInstallation];
-        [userDefaults synchronize];
-        //TODO:上传首次安装信息
-        [self upLoadLogWithType:DBLongTimeASRUploadLogTypeInstall];
-    }
-    
-    NSDate *date = [NSDate date];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *str = [formatter stringFromDate:date];
-    
-    if (![[userDefaults valueForKey:LongTimeASRSDKStart] isEqualToString:str]) {
-        [userDefaults setValue:str forKey:LongTimeASRSDKStart];
-        [userDefaults synchronize];
-        //TODO:上传每日启动信息
-        [self upLoadLogWithType:DBLongTimeASRUploadLogTypeStart];
-    }
-    
-    //TODO:上传错误日志
-    [self upLoadLogWithType:DBLongTimeASRUploadLogTypeCrash];
-}
+
 
 -(NSString*)createUuid{
     char data[32];

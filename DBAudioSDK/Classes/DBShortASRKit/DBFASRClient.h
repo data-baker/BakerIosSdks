@@ -11,25 +11,25 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // 设置采样率
-typedef NS_ENUM(NSUInteger, DBLongTimeSampleRate){
-    DBLongTimeSampleRate16K = 16000, // 16k的采样率
-    DBLongTimeSampleRate8K = 8000, // 8K的采样率
+typedef NS_ENUM(NSUInteger, DBOneSpeechSampleRate){
+    DBOneSpeechSampleRate16K = 16000, // 16k的采样率
+    DBOneSpeechSampleRate8K = 8000, // 8K的采样率
 };
 // 设置音频类型
-typedef NS_ENUM(NSUInteger, DBLongTimeAudioFormat){
-    DBLongTimeAudioFormatPCM,
-    DBLongTimeAudioFormatWAV,
+typedef NS_ENUM(NSUInteger, DBOneSpeechAudioFormat){
+    DBOneSpeechAudioFormatPCM,
+    DBOneSpeechAudioFormatWAV,
 };
 // 错误码
-typedef NS_ENUM(NSUInteger, DBLongTimeASRErrorState){
-    DBLongTimeErrorStateCodeClientId    = 14190001, // 缺少ClientId
-    DBLongTimeErrorStateCodeSecret      = 14190002, // 缺少Secret
-    DBLongTimeErrorStateCodeToken       = 14190003, // token获取失败
-    DBLongTimeErrorNotConnectToServer   = 14190004, // socket链接失败
-    DBLongTimeErrorStateNoMicrophone    = 14190005, // 麦克风没有权限
-    DBLongTimeErrorStateMicrophoneErr   = 14190006, // 麦克风启动失败
-    DBLongTimeErrorStateDataLength      = 14190007, // 数据长度错误
-    DBLongTimeErrorStateDataParse       = 14190008, // 服务器返回数据解析失败
+typedef NS_ENUM(NSUInteger, DBOneSpeechASRErrorState){
+    DBOneSpeechErrorStateCodeClientId    = 13190001, // 缺少ClientId
+    DBOneSpeechErrorStateCodeSecret      = 13190002, // 缺少Secret
+    DBOneSpeechErrorStateCodeToken       = 13190003, // token获取失败
+    DBOneSpeechErrorNotConnectToServer   = 13190004, // socket链接失败
+    DBOneSpeechErrorStateNoMicrophone    = 13190005, // 麦克风没有权限
+    DBOneSpeechErrorStateMicrophoneErr   = 13190006, // 麦克风启动失败
+    DBOneSpeechErrorStateDataLength      = 13190007, // 数据长度错误
+    DBOneSpeechErrorStateDataParse       = 13190008, // 服务器返回数据解析失败
 };
 
 @protocol DBFASRClientDelegate <NSObject>
@@ -56,9 +56,9 @@ typedef NS_ENUM(NSUInteger, DBLongTimeASRErrorState){
 
 @property (nonatomic, weak) id <DBFASRClientDelegate> delegate;
 /// 音频采样率，支持16000，8000 默认16000
-@property (nonatomic, assign) DBLongTimeSampleRate sampleRate;
+@property (nonatomic, assign) DBOneSpeechSampleRate sampleRate;
 /// 音频编码格式PCM（文件格式PCM或WAV）默认PCM
-@property (nonatomic, assign) DBLongTimeAudioFormat AudioFormat;
+@property (nonatomic, assign) DBOneSpeechAudioFormat AudioFormat;
 /// 是否在短静音处添加标点，默认为YES
 @property (nonatomic, assign) BOOL addPct;
 /// 模型名称，必须填写公司购买的语言模型，默认为common
@@ -70,9 +70,9 @@ typedef NS_ENUM(NSUInteger, DBLongTimeASRErrorState){
 /// 获取token
 - (void)setupClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret;
 /// 开启识别
-- (void)startSocketAndRecognize;
+- (void)startOneSpeechASR;
 /// 结束识别,结束识别并且关闭socket与麦克风
-- (void)endRecognizeAndCloseSocket;
+- (void)endOneSpeechASR;
 /// 私有化部署URL
 - (void)setupURL:(NSString *)url;
 /// 开启原始数据识别

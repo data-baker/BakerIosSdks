@@ -72,9 +72,9 @@ typedef NS_ENUM(NSUInteger, DBLongTimeASRErrorState){
 /// 获取token
 - (void)setupClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret;
 /// 开启识别
-- (void)startSocketAndRecognize;
+- (void)startLongASR;
 /// 结束识别,结束识别并且关闭socket与麦克风
-- (void)endRecognizeAndCloseSocket;
+- (void)endLongASR;
 /// 私有化部署URL
 - (void)setupURL:(NSString *)url;
 
