@@ -13,15 +13,9 @@
 
 //#error 请填写clientID, clientSecret 信息
 
-// 长语音识别的clientId和clientSecret
 
-//static NSString *clientID = @"e09b59aa915a4cb4b3c8d31f0bc21afa";
-//
-//static NSString *clientSecret = @"880893ebcdfa413dac24a7c21595aa72";
-
-static NSString *clientID = @"f7fc306703c64645999629d84e1ee60c";
-
-static NSString *clientSecret = @"fdeb98c5952247c58115353865ec3473";
+static NSString *clientID = @"***";
+static NSString *clientSecret = @"***";
 
 @interface DBASRLongVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBFASRClientDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *modeTextField;

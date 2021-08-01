@@ -14,9 +14,9 @@
 
 //#error 请填写clientID, clientSecret 信息
 
-static NSString *clientID = @"61dfd38e-175e-44b0-971a-36f70ee71d66";
+static NSString *clientID = @"***";
 
-static NSString *clientSecret = @"NTBlOTIwOGQtM2UzZS00Y2ZlLWI0ZWUtMTU5NjIwN2JiZTNl";
+static NSString *clientSecret = @"***";
 
 @interface DBASRVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBFASRClientDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *modeTextField;
