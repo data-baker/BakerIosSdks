@@ -52,4 +52,9 @@ Pod::Spec.new do |spec|
     shortASRKit.source_files = 'DBAudioSDK/Classes/DBShortASRKit/*.{h,m}'
   end
 
+  spec.subspec 'DBOnlineTTSKit' do |onlineTTSKit|
+    onlineTTSKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
+    onlineTTSKit.source_files = 'DBAudioSDK/Classes/DBOnlineTTSKit/*.{h,m}'
+  end
+
 end

@@ -1,8 +1,10 @@
 PODS:
   - DBAudioSDK (1.0.4):
     - DBAudioSDK/DBLongASRKit (= 1.0.4)
+    - DBAudioSDK/DBOnlineTTSKit (= 1.0.4)
     - DBAudioSDK/DBShortASRKit (= 1.0.4)
   - DBAudioSDK/DBLongASRKit (1.0.4)
+  - DBAudioSDK/DBOnlineTTSKit (1.0.4)
   - DBAudioSDK/DBShortASRKit (1.0.4)
   - IQKeyboardManager (6.5.6)
   - Masonry (1.1.0)
@@ -28,7 +30,7 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  DBAudioSDK: 19835bf911efb5039543a73eb7db76b88d5382d4
+  DBAudioSDK: 27548cc54a32c70992de0df8abfb2d1064653772
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
