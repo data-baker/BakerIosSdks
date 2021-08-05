@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DBUserInfoManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +21,8 @@ static NSString *clientSecret = @"";
 
 
 @interface DBLoginVC : UIViewController
+
+@property(nonatomic,copy)dispatch_block_t handler;
 
 @end
 

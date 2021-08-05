@@ -14,9 +14,7 @@
 
 //#error 请填写clientID, clientSecret 信息
 
-static NSString *clientID = @"***";
-
-static NSString *clientSecret = @"***";
+#import "DBUserInfoManager.h"
 
 @interface DBASRVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBFASRClientDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *modeTextField;
@@ -55,7 +53,11 @@ static NSString *clientSecret = @"***";
     self.asrAudioClient.AudioFormat = DBOneSpeechAudioFormatPCM;
     self.asrAudioClient.addPct = YES;
     self.asrAudioClient.domain = @"common";
-    [self.asrAudioClient setupClientId:clientID clientSecret:clientSecret];
+    
+    // TODO: 请在此处设置授权信息
+    NSString *clientId = [DBUserInfoManager shareManager].clientId;
+    NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
+    [self.asrAudioClient setupClientId:clientId clientSecret:clientSecret];
     
 }
 

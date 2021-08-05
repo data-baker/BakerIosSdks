@@ -13,6 +13,8 @@
 		357B2E1126BC02D2006C15FD /* DBVoiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0B26BC02D2006C15FD /* DBVoiceListVC.m */; };
 		357B2E1226BC02D2006C15FD /* DBRecordCompleteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0C26BC02D2006C15FD /* DBRecordCompleteVC.m */; };
 		357B2E1826BC033D006C15FD /* UIViewController+DBBackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E1626BC033D006C15FD /* UIViewController+DBBackButtonHandler.m */; };
+		357B2E1E26BC0B53006C15FD /* DBUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E1D26BC0B53006C15FD /* DBUserInfoManager.m */; };
+		357B2E2426BC150E006C15FD /* DBVoiceEngraverEntryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E2326BC150E006C15FD /* DBVoiceEngraverEntryVC.m */; };
 		357E965926B2ADF300A789E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 357E965826B2ADF300A789E2 /* Assets.xcassets */; };
 		357E965C26B2ADF300A789E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */; };
 		357E965F26B2ADF300A789E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E965E26B2ADF300A789E2 /* main.m */; };
@@ -76,6 +78,10 @@
 		357B2E0D26BC02D2006C15FD /* DBVoiceExperienceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBVoiceExperienceVC.h; sourceTree = "<group>"; };
 		357B2E1626BC033D006C15FD /* UIViewController+DBBackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DBBackButtonHandler.m"; sourceTree = "<group>"; };
 		357B2E1726BC033D006C15FD /* UIViewController+DBBackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DBBackButtonHandler.h"; sourceTree = "<group>"; };
+		357B2E1C26BC0B53006C15FD /* DBUserInfoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBUserInfoManager.h; sourceTree = "<group>"; };
+		357B2E1D26BC0B53006C15FD /* DBUserInfoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBUserInfoManager.m; sourceTree = "<group>"; };
+		357B2E2226BC150E006C15FD /* DBVoiceEngraverEntryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVoiceEngraverEntryVC.h; sourceTree = "<group>"; };
+		357B2E2326BC150E006C15FD /* DBVoiceEngraverEntryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVoiceEngraverEntryVC.m; sourceTree = "<group>"; };
 		357E964926B2ADF100A789E2 /* DBAudioSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBAudioSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		357E965826B2ADF300A789E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		357E965B26B2ADF300A789E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -166,6 +172,8 @@
 				357B2E0826BC02D2006C15FD /* DBVoiceExperienceVC.m */,
 				357B2E0926BC02D2006C15FD /* DBVoiceListVC.h */,
 				357B2E0B26BC02D2006C15FD /* DBVoiceListVC.m */,
+				357B2E2226BC150E006C15FD /* DBVoiceEngraverEntryVC.h */,
+				357B2E2326BC150E006C15FD /* DBVoiceEngraverEntryVC.m */,
 			);
 			path = DBVoiceEngraver;
 			sourceTree = "<group>";
@@ -207,6 +215,8 @@
 				35CE9A4A26B6B834002D9337 /* SceneDelegate.m */,
 				35CE9B2B26BA2EE2002D9337 /* DBLoginVC.h */,
 				35CE9B2C26BA2EE3002D9337 /* DBLoginVC.m */,
+				357B2E1C26BC0B53006C15FD /* DBUserInfoManager.h */,
+				357B2E1D26BC0B53006C15FD /* DBUserInfoManager.m */,
 				357E965826B2ADF300A789E2 /* Assets.xcassets */,
 				35CE9A9C26B6C52E002D9337 /* Main.storyboard */,
 				357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */,
@@ -523,6 +533,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				357B2E1E26BC0B53006C15FD /* DBUserInfoManager.m in Sources */,
 				35CE9B1D26BA2DF4002D9337 /* DBVoiceTransferVC.m in Sources */,
 				35CE9A5E26B6B835002D9337 /* AppDelegate.m in Sources */,
 				35CE9A6026B6B835002D9337 /* DBASRLongVC.m in Sources */,
@@ -533,6 +544,7 @@
 				357B2E1126BC02D2006C15FD /* DBVoiceListVC.m in Sources */,
 				357B2E0E26BC02D2006C15FD /* DBRecordTextVC.m in Sources */,
 				35CE9B2D26BA2EE3002D9337 /* DBLoginVC.m in Sources */,
+				357B2E2426BC150E006C15FD /* DBVoiceEngraverEntryVC.m in Sources */,
 				35CE9A6426B6B835002D9337 /* DBASRVC.m in Sources */,
 				357E965F26B2ADF300A789E2 /* main.m in Sources */,
 				357B2E1826BC033D006C15FD /* UIViewController+DBBackButtonHandler.m in Sources */,

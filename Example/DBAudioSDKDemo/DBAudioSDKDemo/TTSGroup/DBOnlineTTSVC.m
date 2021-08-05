@@ -7,6 +7,7 @@
 
 #import "DBOnlineTTSVC.h"
 #import <DBSynthesizerManager.h>
+#import "DBUserInfoManager.h"
 
 static NSString * textViewText = @" 近期，天津市宝坻区某百货大楼内部，10%的酒精相继出现了5例新型冠状病毒感染的肺炎病例。这几个病例都没有去过武汉，也没有接触过确诊病例，而且从前三个病例发病时的情况看，似乎找不到到任何流行病学上的关联性。他们是怎么发病的？发病前有哪些情况是可以溯源？2月2日，天津市疾控中心传染病预防控制室主任张颖在发布会上，针对这起聚集性暴发的疫情进行了全程脱稿的“福尔摩斯式”分析，谜底层层被揭开，而这背后，给大家的却是一个深刻的警示！ 我们再来复盘一下—— 第1个病例： 百货大楼小家电区销售人员无武汉的流行病学史，无外出经历，也没有接触过确诊病例或疑似病例1月22日发热，商场26日春节停业。该售货员发病之后连续4天都在没有发热门诊的社区门诊看病。期间，她持续高热，自己购买药物在家中处理。31日到天津宝坻区医院的发热门诊就诊。最终被天津市疾病预防控制中心确认为确诊病例。源？2月2日，天津市疾控中心传染病预防控制室主任张颖在发布会上，针对这起聚集性暴发的疫情进行了全程脱稿的“福尔摩斯式”分析，谜底层层被揭开，而这背后，给大家的却是一个深刻的警示！ 我们再来复盘一下—— 第1个病例： 百货大楼小家电区销售人员无武汉的流行病学史，无外出经历，也没有接触过确诊病例或疑似病例1月22日发热，商场26日春节停业。该售货员发病之后连续4天都在没有发热门诊的社区门诊看病。期间，她持续高热，自己购买药物在家中处理。31日到天津宝坻区医院的发热门诊就诊。最终被天津市疾病预防控制中心确认为确诊病例。";
 
@@ -45,7 +46,12 @@ static NSString * textViewText = @" 近期，天津市宝坻区某百货大楼�
     
 
 //
-    [_synthesizerManager setupClientId:@"xxx" clientSecret:@"xxx" handler:^(BOOL ret, NSString *message) {
+    
+    // TODO: 请在此处设置授权信息
+    NSString *clientId = [DBUserInfoManager shareManager].clientId;
+    NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
+    
+    [_synthesizerManager setupClientId:clientId clientSecret:clientSecret handler:^(BOOL ret, NSString *message) {
         if (ret) {
             NSLog(@"鉴权成功");
         }else {

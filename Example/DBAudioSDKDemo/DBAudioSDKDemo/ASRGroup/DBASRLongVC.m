@@ -11,12 +11,8 @@
 #import "UIView+Toast.h"
 //#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
+#import "DBUserInfoManager.h"
 
-//#error 请填写clientID, clientSecret 信息
-
-
-static NSString *clientID = @"***";
-static NSString *clientSecret = @"***";
 
 @interface DBASRLongVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBFASRClientDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *modeTextField;
@@ -63,7 +59,12 @@ static NSString *clientSecret = @"***";
     self.asrAudioClient.AudioFormat = DBLongTimeAudioFormatPCM;
     self.asrAudioClient.addPct = YES;
     self.asrAudioClient.domain = self.modeTextField.text;
-    [self.asrAudioClient setupClientId:clientID clientSecret:clientSecret];
+    
+    // TODO: 请在此处设置授权信息
+    NSString *clientId = [DBUserInfoManager shareManager].clientId;
+    NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
+    
+    [self.asrAudioClient setupClientId:clientId clientSecret:clientSecret];
     self.isStart = NO;
 }
 
@@ -114,8 +115,9 @@ static NSString *clientSecret = @"***";
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+    NSLog(@"%@-->prepareForSegue",[self class]);
 }
+
 #pragma mark -按钮的点击方法---------
 
 - (IBAction)recordAction:(id)sender {
@@ -353,6 +355,8 @@ static NSString *clientSecret = @"***";
     [self startRecord:self.startButton.isSelected];
 }
     
+// segue Methods
+
 
 
 @end

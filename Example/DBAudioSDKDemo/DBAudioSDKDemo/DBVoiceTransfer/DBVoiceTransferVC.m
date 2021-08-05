@@ -11,6 +11,7 @@
 #import "UIView+Toast.h"
 #import "DBLoginVC.h"
 
+
 static NSString *DBAudioMicroData = @"audioMicroData";
 
 @interface DBVoiceTransferVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBTransferProtocol>
@@ -43,12 +44,9 @@ static NSString *DBAudioMicroData = @"audioMicroData";
 
 
 - (void)setupAuthorInfo {
-    NSString *clientId = [[NSUserDefaults standardUserDefaults] objectForKey:clientIdKey];
-    NSString *clientSecret = [[NSUserDefaults standardUserDefaults] objectForKey:clientSecretKey];
-    if (!clientSecret || !clientId) {
-        [self showLogInVC];
-        return ;
-    }
+    NSString *clientId = [DBUserInfoManager shareManager].clientId;
+    NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
+  
     
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
     [[DBVoiceTransferUtil shareInstance] setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nullable token, NSError * _Nullable error) {
@@ -69,12 +67,6 @@ static NSString *DBAudioMicroData = @"audioMicroData";
         }];
 }
 
-- (void)showLogInVC {
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        DBLoginVC *loginVC  =   [story instantiateViewControllerWithIdentifier:@"DBLoginVC"];
-    loginVC.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:loginVC animated:YES completion:nil];
-}
 
 - (void)setupSubView {
     _desLabel.text = @"使用说明：\n 1.选择音色；\n 2.点击开始录音转换，录音结束后点击停止录音转换； \n 3.声音转换完全直接进行播放；\n 4.本地文件转换会直接读取本地录音音频文件进行声音转换。";

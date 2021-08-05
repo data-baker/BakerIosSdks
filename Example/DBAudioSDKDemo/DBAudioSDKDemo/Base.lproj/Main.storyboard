@@ -18,10 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="Afg-8v-UeY">
+                            <stackView opaque="NO" tag="101" contentMode="scaleToFill" axis="vertical" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="Afg-8v-UeY">
                                 <rect key="frame" x="20" y="255" width="374" height="386"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Y-pm-16U">
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Y-pm-16U">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
@@ -32,7 +32,7 @@
                                             <segue destination="STI-a1-sdd" kind="show" id="JuQ-7S-dua"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sm1-Sh-ZmE">
+                                    <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sm1-Sh-ZmE">
                                         <rect key="frame" x="0.0" y="84" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
@@ -43,7 +43,7 @@
                                             <segue destination="0Di-hK-ECy" kind="show" id="ScB-by-xtl"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jI2-Xh-Vwh">
+                                    <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jI2-Xh-Vwh">
                                         <rect key="frame" x="0.0" y="168" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
@@ -54,7 +54,7 @@
                                             <segue destination="vYz-7O-2zv" kind="show" id="nOe-fL-ddP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZ6-RT-pD8">
+                                    <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZ6-RT-pD8">
                                         <rect key="frame" x="0.0" y="252" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
@@ -65,7 +65,7 @@
                                             <segue destination="opw-nQ-A8g" kind="show" id="z4p-Ar-vMy"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2L-Lz-3dR">
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2L-Lz-3dR">
                                         <rect key="frame" x="0.0" y="336" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
@@ -92,12 +92,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="697.10144927536237" y="-54.241071428571423"/>
+            <point key="canvasLocation" x="200" y="-54"/>
         </scene>
         <!--声音复刻-->
         <scene sceneID="Lez-tb-E05">
             <objects>
-                <viewController id="PZD-1W-d9h" sceneMemberID="viewController">
+                <viewController id="PZD-1W-d9h" customClass="DBVoiceEngraverEntryVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="adw-A5-T9y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -260,7 +260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIs-dQ-gHp" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="472" y="-1051"/>
+            <point key="canvasLocation" x="1309" y="-1173"/>
         </scene>
         <!--语音识别-->
         <scene sceneID="Fkq-qd-X89">
@@ -374,7 +374,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAF-wu-udN" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-167" y="-1037"/>
+            <point key="canvasLocation" x="336" y="-1173"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IQb-Kk-RGb">
@@ -392,7 +392,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFB-4R-Yi8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-213.04347826086959" y="-54.241071428571423"/>
+            <point key="canvasLocation" x="-568" y="-54"/>
         </scene>
         <!--在线tts合成-->
         <scene sceneID="GlQ-re-9wr">
@@ -507,7 +507,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oqu-0F-4Sd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1409" y="-1051"/>
+            <point key="canvasLocation" x="2354" y="-1199"/>
         </scene>
         <!--声音转换-->
         <scene sceneID="P9a-9g-gzV">
@@ -633,7 +633,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HmY-PA-fWd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2200" y="-54"/>
+            <point key="canvasLocation" x="2729" y="-139"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="AKC-2i-hqO">

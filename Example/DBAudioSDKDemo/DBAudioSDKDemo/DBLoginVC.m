@@ -10,6 +10,15 @@
 #import "UIView+Toast.h"
 #import "XCHudHelper.h"
 #import "DBVoiceTransferUtil.h"
+#import "DBUserInfoManager.h"
+
+typedef NS_ENUM(NSInteger,DBAudioSDKType) {
+    DBAudioSDKTypeOnlineTTS = 1, // online tts
+    DBAudioSDKTypeOneSpeechASR , // one speech asr
+    DBAudioSDKTypeLongTimeASR, // long time asr
+    DBAudioSDKTypeVoiceTransfer, // voice transfer
+    DBAudioSDKTypeVoiceEngraver, // voice Engraver
+};
 
 
 @interface DBLoginVC ()
@@ -24,7 +33,6 @@
     [super viewDidLoad];
     self.clientIdTextField.text = @"4020bc7b-13f2-4080-b406-45ad06e3ccb7";
     self.clientSecretTextField.text = @"NGVjNmNmNmEtMmFkYS00YWIxLWFmYjEtYjE1MTNjYWYyN2E4";
-   
 }
 - (IBAction)loginAction:(id)sender {
     
@@ -48,11 +56,12 @@
                 return;
             }
             [[XCHudHelper sharedInstance] hideHud];
-            [[NSUserDefaults standardUserDefaults]setObject:clientId forKey:clientIdKey];
-            [[NSUserDefaults standardUserDefaults]setObject:clientSecret forKey:clientSecretKey];
-            [[NSUserDefaults standardUserDefaults]setObject:token forKey:@"token"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+        [DBUserInfoManager shareManager].clientId = clientId;
+        [DBUserInfoManager shareManager].clientSecret = clientSecret;
             [self dismissViewControllerAnimated:YES completion:nil];
+        if (self.handler) {
+            self.handler();
+        }
         }];
      
 }
