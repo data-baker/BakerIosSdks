@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		357B2E0E26BC02D2006C15FD /* DBRecordTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0426BC02D1006C15FD /* DBRecordTextVC.m */; };
+		357B2E0F26BC02D2006C15FD /* DBVoiceExperienceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0826BC02D2006C15FD /* DBVoiceExperienceVC.m */; };
+		357B2E1026BC02D2006C15FD /* DBNoiseDetectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0A26BC02D2006C15FD /* DBNoiseDetectionVC.m */; };
+		357B2E1126BC02D2006C15FD /* DBVoiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0B26BC02D2006C15FD /* DBVoiceListVC.m */; };
+		357B2E1226BC02D2006C15FD /* DBRecordCompleteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0C26BC02D2006C15FD /* DBRecordCompleteVC.m */; };
+		357B2E1826BC033D006C15FD /* UIViewController+DBBackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E1626BC033D006C15FD /* UIViewController+DBBackButtonHandler.m */; };
 		357E965926B2ADF300A789E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 357E965826B2ADF300A789E2 /* Assets.xcassets */; };
 		357E965C26B2ADF300A789E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */; };
 		357E965F26B2ADF300A789E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E965E26B2ADF300A789E2 /* main.m */; };
@@ -58,6 +64,18 @@
 		29FF94512958ADADC1B0DB83 /* libPods-DBAudioSDKDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DBAudioSDKDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3036E1505FF557E7EDEA217B /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3553903BD8F67B8442078CF9 /* Pods-DBAudioSDKDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo.release.xcconfig"; sourceTree = "<group>"; };
+		357B2E0426BC02D1006C15FD /* DBRecordTextVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBRecordTextVC.m; sourceTree = "<group>"; };
+		357B2E0526BC02D1006C15FD /* DBNoiseDetectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBNoiseDetectionVC.h; sourceTree = "<group>"; };
+		357B2E0626BC02D1006C15FD /* DBRecordCompleteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBRecordCompleteVC.h; sourceTree = "<group>"; };
+		357B2E0726BC02D2006C15FD /* DBRecordTextVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBRecordTextVC.h; sourceTree = "<group>"; };
+		357B2E0826BC02D2006C15FD /* DBVoiceExperienceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBVoiceExperienceVC.m; sourceTree = "<group>"; };
+		357B2E0926BC02D2006C15FD /* DBVoiceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBVoiceListVC.h; sourceTree = "<group>"; };
+		357B2E0A26BC02D2006C15FD /* DBNoiseDetectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBNoiseDetectionVC.m; sourceTree = "<group>"; };
+		357B2E0B26BC02D2006C15FD /* DBVoiceListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBVoiceListVC.m; sourceTree = "<group>"; };
+		357B2E0C26BC02D2006C15FD /* DBRecordCompleteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBRecordCompleteVC.m; sourceTree = "<group>"; };
+		357B2E0D26BC02D2006C15FD /* DBVoiceExperienceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBVoiceExperienceVC.h; sourceTree = "<group>"; };
+		357B2E1626BC033D006C15FD /* UIViewController+DBBackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DBBackButtonHandler.m"; sourceTree = "<group>"; };
+		357B2E1726BC033D006C15FD /* UIViewController+DBBackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DBBackButtonHandler.h"; sourceTree = "<group>"; };
 		357E964926B2ADF100A789E2 /* DBAudioSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBAudioSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		357E965826B2ADF300A789E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		357E965B26B2ADF300A789E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -133,6 +151,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		357B2DF826BBC466006C15FD /* DBVoiceEngraver */ = {
+			isa = PBXGroup;
+			children = (
+				357B2E1726BC033D006C15FD /* UIViewController+DBBackButtonHandler.h */,
+				357B2E1626BC033D006C15FD /* UIViewController+DBBackButtonHandler.m */,
+				357B2E0526BC02D1006C15FD /* DBNoiseDetectionVC.h */,
+				357B2E0A26BC02D2006C15FD /* DBNoiseDetectionVC.m */,
+				357B2E0626BC02D1006C15FD /* DBRecordCompleteVC.h */,
+				357B2E0C26BC02D2006C15FD /* DBRecordCompleteVC.m */,
+				357B2E0726BC02D2006C15FD /* DBRecordTextVC.h */,
+				357B2E0426BC02D1006C15FD /* DBRecordTextVC.m */,
+				357B2E0D26BC02D2006C15FD /* DBVoiceExperienceVC.h */,
+				357B2E0826BC02D2006C15FD /* DBVoiceExperienceVC.m */,
+				357B2E0926BC02D2006C15FD /* DBVoiceListVC.h */,
+				357B2E0B26BC02D2006C15FD /* DBVoiceListVC.m */,
+			);
+			path = DBVoiceEngraver;
+			sourceTree = "<group>";
+		};
 		357E964026B2ADF000A789E2 = {
 			isa = PBXGroup;
 			children = (
@@ -161,8 +198,9 @@
 				35CE9AD726B8F6A5002D9337 /* ASRGroup */,
 				35CE9AFB26B96BF2002D9337 /* TTSGroup */,
 				35CE9B0C26B9715E002D9337 /* DBVoiceTransfer */,
-				35CE9A4826B6B834002D9337 /* AppDelegate.m */,
+				357B2DF826BBC466006C15FD /* DBVoiceEngraver */,
 				35CE9AD826B8F6EF002D9337 /* AppDelegate.h */,
+				35CE9A4826B6B834002D9337 /* AppDelegate.m */,
 				35CE9A4926B6B834002D9337 /* ViewController.h */,
 				35CE9A4D26B6B834002D9337 /* ViewController.m */,
 				35CE9A4726B6B834002D9337 /* SceneDelegate.h */,
@@ -491,11 +529,17 @@
 				35CE9B0126B96DFC002D9337 /* DBOnlineTTSVC.m in Sources */,
 				35CE9B2626BA2E18002D9337 /* MBProgressHUD.m in Sources */,
 				35CE9A5F26B6B835002D9337 /* SceneDelegate.m in Sources */,
+				357B2E1226BC02D2006C15FD /* DBRecordCompleteVC.m in Sources */,
+				357B2E1126BC02D2006C15FD /* DBVoiceListVC.m in Sources */,
+				357B2E0E26BC02D2006C15FD /* DBRecordTextVC.m in Sources */,
 				35CE9B2D26BA2EE3002D9337 /* DBLoginVC.m in Sources */,
 				35CE9A6426B6B835002D9337 /* DBASRVC.m in Sources */,
 				357E965F26B2ADF300A789E2 /* main.m in Sources */,
+				357B2E1826BC033D006C15FD /* UIViewController+DBBackButtonHandler.m in Sources */,
 				35CE9B2726BA2E18002D9337 /* XCHudHelper.m in Sources */,
+				357B2E0F26BC02D2006C15FD /* DBVoiceExperienceVC.m in Sources */,
 				35CE9A6126B6B835002D9337 /* ViewController.m in Sources */,
+				357B2E1026BC02D2006C15FD /* DBNoiseDetectionVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
