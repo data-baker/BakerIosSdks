@@ -7,12 +7,21 @@
 //
 
 #import "DBFLongASRClient.h"
-#import <DBCommon/DBAuthentication.h>
-#import <DBCommon/DBZSocketRocketUtility.h>
-#import <DBCommon/DBUncaughtExceptionHandler.h>
-#import <DBCommon/DBNetworkHelper.h>
-#import <DBCommon/DBLogManager.h>
-#import <DBCommon/DBAudioMicrophone.h>
+//#import <DBCommon/DBAuthentication.h>
+#import "DBAuthentication.h"
+
+//#import <DBCommon/DBZSocketRocketUtility.h>
+#import "DBZSocketRocketUtility.h"
+//#import <DBCommon/DBUncaughtExceptionHandler.h>
+#import "DBUncaughtExceptionHandler.h"
+//#import <DBCommon/DBZSocketRocketUtility.h>
+#import "DBZSocketRocketUtility.h"
+//#import <DBCommon/DBLogManager.h>
+#import "DBLogManager.h"
+//#import <DBCommon/DBAudioMicrophone.h>
+#import "DBAudioMicrophone.h"
+#import "DBNetworkHelper.h"
+
 #import "DBLongResponseModel.h"
 
 typedef NS_ENUM(NSUInteger,DBAsrState) {

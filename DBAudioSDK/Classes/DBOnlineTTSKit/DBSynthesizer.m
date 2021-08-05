@@ -8,8 +8,10 @@
 
 #import "DBSynthesizer.h"
 #import "DBOnlineResponseModel.h"
-#import <DBCommon/DBZSocketRocketUtility.h>
-#import <DBCommon/DBLogManager.h>
+//#import <DBCommon/DBZSocketRocketUtility.h>
+#import "DBZSocketRocketUtility.h"
+//#import <DBCommon/DBLogManager.h>
+#import "DBLogManager.h"
 
 NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/wss";
 

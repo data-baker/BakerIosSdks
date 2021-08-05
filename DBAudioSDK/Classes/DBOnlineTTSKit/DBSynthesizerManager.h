@@ -10,7 +10,8 @@
 #import "DBSynthesizerRequestParam.h"
 #import "DBFailureModel.h"
 #import "DBSynthesizerManagerDelegate.h"
-#import <DBCommon/DBSynthesisPlayer.h>
+//#import <DBCommon/DBSynthesisPlayer.h>
+#import "DBSynthesisPlayer.h"
 
 
 @class DBSynthesisPlayer;

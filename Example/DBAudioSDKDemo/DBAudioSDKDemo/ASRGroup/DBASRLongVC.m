@@ -9,7 +9,8 @@
 #import "IQKeyboardManager.h"
 #import "DBFLongASRClient.h"
 #import "UIView+Toast.h"
-#import <DBCommon/DBLogManager.h>
+//#import <DBCommon/DBLogManager.h>
+#import "DBLogManager.h"
 
 //#error 请填写clientID, clientSecret 信息
 

@@ -3,9 +3,13 @@ PODS:
     - DBAudioSDK/DBLongASRKit (= 1.0.4)
     - DBAudioSDK/DBOnlineTTSKit (= 1.0.4)
     - DBAudioSDK/DBShortASRKit (= 1.0.4)
+    - DBAudioSDK/DBVoiceEngraverKit (= 1.0.4)
+    - DBAudioSDK/DBVoiceTransferKit (= 1.0.4)
   - DBAudioSDK/DBLongASRKit (1.0.4)
   - DBAudioSDK/DBOnlineTTSKit (1.0.4)
   - DBAudioSDK/DBShortASRKit (1.0.4)
+  - DBAudioSDK/DBVoiceEngraverKit (1.0.4)
+  - DBAudioSDK/DBVoiceTransferKit (1.0.4)
   - IQKeyboardManager (6.5.6)
   - Masonry (1.1.0)
   - SocketRocket (0.5.1)
@@ -30,12 +34,12 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  DBAudioSDK: 27548cc54a32c70992de0df8abfb2d1064653772
+  DBAudioSDK: ef3be0c6708baf995f57daa76f79be6054fe77ba
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 7ddb0e0d6eee894012c8f25ba0c91ae897d9677a
+PODFILE CHECKSUM: 05998a33239b8d7e27055b6634f3029ea19a7f33
 
 COCOAPODS: 1.10.1

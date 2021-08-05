@@ -36,25 +36,43 @@ Pod::Spec.new do |spec|
 
   spec.ios.deployment_target = '9.0'
 
-  spec.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
+  # spec.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
+  spec.source_files = 'DBAudioSDK/Classes/DBToolKit/**/*.{h,m}'
 
   spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
   spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' } 
  
  
   spec.subspec 'DBLongASRKit' do |longASRKit|
-      longASRKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
-    longASRKit.source_files = 'DBAudioSDK/Classes/DBLongASRKit/*.{h,m}'
+    # longASRKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
+    # longASRKit.source_files = 'DBAudioSDK/Classes/DBToolKit/**/*.{h,m}'
+    longASRKit.source_files = 'DBAudioSDK/Classes/{DBLongASRKit,DBToolKit}/**/*.{h,m}'
   end
 
- spec.subspec 'DBShortASRKit' do |shortASRKit|
-    shortASRKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
-    shortASRKit.source_files = 'DBAudioSDK/Classes/DBShortASRKit/*.{h,m}'
+  spec.subspec 'DBShortASRKit' do |shortASRKit|
+    # shortASRKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
+      shortASRKit.source_files = 'DBAudioSDK/Classes/{DBToolKit,DBShortASRKit}/**/*.{h,m}'
+    # shortASRKit.source_files = 'DBAudioSDK/Classes/DBShortASRKit/*.{h,m}'
   end
 
   spec.subspec 'DBOnlineTTSKit' do |onlineTTSKit|
-    onlineTTSKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
-    onlineTTSKit.source_files = 'DBAudioSDK/Classes/DBOnlineTTSKit/*.{h,m}'
+    # onlineTTSKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
+    onlineTTSKit.source_files = 'DBAudioSDK/Classes/{DBToolKit,DBOnlineTTSKit}/**/*.{h,m}'
+    # onlineTTSKit.source_files = 'DBAudioSDK/Classes/DBOnlineTTSKit/*.{h,m}'
   end
+
+  spec.subspec 'DBVoiceTransferKit' do |voiceTransferKit|
+       voiceTransferKit.source_files = 'DBAudioSDK/Classes/{DBToolKit,DBVoiceTransferKit}/**/*.{h,m}'
+
+    # voiceTransferKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
+    # voiceTransferKit.source_files = 'DBAudioSDK/Classes/DBVoiceTransferKit/*.{h,m}'
+  end
+ spec.subspec 'DBVoiceEngraverKit' do |voiceEngraverKit|
+    # voiceEngraverKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
+    voiceEngraverKit.source_files = 'DBAudioSDK/Classes/{DBToolKit,DBVoiceEngraverKit}/**/*.{h,m}'
+
+    # voiceEngraverKit.source_files = 'DBAudioSDK/Classes/DBVoiceEngraverKit/*.{h,m}'
+  end
+
 
 end

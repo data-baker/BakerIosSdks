@@ -8,12 +8,17 @@
 
 #import "DBSynthesizerManager.h"
 #import "DBTextSplitUtil.h"
-#import <DBCommon/DBSynthesisPlayer.h>
-#import <DBCommon/DBNetworkHelper.h>
-#import <DBCommon/DBAuthentication.h>
-#import <DBCommon/DBUncaughtExceptionHandler.h>
+//#import <DBCommon/DBSynthesisPlayer.h>
+#import "DBSynthesisPlayer.h"
+//#import <DBCommon/DBNetworkHelper.h>
+#import "DBNetworkHelper.h"
+//#import <DBCommon/DBAuthentication.h>
+#import "DBAuthentication.h"
+//#import <DBCommon/DBUncaughtExceptionHandler.h>
+#import "DBUncaughtExceptionHandler.h"
 #import "DBSynthesizer.h"
-#import <DBCommon/DBLogManager.h>
+//#import <DBCommon/DBLogManager.h>
+#import "DBLogManager.h"
 // TODO:更新前修改版本号
 static NSString * TTSSDKVersion = @"2.2.5";
 

@@ -27,6 +27,10 @@
 		35CE9A6C26B6B835002D9337 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A5D26B6B834002D9337 /* 1.png */; };
 		35CE9A9E26B6C52E002D9337 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35CE9A9C26B6C52E002D9337 /* Main.storyboard */; };
 		35CE9B0126B96DFC002D9337 /* DBOnlineTTSVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9B0026B96DFC002D9337 /* DBOnlineTTSVC.m */; };
+		35CE9B1D26BA2DF4002D9337 /* DBVoiceTransferVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9B1C26BA2DF4002D9337 /* DBVoiceTransferVC.m */; };
+		35CE9B2626BA2E18002D9337 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9B2226BA2E18002D9337 /* MBProgressHUD.m */; };
+		35CE9B2726BA2E18002D9337 /* XCHudHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9B2326BA2E18002D9337 /* XCHudHelper.m */; };
+		35CE9B2D26BA2EE3002D9337 /* DBLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9B2C26BA2EE3002D9337 /* DBLoginVC.m */; };
 		44A6E92F28C4164C440ECD6C /* libPods-DBAudioSDKDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FF94512958ADADC1B0DB83 /* libPods-DBAudioSDKDemoTests.a */; };
 		740B9DD46C10E63211A8C6F5 /* libPods-DBAudioSDKDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE39EEC8F7C740B9F329BF74 /* libPods-DBAudioSDKDemo.a */; };
 		D7E218429DBD3977F5481F3D /* libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC1FA24DD0FB15E19ED271C3 /* libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a */; };
@@ -86,6 +90,14 @@
 		35CE9AD826B8F6EF002D9337 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		35CE9AFF26B96DFC002D9337 /* DBOnlineTTSVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBOnlineTTSVC.h; sourceTree = "<group>"; };
 		35CE9B0026B96DFC002D9337 /* DBOnlineTTSVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBOnlineTTSVC.m; sourceTree = "<group>"; };
+		35CE9B1B26BA2DF4002D9337 /* DBVoiceTransferVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVoiceTransferVC.h; sourceTree = "<group>"; };
+		35CE9B1C26BA2DF4002D9337 /* DBVoiceTransferVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVoiceTransferVC.m; sourceTree = "<group>"; };
+		35CE9B2226BA2E18002D9337 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		35CE9B2326BA2E18002D9337 /* XCHudHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCHudHelper.m; sourceTree = "<group>"; };
+		35CE9B2426BA2E18002D9337 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		35CE9B2526BA2E18002D9337 /* XCHudHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCHudHelper.h; sourceTree = "<group>"; };
+		35CE9B2B26BA2EE2002D9337 /* DBLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBLoginVC.h; sourceTree = "<group>"; };
+		35CE9B2C26BA2EE3002D9337 /* DBLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBLoginVC.m; sourceTree = "<group>"; };
 		495B6515F5ADB917E4596C8A /* Pods-DBAudioSDKDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemoTests.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemoTests/Pods-DBAudioSDKDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		AF238E3D868970FA8ECB2670 /* Pods-DBAudioSDKDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo.debug.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BC1FA24DD0FB15E19ED271C3 /* libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DBAudioSDKDemo-DBAudioSDKDemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,12 +160,15 @@
 			children = (
 				35CE9AD726B8F6A5002D9337 /* ASRGroup */,
 				35CE9AFB26B96BF2002D9337 /* TTSGroup */,
-				35CE9AD826B8F6EF002D9337 /* AppDelegate.h */,
+				35CE9B0C26B9715E002D9337 /* DBVoiceTransfer */,
 				35CE9A4826B6B834002D9337 /* AppDelegate.m */,
+				35CE9AD826B8F6EF002D9337 /* AppDelegate.h */,
 				35CE9A4926B6B834002D9337 /* ViewController.h */,
 				35CE9A4D26B6B834002D9337 /* ViewController.m */,
 				35CE9A4726B6B834002D9337 /* SceneDelegate.h */,
 				35CE9A4A26B6B834002D9337 /* SceneDelegate.m */,
+				35CE9B2B26BA2EE2002D9337 /* DBLoginVC.h */,
+				35CE9B2C26BA2EE3002D9337 /* DBLoginVC.m */,
 				357E965826B2ADF300A789E2 /* Assets.xcassets */,
 				35CE9A9C26B6C52E002D9337 /* Main.storyboard */,
 				357E965A26B2ADF300A789E2 /* LaunchScreen.storyboard */,
@@ -215,6 +230,27 @@
 				35CE9B0026B96DFC002D9337 /* DBOnlineTTSVC.m */,
 			);
 			path = TTSGroup;
+			sourceTree = "<group>";
+		};
+		35CE9B0C26B9715E002D9337 /* DBVoiceTransfer */ = {
+			isa = PBXGroup;
+			children = (
+				35CE9B1B26BA2DF4002D9337 /* DBVoiceTransferVC.h */,
+				35CE9B1C26BA2DF4002D9337 /* DBVoiceTransferVC.m */,
+				35CE9B2126BA2E18002D9337 /* XCToast */,
+			);
+			path = DBVoiceTransfer;
+			sourceTree = "<group>";
+		};
+		35CE9B2126BA2E18002D9337 /* XCToast */ = {
+			isa = PBXGroup;
+			children = (
+				35CE9B2226BA2E18002D9337 /* MBProgressHUD.m */,
+				35CE9B2326BA2E18002D9337 /* XCHudHelper.m */,
+				35CE9B2426BA2E18002D9337 /* MBProgressHUD.h */,
+				35CE9B2526BA2E18002D9337 /* XCHudHelper.h */,
+			);
+			path = XCToast;
 			sourceTree = "<group>";
 		};
 		51CF3080ED0ADC6C0397A584 /* Frameworks */ = {
@@ -449,12 +485,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35CE9B1D26BA2DF4002D9337 /* DBVoiceTransferVC.m in Sources */,
 				35CE9A5E26B6B835002D9337 /* AppDelegate.m in Sources */,
 				35CE9A6026B6B835002D9337 /* DBASRLongVC.m in Sources */,
 				35CE9B0126B96DFC002D9337 /* DBOnlineTTSVC.m in Sources */,
+				35CE9B2626BA2E18002D9337 /* MBProgressHUD.m in Sources */,
 				35CE9A5F26B6B835002D9337 /* SceneDelegate.m in Sources */,
+				35CE9B2D26BA2EE3002D9337 /* DBLoginVC.m in Sources */,
 				35CE9A6426B6B835002D9337 /* DBASRVC.m in Sources */,
 				357E965F26B2ADF300A789E2 /* main.m in Sources */,
+				35CE9B2726BA2E18002D9337 /* XCHudHelper.m in Sources */,
 				35CE9A6126B6B835002D9337 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
