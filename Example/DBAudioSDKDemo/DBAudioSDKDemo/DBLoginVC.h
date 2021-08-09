@@ -11,15 +11,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static  NSString *clientIdKey = @"clientIdKey";
-static  NSString *clientSecretKey = @"clientSecretKey";
-
-// TODO: 待填入的信息
-static NSString *clientID = @"";
-static NSString *clientSecret = @"";
-
-
-
 @interface DBLoginVC : UIViewController
 
 @property(nonatomic,copy)dispatch_block_t handler;

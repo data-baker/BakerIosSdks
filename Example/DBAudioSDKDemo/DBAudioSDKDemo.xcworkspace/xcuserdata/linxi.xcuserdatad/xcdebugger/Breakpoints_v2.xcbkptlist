@@ -23,32 +23,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "615AD6E3-3A46-465C-9218-96707FD6E786"
+            uuid = "3A3FFF5A-E5A9-47E9-AFFE-D4AA09BC6478"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DBAudioSDKDemo/ViewController.m"
+            filePath = "DBAudioSDKDemo/DBVoiceEngraver/DBRecordTextVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "-prepareForSegue:sender:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DC21CAD2-B41C-42A9-A3F9-1C4CB3580B8B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DBAudioSDKDemo/ViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "-shouldPerformSegueWithIdentifier:sender:"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
+            landmarkName = "-navigationShouldPopOnBackButton"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

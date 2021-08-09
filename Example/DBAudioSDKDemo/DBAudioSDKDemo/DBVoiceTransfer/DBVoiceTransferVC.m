@@ -58,10 +58,6 @@ static NSString *DBAudioMicroData = @"audioMicroData";
                 return;
             }
             [[XCHudHelper sharedInstance] hideHud];
-            [[NSUserDefaults standardUserDefaults]setObject:clientId forKey:clientIdKey];
-            [[NSUserDefaults standardUserDefaults]setObject:clientSecret forKey:clientSecretKey];
-            [[NSUserDefaults standardUserDefaults]setObject:token forKey:@"token"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
             [self dismissViewControllerAnimated:YES completion:nil];
 
         }];
@@ -201,12 +197,6 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     [self setButton:self.fileButton enable:YES];
 }
 
-- (void)clearUserInfo {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults removeObjectForKey:@"token"];
-    [userDefaults removeObjectForKey:clientSecretKey];
-    [userDefaults removeObjectForKey:clientIdKey];
-}
 
 - (void)microphoneAudioData:(NSData *)data isLast:(BOOL)isLast {
     [self.micAudioData appendData:data];

@@ -42,11 +42,12 @@
 - (void)showLogInVC {
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         DBLoginVC *loginVC  =   [story instantiateViewControllerWithIdentifier:@"DBLoginVC"];
-//    loginVC.handler = ^{
+    loginVC.handler = ^{
 //        NSString *title = self.clickButton.titleLabel.text;
-        
-//    };
-//    loginVC.modalPresentationStyle = UIModalPresentationFullScreen;
+//        [UIStoryboardSegue segueWithIdentifier:<#(nullable NSString *)#> source:<#(nonnull UIViewController *)#> destination:<#(nonnull UIViewController *)#> performHandler:<#^(void)performHandler#>]
+//        [self prepareForSegue:<#(nonnull UIStoryboardSegue *)#> sender:<#(nullable id)#>];
+    };
+    loginVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.navigationController presentViewController:loginVC animated:YES completion:nil];
 }
 

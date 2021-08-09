@@ -20,6 +20,9 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
     DBAudioSDKTypeVoiceEngraver, // voice Engraver
 };
 
+//#error  请设置clientId 和clientSecret
+static  NSString *clientId1 = @"bb4f7ecb-a4bd-42dd-935a-ba6c64b12f4f";
+static  NSString *clientSecret1 = @"Zjc3Y2NjOTItZGFkOC00NmVhLWJiZmEtOTkwY2Q0YmNhNzJi";
 
 @interface DBLoginVC ()
 @property (weak, nonatomic) IBOutlet UITextField *clientIdTextField;
@@ -31,8 +34,10 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.clientIdTextField.text = @"4020bc7b-13f2-4080-b406-45ad06e3ccb7";
-    self.clientSecretTextField.text = @"NGVjNmNmNmEtMmFkYS00YWIxLWFmYjEtYjE1MTNjYWYyN2E4";
+//    self.clientIdTextField.text = @"4020bc7b-13f2-4080-b406-45ad06e3ccb7";
+//    self.clientSecretTextField.text = @"NGVjNmNmNmEtMmFkYS00YWIxLWFmYjEtYjE1MTNjYWYyN2E4";
+    self.clientIdTextField.text = clientId1;
+    self.clientSecretTextField.text = clientSecret1;
 }
 - (IBAction)loginAction:(id)sender {
     
