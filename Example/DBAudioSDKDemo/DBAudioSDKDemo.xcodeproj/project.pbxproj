@@ -316,9 +316,9 @@
 		35CE9B2126BA2E18002D9337 /* XCToast */ = {
 			isa = PBXGroup;
 			children = (
+				35CE9B2426BA2E18002D9337 /* MBProgressHUD.h */,
 				35CE9B2226BA2E18002D9337 /* MBProgressHUD.m */,
 				35CE9B2326BA2E18002D9337 /* XCHudHelper.m */,
-				35CE9B2426BA2E18002D9337 /* MBProgressHUD.h */,
 				35CE9B2526BA2E18002D9337 /* XCHudHelper.h */,
 			);
 			path = XCToast;
