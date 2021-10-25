@@ -11,6 +11,8 @@
 //#import "HXAudioInputView.h"
 //#import "UIButton+AudioInputBtn.h"
 #import "UIView+Toast.h"
+#import "DBLogManager.h"
+
 
 //#error 请填写clientID, clientSecret 信息
 
@@ -39,12 +41,12 @@
     [super viewDidLoad];
 //    self.pickerArray = @[@"common",@"medicine",@"far-field",@"english",@"自定义场景"];
     [IQKeyboardManager sharedManager].enable = YES;
-//    self.modeTextField.rightView = [UIImage imageNamed:@"search_icon_down"];
+//  self.modeTextField.rightView = [UIImage imageNamed:@"search_icon_down"];
     self.modeTextField.text = @"common";
     self.modeTextField.delegate = self;
     [self addBorderOfView:self.resultTextView color:[UIColor lightGrayColor]];
     [self addBorderOfView:self.startButton color:[UIColor whiteColor]];
-//    [self creatPickerView];
+//  [self creatPickerView];
     
     [self.startButton addGestureRecognizer:self.longGes];
 
@@ -129,8 +131,10 @@
     if (isStart) { // 开启录音
         self.resultTextView.text = @"";
         [self.asrAudioClient startOneSpeechASR];
+        [self logMessage:@"开启一句话识别"];
     }else { // 结束录音
         [self.asrAudioClient endOneSpeechASR];
+        [self logMessage:@"结束一句话识别"];
     }
     self.startButton.selected = isStart;
     self.voiceImageView.hidden = !isStart;
@@ -156,12 +160,14 @@
         NSLog(@"token获取失败");
     }else {
         NSLog(@"token获取成功");
-
+        // TODO: 开启测试
+        [self testFlightLight];
     }
 }
 
 - (void)onReady {
     NSLog(@"已与后台连接,正式开始识别");
+    [self logMessage:@"建立连接成功"];
 //    self.messageLabel.hidden = NO;
 //    self.messageLabel.text = @"开始识别";
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -189,10 +195,15 @@
     [self showMessage:message];
     self.startButton.selected = NO;
     self.voiceImageView.hidden = YES;
+    NSString *errorMsg = [NSString stringWithFormat:@"一句话识别错误 code:%@ message:%@",@(code),message];
+    [self logMessage:errorMsg];
 }
 
 - (void)resultTraceId:(NSString *)traceId {
     self.traceId = traceId;
+//    NSString *traceMessage = [NSString stringWithFormat:@"traceId:%@",traceId];
+//    [self logMessage:traceMessage];
+
 }
 
 
@@ -353,6 +364,26 @@
         _longGes.delegate = self;
     }
     return _longGes;
+}
+
+// MARK: 测试代码
+
+-(void)logMessage:(NSString *)message {
+    NSLog(@"message:%@",message);
+    [DBLogManager saveCriticalSDKRunData:message];
+}
+    
+- (void)testFlightLight {
+    NSInteger timeLength = arc4random() %50  + 10;
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:timeLength target:self selector:@selector(handleTimeAction) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSRunLoopCommonModes];
+    [timer setFireDate:[NSDate distantPast]];
+    [self startButton];
+}
+
+- (void)handleTimeAction {
+    [self startRecord:NO];
+    [self startRecord:YES];
 }
 
 @end

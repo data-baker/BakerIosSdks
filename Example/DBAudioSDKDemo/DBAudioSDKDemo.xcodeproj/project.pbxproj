@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,9 @@
 		357E965F26B2ADF300A789E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E965E26B2ADF300A789E2 /* main.m */; };
 		357E966926B2ADF400A789E2 /* DBAudioSDKDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E966826B2ADF400A789E2 /* DBAudioSDKDemoTests.m */; };
 		357E967426B2ADF400A789E2 /* DBAudioSDKDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E967326B2ADF400A789E2 /* DBAudioSDKDemoUITests.m */; };
+		358CD29B26E8AB2B00CF8C87 /* StartPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 358CD29726E8AB2B00CF8C87 /* StartPlugin.m */; };
+		358CD29C26E8AB2B00CF8C87 /* TestPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 358CD29826E8AB2B00CF8C87 /* TestPlugin.m */; };
+		358CD29F26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 358CD29E26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.m */; };
 		35CE9A5E26B6B835002D9337 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4826B6B834002D9337 /* AppDelegate.m */; };
 		35CE9A5F26B6B835002D9337 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4A26B6B834002D9337 /* SceneDelegate.m */; };
 		35CE9A6026B6B835002D9337 /* DBASRLongVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4B26B6B834002D9337 /* DBASRLongVC.m */; };
@@ -93,6 +96,12 @@
 		357E966F26B2ADF400A789E2 /* DBAudioSDKDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DBAudioSDKDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		357E967326B2ADF400A789E2 /* DBAudioSDKDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBAudioSDKDemoUITests.m; sourceTree = "<group>"; };
 		357E967526B2ADF400A789E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		358CD29726E8AB2B00CF8C87 /* StartPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPlugin.m; sourceTree = "<group>"; };
+		358CD29826E8AB2B00CF8C87 /* TestPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPlugin.m; sourceTree = "<group>"; };
+		358CD29926E8AB2B00CF8C87 /* StartPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPlugin.h; sourceTree = "<group>"; };
+		358CD29A26E8AB2B00CF8C87 /* TestPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPlugin.h; sourceTree = "<group>"; };
+		358CD29D26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoraemonKitDemoi18Util.h; sourceTree = "<group>"; };
+		358CD29E26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoraemonKitDemoi18Util.m; sourceTree = "<group>"; };
 		35CE9A4726B6B834002D9337 /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		35CE9A4826B6B834002D9337 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		35CE9A4926B6B834002D9337 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -203,6 +212,7 @@
 		357E964B26B2ADF100A789E2 /* DBAudioSDKDemo */ = {
 			isa = PBXGroup;
 			children = (
+				358CD29626E8AB2B00CF8C87 /* Plugin */,
 				35CE9AD726B8F6A5002D9337 /* ASRGroup */,
 				35CE9AFB26B96BF2002D9337 /* TTSGroup */,
 				35CE9B0C26B9715E002D9337 /* DBVoiceTransfer */,
@@ -242,6 +252,19 @@
 				357E967526B2ADF400A789E2 /* Info.plist */,
 			);
 			path = DBAudioSDKDemoUITests;
+			sourceTree = "<group>";
+		};
+		358CD29626E8AB2B00CF8C87 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				358CD29726E8AB2B00CF8C87 /* StartPlugin.m */,
+				358CD29826E8AB2B00CF8C87 /* TestPlugin.m */,
+				358CD29926E8AB2B00CF8C87 /* StartPlugin.h */,
+				358CD29A26E8AB2B00CF8C87 /* TestPlugin.h */,
+				358CD29D26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.h */,
+				358CD29E26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.m */,
+			);
+			path = Plugin;
 			sourceTree = "<group>";
 		};
 		35CE9A5526B6B834002D9337 /* DBVoiceResource */ = {
@@ -335,6 +358,7 @@
 				357E964526B2ADF100A789E2 /* Sources */,
 				357E964626B2ADF100A789E2 /* Frameworks */,
 				357E964726B2ADF100A789E2 /* Resources */,
+				23F1ED022AFDD9703F0794A1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -372,6 +396,7 @@
 				357E966B26B2ADF400A789E2 /* Sources */,
 				357E966C26B2ADF400A789E2 /* Frameworks */,
 				357E966D26B2ADF400A789E2 /* Resources */,
+				6058377F7747AEB651D9EE24 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -482,6 +507,40 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		23F1ED022AFDD9703F0794A1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6058377F7747AEB651D9EE24 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CC8F7D7CB6FF672A5D09607B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -542,8 +601,11 @@
 				35CE9A5F26B6B835002D9337 /* SceneDelegate.m in Sources */,
 				357B2E1226BC02D2006C15FD /* DBRecordCompleteVC.m in Sources */,
 				357B2E1126BC02D2006C15FD /* DBVoiceListVC.m in Sources */,
+				358CD29F26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.m in Sources */,
+				358CD29B26E8AB2B00CF8C87 /* StartPlugin.m in Sources */,
 				357B2E0E26BC02D2006C15FD /* DBRecordTextVC.m in Sources */,
 				35CE9B2D26BA2EE3002D9337 /* DBLoginVC.m in Sources */,
+				358CD29C26E8AB2B00CF8C87 /* TestPlugin.m in Sources */,
 				357B2E2426BC150E006C15FD /* DBVoiceEngraverEntryVC.m in Sources */,
 				35CE9A6426B6B835002D9337 /* DBASRVC.m in Sources */,
 				357E965F26B2ADF300A789E2 /* main.m in Sources */,
@@ -763,9 +825,11 @@
 			baseConfigurationReference = C728F4BEF98F3BBB29F3D85C /* Pods-DBAudioSDKDemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VWR2NHV4B6;
 				INFOPLIST_FILE = DBAudioSDKDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -783,9 +847,11 @@
 			baseConfigurationReference = 495B6515F5ADB917E4596C8A /* Pods-DBAudioSDKDemoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VWR2NHV4B6;
 				INFOPLIST_FILE = DBAudioSDKDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -803,7 +869,9 @@
 			baseConfigurationReference = 0F108CA42338827AEC64C552 /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VWR2NHV4B6;
 				INFOPLIST_FILE = DBAudioSDKDemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -821,7 +889,9 @@
 			baseConfigurationReference = 3036E1505FF557E7EDEA217B /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VWR2NHV4B6;
 				INFOPLIST_FILE = DBAudioSDKDemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

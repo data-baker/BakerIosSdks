@@ -24,6 +24,7 @@ target 'DBAudioSDKDemo' do
 #  pod 'DBAudioSDK/DBLongASRKit', '~>1.0.4'
 #  pod 'DBAudioSDK/DBShortASRKit', '~>1.0.4'
   pod 'SocketRocket'
+  pod 'DoraemonKit/Core', '~> 3.0.4', :configurations => ['Debug'] #必选
 
   target 'DBAudioSDKDemoTests' do
     inherit! :search_paths

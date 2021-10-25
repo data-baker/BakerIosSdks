@@ -284,7 +284,8 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     if (!_voiceTransferUtil) {
         _voiceTransferUtil = [DBVoiceTransferUtil shareInstance];
         _voiceTransferUtil.log = YES;
-        _voiceTransferUtil.voiceName = self.pickerArray.firstObject;
+//        _voiceTransferUtil.voiceName = self.pickerArray.firstObject;
+        _voiceTransferUtil.voiceName = @"Vc_jingjing";
         _voiceTransferUtil.delegate = self;
     }
     return _voiceTransferUtil;

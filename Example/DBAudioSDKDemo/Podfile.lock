@@ -1,15 +1,30 @@
 PODS:
-  - DBAudioSDK (1.0.4):
-    - DBAudioSDK/DBLongASRKit (= 1.0.4)
-    - DBAudioSDK/DBOnlineTTSKit (= 1.0.4)
-    - DBAudioSDK/DBShortASRKit (= 1.0.4)
-    - DBAudioSDK/DBVoiceEngraverKit (= 1.0.4)
-    - DBAudioSDK/DBVoiceTransferKit (= 1.0.4)
-  - DBAudioSDK/DBLongASRKit (1.0.4)
-  - DBAudioSDK/DBOnlineTTSKit (1.0.4)
-  - DBAudioSDK/DBShortASRKit (1.0.4)
-  - DBAudioSDK/DBVoiceEngraverKit (1.0.4)
-  - DBAudioSDK/DBVoiceTransferKit (1.0.4)
+  - DBAudioSDK (1.0.5):
+    - DBAudioSDK/DBLongASRKit (= 1.0.5)
+    - DBAudioSDK/DBOnlineTTSKit (= 1.0.5)
+    - DBAudioSDK/DBShortASRKit (= 1.0.5)
+    - DBAudioSDK/DBVoiceEngraverKit (= 1.0.5)
+    - DBAudioSDK/DBVoiceTransferKit (= 1.0.5)
+  - DBAudioSDK/DBLongASRKit (1.0.5)
+  - DBAudioSDK/DBOnlineTTSKit (1.0.5)
+  - DBAudioSDK/DBShortASRKit (1.0.5)
+  - DBAudioSDK/DBVoiceEngraverKit (1.0.5)
+  - DBAudioSDK/DBVoiceTransferKit (1.0.5)
+  - DoraemonKit/Core (3.0.7):
+    - FMDB
+    - GCDWebServer
+    - GCDWebServer/WebDAV
+    - GCDWebServer/WebUploader
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
+  - GCDWebServer/WebDAV (3.5.4):
+    - GCDWebServer/Core
+  - GCDWebServer/WebUploader (3.5.4):
+    - GCDWebServer/Core
   - IQKeyboardManager (6.5.6)
   - Masonry (1.1.0)
   - SocketRocket (0.5.1)
@@ -17,6 +32,7 @@ PODS:
 
 DEPENDENCIES:
   - DBAudioSDK (from `../../`)
+  - DoraemonKit/Core (~> 3.0.4)
   - IQKeyboardManager (~> 6.5.6)
   - Masonry
   - SocketRocket
@@ -24,6 +40,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - DoraemonKit
+    - FMDB
+    - GCDWebServer
     - IQKeyboardManager
     - Masonry
     - SocketRocket
@@ -34,12 +53,15 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  DBAudioSDK: ef3be0c6708baf995f57daa76f79be6054fe77ba
+  DBAudioSDK: 317dc7e4a912cc54eb71b1c939e596860143e522
+  DoraemonKit: 32fb97f3aa82efa133111d193080ca5462cef135
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 05998a33239b8d7e27055b6634f3029ea19a7f33
+PODFILE CHECKSUM: 4a097097bbfb90b9f5bfcb4b51449ac360685a71
 
 COCOAPODS: 1.10.1

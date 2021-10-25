@@ -478,4 +478,6 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     self.flag = YES;
 }
 
+
+
 @end

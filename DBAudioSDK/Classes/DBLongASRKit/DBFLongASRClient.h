@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, DBLongTimeASRErrorState){
 @property (nonatomic, assign) DBLongTimeSampleRate sampleRate;
 /// 音频编码格式PCM（文件格式PCM或WAV）SDK目前仅支持PCM
 @property (nonatomic, assign) DBLongTimeAudioFormat AudioFormat;
-/// 是否在短静音处添加标点，默认为YES
+/// 是否在短静音处添加标点，默认为YES,(需服务端+移动端同时开启才生效)
 @property (nonatomic, assign) BOOL addPct;
 /// 模型名称，必须填写公司购买的语言模型，默认为common
 @property (nonatomic, strong) NSString * domain;

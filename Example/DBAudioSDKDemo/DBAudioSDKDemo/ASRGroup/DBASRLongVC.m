@@ -57,13 +57,13 @@
     self.asrAudioClient.delegate = self;
     self.asrAudioClient.sampleRate = DBLongTimeSampleRate16K;
     self.asrAudioClient.AudioFormat = DBLongTimeAudioFormatPCM;
-    self.asrAudioClient.addPct = YES;
+    self.asrAudioClient.addPct = NO;
     self.asrAudioClient.domain = self.modeTextField.text;
+    self.asrAudioClient.log = YES;
     
     // TODO: 请在此处设置授权信息
     NSString *clientId = [DBUserInfoManager shareManager].clientId;
     NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
-    
     [self.asrAudioClient setupClientId:clientId clientSecret:clientSecret];
     self.isStart = NO;
 }
@@ -194,7 +194,6 @@
 
 -(void)identifyTheCallback:(NSString *)message sentenceEnd:(BOOL)sentenceEnd {
     NSLog(@"message:%@ sentenceEnd:%@",message,@(sentenceEnd));
-    
      
     if (self.firstSentenceFlag) {
         CFTimeInterval absoluteTime =  CFAbsoluteTimeGetCurrent() - self.timeInteval;
@@ -224,7 +223,7 @@
     
     NSString *errorMsg = [NSString stringWithFormat:@"code:%@,message:%@",@(code),message];
     [self showMessage:errorMsg];
-    
+    [self logMessage:errorMsg];
     self.startButton.selected = NO;
     self.voiceImageView.hidden = YES;
 }
@@ -344,7 +343,7 @@
 }
     
 - (void)testFlightLight {
-    NSInteger timeLength = arc4random() % 1000 + 10;
+    NSInteger timeLength = arc4random() %1800  + 10;
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:timeLength target:self selector:@selector(handleTimeAction) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSRunLoopCommonModes];
     [timer setFireDate:[NSDate distantPast]];
@@ -352,7 +351,8 @@
 }
 
 - (void)handleTimeAction {
-    [self startRecord:self.startButton.isSelected];
+    [self startRecord:NO];
+    [self startRecord:YES];
 }
     
 // segue Methods

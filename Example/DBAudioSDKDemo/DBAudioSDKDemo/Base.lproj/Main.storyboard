@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vNJ-Yr-wzf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vNJ-Yr-wzf">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="4352" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -88,11 +88,19 @@
                             <constraint firstItem="Afg-8v-UeY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="hOo-PZ-geq"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="DBAudioDemo" id="Ygd-XX-OCd"/>
+                    <navigationItem key="navigationItem" title="DBAudioDemo" id="Ygd-XX-OCd">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="yTP-Y7-jz5">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="5tm-mt-gjC">
+                                <rect key="frame" x="302" y="7" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="分享日志"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="200" y="-54"/>
+            <point key="canvasLocation" x="190" y="-602"/>
         </scene>
         <!--声音复刻-->
         <scene sceneID="Lez-tb-E05">
@@ -374,7 +382,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAF-wu-udN" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="336" y="-1173"/>
+            <point key="canvasLocation" x="942" y="-1173"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IQb-Kk-RGb">
@@ -392,7 +400,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFB-4R-Yi8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-568" y="-54"/>
+            <point key="canvasLocation" x="884" y="-63"/>
         </scene>
         <!--在线tts合成-->
         <scene sceneID="GlQ-re-9wr">
@@ -1251,7 +1259,7 @@
                                     <constraint firstAttribute="height" constant="34" id="Sch-Lr-y3F"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="345" placeholderIntrinsicHeight="60" text="恭喜您，您已完成了所有声音的录制" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDg-I4-h5g">
                                 <rect key="frame" x="30" y="70" width="354" height="50"/>
