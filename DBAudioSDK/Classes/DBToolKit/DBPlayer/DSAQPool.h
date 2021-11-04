@@ -28,5 +28,6 @@ typedef void (^AQPoolCallBack)(AudioQueueBufferRefWrapper *params);
 
 -(AudioQueueBufferRefWrapper*)enqueueData:(NSData*)data playCallBack:(AQPoolCallBack)callBack;
 -(void)stopBuffers:(NSArray<AudioQueueBufferRefWrapper*>*)bufs;
+- (void)pause;
 
 @end

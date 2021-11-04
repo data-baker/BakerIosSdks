@@ -190,5 +190,8 @@ static DSAQPool *_instance = nil;
         _started = NO;
     }
 }
+- (void)pause {
+    AudioQueuePause(audioQueue);
+}
 
 @end

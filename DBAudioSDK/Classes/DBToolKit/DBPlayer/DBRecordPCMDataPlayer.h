@@ -24,6 +24,8 @@
 
 - (void)stop;
 
+- (void)pause;
+
 - (void)play:(NSData *)audioPCMData;
 
 - (void)playDataEnd;

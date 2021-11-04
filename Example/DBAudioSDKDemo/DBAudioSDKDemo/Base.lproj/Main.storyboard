@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" tag="101" contentMode="scaleToFill" axis="vertical" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="Afg-8v-UeY">
-                                <rect key="frame" x="20" y="255" width="374" height="386"/>
+                                <rect key="frame" x="20" y="213" width="374" height="470"/>
                                 <subviews>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Y-pm-16U">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -76,6 +76,17 @@
                                             <segue destination="PZD-1W-d9h" kind="show" id="ZTc-BZ-ZlP"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cj-eo-uMx">
+                                        <rect key="frame" x="0.0" y="420" width="374" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="EBE-45-V01"/>
+                                        </constraints>
+                                        <state key="normal" title="离线变声"/>
+                                        <connections>
+                                            <segue destination="BWA-kF-GEY" kind="show" id="8nY-Yr-u4e"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -89,7 +100,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="DBAudioDemo" id="Ygd-XX-OCd">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="yTP-Y7-jz5">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="plain" id="yTP-Y7-jz5">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="5tm-mt-gjC">
                                 <rect key="frame" x="302" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -100,7 +111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="99" y="-868"/>
+            <point key="canvasLocation" x="-1342" y="-921"/>
         </scene>
         <!--声音复刻-->
         <scene sceneID="Lez-tb-E05">
@@ -268,7 +279,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIs-dQ-gHp" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1309" y="-1173"/>
+            <point key="canvasLocation" x="436" y="-1823"/>
         </scene>
         <!--语音识别-->
         <scene sceneID="Fkq-qd-X89">
@@ -382,7 +393,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAF-wu-udN" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="942" y="-1173"/>
+            <point key="canvasLocation" x="-551" y="-1813"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IQb-Kk-RGb">
@@ -400,7 +411,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFB-4R-Yi8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="884" y="-63"/>
+            <point key="canvasLocation" x="-2049" y="-921"/>
         </scene>
         <!--在线tts合成-->
         <scene sceneID="GlQ-re-9wr">
@@ -515,7 +526,119 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oqu-0F-4Sd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2354" y="-1199"/>
+            <point key="canvasLocation" x="1599" y="-1661"/>
+        </scene>
+        <!--离线变声-->
+        <scene sceneID="8lK-En-cM1">
+            <objects>
+                <viewController id="BWA-kF-GEY" customClass="DBOfflineVoiceConvertVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cg9-7A-I4z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67O-yh-xq3">
+                                <rect key="frame" x="25" y="118" width="364" height="327"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="操作提示：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akF-K7-lX6">
+                                        <rect key="frame" x="8" y="8" width="87" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="KRg-SH-yJP"/>
+                                            <constraint firstAttribute="width" constant="87" id="SPO-I8-Y2S"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="长按按钮开始说话 松开停止说话 可选择变声效果" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRC-Uv-rGV">
+                                        <rect key="frame" x="40" y="29" width="314" height="68"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="68" id="tXW-JQ-bQ9"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="kRC-Uv-rGV" firstAttribute="leading" secondItem="67O-yh-xq3" secondAttribute="leading" constant="40" id="6Kf-Fh-J9k"/>
+                                    <constraint firstAttribute="trailing" secondItem="kRC-Uv-rGV" secondAttribute="trailing" constant="10" id="9MC-P5-M6A"/>
+                                    <constraint firstItem="kRC-Uv-rGV" firstAttribute="top" secondItem="akF-K7-lX6" secondAttribute="bottom" id="CAn-I1-bXe"/>
+                                    <constraint firstAttribute="height" constant="327" id="ikL-A4-k5g"/>
+                                    <constraint firstItem="akF-K7-lX6" firstAttribute="top" secondItem="67O-yh-xq3" secondAttribute="top" constant="8" id="pYo-aF-Q0z"/>
+                                    <constraint firstItem="akF-K7-lX6" firstAttribute="leading" secondItem="67O-yh-xq3" secondAttribute="leading" constant="8" id="yzQ-f3-P5y"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="变声效果：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjm-gU-MDI">
+                                <rect key="frame" x="30" y="686" width="87" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="az1-uY-riT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="空灵" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hb4-wi-f9F">
+                                <rect key="frame" x="117" y="679.5" width="267" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="c33-Xe-0WY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ZU-tr-pcG">
+                                <rect key="frame" x="25" y="787" width="364" height="50"/>
+                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="9qw-ys-Caf"/>
+                                    <constraint firstAttribute="height" constant="50" id="yud-dL-66N"/>
+                                </constraints>
+                                <state key="normal" title="长按说话">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="selected" title="松开结束"/>
+                            </button>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.png" translatesAutoresizingMaskIntoConstraints="NO" id="qiY-X0-szs">
+                                <rect key="frame" x="167" y="478" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="5di-pU-5XU"/>
+                                    <constraint firstAttribute="height" constant="80" id="J92-jk-PMB"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="QSG-Gr-PFU"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="qlw-z0-s3n"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="q6F-Iy-YUB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hb4-wi-f9F" firstAttribute="leading" secondItem="jjm-gU-MDI" secondAttribute="trailing" id="5Hw-1Z-V0A"/>
+                            <constraint firstItem="q6F-Iy-YUB" firstAttribute="trailing" secondItem="5ZU-tr-pcG" secondAttribute="trailing" constant="25" id="CBP-ox-jpw"/>
+                            <constraint firstItem="5ZU-tr-pcG" firstAttribute="leading" secondItem="q6F-Iy-YUB" secondAttribute="leading" constant="25" id="E3b-8S-51f"/>
+                            <constraint firstItem="q6F-Iy-YUB" firstAttribute="bottom" secondItem="5ZU-tr-pcG" secondAttribute="bottom" constant="25" id="FHm-hd-6Ip"/>
+                            <constraint firstItem="qiY-X0-szs" firstAttribute="top" secondItem="67O-yh-xq3" secondAttribute="bottom" constant="33" id="FTn-dn-gmB"/>
+                            <constraint firstItem="67O-yh-xq3" firstAttribute="leading" secondItem="q6F-Iy-YUB" secondAttribute="leading" constant="25" id="OgU-d8-ZcQ"/>
+                            <constraint firstItem="hb4-wi-f9F" firstAttribute="leading" secondItem="jjm-gU-MDI" secondAttribute="trailing" id="bGP-eH-KS9"/>
+                            <constraint firstItem="q6F-Iy-YUB" firstAttribute="trailing" secondItem="hb4-wi-f9F" secondAttribute="trailing" constant="30" id="chN-cm-Qmb"/>
+                            <constraint firstItem="hb4-wi-f9F" firstAttribute="centerY" secondItem="jjm-gU-MDI" secondAttribute="centerY" id="f2S-Lq-2n3"/>
+                            <constraint firstItem="qiY-X0-szs" firstAttribute="centerX" secondItem="cg9-7A-I4z" secondAttribute="centerX" id="hjA-42-Tbg"/>
+                            <constraint firstItem="jjm-gU-MDI" firstAttribute="leading" secondItem="q6F-Iy-YUB" secondAttribute="leading" constant="30" id="iGQ-BD-SuT"/>
+                            <constraint firstItem="67O-yh-xq3" firstAttribute="top" secondItem="q6F-Iy-YUB" secondAttribute="top" constant="30" id="kJb-5l-ZJy"/>
+                            <constraint firstItem="5ZU-tr-pcG" firstAttribute="top" secondItem="jjm-gU-MDI" secondAttribute="bottom" constant="80" id="mRc-sv-6gI"/>
+                            <constraint firstItem="q6F-Iy-YUB" firstAttribute="trailing" secondItem="67O-yh-xq3" secondAttribute="trailing" constant="25" id="n5a-IO-fuJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="离线变声" id="smD-F8-l68"/>
+                    <connections>
+                        <outlet property="backView" destination="67O-yh-xq3" id="aGG-nX-thW"/>
+                        <outlet property="startTransferButton" destination="5ZU-tr-pcG" id="hiS-cD-8CH"/>
+                        <outlet property="subTitlelabel" destination="kRC-Uv-rGV" id="ORR-Ov-HqH"/>
+                        <outlet property="voiceImageView" destination="qiY-X0-szs" id="ERn-u2-SAX"/>
+                        <outlet property="voiceTextField" destination="hb4-wi-f9F" id="9EV-FP-9c3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kOl-wu-A8j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-148" y="-518"/>
         </scene>
         <!--声音转换-->
         <scene sceneID="P9a-9g-gzV">
@@ -641,7 +764,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HmY-PA-fWd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2729" y="-139"/>
+            <point key="canvasLocation" x="1507" y="-909"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="AKC-2i-hqO">

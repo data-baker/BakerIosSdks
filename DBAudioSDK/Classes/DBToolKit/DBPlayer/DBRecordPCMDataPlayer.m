@@ -73,6 +73,11 @@
     });
 }
 
+- (void)pause {
+    [[DSAQPool pool] pause];
+}
+
+
 -(void)playCallBack:(AudioQueueBufferRefWrapper *)buf{
     @synchronized (self.buffers) {
         [self.buffers removeObject:buf];

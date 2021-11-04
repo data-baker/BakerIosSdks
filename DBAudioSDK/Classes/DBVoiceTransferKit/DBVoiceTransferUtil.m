@@ -352,7 +352,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     
     NSData *data = [self transferData:parameter audioData:audioData];
     [self.socketManager sendData:data];
-    
 }
 
 -(void)audioCallBackVoiceGrade:(NSInteger)grade {

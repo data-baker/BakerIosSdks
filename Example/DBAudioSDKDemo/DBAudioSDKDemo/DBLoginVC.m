@@ -27,8 +27,6 @@ static  NSString *clientSecret = @"XXX";
 
 
 
-
-
 @interface DBLoginVC ()
 @property (weak, nonatomic) IBOutlet UITextField *clientIdTextField;
 @property (weak, nonatomic) IBOutlet UITextField *clientSecretTextField;
@@ -57,13 +55,14 @@ static  NSString *clientSecret = @"XXX";
     NSString *clientSecret = [self.clientSecretTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
     [DBAuthentication  setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nullable token, NSError * _Nullable error) {
-            if (error) {
-                [[XCHudHelper sharedInstance] hideHud];
-                NSLog(@"获取token失败:%@",error);
-                NSString *msg = [NSString stringWithFormat:@"获取token失败:%@",error.description];
-                [self.view makeToast:msg duration:2 position:CSToastPositionCenter];
-                return;
-            }
+        // TODO: 暂时关闭
+//            if (error) {
+//                [[XCHudHelper sharedInstance] hideHud];
+//                NSLog(@"获取token失败:%@",error);
+//                NSString *msg = [NSString stringWithFormat:@"获取token失败:%@",error.description];
+//                [self.view makeToast:msg duration:2 position:CSToastPositionCenter];
+//                return;
+//            }
             [[XCHudHelper sharedInstance] hideHud];
         [DBUserInfoManager shareManager].clientId = clientId;
         [DBUserInfoManager shareManager].clientSecret = clientSecret;
