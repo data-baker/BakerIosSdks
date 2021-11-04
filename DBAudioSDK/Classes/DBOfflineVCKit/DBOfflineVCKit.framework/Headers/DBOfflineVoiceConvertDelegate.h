@@ -13,6 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol DBOfflineVoiceConvertDelegate <NSObject>
 
 @required
+
+/// 在录音启动后，回调
+- (void)onReadyForConvert;
+
+
 /*
  data: 转换后的数据
  endFlag: 转换结束的标识，Yes: 转换完成， No: 未完成
@@ -25,26 +30,25 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)onError:(NSString *)errorCode msg:(NSString *)message;
 
-
-@optional
-/// 麦克风获取的音频分贝值回调
-- (void)dbValues:(NSInteger)db;
-
-/// 在录音启动后，回调
-- (void)onReadyForConvert;
-
-
 /*
  转换完成
  */
 - (void)onConvertComplete;
 
+
+@optional
+/// 麦克风获取的音频分贝值回调
+- (void)dbValues:(NSInteger)db;
+
+
+
 - (void)onPlaying;
 
 - (void)onPaused;
 
-- (void)onPlayCompleted;
 
+
+- (void)onPlayCompleted;
 - (void)onStopped;
 
 

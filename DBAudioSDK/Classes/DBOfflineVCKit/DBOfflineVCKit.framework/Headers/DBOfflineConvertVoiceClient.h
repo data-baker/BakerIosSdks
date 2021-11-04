@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopPlay;
 
 /// 开启转换本地的音频数据为麦克风收录的数据
-- (void)startFileConvert;
+- (void)startFileConvertPCMPath:(NSString *)path;
 
 /*
  客户自有数据需转换的情况
@@ -55,10 +55,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*
  自有数据传输方式,
- endFlag:0:首包 (1..N-1)： 持续输入 -N：最后一包
+ index:0:首包 (1..N-1)： 持续输入 -N：最后一包
  data:接收16K采样率16bit位深数据 每一包需固定5120长度，最后一包可随意
  */
-- (void)sendData:(NSData *)data endFlag:(NSInteger)flag;
+- (void)sendData:(NSData *)data index:(NSInteger)index;
 
 
 /// 返回原始录音文件的路径
