@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "DBAudioSDK"
-  spec.version      = "1.0.5"
+  spec.version      = "1.0.6"
   spec.summary      = "标贝科技语音SDK库"
 
   spec.description  = <<-DESC
@@ -73,6 +73,11 @@ Pod::Spec.new do |spec|
 
     # voiceEngraverKit.source_files = 'DBAudioSDK/Classes/DBVoiceEngraverKit/*.{h,m}'
   end
-
+ spec.subspec 'DBOfflineVCKit' do |offlineVCKit|
+    offlineVCKit.vendored_frameworks   = 'DBAudioSDK/Classes/DBOfflineVCKit/*.framework'
+    offlineVCKit.pod_target_xcconfig = { 'ARCHS[sdk=iphonesimulator*]' => '$(ARCHS_STANDARD_64_BIT)' }
+    offlineVCKit.libraries = "c++"
+    offlineVCKit.dependency 'DBAudioSDK/DBVoiceTransferKit'
+  end
 
 end
