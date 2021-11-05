@@ -1,15 +1,18 @@
 PODS:
-  - DBAudioSDK (1.0.5):
-    - DBAudioSDK/DBLongASRKit (= 1.0.5)
-    - DBAudioSDK/DBOnlineTTSKit (= 1.0.5)
-    - DBAudioSDK/DBShortASRKit (= 1.0.5)
-    - DBAudioSDK/DBVoiceEngraverKit (= 1.0.5)
-    - DBAudioSDK/DBVoiceTransferKit (= 1.0.5)
-  - DBAudioSDK/DBLongASRKit (1.0.5)
-  - DBAudioSDK/DBOnlineTTSKit (1.0.5)
-  - DBAudioSDK/DBShortASRKit (1.0.5)
-  - DBAudioSDK/DBVoiceEngraverKit (1.0.5)
-  - DBAudioSDK/DBVoiceTransferKit (1.0.5)
+  - DBAudioSDK (1.0.6):
+    - DBAudioSDK/DBLongASRKit (= 1.0.6)
+    - DBAudioSDK/DBOfflineVCKit (= 1.0.6)
+    - DBAudioSDK/DBOnlineTTSKit (= 1.0.6)
+    - DBAudioSDK/DBShortASRKit (= 1.0.6)
+    - DBAudioSDK/DBVoiceEngraverKit (= 1.0.6)
+    - DBAudioSDK/DBVoiceTransferKit (= 1.0.6)
+  - DBAudioSDK/DBLongASRKit (1.0.6)
+  - DBAudioSDK/DBOfflineVCKit (1.0.6):
+    - DBAudioSDK/DBVoiceTransferKit
+  - DBAudioSDK/DBOnlineTTSKit (1.0.6)
+  - DBAudioSDK/DBShortASRKit (1.0.6)
+  - DBAudioSDK/DBVoiceEngraverKit (1.0.6)
+  - DBAudioSDK/DBVoiceTransferKit (1.0.6)
   - DoraemonKit/Core (3.0.7):
     - FMDB
     - GCDWebServer
@@ -53,7 +56,7 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  DBAudioSDK: 317dc7e4a912cc54eb71b1c939e596860143e522
+  DBAudioSDK: a31b5e2aed02c9b267f5fe814f240b213e6c9a16
   DoraemonKit: 32fb97f3aa82efa133111d193080ca5462cef135
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
@@ -62,6 +65,6 @@ SPEC CHECKSUMS:
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 4a097097bbfb90b9f5bfcb4b51449ac360685a71
+PODFILE CHECKSUM: 5454036899ae4b5d246601b325151a734178eaa1
 
 COCOAPODS: 1.10.1

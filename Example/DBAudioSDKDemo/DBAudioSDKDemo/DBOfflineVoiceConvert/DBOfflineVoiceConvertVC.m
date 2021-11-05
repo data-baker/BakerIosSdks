@@ -6,7 +6,7 @@
 //
 
 #import "DBOfflineVoiceConvertVC.h"
-#import "DBOfflineVCKit.framework/Headers/DBOfflineConvertVoiceClient.h"
+#import "DBOfflineVCKit/DBOfflineConvertVoiceClient.h"
 #import "DBUserInfoManager.h"
 #import "UIView+Toast.h"
 

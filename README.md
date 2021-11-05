@@ -38,4 +38,5 @@ pod 'DBAudioSDK/DBVoiceTransferKit'
 
 ## 离线声音转换
 
-离线声音转换仅支持手动的方式集成，具体集成方式见开放文档
+pod 'DBAudioSDK/DBOfflineVCKit' 
+

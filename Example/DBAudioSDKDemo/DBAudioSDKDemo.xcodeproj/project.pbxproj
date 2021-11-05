@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		351D69CD2733E66600A88418 /* DBOfflineVCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 351D69CC2733E66600A88418 /* DBOfflineVCKit.framework */; };
 		357B2E0E26BC02D2006C15FD /* DBRecordTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0426BC02D1006C15FD /* DBRecordTextVC.m */; };
 		357B2E0F26BC02D2006C15FD /* DBVoiceExperienceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0826BC02D2006C15FD /* DBVoiceExperienceVC.m */; };
 		357B2E1026BC02D2006C15FD /* DBNoiseDetectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0A26BC02D2006C15FD /* DBNoiseDetectionVC.m */; };
@@ -73,7 +72,6 @@
 		0F108CA42338827AEC64C552 /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		29FF94512958ADADC1B0DB83 /* libPods-DBAudioSDKDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DBAudioSDKDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3036E1505FF557E7EDEA217B /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
-		351D69CC2733E66600A88418 /* DBOfflineVCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBOfflineVCKit.framework; sourceTree = "<group>"; };
 		3553903BD8F67B8442078CF9 /* Pods-DBAudioSDKDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo.release.xcconfig"; sourceTree = "<group>"; };
 		357B2E0426BC02D1006C15FD /* DBRecordTextVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBRecordTextVC.m; sourceTree = "<group>"; };
 		357B2E0526BC02D1006C15FD /* DBNoiseDetectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBNoiseDetectionVC.h; sourceTree = "<group>"; };
@@ -157,7 +155,6 @@
 			files = (
 				35F0B3FC2727A75200D9313D /* libc++.1.tbd in Frameworks */,
 				35F0B3F027268CB600D9313D /* libc++.tbd in Frameworks */,
-				351D69CD2733E66600A88418 /* DBOfflineVCKit.framework in Frameworks */,
 				740B9DD46C10E63211A8C6F5 /* libPods-DBAudioSDKDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,7 +182,6 @@
 		3542CD1F27268ACA0091E76E /* DBOfflineVoiceConvert */ = {
 			isa = PBXGroup;
 			children = (
-				351D69CC2733E66600A88418 /* DBOfflineVCKit.framework */,
 				35F0B3F12726A6C700D9313D /* DBOfflineVoiceConvertVC.h */,
 				35F0B3F22726A6C700D9313D /* DBOfflineVoiceConvertVC.m */,
 			);
