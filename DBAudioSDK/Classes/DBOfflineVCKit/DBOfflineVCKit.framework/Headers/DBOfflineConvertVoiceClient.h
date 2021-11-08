@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import "DBOfflineVoiceConvertDelegate.h"
-
 typedef void (^DBMessagHandler)(NSInteger ret, NSString * _Nullable message);
 
 NS_ASSUME_NONNULL_BEGIN
