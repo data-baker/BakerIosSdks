@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" tag="101" contentMode="scaleToFill" axis="vertical" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="Afg-8v-UeY">
-                                <rect key="frame" x="20" y="213" width="374" height="470"/>
+                                <rect key="frame" x="20" y="171" width="374" height="554"/>
                                 <subviews>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Y-pm-16U">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -87,6 +87,17 @@
                                             <segue destination="BWA-kF-GEY" kind="show" id="8nY-Yr-u4e"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMc-Dd-ngP">
+                                        <rect key="frame" x="0.0" y="504" width="374" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="AJq-gK-aGN"/>
+                                        </constraints>
+                                        <state key="normal" title="声纹服务"/>
+                                        <connections>
+                                            <segue destination="MU2-2t-4ls" kind="show" id="9af-bE-OdJ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -111,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1342" y="-921"/>
+            <point key="canvasLocation" x="-1170" y="-897"/>
         </scene>
         <!--声音复刻-->
         <scene sceneID="Lez-tb-E05">
@@ -528,6 +539,16 @@
             </objects>
             <point key="canvasLocation" x="1599" y="-1661"/>
         </scene>
+        <!--DBVPSB-->
+        <scene sceneID="2zc-HO-dJ5">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DBVPStoryboard" referencedIdentifier="DBVPSB" id="MU2-2t-4ls" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="33t-gv-Dme"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GXX-dt-OwG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-521" y="-605"/>
+        </scene>
         <!--离线变声-->
         <scene sceneID="8lK-En-cM1">
             <objects>
@@ -638,7 +659,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kOl-wu-A8j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-148" y="-518"/>
+            <point key="canvasLocation" x="435" y="-738"/>
         </scene>
         <!--声音转换-->
         <scene sceneID="P9a-9g-gzV">
@@ -860,7 +881,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aw-ei-cL7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-213" y="641"/>
+            <point key="canvasLocation" x="-367" y="701"/>
         </scene>
         <!--声音体验-->
         <scene sceneID="7FT-KX-Xaf">
