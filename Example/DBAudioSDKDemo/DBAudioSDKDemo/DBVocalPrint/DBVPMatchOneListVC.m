@@ -16,10 +16,15 @@
 
 @implementation DBVPMatchOneListVC
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tabview.tableFooterView = [UIView new];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     [self loadMatchList];
-    
 }
 
 // MARK: Load data
@@ -28,6 +33,12 @@
     NSArray *list = [userDefault arrayForKey:userMatchId];
     self.datasource = list;
     [self.tabview reloadData];
+    if (list.count == 0) {
+        [self.view makeToast:@"当前列表数据为空" duration:1.5f position:CSToastPositionCenter];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    }
 }
 
 
@@ -48,10 +59,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DBVPMatchReadVC *readVC = [[UIStoryboard storyboardWithName:@"DBVPStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"DBVPMatchReadVC"];
-    readVC.vpClient = self.vpClient;
+    NSDictionary *dict = self.datasource[indexPath.row];
     readVC.accessToken = self.accessToken;
     readVC.threshold = self.threshold;
-    
+    readVC.matchId = dict[matchId];
+    readVC.matchName = dict[matchName];
+    [self.navigationController pushViewController:readVC animated:YES];
 }
 
 

@@ -21,7 +21,7 @@ static NSString *VPRegisterURL = @"https://openapi.data-baker.com/vpr/register";
 static NSString *VPMatchOneURL = @"https://openapi.data-baker.com/vpr/match";
 
 /// 声纹验证1:N
-static NSString *VPMatchMoreURL = @"https://openapi.data-baker.com/vpr/match";
+static NSString *VPMatchMoreURL = @"https://openapi.data-baker.com/vpr/search";
 
 /// 查询声纹状态码
 static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status";
@@ -56,7 +56,7 @@ static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status"
     
 }
 
-- (void)createVPIDWithAccessToken:(NSString *)accessToken Handler:(DBResponseHandler)handler {
+- (void)createVPIDWithAccessToken:(NSString *)accessToken callBackHandler:(DBResponseHandler)handler {
     NSAssert(handler, @"请设置DBResponseHandler");
     
     [DBNetworkHelper postWithUrlString:VPCreateIdURL parameters:@{@"access_token":accessToken} success:^(NSDictionary * _Nonnull data) {
@@ -101,11 +101,11 @@ static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status"
     NSDictionary *dict = @{@"access_token":audioModel.accseeToken,
                            @"format":audioModel.format,
                            @"audio":audioString,
-                           @"registerId":audioModel.matchId,
-                           @"scorethreshold":audioModel.scoreThreshold
+                           @"matchId":audioModel.matchId,
+                           @"scoreThreshold":audioModel.scoreThreshold
     };
     
-    [DBNetworkHelper postWithUrlString:VPRegisterURL parameters:dict success:^(NSDictionary * _Nonnull data) {
+    [DBNetworkHelper postWithUrlString:VPMatchOneURL parameters:dict success:^(NSDictionary * _Nonnull data) {
         DBMatchOneVPResponseModel *model = [[DBMatchOneVPResponseModel alloc]init];
         [model setValuesForKeysWithDictionary:data];
         handler(model);
@@ -124,11 +124,11 @@ static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status"
     NSDictionary *dict = @{@"access_token":audioModel.accseeToken,
                            @"format":audioModel.format,
                            @"audio":audioString,
-                           @"scorethreshold":audioModel.scoreThreshold,
+                           @"scoreThreshold":audioModel.scoreThreshold,
                            @"listNum":audioModel.listNum
     };
     
-    [DBNetworkHelper postWithUrlString:VPRegisterURL parameters:dict success:^(NSDictionary * _Nonnull data) {
+    [DBNetworkHelper postWithUrlString:VPMatchMoreURL parameters:dict success:^(NSDictionary * _Nonnull data) {
         DBMatchMoreVPResponseModel *model = [[DBMatchMoreVPResponseModel alloc]init];
         [model setValuesForKeysWithDictionary:data];
         handler(model);
@@ -146,7 +146,7 @@ static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status"
                            @"registerId":registerId
     };
     
-    [DBNetworkHelper postWithUrlString:VPRegisterURL parameters:dict success:^(NSDictionary * _Nonnull data) {
+    [DBNetworkHelper postWithUrlString:VPQueryStatusURL parameters:dict success:^(NSDictionary * _Nonnull data) {
         DBVPStatusResponnseModel *model = [[DBVPStatusResponnseModel alloc]init];
         [model setValuesForKeysWithDictionary:data];
         handler(model);
@@ -162,7 +162,7 @@ static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status"
                            @"registerId":registerId
     };
     
-    [DBNetworkHelper postWithUrlString:VPRegisterURL parameters:dict success:^(NSDictionary * _Nonnull data) {
+    [DBNetworkHelper postWithUrlString:VPDeleteURL parameters:dict success:^(NSDictionary * _Nonnull data) {
         DBVPResponseModel *model = [[DBVPResponseModel alloc]init];
         [model setValuesForKeysWithDictionary:data];
         handler(model);

@@ -52,8 +52,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// 声纹1:N的验证
 @interface DBMatchMoreVPResponseModel : DBVPResponseModel
 
+@property(nonatomic,copy)NSArray * matchList;
+
+
+
+
+@end
+
+@interface DBMatchListModel : NSObject
 /// 匹配到的声纹特征 id
-@property(nonatomic,assign)NSInteger spkid;
+@property(nonatomic,copy)NSString * spkid;
 
 /// 比对分数
 @property(nonatomic,copy)NSString * score;
@@ -61,8 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 声纹关联的名字
 @property(nonatomic,copy)NSString * name;
 
-
 @end
+
 
 /// 查询声纹状态码
 @interface DBVPStatusResponnseModel : DBVPResponseModel

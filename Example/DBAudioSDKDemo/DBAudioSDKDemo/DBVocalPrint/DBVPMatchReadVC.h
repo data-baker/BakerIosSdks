@@ -6,14 +6,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DBVocalPrintClient.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DBVPMatchReadVC : UIViewController
-@property(nonatomic,strong)DBVocalPrintClient * vpClient;
 @property(nonatomic,copy)NSNumber * threshold;
 @property(nonatomic,copy)NSString * accessToken;
+@property(nonatomic,copy)NSString * matchId;
+@property(nonatomic,copy)NSString * matchName;
+
+/// yes: 1:N 匹配 No: 1:1 匹配， 默认使用1:1 匹配
+@property(nonatomic,assign)BOOL  isMatchMore;
+
 @end
 
 NS_ASSUME_NONNULL_END

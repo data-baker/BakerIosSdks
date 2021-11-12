@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 自定义名字
 @property(nonatomic,copy)NSString * name;
 
-/// 注册有效分数，不得低于系统默认值
+/// 注册有效分数，不得低于系统默认值,值必须包含小数点，如50.1， 50.2
 @property(nonatomic,copy)NSNumber * scoreThreshold;
 /// 仅支持pcm 格式的数据
 @property(nonatomic,readonly,copy)NSString * format;

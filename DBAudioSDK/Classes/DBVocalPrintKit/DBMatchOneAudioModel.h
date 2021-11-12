@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString * accseeToken;
 
 /// pcm
-@property(nonatomic,copy)NSString * format;
+@property(nonatomic,copy,readonly)NSString * format;
 
 /// 音频数据 base64（采样率 16K，位深 16 位，时长最佳 10 秒，最小 5 秒，最大 30 秒）
 @property(nonatomic,copy)NSData * audioData;
@@ -26,7 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString * matchId;
 
 /// 分数阈值设置，大于该数值则返回比对成功，取值 0-100.0
-@property(nonatomic,copy)NSString * scoreThreshold;
+@property(nonatomic,copy)NSNumber * scoreThreshold;
+
++ (instancetype)mactchOneAudioModelWithToken:(NSString *)accessToken
+                                   audioData:(NSData *)data
+                                     matchId:(NSString *)matchId
+                              scoreThreshold:(NSNumber *)scoreThreshold;
 
 @end
 

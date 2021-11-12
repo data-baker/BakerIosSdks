@@ -19,6 +19,7 @@ extern  NSString  * const  matchName;
 @interface DBVPRegisterReadVC : UIViewController
 
 @property(nonatomic,copy)NSString * name;
+// 必须是浮点数，必须有小数点
 @property(nonatomic,copy)NSNumber * threshold;
 @property(nonatomic,copy)NSString * accessToken;
 @property(nonatomic,strong)DBVocalPrintClient * vpClient;

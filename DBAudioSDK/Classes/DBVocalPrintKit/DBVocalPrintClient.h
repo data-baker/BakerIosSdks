@@ -34,7 +34,7 @@ typedef void (^DBQueryResHandler)(DBVPStatusResponnseModel * _Nullable resModel)
 - (void)setupClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret handler:(DBAuthenticationHandler)handler;
 
 /// 创建声纹库的Id
-- (void)createVPIDWithAccessToken:(NSString *)accessToken        Handler:(DBResponseHandler)handler;
+- (void)createVPIDWithAccessToken:(NSString *)accessToken        callBackHandler:(DBResponseHandler)handler;
 
 /// 注册声纹服务
 /// @param audioModel 音频的信息

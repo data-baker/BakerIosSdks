@@ -8,6 +8,7 @@
 #import "DBVPRegisterReadVC.h"
 #import "DBAudioMicrophone.h"
 #import "UIView+Toast.h"
+#import "XCHudHelper.h"
 
 NSString * const userMatchId = @"userMatchId";
 NSString * const matchId = @"matchId";
@@ -35,7 +36,7 @@ NSString * const matchName = @"matchName";
     self.textArray = @[
         @"草丛里有一只雪白的小兔子和一只灰色的小老鼠，虽然长相有点儿相似但它们知道对方并不是自己的同类。",
         @"小兔子内心是孤独的，小老鼠也是，两只孤独的小家伙一见如故，在对方身上嗅到一种前所未有既陌生又熟悉的亲切感。",
-        @"往后的一段日子它俩日夜黏在一起叽叽喳喳的聊个不停不亦乐乎的。它俩沉醉在二人世界裡忘记了日夜，忘记了种族和身份"
+        @"往后的一段日子它俩日夜黏在一起,叽叽喳喳的,聊个不亦乐乎。它俩沉醉在二人世界里忘记了日夜，忘记了种族和身份"
     ];
     [self updateUIWithCurrentIndex];
     self.recordData = [NSMutableData data];
@@ -49,8 +50,9 @@ NSString * const matchName = @"matchName";
     }];
 }
 - (void)creatVPIDWithHandler:(DBResponseHandler)handler {
-    [self.vpClient createVPIDWithAccessToken:self.accessToken Handler:handler];
+    [self.vpClient createVPIDWithAccessToken:self.accessToken callBackHandler:handler];
 }
+
 
 - (IBAction)startReadAction:(id)sender {
     UIButton *btn = (UIButton *) sender;
@@ -63,7 +65,9 @@ NSString * const matchName = @"matchName";
     }else {
         [self endRecord];
         self.voiceImageView.hidden = YES;
+        [self showHUD];
         [self registerVPRWithHandler:^(DBRegisterVPResponseModel * _Nullable resModel) {
+            [self hiddenHUD];
             if ([self responseStateIsSuccess:resModel.err_no]) {
                 NSLog(@"提交第一段声纹注册数据成功");
                 self.textIndex += 1;
@@ -174,8 +178,6 @@ NSString * const matchName = @"matchName";
 
 - (void)audioCallBackVoiceGrade:(NSInteger)grade {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        
         NSLog(@"dbValue:%@",@(grade));
         
         NSUInteger volumeDB = grade;
@@ -209,6 +211,15 @@ NSString * const matchName = @"matchName";
 
 - (void)microphoneonError:(NSInteger)code message:(NSString *)message {
     
+}
+
+- (void)showHUD {
+    [[XCHudHelper sharedInstance]showHudOnView:self.view caption:@"验证中" image:nil
+                                     acitivity:YES autoHideTime:30];
+}
+
+- (void)hiddenHUD {
+    [[XCHudHelper sharedInstance]hideHud];
 }
 
 /*

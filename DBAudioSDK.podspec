@@ -79,5 +79,10 @@ Pod::Spec.new do |spec|
     offlineVCKit.libraries = "c++"
     offlineVCKit.dependency 'DBAudioSDK/DBVoiceTransferKit'
   end
+ 
+ spec.subspec 'DBVocalPrintKit' do |vocalPrintKit|
+   vocalPrintKit.source_files = 'DBAudioSDK/Classes/{DBToolKit,DBVocalPrintKit}/**/*.{h,m}'
+
+  end
 
 end

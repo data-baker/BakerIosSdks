@@ -28,9 +28,8 @@
     [super viewDidLoad];
     
     /* TODO - 80.1 验证不成功， 50-60分是正常的水平*/
-    self.nameTextField.text = @"林喜的声纹";
-    
-    self.thresholdTextField.text = @"60.1";
+//    self.nameTextField.text = @"林喜的声纹";
+//    self.thresholdTextField.text = @"60";
     
     NSString *clientId = [DBUserInfoManager shareManager].clientId;
     NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
@@ -80,8 +79,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     DBVPRegisterReadVC *readVC = [segue destinationViewController];
+    NSString *convertThreshold = [NSString stringWithFormat:@"%@.1",self.thresholdTextField.text];
     readVC.name = self.nameTextField.text;
-    readVC.threshold =  @([self.thresholdTextField.text floatValue]);
+    readVC.threshold =  @([convertThreshold floatValue]);
     readVC.accessToken = self.accessToken;
     readVC.vpClient = self.vpClient;
 }

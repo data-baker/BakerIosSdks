@@ -8,13 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		351D6A242738FE1D00A88418 /* DBVPStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 351D6A232738FE1D00A88418 /* DBVPStoryboard.storyboard */; };
-		351D6A272739157400A88418 /* DBVocalPrintClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D6A262739157400A88418 /* DBVocalPrintClient.m */; };
-		351D6A2B2739195E00A88418 /* DBRegisterAudioModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D6A2A2739195E00A88418 /* DBRegisterAudioModel.m */; };
-		351D6A2E2739246E00A88418 /* DBMatchOneAudioModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D6A2D2739246E00A88418 /* DBMatchOneAudioModel.m */; };
-		351D6A312739279600A88418 /* DBMatchMoreAudioModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D6A302739279600A88418 /* DBMatchMoreAudioModel.m */; };
-		351D6A342739290900A88418 /* DBVPResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D6A332739290900A88418 /* DBVPResponseModel.m */; };
 		351D6A37273A505700A88418 /* DBVPRegisterInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D6A36273A505700A88418 /* DBVPRegisterInfoVC.m */; };
 		351D6A3A273A50CC00A88418 /* DBVPRegisterReadVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D6A39273A50CC00A88418 /* DBVPRegisterReadVC.m */; };
+		35631C90273D11EF00A7343B /* DBVPHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35631C8F273D11EF00A7343B /* DBVPHomeVC.m */; };
+		35631C93273D230200A7343B /* DBVPMatchMoreListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35631C92273D230200A7343B /* DBVPMatchMoreListVC.m */; };
 		357B2E0E26BC02D2006C15FD /* DBRecordTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0426BC02D1006C15FD /* DBRecordTextVC.m */; };
 		357B2E0F26BC02D2006C15FD /* DBVoiceExperienceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0826BC02D2006C15FD /* DBVoiceExperienceVC.m */; };
 		357B2E1026BC02D2006C15FD /* DBNoiseDetectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 357B2E0A26BC02D2006C15FD /* DBNoiseDetectionVC.m */; };
@@ -53,6 +50,7 @@
 		35CE9B2D26BA2EE3002D9337 /* DBLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9B2C26BA2EE3002D9337 /* DBLoginVC.m */; };
 		35D3925B273CC0A600406B61 /* DBVPMatchOneListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D3925A273CC0A600406B61 /* DBVPMatchOneListVC.m */; };
 		35D3925E273CECEC00406B61 /* DBVPMatchReadVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D3925D273CECEC00406B61 /* DBVPMatchReadVC.m */; };
+		35D39261273CFBBF00406B61 /* DBVPMatchSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D39260273CFBBF00406B61 /* DBVPMatchSuccessVC.m */; };
 		35F0B3F027268CB600D9313D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F0B3EF27268CB600D9313D /* libc++.tbd */; };
 		35F0B3F32726A6C700D9313D /* DBOfflineVoiceConvertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35F0B3F22726A6C700D9313D /* DBOfflineVoiceConvertVC.m */; };
 		35F0B3FC2727A75200D9313D /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F0B3FB2727A75200D9313D /* libc++.1.tbd */; };
@@ -83,22 +81,15 @@
 		29FF94512958ADADC1B0DB83 /* libPods-DBAudioSDKDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DBAudioSDKDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3036E1505FF557E7EDEA217B /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		351D6A232738FE1D00A88418 /* DBVPStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DBVPStoryboard.storyboard; sourceTree = "<group>"; };
-		351D6A252739157400A88418 /* DBVocalPrintClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVocalPrintClient.h; sourceTree = "<group>"; };
-		351D6A262739157400A88418 /* DBVocalPrintClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVocalPrintClient.m; sourceTree = "<group>"; };
-		351D6A28273915AE00A88418 /* DBVocalPrintDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVocalPrintDelegate.h; sourceTree = "<group>"; };
-		351D6A292739195E00A88418 /* DBRegisterAudioModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBRegisterAudioModel.h; sourceTree = "<group>"; };
-		351D6A2A2739195E00A88418 /* DBRegisterAudioModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBRegisterAudioModel.m; sourceTree = "<group>"; };
-		351D6A2C2739246E00A88418 /* DBMatchOneAudioModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBMatchOneAudioModel.h; sourceTree = "<group>"; };
-		351D6A2D2739246E00A88418 /* DBMatchOneAudioModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBMatchOneAudioModel.m; sourceTree = "<group>"; };
-		351D6A2F2739279600A88418 /* DBMatchMoreAudioModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBMatchMoreAudioModel.h; sourceTree = "<group>"; };
-		351D6A302739279600A88418 /* DBMatchMoreAudioModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBMatchMoreAudioModel.m; sourceTree = "<group>"; };
-		351D6A322739290900A88418 /* DBVPResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVPResponseModel.h; sourceTree = "<group>"; };
-		351D6A332739290900A88418 /* DBVPResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPResponseModel.m; sourceTree = "<group>"; };
 		351D6A35273A505700A88418 /* DBVPRegisterInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVPRegisterInfoVC.h; sourceTree = "<group>"; };
 		351D6A36273A505700A88418 /* DBVPRegisterInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPRegisterInfoVC.m; sourceTree = "<group>"; };
 		351D6A38273A50CC00A88418 /* DBVPRegisterReadVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVPRegisterReadVC.h; sourceTree = "<group>"; };
 		351D6A39273A50CC00A88418 /* DBVPRegisterReadVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPRegisterReadVC.m; sourceTree = "<group>"; };
 		3553903BD8F67B8442078CF9 /* Pods-DBAudioSDKDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DBAudioSDKDemo.release.xcconfig"; path = "Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo.release.xcconfig"; sourceTree = "<group>"; };
+		35631C8E273D11EF00A7343B /* DBVPHomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVPHomeVC.h; sourceTree = "<group>"; };
+		35631C8F273D11EF00A7343B /* DBVPHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPHomeVC.m; sourceTree = "<group>"; };
+		35631C91273D230200A7343B /* DBVPMatchMoreListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVPMatchMoreListVC.h; sourceTree = "<group>"; };
+		35631C92273D230200A7343B /* DBVPMatchMoreListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPMatchMoreListVC.m; sourceTree = "<group>"; };
 		357B2E0426BC02D1006C15FD /* DBRecordTextVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBRecordTextVC.m; sourceTree = "<group>"; };
 		357B2E0526BC02D1006C15FD /* DBNoiseDetectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBNoiseDetectionVC.h; sourceTree = "<group>"; };
 		357B2E0626BC02D1006C15FD /* DBRecordCompleteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBRecordCompleteVC.h; sourceTree = "<group>"; };
@@ -167,6 +158,8 @@
 		35D3925A273CC0A600406B61 /* DBVPMatchOneListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPMatchOneListVC.m; sourceTree = "<group>"; };
 		35D3925C273CECEC00406B61 /* DBVPMatchReadVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVPMatchReadVC.h; sourceTree = "<group>"; };
 		35D3925D273CECEC00406B61 /* DBVPMatchReadVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPMatchReadVC.m; sourceTree = "<group>"; };
+		35D3925F273CFBBF00406B61 /* DBVPMatchSuccessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVPMatchSuccessVC.h; sourceTree = "<group>"; };
+		35D39260273CFBBF00406B61 /* DBVPMatchSuccessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPMatchSuccessVC.m; sourceTree = "<group>"; };
 		35F0B3EF27268CB600D9313D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		35F0B3F12726A6C700D9313D /* DBOfflineVoiceConvertVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBOfflineVoiceConvertVC.h; sourceTree = "<group>"; };
 		35F0B3F22726A6C700D9313D /* DBOfflineVoiceConvertVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBOfflineVoiceConvertVC.m; sourceTree = "<group>"; };
@@ -213,17 +206,8 @@
 			isa = PBXGroup;
 			children = (
 				351D6A232738FE1D00A88418 /* DBVPStoryboard.storyboard */,
-				351D6A252739157400A88418 /* DBVocalPrintClient.h */,
-				351D6A262739157400A88418 /* DBVocalPrintClient.m */,
-				351D6A292739195E00A88418 /* DBRegisterAudioModel.h */,
-				351D6A2A2739195E00A88418 /* DBRegisterAudioModel.m */,
-				351D6A2C2739246E00A88418 /* DBMatchOneAudioModel.h */,
-				351D6A2D2739246E00A88418 /* DBMatchOneAudioModel.m */,
-				351D6A2F2739279600A88418 /* DBMatchMoreAudioModel.h */,
-				351D6A302739279600A88418 /* DBMatchMoreAudioModel.m */,
-				351D6A322739290900A88418 /* DBVPResponseModel.h */,
-				351D6A332739290900A88418 /* DBVPResponseModel.m */,
-				351D6A28273915AE00A88418 /* DBVocalPrintDelegate.h */,
+				35631C8E273D11EF00A7343B /* DBVPHomeVC.h */,
+				35631C8F273D11EF00A7343B /* DBVPHomeVC.m */,
 				351D6A35273A505700A88418 /* DBVPRegisterInfoVC.h */,
 				351D6A36273A505700A88418 /* DBVPRegisterInfoVC.m */,
 				351D6A38273A50CC00A88418 /* DBVPRegisterReadVC.h */,
@@ -232,6 +216,10 @@
 				35D3925A273CC0A600406B61 /* DBVPMatchOneListVC.m */,
 				35D3925C273CECEC00406B61 /* DBVPMatchReadVC.h */,
 				35D3925D273CECEC00406B61 /* DBVPMatchReadVC.m */,
+				35D3925F273CFBBF00406B61 /* DBVPMatchSuccessVC.h */,
+				35D39260273CFBBF00406B61 /* DBVPMatchSuccessVC.m */,
+				35631C91273D230200A7343B /* DBVPMatchMoreListVC.h */,
+				35631C92273D230200A7343B /* DBVPMatchMoreListVC.m */,
 			);
 			path = DBVocalPrint;
 			sourceTree = "<group>";
@@ -682,31 +670,29 @@
 				351D6A37273A505700A88418 /* DBVPRegisterInfoVC.m in Sources */,
 				35CE9B1D26BA2DF4002D9337 /* DBVoiceTransferVC.m in Sources */,
 				35D3925B273CC0A600406B61 /* DBVPMatchOneListVC.m in Sources */,
-				351D6A312739279600A88418 /* DBMatchMoreAudioModel.m in Sources */,
+				35D39261273CFBBF00406B61 /* DBVPMatchSuccessVC.m in Sources */,
 				35CE9A5E26B6B835002D9337 /* AppDelegate.m in Sources */,
 				35CE9A6026B6B835002D9337 /* DBASRLongVC.m in Sources */,
 				35CE9B0126B96DFC002D9337 /* DBOnlineTTSVC.m in Sources */,
 				35CE9B2626BA2E18002D9337 /* MBProgressHUD.m in Sources */,
-				351D6A272739157400A88418 /* DBVocalPrintClient.m in Sources */,
 				35CE9A5F26B6B835002D9337 /* SceneDelegate.m in Sources */,
 				35F0B3F32726A6C700D9313D /* DBOfflineVoiceConvertVC.m in Sources */,
 				357B2E1226BC02D2006C15FD /* DBRecordCompleteVC.m in Sources */,
 				357B2E1126BC02D2006C15FD /* DBVoiceListVC.m in Sources */,
+				35631C90273D11EF00A7343B /* DBVPHomeVC.m in Sources */,
 				358CD29F26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.m in Sources */,
 				358CD29B26E8AB2B00CF8C87 /* StartPlugin.m in Sources */,
-				351D6A342739290900A88418 /* DBVPResponseModel.m in Sources */,
 				357B2E0E26BC02D2006C15FD /* DBRecordTextVC.m in Sources */,
 				35CE9B2D26BA2EE3002D9337 /* DBLoginVC.m in Sources */,
 				358CD29C26E8AB2B00CF8C87 /* TestPlugin.m in Sources */,
 				357B2E2426BC150E006C15FD /* DBVoiceEngraverEntryVC.m in Sources */,
 				35CE9A6426B6B835002D9337 /* DBASRVC.m in Sources */,
 				357E965F26B2ADF300A789E2 /* main.m in Sources */,
-				351D6A2B2739195E00A88418 /* DBRegisterAudioModel.m in Sources */,
+				35631C93273D230200A7343B /* DBVPMatchMoreListVC.m in Sources */,
 				351D6A3A273A50CC00A88418 /* DBVPRegisterReadVC.m in Sources */,
 				357B2E1826BC033D006C15FD /* UIViewController+DBBackButtonHandler.m in Sources */,
 				35D3925E273CECEC00406B61 /* DBVPMatchReadVC.m in Sources */,
 				35CE9B2726BA2E18002D9337 /* XCHudHelper.m in Sources */,
-				351D6A2E2739246E00A88418 /* DBMatchOneAudioModel.m in Sources */,
 				357B2E0F26BC02D2006C15FD /* DBVoiceExperienceVC.m in Sources */,
 				35CE9A6126B6B835002D9337 /* ViewController.m in Sources */,
 				357B2E1026BC02D2006C15FD /* DBNoiseDetectionVC.m in Sources */,

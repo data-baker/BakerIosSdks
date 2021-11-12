@@ -22,10 +22,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSData * audioData;
 
 /// 返回匹配列表的数据条数
-@property(nonatomic,copy)NSString * listNum;
+@property(nonatomic,copy)NSNumber * listNum;
 
 /// 分数阈值设置，大于该数值则返回比对成功，取值 0-100.0
-@property(nonatomic,copy)NSString * scoreThreshold;
+@property(nonatomic,copy)NSNumber * scoreThreshold;
+
++ (instancetype)mactchMoreAudioModelWithToken:(NSString *)accessToken
+                                   audioData:(NSData *)data
+                                     listNum:(NSNumber *)listNum
+                              scoreThreshold:(NSNumber *)scoreThreshold;
 @end
 
 NS_ASSUME_NONNULL_END
