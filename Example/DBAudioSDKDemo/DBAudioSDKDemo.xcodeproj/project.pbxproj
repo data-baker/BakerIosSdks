@@ -233,6 +233,13 @@
 			path = DBOfflineVoiceConvert;
 			sourceTree = "<group>";
 		};
+		35631C94273E69C100A7343B /* DBUserIdentify */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DBUserIdentify;
+			sourceTree = "<group>";
+		};
 		357B2DF826BBC466006C15FD /* DBVoiceEngraver */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,8 +293,9 @@
 				357B2DF826BBC466006C15FD /* DBVoiceEngraver */,
 				3542CD1F27268ACA0091E76E /* DBOfflineVoiceConvert */,
 				351D6A222738FD9700A88418 /* DBVocalPrint */,
-				35CE9AD826B8F6EF002D9337 /* AppDelegate.h */,
+				35631C94273E69C100A7343B /* DBUserIdentify */,
 				35CE9A4826B6B834002D9337 /* AppDelegate.m */,
+				35CE9AD826B8F6EF002D9337 /* AppDelegate.h */,
 				35CE9A4926B6B834002D9337 /* ViewController.h */,
 				35CE9A4D26B6B834002D9337 /* ViewController.m */,
 				35CE9A4726B6B834002D9337 /* SceneDelegate.h */,
