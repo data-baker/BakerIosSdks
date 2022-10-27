@@ -21,7 +21,6 @@
 //#import <DBCommon/DBAudioMicrophone.h>
 #import "DBAudioMicrophone.h"
 #import "DBNetworkHelper.h"
-
 #import "DBLongResponseModel.h"
 
 typedef NS_ENUM(NSUInteger,DBAsrState) {
@@ -31,7 +30,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     DBAsrStateDidEnd = 3  // 结束
 };
 
-static NSString * LongTimeASRSDKVersion = @"2.0.0";
+static NSString * LongTimeASRSDKVersion = @"1.0.8";
 
 static NSString * LongTimeASRSDKInstallation = @"LongTimeASRSDKInstallation";
 
@@ -273,7 +272,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
         parameter[@"req_idx"]= @(self.idx);
     }
 
-    parameter[@"speech_type"] =  @(1);
+//    parameter[@"speech_type"] =  @(1);
     
     if (self.flag) {
         parameter[@"add_pct"] = @(self.addPct);
@@ -285,6 +284,14 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
         parameter[@"domain"] = self.domain;
     }else {
         parameter[@"domain"] = @"common";
+    }
+    
+    if (self.hotwordid) {
+        parameter[@"hotwordid"] = self.hotwordid;
+    }
+    
+    if (self.diylmid) {
+        parameter[@"diylmid"] = self.diylmid;
     }
     
     self.onlineRecognizeParameters[@"asr_params"] = parameter;

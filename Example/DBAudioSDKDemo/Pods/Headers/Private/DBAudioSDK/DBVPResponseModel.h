@@ -1,0 +1,1 @@
+../../../../../../DBAudioSDK/Classes/DBVocalPrintKit/DBVPResponseModel.h

@@ -19,8 +19,9 @@
 #import "DBSynthesizer.h"
 //#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
+
 // TODO:更新前修改版本号
-static NSString * TTSSDKVersion = @"2.2.5";
+static NSString * TTSSDKVersion = @"1.0.8";
 
 static NSString * TTSSDKInstallation = @"TTSSDKInstallation";
 
@@ -163,10 +164,7 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
      parameters[@"text"]= text64Sting;
      // 默认中文
      if (!requestParam.language|| requestParam.language.length == 0) {
-//         requestParam.language = @"ZH";
-         //
-         requestParam.language = @"SCH";
-
+         requestParam.language = @"ZH";
      }
      parameters[@"language"] = requestParam.language;
 
@@ -192,10 +190,23 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
          requestParam.rate = DBTTSRate16k;
      }
      // 如果是wav的数据格式，rate默认设置为1
-//     if (requestParam.audioType == DBTTSAudioTypeWAV16K) {
-//         requestParam.rate = DBTTSRate8k;
-//     }
+     if (requestParam.audioType == DBParamAudioTypePCM24K) {
+         requestParam.rate = DBTTSRate24k;
+     }
      parameters[@"rate"] = @(requestParam.rate).stringValue;
+     if (requestParam.spectrum) {
+         parameters[@"spectrum"] = requestParam.spectrum;
+     }
+     if (requestParam.spectrum_8k) {
+         parameters[@"spectrum_8k"] = requestParam.spectrum_8k;
+     }
+     if (requestParam.enable_subtitles) {
+         parameters[@"enable_subtitles"] = requestParam.enable_subtitles;
+     }
+     if (requestParam.silence) {
+         parameters[@"silence"] = requestParam.silence;
+     }
+     
      parameters[@"domain"]= @"1";
      parameters[@"interval"] = @"1";
 
@@ -208,7 +219,6 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
      }
      return 0;
  }
-
 
 - (void)setSynthesisText:(NSString *)synthesisText {
     self.allSynthesisText = synthesisText;
@@ -296,6 +306,13 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
 - (void)startPlayNeedSpeaker:(BOOL)needSpeaker {
     if (needSpeaker) {
         self.synthesisDataPlayer = [[DBSynthesisPlayer alloc]init];
+        DBTTSAudioType audioType;
+        if (self.synthesizerReuestPara.audioType == DBParamAudioTypePCM8K) {
+            audioType = DBTTSAudioTypePCM8K;
+        } else {
+            audioType = DBTTSAudioTypePCM16K;
+        }
+        self.synthesisDataPlayer.audioType = audioType;
         self.synthesisDataPlayer.delegate = self;
     }
     [self start];
@@ -477,7 +494,6 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
         //TODO:上传每日启动信息
         [self upLoadLogWithType:DBUploadLogTypeStart];
     }
-    
     //TODO:上传错误日志
     [self upLoadLogWithType:DBUploadLogTypeCrash];
 }
@@ -579,11 +595,8 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     }
     return _onlineSynthesizerParameters;
 }
-- (NSString *)ttsSdkVersion {
-    if (!_ttsSdkVersion) {
-        _ttsSdkVersion = TTSSDKVersion;
-    }
-    return _ttsSdkVersion;
-}
 
++ (NSString *)onlineTTSVersion {
+    return TTSSDKVersion;
+}
 @end

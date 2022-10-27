@@ -12,7 +12,7 @@
 
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"voice = %@\ntext = %@\nlanguage = %zd\nspeed = %@\nvolume = %@\npitch = %@\nrate = %zd\naudioType = %zd",self.voice,self.text,self.language,self.speed,self.volume,self.pitch,self.rate,self.audioType];
+    return [NSString stringWithFormat:@"voice = %@\ntext = %@\nlanguage = %@\nspeed = %@\nvolume = %@\npitch = %@\nrate = %zd\naudioType = %zd",self.voice,self.text,self.language,self.speed,self.volume,self.pitch,self.rate,self.audioType];
 }
 
 @end

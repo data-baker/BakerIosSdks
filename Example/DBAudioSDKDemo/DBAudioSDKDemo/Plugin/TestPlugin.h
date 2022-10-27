@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <DoraemonKit/DoraemonPluginProtocol.h>
+//#import <DoraemonKit/DoraemonPluginProtocol.h>
 
-@interface TestPlugin : NSObject<DoraemonPluginProtocol>
-
+//@interface TestPlugin : NSObject<DoraemonPluginProtocol>
+@interface TestPlugin : NSObject
 @end

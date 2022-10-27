@@ -63,6 +63,32 @@ typedef NS_ENUM(NSUInteger, DBOneSpeechASRErrorState){
 @property (nonatomic, assign) BOOL addPct;
 /// 模型名称，必须填写公司购买的语言模型，默认为common
 @property (nonatomic, strong) NSString * domain;
+//配置的热词组的id
+@property (nonatomic, strong) NSString * hotwordid;
+//Asr个性化模型的id
+@property (nonatomic, strong) NSString * diylmid;
+/*
+ False: 关闭静音检测（默认）
+ True：开启静音检测
+ */
+
+@property (nonatomic, assign) BOOL  enable_vad;
+/*
+ 当enable_vad为true时有效，表示允许的最大开始静音时长
+ 单位：毫秒，取值范围[200,60000]，输入超过范围取临近值，该值是一个参考值，具体可能会根据音频不同有少量浮动。
+ 超出规定范围后，即开始识别后多长时间没有检测到语音，服务端将会发送错误码90002，表示没有检测到语音，结束本次识别。
+ */
+@property (nonatomic, assign) NSInteger  max_begin_silence;
+
+/*
+ 当enable_vad为true时有效，表示允许的最大结束静音时长
+ 单位：毫秒，取值范围[200, 5000]，输入超过范围取临近值，该值是一个参考值，具体可能会根据音频不同有少量浮动。
+ 超出规定范围后，即在上句话识别后，间隔多长时间没有检测到语音，结束本次识别，间隔后如果还有后续语音则不会被识别。
+ */
+
+@property (nonatomic, assign) NSInteger  max_end_silence;
+
+
 /// 1.打印日志 0:不打印日志(打印日志会在沙盒中保存一份text,方便我们查看,上线前要置为NO);
 @property (nonatomic, assign) BOOL log;
 
@@ -79,6 +105,9 @@ typedef NS_ENUM(NSUInteger, DBOneSpeechASRErrorState){
 - (void)startDataRecognize;
 /// 接收识别数据
 - (void)webSocketPostData:(NSData *)audioData;
+
+// 一句话识别的版本号
++ (NSString *)oneShortASRSDKVersion;
 
 @end
 

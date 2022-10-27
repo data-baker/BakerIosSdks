@@ -24,7 +24,7 @@
 #import "DBResponseModel.h"
 
 
-static NSString * OneSpeechASRSDKVersion = @"1.0.0";
+static NSString * OneSpeechASRSDKVersion = @"1.0.8";
 
 static NSString * OneSpeechASRSDKInstallation = @"OneSpeechASRSDKInstallation";
 
@@ -175,7 +175,6 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     [self logMessage:@"停止识别"];
 }
 
-
 // MARK: Websocket Delegate Methods
 - (void)webSocketDidOpenNote {
     [self logMessage:@"socket链接成功"];
@@ -200,10 +199,10 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
         }
     });
   
-    
-    NSInteger code = [dict[@"code"] integerValue];
+    NSString * code = [dict[@"code"] stringValue];
     //报错
-    if (code != 90000) {
+    NSArray *codes = @[@"90001",@"90000"];
+    if (![codes containsObject:code]) {
         [self logMessage:@"后台报错"];
         [self endOneSpeechASR];
         [self closedAudioResource];
@@ -287,7 +286,8 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     }else {
         parameter[@"req_idx"]= @(self.idx);
     }
-    parameter[@"speech_type"] =  @(1);
+    // 0 表示一句话识别，1 表示长语音识别
+    parameter[@"speech_type"] =  @(0);
     
     if (self.flag) {
         parameter[@"add_pct"] = @(self.addPct);
@@ -300,6 +300,27 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     }else {
         parameter[@"domain"] = @"common";
     }
+    
+    if (self.hotwordid) {
+        parameter[@"hotwordid"] = self.hotwordid;
+    }
+    
+    if (self.diylmid) {
+        parameter[@"diylmid"] = self.diylmid;
+            }
+   
+    if (self.enable_vad) {
+        parameter[@"enable_vad"] = @(self.enable_vad);
+    }
+    
+    if (self.max_begin_silence) {
+        parameter[@"max_begin_silence"] = @(self.max_begin_silence);
+    }
+    
+    if (self.max_end_silence) {
+        parameter[@"max_end_silence"] = @(self.max_end_silence);
+    }
+    
     
     self.onlineRecognizeParameters[@"asr_params"] = parameter;
     self.onlineRecognizeParameters[@"version"] = @"1.0";
@@ -527,6 +548,9 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 -(void)setAddPct:(BOOL)addPct {
     _addPct = addPct;
     self.flag = YES;
+}
++ (NSString *)oneShortASRSDKVersion {
+    return OneSpeechASRSDKVersion;
 }
 
 @end

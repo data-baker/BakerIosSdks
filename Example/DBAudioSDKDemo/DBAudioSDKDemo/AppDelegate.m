@@ -6,15 +6,15 @@
 //
 
 #import "AppDelegate.h"
-#ifdef DEBUG
-#import <DoraemonKit/DoraemonManager.h>
-#import "DoraemonUtil.h"
-#import <DoraemonKit/DoraemonKit.h>
-#import <DoraemonKit/DoraemonAppInfoViewController.h>
-#import "DoraemonTimeProfiler.h"
-#import "DoraemonKitDemoi18Util.h"
-
-#endif
+//#ifdef DEBUG
+//#import <DoraemonKit/DoraemonManager.h>
+//#import "DoraemonUtil.h"
+//#import <DoraemonKit/DoraemonKit.h>
+//#import <DoraemonKit/DoraemonAppInfoViewController.h>
+//#import "DoraemonTimeProfiler.h"
+//#import "DoraemonKitDemoi18Util.h"
+//
+//#endif
 
 @interface AppDelegate ()
 

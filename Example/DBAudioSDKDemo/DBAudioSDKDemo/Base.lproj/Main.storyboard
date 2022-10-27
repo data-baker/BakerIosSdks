@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vNJ-Yr-wzf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vNJ-Yr-wzf">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="4352" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -184,7 +184,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="w6l-jK-eTS">
-                                <rect key="frame" x="20" y="98" width="374" height="494"/>
+                                <rect key="frame" x="20" y="102" width="374" height="490"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -290,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIs-dQ-gHp" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="436" y="-1823"/>
+            <point key="canvasLocation" x="-13" y="-1278"/>
         </scene>
         <!--语音识别-->
         <scene sceneID="Fkq-qd-X89">
@@ -301,7 +301,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2ff-3D-QTG">
-                                <rect key="frame" x="20" y="98" width="374" height="494"/>
+                                <rect key="frame" x="20" y="102" width="374" height="490"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -313,10 +313,13 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="TsU-al-OOD"/>
                                 </constraints>
-                                <state key="normal" title="按住说话">
+                                <state key="normal" title="点击开始说话">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <state key="selected" title="松开结束"/>
+                                <state key="selected" title="点击结束说话"/>
+                                <connections>
+                                    <action selector="startRecordAction:" destination="STI-a1-sdd" eventType="touchUpInside" id="Ylp-ZM-25E"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="采样率：16000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywr-M5-emw">
                                 <rect key="frame" x="20" y="642" width="374" height="30"/>
@@ -404,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAF-wu-udN" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-551" y="-1813"/>
+            <point key="canvasLocation" x="-48" y="-1961"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IQb-Kk-RGb">
@@ -412,7 +415,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vNJ-Yr-wzf" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sIl-7W-2MN">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -437,7 +440,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Nw5-no-dn3">
-                                <rect key="frame" x="130.5" y="375" width="153" height="30"/>
+                                <rect key="frame" x="130.5" y="379" width="153" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pb1-Ci-KlD">
                                         <rect key="frame" x="0.0" y="0.0" width="31" height="30"/>
@@ -464,7 +467,7 @@
                                 </subviews>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jo1-d6-MVz">
-                                <rect key="frame" x="41" y="107" width="321" height="197"/>
+                                <rect key="frame" x="41" y="111" width="321" height="197"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="197" id="5sm-Q4-ZrB"/>
@@ -477,7 +480,7 @@
                                 </connections>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="F1h-fr-Rad">
-                                <rect key="frame" x="20" y="474" width="374" height="334"/>
+                                <rect key="frame" x="20" y="478" width="374" height="330"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -485,7 +488,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ILx-lR-OSp">
-                                <rect key="frame" x="98.5" y="413" width="217" height="30"/>
+                                <rect key="frame" x="98.5" y="417" width="217" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYj-4W-QT7">
                                         <rect key="frame" x="0.0" y="0.0" width="62" height="30"/>
@@ -558,7 +561,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67O-yh-xq3">
-                                <rect key="frame" x="25" y="118" width="364" height="327"/>
+                                <rect key="frame" x="25" y="122" width="364" height="327"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="操作提示：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akF-K7-lX6">
                                         <rect key="frame" x="8" y="8" width="87" height="21"/>
@@ -620,7 +623,7 @@
                                 <state key="selected" title="松开结束"/>
                             </button>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.png" translatesAutoresizingMaskIntoConstraints="NO" id="qiY-X0-szs">
-                                <rect key="frame" x="167" y="478" width="80" height="80"/>
+                                <rect key="frame" x="167" y="482" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="5di-pU-5XU"/>
                                     <constraint firstAttribute="height" constant="80" id="J92-jk-PMB"/>
@@ -698,7 +701,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音色选择：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N0r-a2-c5i">
-                                <rect key="frame" x="20" y="455" width="90" height="30"/>
+                                <rect key="frame" x="20" y="459" width="90" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="TDI-TK-zJ7"/>
                                     <constraint firstAttribute="height" constant="30" id="TbH-Xw-TfL"/>
@@ -708,7 +711,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="静静" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b4r-nA-kXh">
-                                <rect key="frame" x="115" y="453" width="279" height="34"/>
+                                <rect key="frame" x="115" y="457" width="279" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="4iS-E2-VVr"/>
                                 </constraints>
@@ -716,7 +719,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用说明：\n 1.选择音色。 " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrn-3t-TEz">
-                                <rect key="frame" x="20" y="98" width="374" height="292"/>
+                                <rect key="frame" x="20" y="102" width="374" height="292"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="292" id="y8L-0v-24p"/>
                                 </constraints>
@@ -725,7 +728,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4J-Eb-VZo">
-                                <rect key="frame" x="20" y="405" width="374" height="30"/>
+                                <rect key="frame" x="20" y="409" width="374" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="iMp-tD-uAz"/>
                                 </constraints>
@@ -796,7 +799,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="clientId" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfw-oM-jyb">
-                                <rect key="frame" x="20" y="202" width="374" height="24"/>
+                                <rect key="frame" x="20" y="206" width="374" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="fzy-08-hh8"/>
                                 </constraints>
@@ -805,7 +808,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入授权信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHb-bY-7Ge">
-                                <rect key="frame" x="20" y="94" width="374" height="58"/>
+                                <rect key="frame" x="20" y="98" width="374" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="bie-ui-Xs0"/>
                                 </constraints>
@@ -814,7 +817,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入ClientId" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hL3-zT-uXf">
-                                <rect key="frame" x="20" y="256" width="374" height="50"/>
+                                <rect key="frame" x="20" y="260" width="374" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="yHo-WO-eWF"/>
                                 </constraints>
@@ -822,7 +825,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="clientSecret" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uw-PE-Nvs">
-                                <rect key="frame" x="20" y="346" width="374" height="24"/>
+                                <rect key="frame" x="20" y="350" width="374" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="esU-cF-Y9K"/>
                                 </constraints>
@@ -831,7 +834,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入ClientSecret" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DAx-V2-m1n">
-                                <rect key="frame" x="20" y="390" width="374" height="50"/>
+                                <rect key="frame" x="20" y="394" width="374" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="oay-4C-uPD"/>
                                 </constraints>
@@ -839,7 +842,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3q-NH-5dX">
-                                <rect key="frame" x="121.5" y="540" width="171" height="55"/>
+                                <rect key="frame" x="121.5" y="544" width="171" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Pu3-hS-NvZ"/>
                                 </constraints>
@@ -851,6 +854,12 @@
                                     <action selector="loginAction:" destination="hHi-tO-CQv" eventType="touchUpInside" id="3XK-md-9x8"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2KS-IU-N5M">
+                                <rect key="frame" x="22" y="156" width="35" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QE6-zW-mZA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -871,17 +880,20 @@
                             <constraint firstItem="fHb-bY-7Ge" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="20" id="cEG-o0-5qF"/>
                             <constraint firstItem="QE6-zW-mZA" firstAttribute="trailing" secondItem="hL3-zT-uXf" secondAttribute="trailing" constant="20" id="fQC-Wm-1Fn"/>
                             <constraint firstItem="8uw-PE-Nvs" firstAttribute="top" secondItem="hL3-zT-uXf" secondAttribute="bottom" constant="40" id="kdh-bj-fJL"/>
+                            <constraint firstItem="2KS-IU-N5M" firstAttribute="top" secondItem="fHb-bY-7Ge" secondAttribute="bottom" id="pJJ-nX-wHN"/>
                             <constraint firstItem="Sfw-oM-jyb" firstAttribute="top" secondItem="fHb-bY-7Ge" secondAttribute="bottom" constant="50" id="uJ5-U8-2Ls"/>
+                            <constraint firstItem="2KS-IU-N5M" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="22" id="yoy-Zb-lGf"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="clientIdTextField" destination="hL3-zT-uXf" id="rAE-Zd-i2t"/>
                         <outlet property="clientSecretTextField" destination="DAx-V2-m1n" id="2Bd-jH-XWr"/>
+                        <outlet property="subtitleLabel" destination="2KS-IU-N5M" id="4KG-Zh-vyC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aw-ei-cL7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-367" y="701"/>
+            <point key="canvasLocation" x="-368.11594202898556" y="700.44642857142856"/>
         </scene>
         <!--声音体验-->
         <scene sceneID="7FT-KX-Xaf">
@@ -892,7 +904,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎体验复刻声音" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2J-UX-gaI">
-                                <rect key="frame" x="20" y="103" width="374" height="40"/>
+                                <rect key="frame" x="20" y="107" width="374" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="HGP-rO-0z1"/>
                                 </constraints>
@@ -901,7 +913,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9k4-8b-uND">
-                                <rect key="frame" x="20" y="158" width="374" height="684"/>
+                                <rect key="frame" x="20" y="162" width="374" height="680"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UZw-1u-3oj">
                                     <size key="itemSize" width="121" height="141"/>
@@ -1004,7 +1016,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="模型1：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujw-Mq-WRk">
-                                <rect key="frame" x="32" y="73" width="350" height="29"/>
+                                <rect key="frame" x="32" y="77" width="350" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="qNJ-U5-On4"/>
                                 </constraints>
@@ -1013,7 +1025,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入合成文本" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIq-rn-OUE">
-                                <rect key="frame" x="32" y="120" width="350" height="21"/>
+                                <rect key="frame" x="32" y="124" width="350" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="KBG-q3-Dwk"/>
                                 </constraints>
@@ -1022,7 +1034,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="字数： 0/200" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5DG-7z-thO">
-                                <rect key="frame" x="232" y="337" width="150" height="21"/>
+                                <rect key="frame" x="232" y="341" width="150" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="5qT-uq-vhX"/>
                                     <constraint firstAttribute="width" constant="150" id="eWi-KB-Y3s"/>
@@ -1032,7 +1044,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="请输入要合成的文本" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Gp6-lo-tl7">
-                                <rect key="frame" x="32" y="152" width="350" height="160"/>
+                                <rect key="frame" x="32" y="156" width="350" height="160"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="F08-vn-fvH"/>
@@ -1045,14 +1057,14 @@
                                 </connections>
                             </textView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rkx-2Y-hC6">
-                                <rect key="frame" x="30" y="397.5" width="354" height="2"/>
+                                <rect key="frame" x="30" y="401.5" width="354" height="2"/>
                                 <viewLayoutGuide key="safeArea" id="c8h-zG-Wac"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="OrV-BE-oWW"/>
                                 </constraints>
                             </progressView>
                             <slider opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="o9m-As-ooa">
-                                <rect key="frame" x="30" y="383" width="354" height="30"/>
+                                <rect key="frame" x="30" y="387" width="354" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="dr8-Mn-mx9"/>
                                 </constraints>
@@ -1060,7 +1072,7 @@
                                 <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIQ-hA-0Ph">
-                                <rect key="frame" x="158" y="462" width="98" height="40"/>
+                                <rect key="frame" x="158" y="466" width="98" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="azk-IN-hF5"/>
                                 </constraints>
@@ -1116,13 +1128,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎体验 声音复刻技术" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSd-bb-CFV">
-                                <rect key="frame" x="62" y="271" width="290" height="33.5"/>
+                                <rect key="frame" x="62" y="275" width="290" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvb-5c-N41">
-                                <rect key="frame" x="125" y="481.5" width="164" height="36"/>
+                                <rect key="frame" x="125" y="485.5" width="164" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="点我开启噪音检测"/>
                                 <connections>
@@ -1154,7 +1166,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前环境音量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ley-yE-bmW">
-                                <rect key="frame" x="122" y="208" width="170.5" height="33.5"/>
+                                <rect key="frame" x="122" y="212" width="170.5" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1259,7 +1271,7 @@
                                 </subviews>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="y3G-eV-gx5">
-                                <rect key="frame" x="20" y="209" width="374" height="228"/>
+                                <rect key="frame" x="20" y="213" width="374" height="228"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="228" id="kS5-2W-rJJ"/>
@@ -1269,7 +1281,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="378-fg-pKD">
-                                <rect key="frame" x="157" y="84" width="100" height="100"/>
+                                <rect key="frame" x="157" y="88" width="100" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第1段" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7z-VG-YW1">
                                         <rect key="frame" x="5" y="15" width="90" height="21.5"/>
@@ -1309,7 +1321,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.png" translatesAutoresizingMaskIntoConstraints="NO" id="hCn-jw-832">
-                                <rect key="frame" x="167" y="457" width="80" height="80"/>
+                                <rect key="frame" x="167" y="461" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="UXJ-qj-3pp"/>
                                     <constraint firstAttribute="height" constant="80" id="h8a-Eu-Mho"/>
@@ -1381,7 +1393,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="345" placeholderIntrinsicHeight="60" text="请填写接收短信通知的手机号，然后点击下方按钮，开启声音模型的训练吧，训练成功后，您就可以体验这项黑科技的惊喜啦！" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mpW-40-Tai">
-                                <rect key="frame" x="34.5" y="124" width="345" height="100"/>
+                                <rect key="frame" x="34.5" y="128" width="345" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="8nZ-fu-Qft"/>
                                 </constraints>
@@ -1390,7 +1402,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtK-4A-Ak9">
-                                <rect key="frame" x="134" y="334" width="146" height="41"/>
+                                <rect key="frame" x="134" y="338" width="146" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="开启模型训练"/>
                                 <connections>
@@ -1398,7 +1410,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yIz-lP-GXf">
-                                <rect key="frame" x="30" y="254" width="354" height="34"/>
+                                <rect key="frame" x="30" y="258" width="354" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="Sch-Lr-y3F"/>
                                 </constraints>
@@ -1406,7 +1418,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="345" placeholderIntrinsicHeight="60" text="恭喜您，您已完成了所有声音的录制" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDg-I4-h5g">
-                                <rect key="frame" x="30" y="70" width="354" height="50"/>
+                                <rect key="frame" x="30" y="74" width="354" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Bqa-Hg-zF6"/>
                                 </constraints>
@@ -1415,7 +1427,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8X-as-4Rk">
-                                <rect key="frame" x="105" y="398" width="204" height="36"/>
+                                <rect key="frame" x="105" y="402" width="204" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="跳过直接开启模型训练">
                                     <color key="titleColor" systemColor="systemGrayColor"/>
@@ -1460,7 +1472,7 @@
         <image name="1.png" width="333" height="333"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -45,7 +45,7 @@ typedef void(^DBMessageHandler)(BOOL ret,NSString * message);
 @property(nonatomic,assign,getter=islog)BOOL log;
 
 /// SDK的版本
-@property(nonatomic,copy)NSString * ttsSdkVersion;
+@property(nonatomic,copy)NSString * ttsSdkVersion __attribute__((deprecated("use onlineTTSVersion")));
 
 
 /// 鉴权方法
@@ -77,6 +77,8 @@ typedef void(^DBMessageHandler)(BOOL ret,NSString * message);
 // 取消本次合成并停止朗读
 - (void)cancel;
 
+/// 在线合成SDK的版本
++ (NSString *)onlineTTSVersion;
 
 @end
 

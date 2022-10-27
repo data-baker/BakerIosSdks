@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <DoraemonKit/DoraemonStartPluginProtocol.h>
+//#import <DoraemonKit/DoraemonStartPluginProtocol.h>
 
-@interface StartPlugin : NSObject<DoraemonStartPluginProtocol>
-
+//@interface StartPlugin : NSObject<DoraemonStartPluginProtocol>
+@interface StartPlugin : NSObject
 @end

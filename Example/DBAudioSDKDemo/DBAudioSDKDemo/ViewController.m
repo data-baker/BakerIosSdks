@@ -9,18 +9,16 @@
 #import "DBUserInfoManager.h"
 #import "DBLoginVC.h"
 #ifdef DEBUG
-#import <DoraemonKit/DoraemonManager.h>
-#import "DoraemonUtil.h"
-#import <DoraemonKit/DoraemonKit.h>
-#import <DoraemonKit/DoraemonAppInfoViewController.h>
-#import "DoraemonTimeProfiler.h"
-#import "DoraemonKitDemoi18Util.h"
-
+//#import <DoraemonKit/DoraemonManager.h>
+//#import "DoraemonUtil.h"
+//#import <DoraemonKit/DoraemonKit.h>
+//#import <DoraemonKit/DoraemonAppInfoViewController.h>
+//#import "DoraemonTimeProfiler.h"
+//#import "DoraemonKitDemoi18Util.h"
 #endif
 
 @interface ViewController ()
 //@property(nonatomic,strong)UIButton * clickButton;
-
 @end
 
 @implementation ViewController
@@ -37,33 +35,34 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     
-//    self.clickButton = (UIButton *)sender;
+    UIButton * clickButton = (UIButton *)sender;
+    NSString *title = clickButton.titleLabel.text;
+    NSLog(@"点击了：%@",title);
+    
     DBUserInfoManager *manager = [DBUserInfoManager shareManager];
     if (!manager.clientId || !manager.clientSecret) {
-        [self showLogInVC];
-        return NO;
+        [self showLogInVCWithTitle:title identifier:identifier sender:sender];
     }
     return YES;
     
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  
-    
     UIViewController *vc = segue.destinationViewController;
-
 }
 
-- (void)showLogInVC {
+- (void)showLogInVCWithTitle:(NSString *)title identifier:(NSString *)identifier sender:(id)sender {
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        DBLoginVC *loginVC  =   [story instantiateViewControllerWithIdentifier:@"DBLoginVC"];
+    DBLoginVC *loginVC  =   [story instantiateViewControllerWithIdentifier:@"DBLoginVC"];
+    loginVC.subtitle = title;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     loginVC.handler = ^{
-//        NSString *title = self.clickButton.titleLabel.text;
-//        [UIStoryboardSegue segueWithIdentifier:<#(nullable NSString *)#> source:<#(nonnull UIViewController *)#> destination:<#(nonnull UIViewController *)#> performHandler:<#^(void)performHandler#>]
-//        [self prepareForSegue:<#(nonnull UIStoryboardSegue *)#> sender:<#(nullable id)#>];
+        dispatch_semaphore_signal(semaphore);
     };
     loginVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.navigationController presentViewController:loginVC animated:YES completion:nil];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+ 
 }
 
 

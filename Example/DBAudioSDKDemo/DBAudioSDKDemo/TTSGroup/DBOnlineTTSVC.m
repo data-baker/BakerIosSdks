@@ -11,7 +11,6 @@
 
 static NSString * textViewText = @"标贝（北京）科技有限公司，简称：标贝科技。成立于2016年2月，总部位于北京，标贝科技是一家专注于智能语音交互和AI数据服务的人工智能公司，拥有AI语音交互及数据采标处理技术，打造多场景应用的语音交互方案，包括通用场景的语音合成和语音识别，以及TTS音色定制，声音复刻，情感合成和声音转换等语音技术产品；AI数据业务包括语音合成、语音识别、图像视觉、NLP等采标服务和平台化自研工具。";
 
-
 @interface DBOnlineTTSVC ()<DBSynthesizerManagerDelegate,DBSynthesisPlayerDelegate,UITextViewDelegate>
 /// 合成管理类
 @property(nonatomic,strong)DBSynthesizerManager * synthesizerManager;
@@ -43,10 +42,6 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
     _synthesizerManager.playerDelegate = self;
     //TODO: 如果使用私有化部署,按如下方式设置URL,否则设置setupClientId：clientSecret：的方法进行授权
 //   [_synthesizerManager setupPrivateDeploymentURL:@""];
-    
-
-//
-    
     // TODO: 请在此处设置授权信息
     NSString *clientId = [DBUserInfoManager shareManager].clientId;
     NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
@@ -71,10 +66,12 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
     }
     self.synthesizerPara.text = self.textView.text;
     self.synthesizerPara.voice = @"Beiying"; // 四川话模型
-//    self.synthesizerPara.voice = @"Guozi";
-    
+    self.synthesizerPara.language = @"SCH";
+    self.synthesizerPara.audioType = DBParamAudioTypePCM8K;
+    self.synthesizerPara.silence = @"0";
+    self.synthesizerPara.spectrum = @"20";
+//  self.synthesizerPara.voice = @"Guozi";
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
-
     // 设置合成参数
     NSInteger code = [self.synthesizerManager setSynthesizerParams:self.synthesizerPara];
     if (code == 0) {
@@ -82,7 +79,6 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
         [self.synthesizerManager startPlayNeedSpeaker:YES];
     }
     NSLog(@"设置时间 %@",@(CFAbsoluteTimeGetCurrent() - startTime));
-
 }
 - (IBAction)closeAction:(id)sender {
     [self.synthesizerManager cancel];

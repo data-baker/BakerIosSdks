@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -335,9 +335,9 @@
 			isa = PBXGroup;
 			children = (
 				358CD29726E8AB2B00CF8C87 /* StartPlugin.m */,
-				358CD29826E8AB2B00CF8C87 /* TestPlugin.m */,
 				358CD29926E8AB2B00CF8C87 /* StartPlugin.h */,
 				358CD29A26E8AB2B00CF8C87 /* TestPlugin.h */,
+				358CD29826E8AB2B00CF8C87 /* TestPlugin.m */,
 				358CD29D26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.h */,
 				358CD29E26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.m */,
 			);
@@ -439,7 +439,6 @@
 				357E964526B2ADF100A789E2 /* Sources */,
 				357E964626B2ADF100A789E2 /* Frameworks */,
 				357E964726B2ADF100A789E2 /* Resources */,
-				23F1ED022AFDD9703F0794A1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -477,7 +476,6 @@
 				357E966B26B2ADF400A789E2 /* Sources */,
 				357E966C26B2ADF400A789E2 /* Frameworks */,
 				357E966D26B2ADF400A789E2 /* Resources */,
-				6058377F7747AEB651D9EE24 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -587,40 +585,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		23F1ED022AFDD9703F0794A1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo/Pods-DBAudioSDKDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6058377F7747AEB651D9EE24 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests/Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC8F7D7CB6FF672A5D09607B /* [CP] Check Pods Manifest.lock */ = {

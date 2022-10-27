@@ -15,14 +15,14 @@ target 'DBAudioSDKDemo' do
 
   pod 'IQKeyboardManager', '~> 6.5.6'
 #  pod 'DBCommonLib', '~> 2.2.5'
-  pod 'Masonry'
+#  pod 'Masonry'
 #  pod 'FrameAccessor' ##布局快速设置frame
   pod 'Toast', '~> 4.0.0'
 #  pod 'DBLongTimeASRSDK', '~>1.0.1'
 #  pod 'DBAudioSDK/DBLongASRKit', '~>1.0.4'
 #  pod 'DBAudioSDK/DBShortASRKit', '~>1.0.4'
-  pod 'SocketRocket'
-  pod 'DoraemonKit/Core', '~> 3.0.4', :configurations => ['Debug'] #必选
+#  pod 'SocketRocket'
+#  pod 'DoraemonKit/Core', '~> 3.0.4', :configurations => ['Debug'] #必选
 
   target 'DBAudioSDKDemoTests' do
     inherit! :search_paths

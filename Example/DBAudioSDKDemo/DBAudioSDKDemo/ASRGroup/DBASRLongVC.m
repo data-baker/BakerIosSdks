@@ -1,7 +1,5 @@
-//
 //  DBASRVC.m
 //  DBASRDemo(002)
-//
 //  Created by linxi on 2021/2/1.
 //
 
@@ -178,7 +176,7 @@
     }else {
         NSLog(@"token获取成功");
         // TODO: 开启测试
-        [self testFlightLight];
+//        [self testFlightLight];
     }
 }
 

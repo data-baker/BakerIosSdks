@@ -35,7 +35,10 @@
 
 @end
 
-@implementation DBASRVC
+@implementation DBASRVC {
+    CFAbsoluteTime fromTime;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,14 +50,15 @@
     [self addBorderOfView:self.resultTextView color:[UIColor lightGrayColor]];
     [self addBorderOfView:self.startButton color:[UIColor whiteColor]];
 //  [self creatPickerView];
-    
-    [self.startButton addGestureRecognizer:self.longGes];
+//  [self.startButton addGestureRecognizer:self.longGes];
 
     self.asrAudioClient.delegate = self;
     self.asrAudioClient.sampleRate = DBOneSpeechSampleRate16K;
     self.asrAudioClient.AudioFormat = DBOneSpeechAudioFormatPCM;
     self.asrAudioClient.addPct = YES;
     self.asrAudioClient.domain = @"common";
+    // demo,默认打开Vad,如果需要可以自行关闭
+    self.asrAudioClient.enable_vad = YES;
     
     // TODO: 请在此处设置授权信息
     NSString *clientId = [DBUserInfoManager shareManager].clientId;
@@ -126,6 +130,11 @@
         [self.view makeToast:traceId duration:2 position:CSToastPositionCenter];
     }
 }
+- (IBAction)startRecordAction:(id)sender {
+    UIButton *button = (UIButton *)sender;
+    button.selected = !button.isSelected;
+    [self startRecord:button.isSelected];
+}
 
 - (void)startRecord:(BOOL)isStart {
     if (isStart) { // 开启录音
@@ -133,6 +142,7 @@
         [self.asrAudioClient startOneSpeechASR];
         [self logMessage:@"开启一句话识别"];
     }else { // 结束录音
+        fromTime = CFAbsoluteTimeGetCurrent();
         [self.asrAudioClient endOneSpeechASR];
         [self logMessage:@"结束一句话识别"];
     }
@@ -161,7 +171,7 @@
     }else {
         NSLog(@"token获取成功");
         // TODO: 开启测试
-        [self testFlightLight];
+//        [self testFlightLight];
     }
 }
 
@@ -187,6 +197,19 @@
 //        self.messageLabel.text = @"识别中...";
 //
 //    }
+    if (sentenceEnd){
+        CFAbsoluteTime toTime = CFAbsoluteTimeGetCurrent();
+        NSLog(@"asr last package time:%f",toTime - fromTime);
+        NSLog(@"ISR Results(json)：%@",  message);
+        NSString *info = [NSString stringWithFormat:@"asr last package time:%f,text:%@",toTime - fromTime,message];
+        [DBLogManager saveCriticalSDKRunData:info];
+        if (!self.startButton.isSelected) {
+            [self startRecordAction:self.startButton];
+        } else {
+            [self startRecord:NO];
+        }
+        [self startRecordAction:nil];
+    }
 
 }
 

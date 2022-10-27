@@ -20,10 +20,11 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
     DBAudioSDKTypeVoiceEngraver, // voice Engraver
 };
 
-//#error  请联系标贝科技获取clientId 和clientSecret
-
+#error  请联系标贝科技获取clientId 和clientSecret
+// 标贝开放平台 https://ai.data-baker.com/#/index
 static  NSString *clientId = @"XXX";
 static  NSString *clientSecret = @"XXX";
+
 
 
 
@@ -31,14 +32,16 @@ static  NSString *clientSecret = @"XXX";
 @interface DBLoginVC ()
 @property (weak, nonatomic) IBOutlet UITextField *clientIdTextField;
 @property (weak, nonatomic) IBOutlet UITextField *clientSecretTextField;
+@property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
 
 @end
 
-@implementation DBLoginVC
+@implementation DBLoginVC 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.subtitleLabel.text = self.subtitle;
+     
     self.clientIdTextField.text = clientId;
     self.clientSecretTextField.text = clientSecret;
 }

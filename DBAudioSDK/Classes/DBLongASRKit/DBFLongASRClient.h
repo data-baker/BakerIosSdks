@@ -65,6 +65,11 @@ typedef NS_ENUM(NSUInteger, DBLongTimeASRErrorState){
 @property (nonatomic, assign) BOOL addPct;
 /// 模型名称，必须填写公司购买的语言模型，默认为common
 @property (nonatomic, strong) NSString * domain;
+//配置的热词组的id
+@property (nonatomic, strong) NSString * hotwordid;
+//Asr个性化模型的id
+@property (nonatomic, strong) NSString * diylmid;
+
 /// 1.打印日志 0:不打印日志(打印日志会在沙盒中保存一份text,方便我们查看,上线前要置为NO);
 @property (nonatomic, assign) BOOL log;
 
