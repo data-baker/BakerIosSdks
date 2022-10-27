@@ -38,5 +38,7 @@ pod 'DBAudioSDK/DBVoiceTransferKit'
 
 ## 离线声音转换
 
+```
 pod 'DBAudioSDK/DBOfflineVCKit' 
+```
 
