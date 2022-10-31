@@ -200,6 +200,10 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
         if (self.delegate && [self.delegate respondsToSelector:@selector(identifyTheCallback:sentenceEnd:)]) {
             [self.delegate identifyTheCallback:resModel.asr_text sentenceEnd:resModel.sentence_end];
         }
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onResult:)]) { // 返回全部的识别结果
+            [self.delegate onResult:resModel];
+        }
     });
     
     if (resModel.sentence_end && self.asrState == DBAsrStateDidEnd) {

@@ -242,6 +242,9 @@
 //    });
 }
 
+- (void)onResult:(DBLongResponseModel *)model {
+    NSLog(@"%@",model);
+}
 
 
 -(void)dbValues:(NSInteger)db {

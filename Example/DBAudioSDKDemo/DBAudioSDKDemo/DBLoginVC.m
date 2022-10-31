@@ -22,13 +22,9 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
 
 //#error  请联系标贝科技获取clientId 和clientSecret, 注意不同的服务使用不同的授权clientId和clientSecret
 
-// 测试的授权，tts
-//static  NSString *clientId = @"3fa40e3571fa47be8093c739bb590db0";
-//static  NSString *clientSecret = @"9c4e97f1edcb48768e30707d82dee2b6";
-
 // 测试的授权， 长语音
-static NSString *clientId = @"xxx";
-static NSString *clientSecret = @"xxx";
+static NSString *clientId = @"e09b59aa915a4cb4b3c8d31f0bc21afa";
+static NSString *clientSecret = @"880893ebcdfa413dac24a7c21595aa72";
 
 
 

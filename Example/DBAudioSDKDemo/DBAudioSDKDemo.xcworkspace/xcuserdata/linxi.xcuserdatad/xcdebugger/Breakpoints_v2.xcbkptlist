@@ -328,5 +328,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D9A813B1-C0F5-4EE4-B67E-B35FA8CD34EC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DBAudioSDKDemo/ASRGroup/DBASRLongVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
+            landmarkName = "-onResult:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BD670A1B-45CC-4303-9AF0-714281A19EA5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../DBAudioSDK/Classes/DBLongASRKit/DBFLongASRClient.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-webSocketdidReceiveMessageNote:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BD670A1B-45CC-4303-9AF0-714281A19EA5 - 36d581c869d209ce"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[DBFLongASRClient webSocketdidReceiveMessageNote:]"
+                  moduleName = "DBAudioSDKDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/linxi/DBAudioSDK_github/DBAudioSDK/Classes/DBLongASRKit/DBFLongASRClient.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "183"
+                  endingLineNumber = "183"
+                  offsetFromSymbolStart = "152">
+               </Location>
+               <Location
+                  uuid = "BD670A1B-45CC-4303-9AF0-714281A19EA5 - 2ef3c8f2c8ef5565"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__51-[DBFLongASRClient webSocketdidReceiveMessageNote:]_block_invoke"
+                  moduleName = "DBAudioSDKDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/linxi/DBAudioSDK_github/DBAudioSDK/Classes/DBLongASRKit/DBFLongASRClient.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
