@@ -89,6 +89,10 @@ typedef NS_ENUM(NSUInteger, DBLongTimeASRErrorState){
 /// 接收识别数据
 - (void)webSocketPostData:(NSData *)audioData;
 
+/// 获取SDK的版本号
++ (NSString *)sdkVersion;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -66,6 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 停止播放
 - (void)stopPlay;
 
++ (NSString *)sdkVersion;
 
 
 @end

@@ -113,7 +113,7 @@ typedef NS_ENUM(NSUInteger, DBOneSpeechASRErrorState){
 - (void)webSocketPostData:(NSData *)audioData;
 
 // 一句话识别的版本号
-+ (NSString *)oneShortASRSDKVersion;
++ (NSString *)sdkVersion;
 
 @end
 

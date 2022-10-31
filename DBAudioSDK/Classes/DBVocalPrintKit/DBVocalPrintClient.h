@@ -74,6 +74,7 @@ typedef void (^DBQueryResHandler)(DBVPStatusResponnseModel * _Nullable resModel)
                      callBackHandler:(DBResponseHandler)handler;
 
 
++ (NSString *)sdkVersion;
 
 @end
 

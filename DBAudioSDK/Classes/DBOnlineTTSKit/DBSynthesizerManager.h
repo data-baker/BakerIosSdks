@@ -78,7 +78,7 @@ typedef void(^DBMessageHandler)(BOOL ret,NSString * message);
 - (void)cancel;
 
 /// 在线合成SDK的版本
-+ (NSString *)onlineTTSVersion;
++ (NSString *)sdkVersion;
 
 @end
 

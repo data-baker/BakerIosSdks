@@ -24,7 +24,7 @@
 #import "DBResponseModel.h"
 
 
-static NSString * OneSpeechASRSDKVersion = @"1.0.80";
+static NSString * OneSpeechASRSDKVersion = @"1.0.81";
 
 static NSString * OneSpeechASRSDKInstallation = @"OneSpeechASRSDKInstallation";
 
@@ -555,7 +555,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     _addPct = addPct;
     self.flag = YES;
 }
-+ (NSString *)oneShortASRSDKVersion {
++ (NSString *)sdkVersion {
     return OneSpeechASRSDKVersion;
 }
 

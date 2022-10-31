@@ -11,6 +11,9 @@
 #import "DBLogManager.h"
 #import "DBRegisterAudioModel.h"
 
+
+static NSString *vocalPrintSDKVersion = @"1.0.81";
+
 /// 创建声纹验证
 static NSString *VPCreateIdURL = @"https://openapi.data-baker.com/vpr/createid";
 
@@ -184,6 +187,10 @@ static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status"
         NSLog(@"%@", message);
         [DBLogManager saveCriticalSDKRunData:message];
     }
+}
+
++ (NSString *)sdkVersion {
+    return vocalPrintSDKVersion;
 }
 
 @end

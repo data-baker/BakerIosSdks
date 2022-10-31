@@ -106,6 +106,9 @@ typedef void (^DBFailureHandler)(NSError *error);
 
 - (BOOL)canNextStepByCurrentIndex:(NSInteger)currentIndex;
 
+
++ (NSString *)sdkVersion;
+
 @end
 
 NS_ASSUME_NONNULL_END

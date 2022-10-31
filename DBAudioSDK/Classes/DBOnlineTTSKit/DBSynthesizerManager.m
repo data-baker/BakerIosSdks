@@ -21,7 +21,7 @@
 #import "DBLogManager.h"
 
 // TODO:更新前修改版本号
-static NSString * TTSSDKVersion = @"1.0.80";
+static NSString * TTSSDKVersion = @"1.0.81";
 
 static NSString * TTSSDKInstallation = @"TTSSDKInstallation";
 
@@ -602,7 +602,7 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     return _onlineSynthesizerParameters;
 }
 
-+ (NSString *)onlineTTSVersion {
++ (NSString *)sdkVersion {
     return TTSSDKVersion;
 }
 @end

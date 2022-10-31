@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     DBAsrStateDidEnd = 3  // 结束
 };
 
-static NSString * LongTimeASRSDKVersion = @"1.0.80";
+static NSString * LongTimeASRSDKVersion = @"1.0.81";
 
 static NSString * LongTimeASRSDKInstallation = @"LongTimeASRSDKInstallation";
 
@@ -490,5 +490,8 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 }
 
 
++(NSString *)sdkVersion {
+    return LongTimeASRSDKVersion;
+}
 
 @end

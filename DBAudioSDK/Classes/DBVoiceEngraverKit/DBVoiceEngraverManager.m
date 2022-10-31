@@ -17,6 +17,7 @@
 #import "DBParamsDelegate.h"
 #import "DBRecordPCMDataPlayer.h"
 
+static NSString *sdkVersion = @"1.0.81";
 
 @interface DBVoiceEngraverManager ()<DBAudioMicrophoneDelegate,DBRecordPCMDataPlayerDelegate,DBUpdateTokenDelegate,DBZSocketCallBcakDelegate>
 
@@ -811,5 +812,7 @@
     }
     return _audioDataArray;
 }
-
++(NSString *)sdkVersion {
+    return sdkVersion;
+}
 @end
