@@ -23,6 +23,9 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 /// 展示回调状态
 @property (weak, nonatomic) IBOutlet UITextView *displayTextView;
+
+// 保存测试返回的数据
+@property(nonatomic,strong)NSMutableData * resSynthesisData;
 @end
 
 @implementation DBOnlineTTSVC
@@ -30,6 +33,8 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.textString = [textViewText mutableCopy];
+    self.resSynthesisData = [NSMutableData data];
+
     self.displayTextView.text = @"";
     [self addBorderOfView:self.textView];
     [self addBorderOfView:self.displayTextView];
@@ -65,11 +70,12 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
         self.synthesizerPara = [[DBSynthesizerRequestParam alloc]init];
     }
     self.synthesizerPara.text = self.textView.text;
-    self.synthesizerPara.voice = @"Beiying"; // 四川话模型
-    self.synthesizerPara.language = @"SCH";
+//    self.synthesizerPara.voice = @"Beiying"; // 四川话模型
+//    self.synthesizerPara.language = @"SCH"; // 设置语言为四川话
+    self.synthesizerPara.voice = @"Lingling";
     self.synthesizerPara.audioType = DBParamAudioTypePCM8K;
-    self.synthesizerPara.silence = @"0";
-    self.synthesizerPara.spectrum = @"20";
+//    self.synthesizerPara.silence = @"0";
+//    self.synthesizerPara.spectrum = @"5";
 //  self.synthesizerPara.voice = @"Guozi";
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     // 设置合成参数
@@ -84,6 +90,9 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
     [self.synthesizerManager cancel];
     [self resetPlayState];
     self.displayTextView.text = @"";
+    [self.resSynthesisData resetBytesInRange:NSMakeRange(0, self.resSynthesisData.length)];
+    self.resSynthesisData = nil;
+    self.resSynthesisData = [NSMutableData data];
 
 }
 ///  重置播放器播放控制状态
@@ -132,7 +141,13 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
 - (void)onPrepared {
     NSLog(@"拿到第一帧数据");
 }
-- (void)onBinaryReceivedData:(NSData *)data audioType:(NSString *)audioType interval:(NSString *)interval endFlag:(BOOL)endFlag {
+- (void)onBinaryReceivedData:(NSData *)data audioType:(NSString *)audioType interval:(NSString *)interval interval_x:(nonnull NSString *)interval_x endFlag:(BOOL)endFlag {
+    NSLog(@"interval :%@",interval);
+    [self.resSynthesisData appendData:data];
+    if (endFlag) {
+        NSString *path = [NSString stringWithFormat:@"%@/responseSynthesis.pcm",NSTemporaryDirectory()] ;
+        [self.resSynthesisData writeToURL:[NSURL fileURLWithPath:path] atomically:YES];
+    }
     [self appendLogMessage:[NSString stringWithFormat:@"收到合成回调的数据endFlag:%@",@(endFlag)]];
 }
 

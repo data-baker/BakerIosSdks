@@ -142,8 +142,8 @@ NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/w
         }
     }
     // 回调播放数据
-    if (self.delegate && [self.delegate respondsToSelector:@selector(onBinaryReceivedData:audioType:interval:endFlag:)]) {
-        [self.delegate onBinaryReceivedData:resModel.convertAudioData audioType:resModel.audio_type interval:resModel.interval endFlag:resModel.endFlag];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onBinaryReceivedData:audioType:interval:interval_x:endFlag:)]) {
+        [self.delegate onBinaryReceivedData:resModel.convertAudioData audioType:resModel.audio_type interval:resModel.interval interval_x:resModel.interval_x endFlag:resModel.endFlag];
     }
     
     // 一段合成完成

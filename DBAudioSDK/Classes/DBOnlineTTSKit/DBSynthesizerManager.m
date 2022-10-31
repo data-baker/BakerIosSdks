@@ -21,7 +21,7 @@
 #import "DBLogManager.h"
 
 // TODO:更新前修改版本号
-static NSString * TTSSDKVersion = @"1.0.8";
+static NSString * TTSSDKVersion = @"1.0.80";
 
 static NSString * TTSSDKInstallation = @"TTSSDKInstallation";
 
@@ -208,7 +208,12 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
      }
      
      parameters[@"domain"]= @"1";
-     parameters[@"interval"] = @"1";
+     
+     if (!requestParam.interval) {
+         requestParam.interval = @"1";
+     }
+     parameters[@"interval"] = requestParam.interval;
+     
 
      self.onlineSynthesizerParameters[@"tts_params"] = parameters;
      self.onlineSynthesizerParameters[@"version"] = @"1.0";
@@ -347,16 +352,17 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
 /// @param data 合成的音频数据，已使用base64加密，客户端需进行base64解密。
 /// @param audioType 音频类型，如audio/pcm，audio/mp3。
 /// @param interval 音频interval信息。
+///  @param interval_x 音频interval_x信息。
 /// @param endFlag 是否时最后一个数据块，0：否，1：是。
-- (void)onBinaryReceivedData:(NSData *)data audioType:(NSString *)audioType interval:(NSString *)interval endFlag:(BOOL)endFlag {
+- (void)onBinaryReceivedData:(NSData *)data audioType:(NSString *)audioType interval:(NSString *)interval interval_x:(NSString *)interval_x endFlag:(BOOL)endFlag {
     if (self.synthesisDataPlayer) {
         [self logMessage:@"给播放器添加播放数据"];
         [self.synthesisDataPlayer appendData:data totalDatalength:self.allSynthesisText.length endFlag:self.synthesisDataPlayer.finished];
     }
     BOOL finalEndFlag = endFlag && self.textArray.count == 0;
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(onBinaryReceivedData:audioType:interval:endFlag:)]) {
-        [self.delegate onBinaryReceivedData:data audioType:audioType interval:interval endFlag:finalEndFlag];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onBinaryReceivedData:audioType:interval:interval_x:endFlag:)]) {
+        [self.delegate onBinaryReceivedData:data audioType:audioType interval:interval interval_x:interval_x endFlag:finalEndFlag];
     }
 }
 

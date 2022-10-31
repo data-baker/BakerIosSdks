@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DBResponseModel.h"
 #import <UIKit/UIKit.h>
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,6 +44,11 @@ typedef NS_ENUM(NSUInteger, DBOneSpeechASRErrorState){
 - (void)onError:(NSInteger)code message:(NSString *)message;
 /// 麦克风获取的音频分贝值回调
 - (void)dbValues:(NSInteger)db;
+
+/// 识别的数据返回，包含相关的状态和数据；
+- (void)onResult:(DBResponseModel *)model;
+
+
 
 @optional
 /// 每句话识别的TraceID，用于追溯识别结果

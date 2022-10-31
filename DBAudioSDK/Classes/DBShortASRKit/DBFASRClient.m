@@ -24,7 +24,7 @@
 #import "DBResponseModel.h"
 
 
-static NSString * OneSpeechASRSDKVersion = @"1.0.8";
+static NSString * OneSpeechASRSDKVersion = @"1.0.80";
 
 static NSString * OneSpeechASRSDKInstallation = @"OneSpeechASRSDKInstallation";
 
@@ -185,6 +185,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 }
 
 - (void)webSocketdidReceiveMessageNote:(id)object {
+    
     NSString *message = (NSString *)object;
     NSDictionary *dict = [self dictionaryWithJsonString:message];
     NSDictionary *dataDict = dict[@"data"];
@@ -212,10 +213,15 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     resModel.asr_text = resModel.nbest.firstObject;
     [self logMessage:[NSString stringWithFormat:@"收到后台消息:%@",resModel.asr_text]];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{ // 返回识别到的语音信息
         if (self.delegate && [self.delegate respondsToSelector:@selector(identifyTheCallback:sentenceEnd:)]) {
             [self.delegate identifyTheCallback:resModel.asr_text sentenceEnd:resModel.end_flag];
         }
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onResult:)]) { // 返回完成的识别结果
+            [self.delegate onResult:resModel];
+        }
+        
     });
     if (self.asrState == DBAsrStateDidEnd && resModel.end_flag) {
         [self closedAudioResource];

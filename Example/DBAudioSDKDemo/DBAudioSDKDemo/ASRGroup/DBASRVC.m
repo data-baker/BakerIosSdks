@@ -58,7 +58,8 @@
     self.asrAudioClient.addPct = YES;
     self.asrAudioClient.domain = @"common";
     // demo,默认打开Vad,如果需要可以自行关闭
-    self.asrAudioClient.enable_vad = YES;
+//    self.asrAudioClient.enable_vad = YES;
+    self.asrAudioClient.log = YES;
     
     // TODO: 请在此处设置授权信息
     NSString *clientId = [DBUserInfoManager shareManager].clientId;
@@ -203,14 +204,18 @@
         NSLog(@"ISR Results(json)：%@",  message);
         NSString *info = [NSString stringWithFormat:@"asr last package time:%f,text:%@",toTime - fromTime,message];
         [DBLogManager saveCriticalSDKRunData:info];
-        if (!self.startButton.isSelected) {
-            [self startRecordAction:self.startButton];
-        } else {
-            [self startRecord:NO];
-        }
-        [self startRecordAction:nil];
+        //        if (!self.startButton.isSelected) {
+        //            [self startRecordAction:self.startButton];
+        //        } else {
+        self.startButton.selected = NO;
+        [self startRecord:NO];
+        //        }
+        //        [self startRecordAction:nil];
     }
 
+}
+- (void)onResult:(DBResponseModel *)model {
+    NSLog(@"%@",model);
 }
 
 - (void)onError:(NSInteger)code message:(NSString *)message {

@@ -81,6 +81,9 @@ typedef NS_ENUM(NSUInteger, DBTTSRate) {
  */
 @property(nonatomic,copy)NSString * silence;
 
+// 发音人的interval信息，默认为1，如果当前发音人不支持interval信息，返回的相关信息为空
+@property(nonatomic,copy)NSString * interval;
+
 
 @end
 
