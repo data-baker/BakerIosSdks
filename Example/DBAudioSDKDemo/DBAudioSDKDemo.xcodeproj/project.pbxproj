@@ -51,6 +51,8 @@
 		35D3925B273CC0A600406B61 /* DBVPMatchOneListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D3925A273CC0A600406B61 /* DBVPMatchOneListVC.m */; };
 		35D3925E273CECEC00406B61 /* DBVPMatchReadVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D3925D273CECEC00406B61 /* DBVPMatchReadVC.m */; };
 		35D39261273CFBBF00406B61 /* DBVPMatchSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D39260273CFBBF00406B61 /* DBVPMatchSuccessVC.m */; };
+		35D756B02A248B02007C64E9 /* DBTimeLogerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D756AE2A248B02007C64E9 /* DBTimeLogerUtil.m */; };
+		35D756B72A248D0B007C64E9 /* DBASRSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D756B52A248D0B007C64E9 /* DBASRSettingVC.swift */; };
 		35F0B3F027268CB600D9313D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F0B3EF27268CB600D9313D /* libc++.tbd */; };
 		35F0B3F32726A6C700D9313D /* DBOfflineVoiceConvertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35F0B3F22726A6C700D9313D /* DBOfflineVoiceConvertVC.m */; };
 		35F0B3FC2727A75200D9313D /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F0B3FB2727A75200D9313D /* libc++.1.tbd */; };
@@ -160,6 +162,10 @@
 		35D3925D273CECEC00406B61 /* DBVPMatchReadVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPMatchReadVC.m; sourceTree = "<group>"; };
 		35D3925F273CFBBF00406B61 /* DBVPMatchSuccessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBVPMatchSuccessVC.h; sourceTree = "<group>"; };
 		35D39260273CFBBF00406B61 /* DBVPMatchSuccessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBVPMatchSuccessVC.m; sourceTree = "<group>"; };
+		35D756AE2A248B02007C64E9 /* DBTimeLogerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTimeLogerUtil.m; sourceTree = "<group>"; };
+		35D756AF2A248B02007C64E9 /* DBTimeLogerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBTimeLogerUtil.h; sourceTree = "<group>"; };
+		35D756B52A248D0B007C64E9 /* DBASRSettingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBASRSettingVC.swift; sourceTree = "<group>"; };
+		35D756B82A2491F9007C64E9 /* DBAudioSDKDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DBAudioSDKDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		35F0B3EF27268CB600D9313D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		35F0B3F12726A6C700D9313D /* DBOfflineVoiceConvertVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBOfflineVoiceConvertVC.h; sourceTree = "<group>"; };
 		35F0B3F22726A6C700D9313D /* DBOfflineVoiceConvertVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBOfflineVoiceConvertVC.m; sourceTree = "<group>"; };
@@ -295,6 +301,7 @@
 				351D6A222738FD9700A88418 /* DBVocalPrint */,
 				35631C94273E69C100A7343B /* DBUserIdentify */,
 				35CE9A4826B6B834002D9337 /* AppDelegate.m */,
+				35D756AD2A2487B3007C64E9 /* Util */,
 				35CE9AD826B8F6EF002D9337 /* AppDelegate.h */,
 				35CE9A4926B6B834002D9337 /* ViewController.h */,
 				35CE9A4D26B6B834002D9337 /* ViewController.m */,
@@ -367,6 +374,8 @@
 				35CE9A4B26B6B834002D9337 /* DBASRLongVC.m */,
 				35CE9A4C26B6B834002D9337 /* DBASRVC.h */,
 				35CE9A5326B6B834002D9337 /* DBASRVC.m */,
+				35D756B52A248D0B007C64E9 /* DBASRSettingVC.swift */,
+				35D756B82A2491F9007C64E9 /* DBAudioSDKDemo-Bridging-Header.h */,
 			);
 			path = ASRGroup;
 			sourceTree = "<group>";
@@ -399,6 +408,15 @@
 				35CE9B2526BA2E18002D9337 /* XCHudHelper.h */,
 			);
 			path = XCToast;
+			sourceTree = "<group>";
+		};
+		35D756AD2A2487B3007C64E9 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				35D756AF2A248B02007C64E9 /* DBTimeLogerUtil.h */,
+				35D756AE2A248B02007C64E9 /* DBTimeLogerUtil.m */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		51CF3080ED0ADC6C0397A584 /* Frameworks */ = {
@@ -497,6 +515,7 @@
 				TargetAttributes = {
 					357E964826B2ADF100A789E2 = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1420;
 					};
 					357E966326B2ADF400A789E2 = {
 						CreatedOnToolsVersion = 12.3;
@@ -653,8 +672,10 @@
 				357B2E1126BC02D2006C15FD /* DBVoiceListVC.m in Sources */,
 				35631C90273D11EF00A7343B /* DBVPHomeVC.m in Sources */,
 				358CD29F26E8ABED00CF8C87 /* DoraemonKitDemoi18Util.m in Sources */,
+				35D756B02A248B02007C64E9 /* DBTimeLogerUtil.m in Sources */,
 				358CD29B26E8AB2B00CF8C87 /* StartPlugin.m in Sources */,
 				357B2E0E26BC02D2006C15FD /* DBRecordTextVC.m in Sources */,
+				35D756B72A248D0B007C64E9 /* DBASRSettingVC.swift in Sources */,
 				35CE9B2D26BA2EE3002D9337 /* DBLoginVC.m in Sources */,
 				358CD29C26E8AB2B00CF8C87 /* TestPlugin.m in Sources */,
 				357B2E2426BC150E006C15FD /* DBVoiceEngraverEntryVC.m in Sources */,
@@ -840,8 +861,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VWR2NHV4B6;
+				CURRENT_PROJECT_VERSION = 109;
+				DEVELOPMENT_TEAM = 6K53WJAQ2L;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -849,6 +872,8 @@
 					"$(PROJECT_DIR)/DBAudioSDKDemo/DBOfflineVoiceConvert",
 				);
 				INFOPLIST_FILE = DBAudioSDKDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "标贝语音SDK";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -858,8 +883,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/DBAudioSDKDemo/DBOfflineVoiceConvert/DBOfflineVCKit/DBVCLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Biaobei.DBAudioSDKDemo;
+				MARKETING_VERSION = 1.0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Biaobei.sdk.DBAudioSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DBAudioSDKDemo/ASRGroup/DBAudioSDKDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -870,8 +899,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VWR2NHV4B6;
+				CURRENT_PROJECT_VERSION = 109;
+				DEVELOPMENT_TEAM = 6K53WJAQ2L;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -879,6 +910,8 @@
 					"$(PROJECT_DIR)/DBAudioSDKDemo/DBOfflineVoiceConvert",
 				);
 				INFOPLIST_FILE = DBAudioSDKDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "标贝语音SDK";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -888,8 +921,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/DBAudioSDKDemo/DBOfflineVoiceConvert/DBOfflineVCKit/DBVCLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Biaobei.DBAudioSDKDemo;
+				MARKETING_VERSION = 1.0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Biaobei.sdk.DBAudioSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DBAudioSDKDemo/ASRGroup/DBAudioSDKDemo-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -898,6 +934,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C728F4BEF98F3BBB29F3D85C /* Pods-DBAudioSDKDemoTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -921,6 +958,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 495B6515F5ADB917E4596C8A /* Pods-DBAudioSDKDemoTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -944,6 +982,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0F108CA42338827AEC64C552 /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VWR2NHV4B6;
 				INFOPLIST_FILE = DBAudioSDKDemoUITests/Info.plist;
@@ -964,6 +1003,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3036E1505FF557E7EDEA217B /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VWR2NHV4B6;
 				INFOPLIST_FILE = DBAudioSDKDemoUITests/Info.plist;

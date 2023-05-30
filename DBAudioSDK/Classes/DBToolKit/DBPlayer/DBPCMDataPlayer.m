@@ -59,9 +59,19 @@
         // 使用player的内部线程播放 新建输出
         AudioQueueNewOutput(&_audioDescription, AudioPlayerAQInputCallback, (__bridge void * _Nullable)(self), nil, 0, 0, &audioQueue);
         
+        NSError *error = nil;
         AVAudioSession *session = [AVAudioSession sharedInstance];
-        [session setActive:YES error:nil];
-        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        AVAudioSessionCategory recCategory = AVAudioSessionCategoryPlayAndRecord;
+        AVAudioSessionCategoryOptions recOptions = AVAudioSessionCategoryOptionMixWithOthers|AVAudioSessionCategoryOptionDefaultToSpeaker;
+        [[AVAudioSession sharedInstance] setCategory:recCategory withOptions:recOptions error:&error];
+        if (error) {
+            NSLog(@"setCategory error:%@", error);
+        }
+        
+//        [session setActive:YES error:nil];
+//        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVAudioSessionInterruptionNotification:) name:AVAudioSessionInterruptionNotification object:session];
         
         // 设置音量

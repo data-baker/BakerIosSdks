@@ -33,6 +33,10 @@
     
 }
 
+- (NSString *)errorMsg {
+    return [NSString stringWithFormat:@"msg:%@,traceId:%@",_message,_trace_id];
+}
+
 
 @end
 

@@ -54,8 +54,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
             .webSocketdidConnectFailed = [delegate respondsToSelector:@selector(webSocketdidConnectFailed:)]
             
         };
-    
-    
 }
 
 #pragma mark - **************** public methods
@@ -106,17 +104,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
             if (weakSelf.socket.readyState == SR_OPEN) {
                 [weakSelf.socket send:data];    // 发送数据
             } else if (weakSelf.socket.readyState == SR_CONNECTING) {
-//                NSLog(@"正在连接中，重连后其他方法会去自动同步数据");
-                // 每隔2秒检测一次 socket.readyState 状态，检测 10 次左右
-                // 只要有一次状态是 SR_OPEN 的就调用 [ws.socket send:data] 发送数据
-                // 如果 10 次都还是没连上的，那这个发送请求就丢失了，这种情况是服务器的问题了，小概率的
-                // 代码有点长，我就写个逻辑在这里好了
                 [self reConnect];
                 
             } else if (weakSelf.socket.readyState == SR_CLOSING || weakSelf.socket.readyState == SR_CLOSED) {
-                // websocket 断开了，调用 reConnect 方法重连
-                
-//                NSLog(@"重连");
                 
                 [self reConnect];
             }
@@ -133,9 +123,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
     if (reConnectTime > self.timeOut) {
         //您的网络状况不是很好，请检查网络后重试
         reConnectTime = 0;
-//        @property(nonatomic,assign)NSInteger code;
-//
-//        @property(nonatomic,copy)NSString * message;
         NSDictionary *message = @{@"code":@"90005",@"message":@"failed connect sever"};
         if (self.availableDelegateMethods.webSocketdidConnectFailed) {
             [self.delegate webSocketdidConnectFailed:message];
@@ -239,9 +226,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 
     if (webSocket == self.socket) {
 //        NSLog(@"************************** socket连接断开************************** ");
-//        NSLog(@"被关闭连接，code:%ld,reason:%@,wasClean:%d",(long)code,reason,wasClean);
         [self DBZWebSocketClose];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kDBZWebSocketDidCloseNote object:nil];
     }
     if (self.availableDelegateMethods.webSocketDidCloseNote) {
         [self.delegate webSocketDidCloseNote:nil];

@@ -8,18 +8,10 @@
 
 #import "DBFASRClient.h"
 #import "DBAuthentication.h"
-//#import <DBCommon/DBAuthentication.h>
-//#import <DBCommon/DBZSocketRocketUtility.h>
 #import "DBZSocketRocketUtility.h"
-
-//#import <DBCommon/DBUncaughtExceptionHandler.h>
 #import "DBUncaughtExceptionHandler.h"
-
-//#import <DBCommon/DBNetworkHelper.h>
 #import "DBNetworkHelper.h"
-//#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
-//#import <DBCommon/DBAudioMicrophone.h>
 #import "DBAudioMicrophone.h"
 #import "DBResponseModel.h"
 
@@ -31,6 +23,8 @@ static NSString * OneSpeechASRSDKInstallation = @"OneSpeechASRSDKInstallation";
 static NSString * OneSpeechASRSDKStart = @"OneSpeechASRSDKStart";
 
 static NSString * DBOneSpeechASRUDID = @"DBOneSpeechASRUDID";
+
+static NSString *KAsrServer = @"wss://asr.data-baker.com/";
 
 typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     DBOneSpeechASRUploadLogTypeInstall = 1, // 上传安装统计
@@ -135,19 +129,36 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 
 // MARK: Publice Methods --
 - (void)setupURL:(NSString *)url {
+    if([url isEqualToString:[self currentServerAddress]]) {
+        return;
+    }
+    if (url.length == 0) { // 验证url是否合法
+        [self.delegate onError:10003 message:@"set url failed"];
+        return;
+    }
     self.socketURL = url;
     [self logMessage:@"私有化部署url"];
 }
 
+- (NSString *)currentServerAddress {
+    if (self.socketURL.length == 0) {
+        return KAsrServer;
+    }
+    return self.socketURL;
+}
+
 - (void)startOneSpeechASR {
-    [self closedAudioResource];
+    if (self.asrState != DBAsrStateInit) {
+        [self closedAudioResource];
+    }
     [self openMicrophone];
     self.idx = 0;
     self.socketManager.timeOut = 6;
     if (self.socketURL.length == 0) {
-        self.socketURL = @"wss://asr.data-baker.com/";
+        self.socketURL = KAsrServer;
     }
     self.asrState = DBAsrStateInit;
+    DBLog(@"[asr]: asr state Init");
     [self.socketManager DBZWebSocketOpenWithURLString:self.socketURL];
     [self logMessage:@"socket开始链接"];
 }
@@ -169,6 +180,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 }
 
 - (void)closedAudioResource {
+    DBLog(@"[asr]:停止识别");
     self.asrState = DBAsrStateDidEnd;
     [self.socketManager DBZWebSocketClose];
     [self.microphone stop];
@@ -185,22 +197,24 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 }
 
 - (void)webSocketdidReceiveMessageNote:(id)object {
-    
     NSString *message = (NSString *)object;
     NSDictionary *dict = [self dictionaryWithJsonString:message];
     NSDictionary *dataDict = dict[@"data"];
     [self logMessage:message];
+    
     DBResponseModel *resModel = [[DBResponseModel alloc]init];
     [resModel setValuesForKeysWithDictionary:dataDict];
-    
+    resModel.code = [dict[@"code"] integerValue];
+    resModel.message = dict[@"message"];
+    resModel.trace_id = dict[@"trace_id"];
     // 回调TraceID
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.delegate && [self.delegate respondsToSelector:@selector(resultTraceId:)]) {
-            [self.delegate resultTraceId:dict[@"trace_id"]];
+            [self.delegate resultTraceId:resModel.trace_id];
         }
     });
   
-    NSString * code = [dict[@"code"] stringValue];
+    NSString * code = @(resModel.code).stringValue;
     //报错
     NSArray *codes = @[@"90001",@"90000"];
     if (![codes containsObject:code]) {
@@ -221,15 +235,13 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onResult:)]) { // 返回完成的识别结果
             [self.delegate onResult:resModel];
         }
-        
     });
-    if (self.asrState == DBAsrStateDidEnd && resModel.end_flag) {
+    DBLog(@"[asr]:endFlag:%@, asrState:%@",@(resModel.end_flag),@(self.asrState));
+    if (resModel.end_flag) {
         [self closedAudioResource];
     }
     
 }
-
-
 
 - (void)webSocketDidCloseNote:(id)object {
     [self logMessage:@"socket关闭"];
@@ -262,9 +274,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 
 - (void)webSocketPostData:(NSData *)audioData {
     
-    
-    
-//    if (audioData.length != 5120) {
+    //    if (audioData.length != 5120) {
 //        DBLongResponseModel *failrModel = [[DBLongResponseModel alloc]init];
 //        failrModel.code = DBOneSpeechErrorStateDataLength;
 //        failrModel.message = @"数据长度错误";
@@ -275,7 +285,6 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     NSString *audioString = [[NSString alloc] initWithData:base64Data encoding:NSUTF8StringEncoding];
     
     parameter[@"audio_data"]= audioString;
-    
     if (self.AudioFormat == DBOneSpeechAudioFormatWAV) {
         parameter[@"audio_format"] = @"WAV";
     }else {
@@ -313,23 +322,23 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     
     if (self.diylmid) {
         parameter[@"diylmid"] = self.diylmid;
-            }
-   
+    }
+    
+    parameter[@"enable_vad"] = @(self.enable_vad);
     if (self.enable_vad) {
-        parameter[@"enable_vad"] = @(self.enable_vad);
+        if (self.max_begin_silence) {
+            parameter[@"max_begin_silence"] = @(self.max_begin_silence);
+        }
+        if (self.max_end_silence) {
+            parameter[@"max_end_silence"] = @(self.max_end_silence);
+        }
     }
-    
-    if (self.max_begin_silence) {
-        parameter[@"max_begin_silence"] = @(self.max_begin_silence);
-    }
-    
-    if (self.max_end_silence) {
-        parameter[@"max_end_silence"] = @(self.max_end_silence);
-    }
-    
     
     self.onlineRecognizeParameters[@"asr_params"] = parameter;
-    self.onlineRecognizeParameters[@"version"] = @"1.0";
+    if (!self.version) {
+        self.version = @"1.0";
+    }
+    self.onlineRecognizeParameters[@"version"] = self.version;
     self.onlineRecognizeParameters[@"access_token"] = self.accessToken;
     
     NSString *paramString = [self dictionaryToJson:self.onlineRecognizeParameters];
@@ -364,10 +373,10 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 }
 
 - (void)delegateOnfailureModel:(DBResponseModel *)model{
-    [self logMessage:[NSString stringWithFormat:@"错误码:%ld 错误信息:%@",model.code,model.message]];
+    [self logMessage:[NSString stringWithFormat:@"错误码:%ld 错误信息:%@",model.code,model.errorMsg]];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.delegate && [self.delegate respondsToSelector:@selector(onError:message:)]) {
-            [self.delegate onError:model.code message:model.message];
+            [self.delegate onError:model.code message:model.errorMsg];
         }
     });
    

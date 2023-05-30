@@ -73,6 +73,9 @@ typedef NS_ENUM(NSUInteger, DBLongTimeASRErrorState){
 //Asr个性化模型的id
 @property (nonatomic, strong) NSString * diylmid;
 
+// 服务端的version
+@property (nonatomic, copy) NSString * version;
+
 /// 1.打印日志 0:不打印日志(打印日志会在沙盒中保存一份text,方便我们查看,上线前要置为NO);
 @property (nonatomic, assign) BOOL log;
 
@@ -85,6 +88,8 @@ typedef NS_ENUM(NSUInteger, DBLongTimeASRErrorState){
 - (void)endLongASR;
 /// 私有化部署URL
 - (void)setupURL:(NSString *)url;
+// 当前连接的服务端地址
+- (NSString *)currentServerAddress;
 
 /// 接收识别数据
 - (void)webSocketPostData:(NSData *)audioData;

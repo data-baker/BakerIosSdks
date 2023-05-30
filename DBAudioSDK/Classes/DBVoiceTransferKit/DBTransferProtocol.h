@@ -25,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 错误回调 code:错误码  message:错误信息
 - (void)onError:(NSInteger)code message:(NSString *)message;
 
+// 关闭服务器的连接
+- (void)onColseSeverConnect;
+
 
 @optional
 

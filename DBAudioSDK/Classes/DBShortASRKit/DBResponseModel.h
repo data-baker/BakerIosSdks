@@ -16,21 +16,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 返回码
 @property(nonatomic,assign)NSInteger code;
+/// 错误描述
+@property(nonatomic,copy)NSString * message;
+// 任务id 用于定位错误跟踪日志
+@property(nonatomic,copy)NSString * trace_id;
+
+// 合并message和trace_id的信息
+@property(nonatomic,copy)NSString * errorMsg;
+
 
 // 识别结果，数组的形式表示
 @property(nonatomic,copy)NSArray *nbest;
 // 识别的中间文本
 @property(nonatomic,copy)NSArray * uncertain;
-// 任务id 用于定位错误跟踪日志
-@property(nonatomic,copy)NSString * trace_id;
+
 /// 返回包的序号,数据块序列号，请求内容会以流式的数据块方式返回给客户端。服务器端生成，从1递增
 @property(nonatomic,assign)NSInteger res_idx;
 
 /// 最后一包，0不是最后一包
 @property(nonatomic,assign)BOOL end_flag;
-
-/// 错误描述
-@property(nonatomic,copy)NSString * message;
 
 /// ASR 带VAD解析后的数据
 @property(nonatomic,copy)NSString *asr_text;
@@ -63,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , strong) NSArray <WordsItem *>              * bWords;
 
 @end
+
 
  // 识别词组的相关消息
 @interface WordsItem :NSObject

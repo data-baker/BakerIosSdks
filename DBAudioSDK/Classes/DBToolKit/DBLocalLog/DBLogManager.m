@@ -34,6 +34,7 @@
     string = [NSString stringWithFormat:@"\n%@: %@\n",[DBCommonConst currentTimeString],string];
     [handle writeData:[string dataUsingEncoding:NSUTF8StringEncoding]];
     [handle closeFile];
+
 }
 
 

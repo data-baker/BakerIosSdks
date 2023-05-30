@@ -43,7 +43,7 @@ typedef void(^DBMessageHandler)(BOOL ret,NSString * message);
 /// 1:打印日志 0：不打印日志,默认不打印日志
 @property(nonatomic,assign,getter=islog)BOOL log;
 
-// 近针对私有化授权的服务使用，调用此方法后无需设置clientIf和clientSecret
+// 针对私有化授权的服务使用，调用此方法后无需设置clientIf和clientSecret
 - (void)setupPrivateDeploymentURL:(NSString *)url;
 /// 开始合成
 - (void)start;

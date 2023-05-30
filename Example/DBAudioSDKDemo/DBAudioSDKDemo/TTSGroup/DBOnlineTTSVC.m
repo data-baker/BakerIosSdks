@@ -8,6 +8,7 @@
 #import "DBOnlineTTSVC.h"
 #import <DBSynthesizerManager.h>
 #import "DBUserInfoManager.h"
+#import <AVKit/AVKit.h>
 
 static NSString * textViewText = @"标贝（北京）科技有限公司，简称：标贝科技。成立于2016年2月，总部位于北京，标贝科技是一家专注于智能语音交互和AI数据服务的人工智能公司，拥有AI语音交互及数据采标处理技术，打造多场景应用的语音交互方案，包括通用场景的语音合成和语音识别，以及TTS音色定制，声音复刻，情感合成和声音转换等语音技术产品；AI数据业务包括语音合成、语音识别、图像视觉、NLP等采标服务和平台化自研工具。";
 
@@ -46,18 +47,20 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
     _synthesizerManager.delegate = self;
     _synthesizerManager.playerDelegate = self;
     //TODO: 如果使用私有化部署,按如下方式设置URL,否则设置setupClientId：clientSecret：的方法进行授权
-//   [_synthesizerManager setupPrivateDeploymentURL:@""];
+http://10.10.50.18:18100/tts?domain=1&access_token=default&voice_name=Jiaojiao&language=zh&text=您好，帮您查询到车牌号&audiotype=6
+//   [_synthesizerManager setupPrivateDeploymentURL:@"ws://10.10.50.18:19008/tts/wsapi"];
+   [_synthesizerManager setupPrivateDeploymentURL:@"wss://42.81.56.33/tts/wsapi"];
     // TODO: 请在此处设置授权信息
-    NSString *clientId = [DBUserInfoManager shareManager].clientId;
-    NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
-    
-    [_synthesizerManager setupClientId:clientId clientSecret:clientSecret handler:^(BOOL ret, NSString *message) {
-        if (ret) {
-            NSLog(@"鉴权成功");
-        }else {
-            NSLog(@"鉴权失败");
-        }
-    }];
+//    NSString *clientId = [DBUserInfoManager shareManager].clientId;
+//    NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
+//
+//    [_synthesizerManager setupClientId:clientId clientSecret:clientSecret handler:^(BOOL ret, NSString *message) {
+//        if (ret) {
+//            NSLog(@"鉴权成功");
+//        }else {
+//            NSLog(@"鉴权失败");
+//        }
+//    }];
     
 }
 // MARK: IBActions
@@ -72,11 +75,21 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
     self.synthesizerPara.text = self.textView.text;
 //    self.synthesizerPara.voice = @"Beiying"; // 四川话模型
 //    self.synthesizerPara.language = @"SCH"; // 设置语言为四川话
-    self.synthesizerPara.voice = @"Lingling";
+//    self.synthesizerPara.voice = @"Tiantian";
+    self.synthesizerPara.voice = @"Jiaojiao";
     self.synthesizerPara.audioType = DBParamAudioTypePCM8K;
 //    self.synthesizerPara.silence = @"0";
 //    self.synthesizerPara.spectrum = @"5";
 //  self.synthesizerPara.voice = @"Guozi";
+    NSError *error;
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setActive:YES error:nil];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    if (error) {
+        NSLog(@"err :%@",error.description);
+        return;
+    }
+    
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     // 设置合成参数
     NSInteger code = [self.synthesizerManager setSynthesizerParams:self.synthesizerPara];
@@ -186,6 +199,8 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
     [self appendLogMessage:@"播放结束"];
     [self resetPlayState];
     self.playButton.selected = NO;
+    
+  
 }
 
 - (void)playPausedIfNeed {

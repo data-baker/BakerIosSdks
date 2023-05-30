@@ -48,8 +48,6 @@ typedef NS_ENUM(NSUInteger, DBOneSpeechASRErrorState){
 /// 识别的数据返回，包含相关的状态和数据；
 - (void)onResult:(DBResponseModel *)model;
 
-
-
 @optional
 /// 每句话识别的TraceID，用于追溯识别结果
 /// @param traceId 追溯Id
@@ -94,6 +92,12 @@ typedef NS_ENUM(NSUInteger, DBOneSpeechASRErrorState){
 
 @property (nonatomic, assign) NSInteger  max_end_silence;
 
+// 服务端的version
+@property (nonatomic, copy) NSString * version;
+
+
+
+
 
 /// 1.打印日志 0:不打印日志(打印日志会在沙盒中保存一份text,方便我们查看,上线前要置为NO);
 @property (nonatomic, assign) BOOL log;
@@ -111,6 +115,8 @@ typedef NS_ENUM(NSUInteger, DBOneSpeechASRErrorState){
 - (void)startDataRecognize;
 /// 接收识别数据
 - (void)webSocketPostData:(NSData *)audioData;
+// 当前连接的服务端地址
+- (NSString *)currentServerAddress;
 
 // 一句话识别的版本号
 + (NSString *)sdkVersion;

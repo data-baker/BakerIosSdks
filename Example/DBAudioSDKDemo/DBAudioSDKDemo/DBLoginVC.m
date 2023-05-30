@@ -21,17 +21,15 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
 };
 
 //#error  请联系标贝科技获取clientId 和clientSecret, 注意不同的服务使用不同的授权clientId和clientSecret
-
-// 测试的授权， 长语音
 static NSString *clientId = @"XXX";
 static NSString *clientSecret = @"XXX";
-
 
 
 @interface DBLoginVC ()
 @property (weak, nonatomic) IBOutlet UITextField *clientIdTextField;
 @property (weak, nonatomic) IBOutlet UITextField *clientSecretTextField;
 @property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -39,8 +37,8 @@ static NSString *clientSecret = @"XXX";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.subtitleLabel.text = self.subtitle;
-     
+    self.titleLabel.text = self.sdkName;
+    self.subtitleLabel.text = @"请输入授权信息";
     self.clientIdTextField.text = clientId;
     self.clientSecretTextField.text = clientSecret;
 }

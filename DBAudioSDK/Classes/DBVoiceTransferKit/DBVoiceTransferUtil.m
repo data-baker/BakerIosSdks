@@ -6,19 +6,11 @@
 //
 
 #import "DBVoiceTransferUtil.h"
-//#import <DBCommon/DBAudioMicrophone.h>
 #import "DBAudioMicrophone.h"
-//#import <DBCommon/DBSynthesisPlayer.h>
-
-//#import <DBCommon/DBZSocketRocketUtility.h>
 #import "DBZSocketRocketUtility.h"
-//#import <DBCommon/DBUncaughtExceptionHandler.h>
 #import "DBUncaughtExceptionHandler.h"
-//#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
 #import "DBRecordPCMDataPlayer.h"
-
-
 #define kAudioFolder @"AudioFolder" // 音频文件夹
 
 static NSString *DBErrorDomain = @"com.BiaoBeri.DBVoiceTransferUtil";
@@ -40,6 +32,13 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 
 
 @interface DBVoiceTransferUtil ()<DBRecordPCMDataPlayerDelegate,DBAudioMicrophoneDelegate,DBZSocketCallBcakDelegate>
+
+// MARK-- test  start
+{
+    CFAbsoluteTime _transferTime;
+    NSInteger _transferIndex;
+}
+// test end
 
 @property(nonatomic,copy)NSString  * clientId;
 
@@ -128,6 +127,8 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     }
     self.transferState = DBTransferStateInit;
     [self.socketManager DBZWebSocketOpenWithURLString:self.socketURL];
+    _transferTime = CFAbsoluteTimeGetCurrent();
+//    NSLog(@"websocket connect:%@",@(_transferTime));
     [self logMessage:@"socket开始链接"];
 }
 
@@ -141,17 +142,16 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 }
 
 // MARK: 播放控制
-
 - (void)stopPlay {
     [self.player stop];
 }
 
 // MARK: ------ 开启文件识别 ---------
-
 - (void)startTransferWithFilePath:(NSString *)filePath needPaley:(BOOL)needPlay {
     self.filePath = filePath;
     self.transferMode = DBTransferModeFile;
-    self.sizeToRead = 16000 * 1 * 16 / 8;
+//    self.sizeToRead = 16000 * 1 * 16 / 8;
+    self.sizeToRead = 5120;
     self.hasReadFileSize = 0;
     [self fileTransferNeedPlay:needPlay];
 }
@@ -204,13 +204,11 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     [self logMessage:@"---------- 开始播放--------"];
 }
 
-
 - (void)configureAudioSeesion {
     NSError *error;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
     if (error) {
         [self logMessage:[NSString stringWithFormat:@"audio Session error :%@",error]];
-
     }
 }
 
@@ -222,7 +220,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 
 /// 准备好了，可以开始播放了，回调
 - (void)readlyToPlay {
-    
     if (self.delegate && [self.delegate respondsToSelector:@selector(readlyToPlay)]) {
         [self.delegate readlyToPlay];
     }
@@ -233,20 +230,18 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     if (self.delegate && [self.delegate respondsToSelector:@selector(playFinished)]) {
         [self.delegate playFinished];
     }
-    
 }
 
-
-
 // MARK: Websocket Delegate Methods
-    
 - (void)webSocketDidOpenNote {
     [self logMessage:@"sever 连接成功"];
+//    NSLog(@"websocket connect success:%@",@(CFAbsoluteTimeGetCurrent() - _transferTime));
+    _transferTime = CFAbsoluteTimeGetCurrent();
+    
     self.transferState = DBTransferStateStart;
     switch (self.transferMode) {
         case DBTransferModeMicro: {
             BOOL grant = [self reuestMicroGrant];
-            
             if (!grant) {
                 [self logMessage:@"未获取麦克风权限"];
                 [self delegateErrorCode:DBErrorStateMicrophoneNoGranted message:@"没有麦克风权限"];
@@ -271,8 +266,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
             [self logMessage:@"sever 连接成功"];
         }
             break;
-            
-            
     }
     [self delegateReadyToTransfer];
 }
@@ -280,27 +273,24 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 
 
 - (void)webSocketdidReceiveMessageNote:(id)object {
-    
     [self transferResponseData:object];
-    
 }
 
 - (void)webSocketDidCloseNote:(id)object {
     [self logMessage:@"服务器连接关闭"];
+    [self delegateColseSeverConnect];
+    
 }
 
 
 - (void)webSocketdidConnectFailed:(id)object {
-    
     if ([object isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dict = (NSDictionary *)object;
         if ([dict[@"code"] integerValue] == 90005) {
             [self delegateErrorCode:DBErrorStateFailedSocketConnect message:@"failed connect sever"];
             return;
         }
-        
     }
-    
     [self logMessage:@"服务器连接关闭"];
 }
 
@@ -308,11 +298,9 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 // MARK: DBAudioMicrophoneDelegate methods
 - (void)audioMicrophone:(DBAudioMicrophone *)microphone hasAudioPCMByte:(Byte *)pcmByte audioByteSize:(UInt32)byteSize {
     NSData*data = [[NSData alloc]initWithBytes:pcmByte length:byteSize];
-
     if (self.transferState == DBTransferStateDidEnd) {
         return;
     }
-    
     if (self.delegate && [self.delegate respondsToSelector:@selector(microphoneAudioData:isLast:)]) {
         if (self.transferState == DBTransferStateWillEnd) {
             [self.delegate microphoneAudioData:data isLast:YES];
@@ -320,14 +308,12 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
             [self.delegate microphoneAudioData:data isLast:NO];
         }
     }
-    
     if (self.transferState == DBTransferStateWillEnd) { // 如果准备结束了，不再继续回调数据
         self.transferState = DBTransferStateDidEnd;
         NSData*data = [[NSData alloc]initWithBytes:pcmByte length:byteSize];
         [self webSocketPostData:data isEnd:YES];
         return;
     }
-    
     [self webSocketPostData:data isEnd:NO];
 }
 
@@ -336,21 +322,18 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 }
 
 - (void)webSocketPostData:(NSData *)audioData isEnd:(BOOL)isEnd {
-    
+//    NSLog(@"websocket connect sendData:%@,lenth:%@",@(CFAbsoluteTimeGetCurrent() - _transferTime),@(audioData.length));
+    _transferTime = CFAbsoluteTimeGetCurrent();
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
-
     if (isEnd) {
         parameter[@"lastpkg"] = @(YES);
     }else {
         parameter[@"lastpkg"] = @(NO);
     }
-
     parameter[@"enable_vad"] = @(self.enableVad);
-    
+    parameter[@"align_input"] = @(self.align_input);
     parameter[@"voice_name"] = self.voiceName;
-    
     parameter[@"access_token"] = self.accessToken;
-    
     NSData *data = [self transferData:parameter audioData:audioData];
     [self.socketManager sendData:data];
 }
@@ -361,28 +344,24 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
             [self.delegate dbValues:grade];
         }
     });
-   
 }
 
 - (NSData *)transferData:(NSDictionary *)dict  audioData:(NSData *)audioData {
-    
     NSData *data = [[self dictionaryToJson:dict] dataUsingEncoding:NSUTF8StringEncoding];
-    
     Byte *headerData = malloc(4);
     headerData[0] = data.length >> 24 & 0xFF;
     headerData[1] = data.length >> 16 & 0xFF;
     headerData[2] = data.length >> 8  & 0xFF;
     headerData[3] = data.length       & 0xFF;
-    
     NSMutableData *joinedData = [NSMutableData dataWithBytes:headerData length:4];
     [joinedData appendData:data];
     [joinedData appendData:audioData];
     return joinedData;
-    
 }
 
 // MARK: --- 开始转换数据 ----
 - (void)transferResponseData:(NSData *)data {
+//    NSLog(@"websocket connect received raw data");
     if (data.length < 4 ) {
         [self delegateErrorCode:DBErrorStateParsing message:@"网络数据解析失败"];
         return;
@@ -401,11 +380,9 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     
     NSInteger location = 4 + dataLength;
     NSString *path = [self getSavePath:DBFileName];
-
     if (data.length - location > 0) {
         NSData *subData = [data subdataWithRange:NSMakeRange(location, data.length - location)];
         if (self.firstFlag) {
-            
             BOOL ret = [[NSFileManager defaultManager] fileExistsAtPath:path];
             if (ret) {
                 [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
@@ -420,13 +397,13 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
             [self logMessage:[NSString stringWithFormat:@"path:%@",path]];
         }
         
+//        NSLog(@"websocket connect received data:%@ ,dataLenth:%@",@(CFAbsoluteTimeGetCurrent() - _transferTime),@(subData.length));
+        _transferTime = CFAbsoluteTimeGetCurrent();
         [self delegateResponseData:subData lastFlag:model.lastpkg];
         if (self.transferMode == DBTransferModeFile && self.needPlay) {
             [self playAudioData:subData endFlag:model.lastpkg];
         }
     }
-  
-    
     
     if (model.lastpkg) {
         [self closedAudioResource];
@@ -440,8 +417,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 - (void)fileReadThreadFunc
 {
     while ([self.fileReadThread isCancelled] == NO) {
-        //间隔一定时长获取语音，模拟人的正常语速
-        [NSThread sleepForTimeInterval:0.01];
         self.fileHandle = [NSFileHandle fileHandleForReadingAtPath:self.filePath];
         if (!self.fileHandle) {
             [self logMessage:self.filePath];
@@ -462,13 +437,14 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
         }else {
             [self webSocketPostData:data isEnd:NO];
         }
+        //间隔一定时长获取语音，模拟人的正常语速
+        [NSThread sleepForTimeInterval:0.16];
     }
 }
 
 
 /// 获取音频保存的路径,转换后的音频数据
 -(NSString*)getSavePath:(NSString *)fileName {
-    
     NSString *filePath = [NSString stringWithFormat:@"audio_%@.pcm",fileName];
     NSString* fileUrlString = [self.audioDir stringByAppendingPathComponent:filePath];
     return fileUrlString;
@@ -518,6 +494,7 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     }
 }
     
+// MARK: delegate的回调方法
 - (void)delegateErrorCode:(NSInteger)code message:(NSString *)message {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.delegate && [self.delegate respondsToSelector:@selector(onError:message:)]) {
@@ -541,8 +518,17 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
             [self.delegate readyToTransfer];
         }
     });
-    
 }
+
+- (void)delegateColseSeverConnect {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onColseSeverConnect)]) {
+            [self.delegate onColseSeverConnect];
+        }
+    });
+}
+
+
 
 - (DBZSocketRocketUtility *)socketManager {
     if (!_socketManager) {
@@ -565,7 +551,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 - (DBRecordPCMDataPlayer *)player {
     if (!_player) {
         _player = [[DBRecordPCMDataPlayer alloc] init];
-//        _player.audioType = DBTTSAudioTypePCM16K;
         _player.delegate = (id)self;
     }
     return _player;
@@ -587,19 +572,15 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 }
 
 - (BOOL)reuestMicroGrant {
-    
     dispatch_semaphore_t waitMicrophonePermission = dispatch_semaphore_create(0);
-    
     __block BOOL hasMicrophonePermission = true;
-       if ([[AVAudioSession sharedInstance] respondsToSelector:@selector(requestRecordPermission:)]) {
-           [[AVAudioSession sharedInstance] performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
-               hasMicrophonePermission = granted;
-               dispatch_semaphore_signal(waitMicrophonePermission);
-            
-           }];
-           
-           dispatch_semaphore_wait(waitMicrophonePermission, DISPATCH_TIME_FOREVER);
-       }
+    if ([[AVAudioSession sharedInstance] respondsToSelector:@selector(requestRecordPermission:)]) {
+        [[AVAudioSession sharedInstance] performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
+            hasMicrophonePermission = granted;
+            dispatch_semaphore_signal(waitMicrophonePermission);
+        }];
+        dispatch_semaphore_wait(waitMicrophonePermission, DISPATCH_TIME_FOREVER);
+    }
     return hasMicrophonePermission;
 }
 + (NSString *)sdkVersion {

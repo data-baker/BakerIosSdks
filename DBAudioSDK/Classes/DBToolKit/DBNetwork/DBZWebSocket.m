@@ -595,6 +595,8 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
 
 - (void)send:(nullable id)message
 {
+    
+//    NSLog(@"websocket connect -- socket send");
     if (!message) {
         [self sendData:nil error:nil]; // Send Data, but it doesn't matter since we are going to send the same text frame with 0 length.
     } else if ([message isKindOfClass:[NSString class]]) {

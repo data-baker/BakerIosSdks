@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 // true代表启动服务端vad功能，默认false。如果启动系统会根据输入音频进行检测，过滤环境噪音。否则直接将原始输入音频进行转换。
 @property(nonatomic,assign)BOOL enableVad;
 
+// true代表输出音频与输入音频进行对齐,默认false。即开启vad时会保留静音部分，false丢弃静音部分
+@property(nonatomic,assign)BOOL align_input;
+
+
 // 发音人
 @property(nonatomic,copy)NSString * voiceName;
 

@@ -88,14 +88,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "5E51952E-2471-4651-825A-E2180B249D35 - 46b4c7ce8e5b6bb6"
+                  uuid = "5E51952E-2471-4651-825A-E2180B249D35 - c7c99d412f42a56"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[DBVPMatchReadVC matchOneResult]"
                   moduleName = "DBAudioSDKDemo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/linxi/DBAudioSDK_github/Example/DBAudioSDKDemo/DBAudioSDKDemo/DBVocalPrint/DBVPMatchReadVC.m"
+                  urlString = "file:///Users/linxi/DataBaker/AggregationSDK/DBAudioSDK_github/Example/DBAudioSDKDemo/DBAudioSDKDemo/DBVocalPrint/DBVPMatchReadVC.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "87"
@@ -103,14 +103,14 @@
                   offsetFromSymbolStart = "36">
                </Location>
                <Location
-                  uuid = "5E51952E-2471-4651-825A-E2180B249D35 - a4281e07480dd1f"
+                  uuid = "5E51952E-2471-4651-825A-E2180B249D35 - 408adffae82f9cbf"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__33-[DBVPMatchReadVC matchOneResult]_block_invoke"
                   moduleName = "DBAudioSDKDemo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/linxi/DBAudioSDK_github/Example/DBAudioSDKDemo/DBAudioSDKDemo/DBVocalPrint/DBVPMatchReadVC.m"
+                  urlString = "file:///Users/linxi/DataBaker/AggregationSDK/DBAudioSDK_github/Example/DBAudioSDKDemo/DBAudioSDKDemo/DBVocalPrint/DBVPMatchReadVC.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "88"
@@ -203,54 +203,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "469637F0-38C8-4F26-B8F0-707946E506A9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DBAudioSDKDemo/ASRGroup/DBASRVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
-            landmarkName = "-onError:message:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "38179535-69A5-42DC-8F0E-E7CD3561F157"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DBAudioSDKDemo/ASRGroup/DBASRVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "-identifyTheCallback:sentenceEnd:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F45269C2-9BE6-4819-9734-6961BBB27E86"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DBAudioSDKDemo/ASRGroup/DBASRVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "-identifyTheCallback:sentenceEnd:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "8E08137F-1ACC-4C0A-873C-0F1BCB20EA23"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -258,8 +210,8 @@
             filePath = "../../DBAudioSDK/Classes/DBOnlineTTSKit/DBSynthesizer.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "-webSocketdidReceiveMessageNote:"
             landmarkType = "7">
          </BreakpointContent>
@@ -274,8 +226,8 @@
             filePath = "../../DBAudioSDK/Classes/DBOnlineTTSKit/DBSynthesizer.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "-webSocketdidReceiveMessageNote:"
             landmarkType = "7">
          </BreakpointContent>
@@ -306,25 +258,9 @@
             filePath = "../../DBAudioSDK/Classes/DBToolKit/DBPlayer/DBPCMDataPlayer.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "-appendData:totalDatalength:endFlag:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1E132D33-A5EE-408C-8FFB-82B798CA99D5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../DBAudioSDK/Classes/DBToolKit/DBPlayer/DBPCMDataPlayer.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "-dataEnqueTheAudioBufferIndex:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -338,8 +274,8 @@
             filePath = "DBAudioSDKDemo/ASRGroup/DBASRLongVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
             landmarkName = "-onResult:"
             landmarkType = "7">
          </BreakpointContent>
@@ -354,42 +290,210 @@
             filePath = "../../DBAudioSDK/Classes/DBLongASRKit/DBFLongASRClient.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
             landmarkName = "-webSocketdidReceiveMessageNote:"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "BD670A1B-45CC-4303-9AF0-714281A19EA5 - 36d581c869d209ce"
+                  uuid = "BD670A1B-45CC-4303-9AF0-714281A19EA5 - 1f335f4268c5cdfb"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[DBFLongASRClient webSocketdidReceiveMessageNote:]"
                   moduleName = "DBAudioSDKDemo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/linxi/DBAudioSDK_github/DBAudioSDK/Classes/DBLongASRKit/DBFLongASRClient.m"
+                  urlString = "file:///Users/linxi/DataBaker/AggregationSDK/DBAudioSDK_github/DBAudioSDK/Classes/DBLongASRKit/DBFLongASRClient.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "183"
-                  endingLineNumber = "183"
+                  startingLineNumber = "198"
+                  endingLineNumber = "198"
                   offsetFromSymbolStart = "152">
                </Location>
                <Location
-                  uuid = "BD670A1B-45CC-4303-9AF0-714281A19EA5 - 2ef3c8f2c8ef5565"
+                  uuid = "BD670A1B-45CC-4303-9AF0-714281A19EA5 - 7151678c9f8916e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__51-[DBFLongASRClient webSocketdidReceiveMessageNote:]_block_invoke"
                   moduleName = "DBAudioSDKDemo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/linxi/DBAudioSDK_github/DBAudioSDK/Classes/DBLongASRKit/DBFLongASRClient.m"
+                  urlString = "file:///Users/linxi/DataBaker/AggregationSDK/DBAudioSDK_github/DBAudioSDK/Classes/DBLongASRKit/DBFLongASRClient.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "184"
-                  endingLineNumber = "184"
+                  startingLineNumber = "199"
+                  endingLineNumber = "199"
                   offsetFromSymbolStart = "32">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9632B5CE-01F4-463D-B9AF-4E7ED56150E8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DBAudioSDKDemo/DBVoiceTransfer/DBVoiceTransferVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "-readyToTransfer"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9C9FF14B-8FC4-483E-B505-77CF9DEF5FE7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../DBAudioSDK/Classes/DBToolKit/DBNetwork/DBZSocketRocketUtility.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "-webSocket:didCloseWithCode:reason:wasClean:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33DBF12F-3868-408F-9AD3-67A5DCBF58FA"
+            shouldBeEnabled = "No"
+            ignoreCount = "5"
+            continueAfterRunningActions = "No"
+            filePath = "DBAudioSDKDemo/DBVoiceTransfer/DBVoiceTransferVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "-onColseSeverConnect"
+            landmarkType = "7">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "901A9533-9900-40BC-A1DD-3C9046152216"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../DBAudioSDK/Classes/DBVoiceTransferKit/DBVoiceTransferUtil.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
+            landmarkName = "-fileReadThreadFunc"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB3A7E55-42A5-47BD-888F-42B2F452F88B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DBAudioSDKDemo/DBOfflineVoiceConvert/DBOfflineVoiceConvertVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "-onReadyForConvert"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A89CCF73-890C-4378-8F02-79E7C944B4B8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../DBAudioSDK/Classes/DBShortASRKit/DBFASRClient.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "-webSocketdidReceiveMessageNote:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "764B33C9-DADE-48DD-BDA4-7B97FBD25008"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../DBAudioSDK/Classes/DBShortASRKit/DBFASRClient.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "-startOneSpeechASR"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B0E08450-BB83-43CF-A6FD-4D683E2B680B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../DBAudioSDK/Classes/DBShortASRKit/DBFASRClient.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "-webSocketDidOpenNote"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A48AD208-832F-4A28-BC75-6F9B46AAD58A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DBAudioSDKDemo/ASRGroup/DBASRSettingVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "saveData(_:server:mes:mbs:version:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "14C64B4A-E947-474A-8578-68D49AF1B443"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DBAudioSDKDemo/ASRGroup/DBASRVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-resumeUserDefault"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

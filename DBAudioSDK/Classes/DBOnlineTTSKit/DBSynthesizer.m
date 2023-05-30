@@ -14,6 +14,7 @@
 #import "DBLogManager.h"
 
 NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/wss";
+//NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/tts/wsapi";
 
 @interface DBSynthesizer ()<DBZSocketCallBcakDelegate>
 

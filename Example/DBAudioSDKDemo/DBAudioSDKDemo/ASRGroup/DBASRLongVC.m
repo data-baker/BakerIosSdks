@@ -10,14 +10,17 @@
 //#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
 #import "DBUserInfoManager.h"
+#import "DBAudioSDKDemo-Swift.h"
+#import "DBTimeLogerUtil.h"
 
 
-@interface DBASRLongVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBFASRClientDelegate,UITextFieldDelegate>
+@interface DBASRLongVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBFASRClientDelegate,DBAsetSettingDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *modeTextField;
 @property (weak, nonatomic) IBOutlet UITextView *resultTextView;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *voiceImageView;
+@property (weak, nonatomic) IBOutlet UITextView *timeResultTV;
 
 @property (nonatomic, strong) DBFLongASRClient * asrAudioClient;
 // 数据相关
@@ -50,6 +53,8 @@
     [IQKeyboardManager sharedManager].enable = YES;
     [self addBorderOfView:self.resultTextView color:[UIColor lightGrayColor]];
     [self addBorderOfView:self.startButton color:[UIColor whiteColor]];
+    [self addBorderOfView:self.timeResultTV color:[UIColor lightGrayColor]];
+
 //    [self creatPickerView];
     
     self.asrAudioClient.delegate = self;
@@ -64,11 +69,12 @@
     NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
     [self.asrAudioClient setupClientId:clientId clientSecret:clientSecret];
     self.isStart = NO;
+    [self resumeUserDefault];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self startRecord:NO];
+    [self.asrAudioClient endLongASR];
 }
 
 
@@ -108,12 +114,30 @@
     view.layer.cornerRadius = 5.f;
     view.layer.masksToBounds =  YES;
 }
+- (void)resumeUserDefault {
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSString * server = [userDefault stringForKey:@"longServer"];
+    if(server.length == 0) {
+        server = [self.asrAudioClient currentServerAddress];
+        [userDefault setValue:server forKey:@"longServer"];
+    }
+    NSString *version = [userDefault stringForKey:@"longVersion"];
+    if(version.length == 0) {
+        version = @"1.0";
+        [userDefault setValue:version forKey:@"longVersion"];
+    }
+    [self updateAserWithLongAsr:server version:version];
+}
+
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSLog(@"%@-->prepareForSegue",[self class]);
+    DBASRSettingVC *settingVC = segue.destinationViewController;
+    settingVC.delegate = self;
+    settingVC.isLongAsr = YES;
 }
 
 #pragma mark -按钮的点击方法---------
@@ -143,8 +167,10 @@
         self.resultTextView.text = @"";
         self.lastText = @"";
         self.timeInteval = CFAbsoluteTimeGetCurrent();
+        [KTimeUtil logerASRStartTimeWithVendor:@"biaobei_asr"];
         [self.asrAudioClient startLongASR];
         self.startButton.selected = YES;
+        [self clearTimeResultView];
         [self logMessage:@"开始识别"];
         self.firstSentenceFlag = YES;
     }else { // 结束录音
@@ -152,7 +178,6 @@
         self.messageLabel.text = @"识别结束";
         self.startButton.selected = NO;
         [self logMessage:@"结束识别"];
-
     }
     self.voiceImageView.hidden = !isStart;
 }
@@ -181,7 +206,7 @@
 }
 
 - (void)onReady {
-    NSLog(@"已与后台连接,正式开始识别");
+    [self logMessage:@"已与后台连接,正式开始识别"];
     self.messageLabel.hidden = NO;
     self.messageLabel.text = @"开始识别";
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -193,12 +218,12 @@
 -(void)identifyTheCallback:(NSString *)message sentenceEnd:(BOOL)sentenceEnd {
     NSLog(@"message:%@ sentenceEnd:%@",message,@(sentenceEnd));
      
-    if (self.firstSentenceFlag) {
-        CFTimeInterval absoluteTime =  CFAbsoluteTimeGetCurrent() - self.timeInteval;
-        NSString *firstInstenceTime = [NSString stringWithFormat:@"首包返回时间absoluteTime:%@",@(absoluteTime)];
-        self.firstSentenceFlag = NO;
-        [self logMessage:firstInstenceTime];
-    }
+//    if (self.firstSentenceFlag) {
+//        CFTimeInterval absoluteTime =  CFAbsoluteTimeGetCurrent() - self.timeInteval;
+//        NSString *firstInstenceTime = [NSString stringWithFormat:@"尾包结束返回时间:%@",@(absoluteTime)];
+//        self.firstSentenceFlag = NO;
+//        [self logMessage:firstInstenceTime];
+//    }
     
 
     NSString *appendText = [self.lastText stringByAppendingString:[NSString stringWithFormat:@"%@",message]];
@@ -206,13 +231,13 @@
     [self.resultTextView scrollRangeToVisible:NSMakeRange(self.resultTextView.text.length, 1)];
     if (sentenceEnd) {
         self.lastText = [self.lastText stringByAppendingString:message];
+        [self appenText:[NSString stringWithFormat:@"消耗时间：%.3f",KTimeUtil.getAsrTotalTime]];
     }
-    
+    [self appenText:@"识别中"];
     if (self.startButton.isSelected == NO) {
         self.messageLabel.text = @"识别结束";
     }else {
         self.messageLabel.text = @"识别中...";
-
     }
 }
 
@@ -248,33 +273,32 @@
 
 
 -(void)dbValues:(NSInteger)db {
-    NSLog(@"dbValue:%@",@(db));
-    
     NSUInteger volumeDB = db;
     static NSInteger index = 0;
     index++;
-    if (index == 1) {
+    if (index == 2) {
         index = 0;
     }else {
         return;
     }
+    NSString *imageName = @"5";
     if (volumeDB < 30) {
-        self.voiceImageView.image = [UIImage imageNamed:@"1"];
+        imageName = @"1";
     }else if (volumeDB < 40) {
-        self.voiceImageView.image = [UIImage imageNamed:@"2"];
+        imageName = @"2";
     }else if (volumeDB < 50) {
-        self.voiceImageView.image = [UIImage imageNamed:@"3"];
+        imageName = @"3";
     }else if (volumeDB < 55) {
-        self.voiceImageView.image = [UIImage imageNamed:@"4"];
+        imageName = @"4";
     }else if (volumeDB < 60) {
-        self.voiceImageView.image = [UIImage imageNamed:@"5"];
+        imageName = @"4";
     }else if (volumeDB < 70) {
-        self.voiceImageView.image = [UIImage imageNamed:@"6"];
+        imageName = @"5";
     }else if (volumeDB < 80) {
-        self.voiceImageView.image = [UIImage imageNamed:@"7"];
-    }else{
-        self.voiceImageView.image = [UIImage imageNamed:@"8"];
+        imageName = @"5";
     }
+    self.voiceImageView.image = [UIImage imageNamed:imageName];
+    
 }
 
 #pragma mark - pickerViewDelegate&dataSource
@@ -328,6 +352,37 @@
     return YES;
 }
 
+// MARK: DBASRSettingDeleagte
+
+- (void)updateAserWithLongAsr:(NSString *)server version:(NSString *)version {
+    if (server.length == 0) {
+        return;
+    }
+    [self.asrAudioClient setupURL:server];
+    self.asrAudioClient.version = version;
+}
+
+// MARK: time result Time
+
+- (void)clearTimeResultView {
+    UITextView *tv = self.timeResultTV;
+    tv.text = @"";
+    tv.hidden = YES;
+    
+}
+- (void)appenText:(NSString *)text {
+    if (text.length <= 0) {
+        return;
+    }
+    UITextView *tv = self.timeResultTV;
+    tv.hidden = false;
+    NSString *timeText = self.timeResultTV.text;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss SSS"];
+    NSString *time = [formatter stringFromDate:[NSDate date]];
+    tv.text = [timeText stringByAppendingFormat:@"%@:%@\n",time,text];
+    [tv scrollRangeToVisible:NSMakeRange(tv.text.length - 1, 1)];
+}
 
 - (DBFLongASRClient *)asrAudioClient {
     if (!_asrAudioClient) {
@@ -341,6 +396,7 @@
 -(void)logMessage:(NSString *)message {
     NSLog(@"message:%@",message);
     [DBLogManager saveCriticalSDKRunData:message];
+    [self appenText:message];
 }
     
 - (void)testFlightLight {

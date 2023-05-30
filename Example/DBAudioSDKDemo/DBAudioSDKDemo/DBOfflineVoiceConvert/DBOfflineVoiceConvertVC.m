@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *voiceTextField;
 @property (weak, nonatomic) IBOutlet UIButton *startTransferButton;
 @property (weak, nonatomic) IBOutlet UIImageView *voiceImageView;
-
 /// 声音转换的client
 @property(nonatomic,strong)DBOfflineConvertVoiceClient * convertClient;
 
@@ -139,7 +138,6 @@
 
 -(void)creatPickerView {
     CGFloat width = self.view.frame.size.width;
-    
     UIPickerView  * pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 0, width, 150)];
     pickerView.delegate = self;
     pickerView.dataSource = self;
@@ -163,9 +161,6 @@
     //将取消按钮，一个空白的填充item和一个确定按钮放入toolBar
     [toolBar setItems:[NSArray arrayWithObjects:cancleButton,[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],doneButton, nil]];
 }
-
-
-
 
 #pragma mark -toolBarBarItem的方法
 -(void)doneTouched:(UIBarButtonItem *)sender{

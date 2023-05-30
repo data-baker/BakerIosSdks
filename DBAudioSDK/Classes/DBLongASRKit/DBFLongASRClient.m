@@ -38,6 +38,8 @@ static NSString * LongTimeASRSDKStart = @"LongTimeASRSDKStart";
 
 static NSString * DBLongTimeASRUDID = @"DBLongTimeASRUDID";
 
+static NSString *KLongAsr = @"wss://asr.data-baker.com/longspeech";
+
 typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     DBLongTimeASRUploadLogTypeInstall = 1, // 上传安装统计
     DBLongTimeASRUploadLogTypeStart = 2, // 上传每日打开统计
@@ -134,8 +136,21 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 
 // MARK: Publice Methods --
 - (void)setupURL:(NSString *)url {
+    if([url isEqualToString:self.socketURL]) {
+        return;
+    }
+    if (url.length == 0) { // 验证url是否合法
+        [self.delegate onError:10003 message:@"set url failed"];
+        return;
+    }
     self.socketURL = url;
     [self logMessage:@"私有化部署url"];
+}
+- (NSString *)currentServerAddress {
+    if (self.socketURL.length == 0) {
+        return KLongAsr;
+    }
+    return self.socketURL;
 }
 
 - (void)startLongASR {
@@ -145,7 +160,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     self.idx = 0;
     self.socketManager.timeOut = 6;
     if (self.socketURL.length == 0) {
-        self.socketURL = @"wss://asr.data-baker.com/longspeech";
+        self.socketURL = KLongAsr;
     }
     self.asrState = DBAsrStateInit;
     [self.socketManager DBZWebSocketOpenWithURLString:self.socketURL];
@@ -299,7 +314,10 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     }
     
     self.onlineRecognizeParameters[@"asr_params"] = parameter;
-    self.onlineRecognizeParameters[@"version"] = @"1.0";
+    if (!self.version) {
+        self.version = @"1.0";
+    }
+    self.onlineRecognizeParameters[@"version"] = self.version;
     self.onlineRecognizeParameters[@"access_token"] = self.accessToken;
     
     NSString *paramString = [self dictionaryToJson:self.onlineRecognizeParameters];

@@ -54,7 +54,7 @@
 - (void)showLogInVCWithTitle:(NSString *)title identifier:(NSString *)identifier sender:(id)sender {
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     DBLoginVC *loginVC  =   [story instantiateViewControllerWithIdentifier:@"DBLoginVC"];
-    loginVC.subtitle = title;
+    loginVC.sdkName = title;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
     loginVC.handler = ^{
         dispatch_semaphore_signal(semaphore);

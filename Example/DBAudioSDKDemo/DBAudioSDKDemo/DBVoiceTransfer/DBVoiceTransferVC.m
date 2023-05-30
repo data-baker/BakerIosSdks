@@ -10,11 +10,19 @@
 #import "XCHudHelper.h"
 #import "UIView+Toast.h"
 #import "DBLoginVC.h"
+#import <AVKit/AVKit.h>
+#import "DBTimeLogerUtil.h"
+#import "DBLogManager.h"
+
 
 
 static NSString *DBAudioMicroData = @"audioMicroData";
 
 @interface DBVoiceTransferVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBTransferProtocol>
+{
+    CFAbsoluteTime startTime;
+    BOOL startLog;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *desLabel;
 @property (weak, nonatomic) IBOutlet UILabel *msgLabel;
@@ -22,11 +30,8 @@ static NSString *DBAudioMicroData = @"audioMicroData";
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *fileButton;
 @property (weak, nonatomic) IBOutlet UIImageView *voiceImageView;
-
 @property(nonatomic,strong)NSArray * pickerArray;
-
 @property (nonatomic, strong)DBVoiceTransferUtil * voiceTransferUtil;
-
 /// 麦克风采集的数据
 @property(nonatomic,strong)NSMutableData * micAudioData;
 
@@ -46,21 +51,18 @@ static NSString *DBAudioMicroData = @"audioMicroData";
 - (void)setupAuthorInfo {
     NSString *clientId = [DBUserInfoManager shareManager].clientId;
     NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
-  
-    
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
     [[DBVoiceTransferUtil shareInstance] setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nullable token, NSError * _Nullable error) {
-            if (error) {
-                [[XCHudHelper sharedInstance] hideHud];
-                NSLog(@"获取token失败:%@",error);
-                NSString *msg = [NSString stringWithFormat:@"获取token失败:%@",error.description];
-                [self.view makeToast:msg duration:2 position:CSToastPositionCenter];
-                return;
-            }
+        if (error) {
             [[XCHudHelper sharedInstance] hideHud];
-            [self dismissViewControllerAnimated:YES completion:nil];
-
-        }];
+            NSLog(@"获取token失败:%@",error);
+            NSString *msg = [NSString stringWithFormat:@"获取token失败:%@",error.description];
+            [self.view makeToast:msg duration:2 position:CSToastPositionCenter];
+            return;
+        }
+        [[XCHudHelper sharedInstance] hideHud];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 
@@ -72,7 +74,6 @@ static NSString *DBAudioMicroData = @"audioMicroData";
 
 -(void)creatPickerView  {
     CGFloat width = self.view.frame.size.width;
-    
     UIPickerView  * pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 0, width, 150)];
     pickerView.delegate = self;
     pickerView.dataSource = self;
@@ -106,13 +107,32 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     if (isStart) {
         [self.micAudioData resetBytesInRange:NSMakeRange(0, self.micAudioData.length)];
         self.micAudioData = [NSMutableData data];
-        [self.voiceTransferUtil startTransferNeedPlay:YES];
+        BOOL needPlay = YES;
+        [self.voiceTransferUtil startTransferNeedPlay:needPlay];
+        if (needPlay) {
+            [self setupAudioSession];
+        }
     }else {
         self.voiceImageView.hidden = YES;
         [self.voiceTransferUtil endTransferAndCloseSocket];
     }
     [self setButton:self.fileButton enable:!isStart];
-    
+}
+
+- (void)setupAudioSession {
+    NSError *error;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    if (error) {
+        NSLog(@"audio session error:%@",error);
+    }
+}
+
+- (void)setupAudioSessionOnlyPlay {
+    NSError *error;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+    if (error) {
+        NSLog(@"audio session error:%@",error);
+    }
 }
 
 
@@ -121,8 +141,14 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     button.selected = !button.isSelected;
     if (button.isSelected) {
         [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"文件转换中..." image:nil acitivity:YES autoHideTime:0];
-
-        [self.voiceTransferUtil startTransferWithFilePath:[self.voiceTransferUtil getSavePath:DBAudioMicroData] needPaley:YES];
+        startTime = CFAbsoluteTimeGetCurrent();
+        startLog = YES;
+        NSLog(@"start time:%@",@(startTime));
+        BOOL needPlay = NO;
+        [self.voiceTransferUtil startTransferWithFilePath:[self.voiceTransferUtil getSavePath:DBAudioMicroData] needPaley:needPlay];
+        if (needPlay) {
+            [self setupAudioSessionOnlyPlay];
+        }
     }else {
         [self.voiceTransferUtil endFileTransferAndCloseSocket];
     }
@@ -177,25 +203,7 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     self.voiceTransferUtil.voiceName = self.pickerArray[row];
 }
 
-- (void)onError:(NSInteger)code message:(NSString *)message {
-    
-    if (code == DBErrorStateParsing) {
-        [self setupAuthorInfo];
-        return;
-    }
 
-    NSString *desMessage = [NSString stringWithFormat:@"code:%@ message:%@",@(code),message];
-    
-    [self.view makeToast:desMessage duration:2 position:CSToastPositionCenter];
-    
-    self.voiceImageView.hidden = YES;
-    self.startButton.selected = NO;
-    self.fileButton.selected = NO;
-    [[XCHudHelper sharedInstance] hideHud];
-    
-    [self setButton:self.startButton enable:YES];
-    [self setButton:self.fileButton enable:YES];
-}
 
 
 - (void)microphoneAudioData:(NSData *)data isLast:(BOOL)isLast {
@@ -214,12 +222,7 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     }
 }
 
-- (void)readyToTransfer {
-    NSLog(@"开始声音转换");
-    if (self.startButton.isSelected) {
-        self.voiceImageView.hidden = NO;
-    }
-}
+
 
 
 - (void)dbValues:(NSInteger)db {
@@ -250,15 +253,64 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     }
 }
 
+- (void)readyToTransfer {
+    [KTimeUtil logTransferStart];
+    NSLog(@"开始声音转换");
+    if (self.startButton.isSelected) {
+        self.voiceImageView.hidden = NO;
+    }
+}
+
 - (void)transferCallBack:(NSData *)data isLast:(BOOL)isLast {
-    NSLog(@"dataLength:%@ isLast:%@,",@(data.length),@(isLast));
+    // MARK: --- 测试连接时长的代码
+    if(KTimeUtil.isComplete) {
+        return;
+    }
+    if(KTimeUtil.isLogTime == NO) {
+        [KTimeUtil logerPackageTime];
+        [self.voiceTransferUtil endFileTransferAndCloseSocket];
+    }
+    // MARK: --- end
     
+    NSLog(@"dataLength:%@ isLast:%@,",@(data.length),@(isLast));
+    if (startLog) {
+        NSLog(@"start time - 02:%@",@(CFAbsoluteTimeGetCurrent() - startTime));
+        startLog = NO;
+    }
     self.fileButton.selected = NO;
     [self setButton:self.startButton enable:YES];
     [[XCHudHelper sharedInstance] hideHud];
-    
-    
 }
+
+- (void)onError:(NSInteger)code message:(NSString *)message {
+    if (code == DBErrorStateParsing) {
+        [self setupAuthorInfo];
+        return;
+    }
+
+    NSString *desMessage = [NSString stringWithFormat:@"code:%@ message:%@",@(code),message];
+    // 保存信息到本地日志
+    [DBLogManager saveCriticalSDKRunData:desMessage];
+    NSLog(@"error message:%@",desMessage);
+    
+    [self.view makeToast:desMessage duration:2 position:CSToastPositionCenter];
+    self.voiceImageView.hidden = YES;
+    self.startButton.selected = NO;
+    self.fileButton.selected = NO;
+    [[XCHudHelper sharedInstance] hideHud];
+    
+    [self setButton:self.startButton enable:YES];
+    [self setButton:self.fileButton enable:YES];
+}
+
+
+- (void)onColseSeverConnect {
+    [self.voiceTransferUtil startTransferWithFilePath:[self.voiceTransferUtil getSavePath:DBAudioMicroData] needPaley:true];
+
+}
+
+
+// MARK: Play Method
 
 - (void)readlyToPlay {
     NSLog(@"%s readlyToPlay",__func__);
@@ -284,7 +336,8 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     if (!_voiceTransferUtil) {
         _voiceTransferUtil = [DBVoiceTransferUtil shareInstance];
         _voiceTransferUtil.log = YES;
-//        _voiceTransferUtil.voiceName = self.pickerArray.firstObject;
+        _voiceTransferUtil.enableVad = NO;
+        _voiceTransferUtil.align_input = NO;
         _voiceTransferUtil.voiceName = @"Vc_jingjing";
         _voiceTransferUtil.delegate = self;
     }

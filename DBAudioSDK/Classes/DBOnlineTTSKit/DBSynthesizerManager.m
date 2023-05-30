@@ -58,12 +58,9 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
 /// 播放器
 @property(nonatomic,strong)DBSynthesisPlayer * synthesisDataPlayer;
 
-
-
 @end
 
 @implementation DBSynthesizerManager
-
 
 
 -(instancetype)init {
@@ -400,9 +397,7 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     }
 }
 
-
 //MARK: player Delegate
-
 
 - (void)readlyToPlay {
     if (self.synthesisDataPlayer.isReadyToPlay && self.synthesisDataPlayer.isPlayerPlaying == NO) {
