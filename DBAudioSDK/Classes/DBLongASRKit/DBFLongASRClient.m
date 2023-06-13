@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     DBAsrStateDidEnd = 3  // 结束
 };
 
-static NSString * LongTimeASRSDKVersion = @"1.0.81";
+static NSString * LongTimeASRSDKVersion = @"1.0.9";
 
 static NSString * LongTimeASRSDKInstallation = @"LongTimeASRSDKInstallation";
 
@@ -38,8 +38,9 @@ static NSString * LongTimeASRSDKStart = @"LongTimeASRSDKStart";
 
 static NSString * DBLongTimeASRUDID = @"DBLongTimeASRUDID";
 
-//static NSString *KLongAsr = @"wss://asr.data-baker.com/longspeech";
-static NSString *KLongAsr = @"ws://10.10.50.61:51535";
+static NSString *KLongAsr = @"wss://asr.data-baker.com/longspeech";
+// dev
+//static NSString *KLongAsr = @"ws://10.10.50.61:51535";
 
 typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     DBLongTimeASRUploadLogTypeInstall = 1, // 上传安装统计

@@ -10,14 +10,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import "DBVoiceEngraverEnumerte.h"
 #import "DBEngraverAudioMicrophone.h"
-//#import "DBAudioMicrophone.h"
 #import "DBEngraverNetworkHelper.h"
-//#import <DBCommon/DBZSocketRocketUtility.h>
 #import "DBZSocketRocketUtility.h"
 #import "DBParamsDelegate.h"
 #import "DBRecordPCMDataPlayer.h"
 
-static NSString *sdkVersion = @"1.0.81";
+static NSString *sdkVersion = @"1.0.9";
 
 @interface DBVoiceEngraverManager ()<DBAudioMicrophoneDelegate,DBRecordPCMDataPlayerDelegate,DBUpdateTokenDelegate,DBZSocketCallBcakDelegate>
 

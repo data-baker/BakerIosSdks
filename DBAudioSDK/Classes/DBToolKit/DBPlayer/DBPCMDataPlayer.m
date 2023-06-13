@@ -71,7 +71,6 @@
 //        [session setActive:YES error:nil];
 //        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
         
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVAudioSessionInterruptionNotification:) name:AVAudioSessionInterruptionNotification object:session];
         
         // 设置音量

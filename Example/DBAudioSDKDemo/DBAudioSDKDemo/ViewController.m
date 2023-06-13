@@ -25,12 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//#ifdef DEBUG
-//    [[DoraemonManager shareInstance] installWithPid:@"749a0600b5e48dd77cf8ee680be7b1b7"];//productId为在“平台端操作指南”中申请的产品id
-//    
-//    [[DoraemonManager shareInstance] addPluginWithTitle:DoraemonDemoLocalizedString(@"测试插件") icon:@"doraemon_default" desc:DoraemonDemoLocalizedString(@"测试插件") pluginName:@"TestPlugin" atModule:DoraemonDemoLocalizedString(@"业务工具")];
-//#endif
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
@@ -43,7 +37,6 @@
     if (!manager.clientId || !manager.clientSecret || ![manager.sdkType isEqualToString:title]) {
         [self showLogInVCWithTitle:title identifier:identifier sender:sender];
     }
-    
     return YES;
     
 }

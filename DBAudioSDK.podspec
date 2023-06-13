@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "DBAudioSDK"
-  spec.version      = "1.0.81"
+  spec.version      = "1.0.9"
   spec.summary      = "标贝科技语音SDK库"
 
   spec.description  = <<-DESC
@@ -38,7 +38,6 @@ Pod::Spec.new do |spec|
 
   # spec.vendored_frameworks   = 'DBAudioSDK/Classes/DBCommonLib/*.framework'
   spec.source_files = 'DBAudioSDK/Classes/DBToolKit/**/*.{h,m}'
-
   spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
   spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' } 
  

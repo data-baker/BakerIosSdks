@@ -7,7 +7,6 @@
 #import "IQKeyboardManager.h"
 #import "DBFLongASRClient.h"
 #import "UIView+Toast.h"
-//#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
 #import "DBUserInfoManager.h"
 #import "DBAudioSDKDemo-Swift.h"
@@ -89,9 +88,6 @@
     UIToolbar  *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, width, 44)];
     
     //设置toolBar的样式
-    //toolbar.barStyle = UIBarStyleDefault;
-    
-    /***必要步骤****/
     self.modeTextField.inputView = pickerView;
     self.modeTextField.inputAccessoryView = toolBar;
     
@@ -412,8 +408,4 @@
     [self startRecord:YES];
 }
     
-// segue Methods
-
-
-
 @end

@@ -14,8 +14,6 @@
 #import "DBTimeLogerUtil.h"
 #import "DBLogManager.h"
 
-
-
 static NSString *DBAudioMicroData = @"audioMicroData";
 
 @interface DBVoiceTransferVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBTransferProtocol>
@@ -46,7 +44,6 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     [self setupSubView];
     [self setupAuthorInfo];
 }
-
 
 - (void)setupAuthorInfo {
     NSString *clientId = [DBUserInfoManager shareManager].clientId;
@@ -116,7 +113,7 @@ static NSString *DBAudioMicroData = @"audioMicroData";
         self.voiceImageView.hidden = YES;
         [self.voiceTransferUtil endTransferAndCloseSocket];
     }
-    [self setButton:self.fileButton enable:!isStart];
+//    [self setButton:self.fileButton enable:!isStart];
 }
 
 - (void)setupAudioSession {
@@ -144,11 +141,8 @@ static NSString *DBAudioMicroData = @"audioMicroData";
         startTime = CFAbsoluteTimeGetCurrent();
         startLog = YES;
         NSLog(@"start time:%@",@(startTime));
-        BOOL needPlay = NO;
+        BOOL needPlay = YES;
         [self.voiceTransferUtil startTransferWithFilePath:[self.voiceTransferUtil getSavePath:DBAudioMicroData] needPaley:needPlay];
-        if (needPlay) {
-            [self setupAudioSessionOnlyPlay];
-        }
     }else {
         [self.voiceTransferUtil endFileTransferAndCloseSocket];
     }
@@ -268,7 +262,7 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     }
     if(KTimeUtil.isLogTime == NO) {
         [KTimeUtil logerPackageTime];
-        [self.voiceTransferUtil endFileTransferAndCloseSocket];
+//        [self.voiceTransferUtil endFileTransferAndCloseSocket];
     }
     // MARK: --- end
     
@@ -298,14 +292,14 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     self.startButton.selected = NO;
     self.fileButton.selected = NO;
     [[XCHudHelper sharedInstance] hideHud];
-    
     [self setButton:self.startButton enable:YES];
     [self setButton:self.fileButton enable:YES];
 }
 
 
 - (void)onColseSeverConnect {
-    [self.voiceTransferUtil startTransferWithFilePath:[self.voiceTransferUtil getSavePath:DBAudioMicroData] needPaley:true];
+    NSLog(@"声音转换关闭");
+//    [self.voiceTransferUtil startTransferWithFilePath:[self.voiceTransferUtil getSavePath:DBAudioMicroData] needPaley:true];
 
 }
 

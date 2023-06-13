@@ -19,6 +19,7 @@
 
 @end
 
+// 录音器，audioQueue的方式驱动
 @interface DBEngraverAudioMicrophone : NSObject
 @property (nonatomic, assign) double sampleRate;
 @property (nonatomic, assign) AudioStreamBasicDescription audioDescription; //音频输出参数

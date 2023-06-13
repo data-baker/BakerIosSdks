@@ -111,12 +111,12 @@
 //    if (![[NSString stringWithFormat:@"%@",model.modelStatus] isEqualToString:@"6"]) {
 //        [self.view makeToast:@"请训练成功后再试" duration:2 position:CSToastPositionCenter];
 //        return ;
-//
 //    }
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"DBVoiceExperience" bundle:[NSBundle mainBundle]];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     DBVoiceExperienceVC *experienceVC  =  [story instantiateViewControllerWithIdentifier:@"DBVoiceExperienceVC"];
     experienceVC.voiceModel = model;
     [self.navigationController pushViewController:experienceVC animated:YES];
+    
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {

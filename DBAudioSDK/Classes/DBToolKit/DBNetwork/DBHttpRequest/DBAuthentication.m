@@ -11,7 +11,7 @@
 
 // TODO: 鉴权地址
 #ifndef DBRelease
-#define DBRelease 0
+#define DBRelease 1
 #endif
 
 #if DBRelease
@@ -21,7 +21,6 @@
 #endif
 
 #define getTokenURL [NSString stringWithFormat:@"%@/oauth/2.0/token",baseURL]
-
 
 
 //static  NSString *const getTokenURL = @"https://openapi.data-baker.com/oauth/2.0/token";

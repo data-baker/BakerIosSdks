@@ -16,7 +16,7 @@
 #import "DBResponseModel.h"
 
 
-static NSString * OneSpeechASRSDKVersion = @"1.0.81";
+static NSString * OneSpeechASRSDKVersion = @"1.0.9";
 
 static NSString * OneSpeechASRSDKInstallation = @"OneSpeechASRSDKInstallation";
 
@@ -24,9 +24,9 @@ static NSString * OneSpeechASRSDKStart = @"OneSpeechASRSDKStart";
 
 static NSString * DBOneSpeechASRUDID = @"DBOneSpeechASRUDID";
 
-//static NSString *KAsrServer = @"wss://asr.data-baker.com/";
+static NSString *KAsrServer = @"wss://asr.data-baker.com/";
 
-static NSString *KAsrServer = @"ws://10.10.50.61:56530/";
+//static NSString *KAsrServer = @"ws://10.10.50.61:56530/";
 
 
 typedef NS_ENUM(NSUInteger, DBASRUploadLogType){

@@ -180,7 +180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erJ-OG-aSh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="697" y="731"/>
+            <point key="canvasLocation" x="529" y="690"/>
         </scene>
         <!--语音识别-->
         <scene sceneID="nDX-eV-Lxp">
@@ -1091,7 +1091,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </objects>
-            <point key="canvasLocation" x="2199" y="804"/>
+            <point key="canvasLocation" x="1593" y="682"/>
         </scene>
         <!--声音体验-->
         <scene sceneID="0Q4-vV-fYs">
@@ -1203,12 +1203,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VE7-uS-PxU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3014" y="775"/>
+            <point key="canvasLocation" x="2622" y="688"/>
         </scene>
         <!--声音复刻-->
         <scene sceneID="CDz-lF-FoK">
             <objects>
-                <viewController title="声音复刻" id="2TM-ca-sCz" customClass="ViewController" sceneMemberID="viewController">
+                <viewController title="声音复刻" id="2TM-ca-sCz" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="E1N-Rf-8Gu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1241,7 +1241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nTa-HH-feY" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="697" y="1624"/>
+            <point key="canvasLocation" x="535" y="1583"/>
         </scene>
         <!--噪声检测-->
         <scene sceneID="ubp-OA-kSQ">
@@ -1324,7 +1324,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bwC-ug-mzA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1796" y="1644"/>
+            <point key="canvasLocation" x="1774" y="1590"/>
         </scene>
         <!--第二步：声音录制-->
         <scene sceneID="XqB-BK-LV4">

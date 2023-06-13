@@ -8,20 +8,15 @@
 
 #import "DBSynthesizerManager.h"
 #import "DBTextSplitUtil.h"
-//#import <DBCommon/DBSynthesisPlayer.h>
 #import "DBSynthesisPlayer.h"
-//#import <DBCommon/DBNetworkHelper.h>
 #import "DBNetworkHelper.h"
-//#import <DBCommon/DBAuthentication.h>
 #import "DBAuthentication.h"
-//#import <DBCommon/DBUncaughtExceptionHandler.h>
 #import "DBUncaughtExceptionHandler.h"
 #import "DBSynthesizer.h"
-//#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
 
 // TODO:更新前修改版本号
-static NSString * TTSSDKVersion = @"1.0.81";
+static NSString * TTSSDKVersion = @"1.0.9";
 
 static NSString * TTSSDKInstallation = @"TTSSDKInstallation";
 
@@ -447,12 +442,10 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     [self setupClientId:self.clientId clientSecret:self.clientSecret handler:handler];
 }
 
-
-
 // base64编码
 -(NSString *)base64EncodeString:(NSString *)baseString {
-    NSString *encodeString = [baseString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSData *data = [encodeString dataUsingEncoding:NSUTF8StringEncoding];
+//    NSString *encodeString = [baseString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSData *data = [baseString dataUsingEncoding:NSUTF8StringEncoding];
     NSString *base64EncodeString = [data base64EncodedStringWithOptions:0]; //编码
     return base64EncodeString;
 }

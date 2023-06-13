@@ -20,9 +20,10 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
     DBAudioSDKTypeVoiceEngraver, // voice Engraver
 };
 
-//#error  请联系标贝科技获取clientId 和clientSecret, 注意不同的服务使用不同的授权clientId和clientSecret
-//static NSString *clientId = @"XXX";
-//static NSString *clientSecret = @"XXX";
+#warning  请联系标贝科技获取clientId 和clientSecret, 注意不同的服务使用不同的授权clientId和clientSecret
+
+static NSString *KClientId = @"xxx";
+static NSString *KClientSecret = @"xxx";
 
 #define KUserDefalut [NSUserDefaults standardUserDefaults]
 
@@ -68,6 +69,8 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
         self.clientIdTextField.text = clientId;
         self.clientSecretTextField.text = clientSecret;
     }else {
+        self.clientIdTextField.text = KClientId;
+        self.clientSecretTextField.text = KClientSecret;
         [ud removeObjectForKey:key];
     }
 }

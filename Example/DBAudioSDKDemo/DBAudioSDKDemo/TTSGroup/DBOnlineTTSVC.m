@@ -47,24 +47,20 @@ static NSString * textViewText = @"标贝（北京）科技有限公司，简称
     _synthesizerManager.delegate = self;
     _synthesizerManager.playerDelegate = self;
     //TODO: 如果使用私有化部署,按如下方式设置URL,否则设置setupClientId：clientSecret：的方法进行授权
-http://10.10.50.18:18100/tts?domain=1&access_token=default&voice_name=Jiaojiao&language=zh&text=您好，帮您查询到车牌号&audiotype=6
-//   [_synthesizerManager setupPrivateDeploymentURL:@"ws://10.10.50.18:19008/tts/wsapi"];
-   [_synthesizerManager setupPrivateDeploymentURL:@"wss://42.81.56.33/tts/wsapi"];
-    // TODO: 请在此处设置授权信息
-//    NSString *clientId = [DBUserInfoManager shareManager].clientId;
-//    NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
-//
-//    [_synthesizerManager setupClientId:clientId clientSecret:clientSecret handler:^(BOOL ret, NSString *message) {
-//        if (ret) {
-//            NSLog(@"鉴权成功");
-//        }else {
-//            NSLog(@"鉴权失败");
-//        }
-//    }];
+//http://10.10.50.18:18100/tts?domain=1&access_token=default&voice_name=Jiaojiao&language=zh&text=您好，帮您查询到车牌号&audiotype=6
+//   [_synthesizerManager setupPrivateDeploymentURL:@"wss://42.81.56.33/tts/wsapi"];
+    NSString *clientId = [DBUserInfoManager shareManager].clientId;
+    NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
+    [_synthesizerManager setupClientId:clientId clientSecret:clientSecret handler:^(BOOL ret, NSString *message) {
+        if (ret) {
+            NSLog(@"鉴权成功");
+        }else {
+            NSLog(@"鉴权失败");
+        }
+    }];
     
 }
 // MARK: IBActions
-
 - (IBAction)startAction:(id)sender {
     // 先清除之前的数据
     [self resetPlayState];
