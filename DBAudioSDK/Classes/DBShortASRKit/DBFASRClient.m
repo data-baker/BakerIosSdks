@@ -16,7 +16,7 @@
 #import "DBResponseModel.h"
 
 
-static NSString * OneSpeechASRSDKVersion = @"1.0.9";
+static NSString * OneSpeechASRSDKVersion = @"1.0.90";
 
 static NSString * OneSpeechASRSDKInstallation = @"OneSpeechASRSDKInstallation";
 

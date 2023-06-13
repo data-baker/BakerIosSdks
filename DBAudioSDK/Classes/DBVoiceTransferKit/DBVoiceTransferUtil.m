@@ -15,7 +15,7 @@
 
 static NSString *DBErrorDomain = @"com.BiaoBeri.DBVoiceTransferUtil";
 static NSString *DBFileName = @"transferPCMFile";
-static NSString *sdkVersion = @"1.0.9";
+static NSString *sdkVersion = @"1.0.90";
 
 typedef NS_ENUM(NSUInteger,DBTransferState) {
     DBTransferStateInit  = 0, // 初始化

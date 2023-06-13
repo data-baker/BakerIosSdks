@@ -12,7 +12,7 @@
 #import "DBRegisterAudioModel.h"
 
 
-static NSString *vocalPrintSDKVersion = @"1.0.9";
+static NSString *vocalPrintSDKVersion = @"1.0.90";
 
 /// 创建声纹验证
 static NSString *VPCreateIdURL = @"https://openapi.data-baker.com/vpr/createid";

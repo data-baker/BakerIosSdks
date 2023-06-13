@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "DBAudioSDK"
-  spec.version      = "1.0.9"
+  spec.version      = "1.0.90"
   spec.summary      = "标贝科技语音SDK库"
 
   spec.description  = <<-DESC

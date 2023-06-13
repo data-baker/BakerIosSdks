@@ -16,7 +16,7 @@
 #import "DBLogManager.h"
 
 // TODO:更新前修改版本号
-static NSString * TTSSDKVersion = @"1.0.9";
+static NSString * TTSSDKVersion = @"1.0.90";
 
 static NSString * TTSSDKInstallation = @"TTSSDKInstallation";
 

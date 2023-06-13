@@ -15,7 +15,7 @@
 #import "DBParamsDelegate.h"
 #import "DBRecordPCMDataPlayer.h"
 
-static NSString *sdkVersion = @"1.0.9";
+static NSString *sdkVersion = @"1.0.90";
 
 @interface DBVoiceEngraverManager ()<DBAudioMicrophoneDelegate,DBRecordPCMDataPlayerDelegate,DBUpdateTokenDelegate,DBZSocketCallBcakDelegate>
 
