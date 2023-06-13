@@ -355,11 +355,11 @@
 // MARK: DBASRSettingDeleagte
 
 - (void)updateAserWithLongAsr:(NSString *)server version:(NSString *)version {
+    self.asrAudioClient.version = version;
     if (server.length == 0) {
         return;
     }
     [self.asrAudioClient setupURL:server];
-    self.asrAudioClient.version = version;
 }
 
 // MARK: time result Time

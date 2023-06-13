@@ -9,7 +9,23 @@
 #import "DBAuthentication.h"
 #import "DBNetworkHelper.h"
 
-static  NSString *const getTokenURL = @"https://openapi.data-baker.com/oauth/2.0/token";
+// TODO: 鉴权地址
+#ifndef DBRelease
+#define DBRelease 0
+#endif
+
+#if DBRelease
+#define baseURL @"https://openapi.data-baker.com"
+#else
+#define baseURL @"http://10.10.50.23:9904"
+#endif
+
+#define getTokenURL [NSString stringWithFormat:@"%@/oauth/2.0/token",baseURL]
+
+
+
+//static  NSString *const getTokenURL = @"https://openapi.data-baker.com/oauth/2.0/token";
+
 
 @implementation DBAuthentication
 

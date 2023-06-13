@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,copy)NSString * clientId;
 @property(nonatomic,copy)NSString * clientSecret;
+@property(nonatomic,copy)NSString * sdkType;
 
 + (instancetype)shareManager;
 

@@ -24,7 +24,10 @@ static NSString * OneSpeechASRSDKStart = @"OneSpeechASRSDKStart";
 
 static NSString * DBOneSpeechASRUDID = @"DBOneSpeechASRUDID";
 
-static NSString *KAsrServer = @"wss://asr.data-baker.com/";
+//static NSString *KAsrServer = @"wss://asr.data-baker.com/";
+
+static NSString *KAsrServer = @"ws://10.10.50.61:56530/";
+
 
 typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     DBOneSpeechASRUploadLogTypeInstall = 1, // 上传安装统计
@@ -168,7 +171,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     self.idx = 0;
     self.asrState = DBAsrStateStart;
     self.socketManager.timeOut = 6;
-    if (self.socketURL.length == 0) {
+    if (self.socketURL.length == 0) { // default url
         self.socketURL = @"wss://asr.data-baker.com/";
     }
     [self.socketManager DBZWebSocketOpenWithURLString:self.socketURL];
