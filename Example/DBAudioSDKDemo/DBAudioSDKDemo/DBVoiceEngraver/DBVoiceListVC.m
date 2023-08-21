@@ -40,7 +40,6 @@
 
 - (void)loadListData {
     NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
     [self.voiceEngraverManager batchQueryModelStatusByQueryId:idfa SuccessHandler:^(NSArray<DBVoiceModel *> * _Nonnull array) {
         [[XCHudHelper sharedInstance] hideHud];

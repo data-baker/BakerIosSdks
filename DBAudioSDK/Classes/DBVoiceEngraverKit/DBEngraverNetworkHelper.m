@@ -14,7 +14,6 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
 #define DBEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
 #define DBEnter [@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]
 
-
 @interface DBEngraverNetworkHelper ()<NSURLSessionTaskDelegate,NSURLSessionDelegate>
 
 @end
@@ -93,7 +92,6 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
                 NSInteger errorCode = [dic[@"code"] integerValue];
                 
                 if (errorCode != 20000) {
-                    
                     if (errorCode == 00011 || errorCode == 11) {
                         static NSInteger retry = 3;
                         if (retry < 0) {
@@ -103,12 +101,10 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
                         }
                         [self.delegate updateTokenSuccessHandler:^(NSDictionary * _Nonnull dict) {
                             [self postWithUrlString:url parameters:parameters success:successBlock failure:failureBlock];
-                            
                         } failureHander:failureBlock];
                         retry--;
                         return;
                     }
-                    
                     NSError *error = [NSError errorWithDomain:DBErrorDomain code:[dic[@"code"] integerValue] userInfo:@{@"message":dic[@"message"]}];
                     failureBlock(error);
                 }
@@ -343,15 +339,11 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
 - (void)logMessage:(NSString *)format, ... {
     if (self.enableLog) {
         // 1. 首先创建多参数列表
-
         va_list args;
             // 2. 开始初始化参数, start会从format中 依次提取参数, 类似于类结构体中的偏移量 offset 的 方式
-
         va_start(args, format);
-        
         NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
         va_end(args);
-
         NSLog(@"%@",str);
     }
 }

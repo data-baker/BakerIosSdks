@@ -22,8 +22,13 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
 
 #warning  请联系标贝科技获取clientId 和clientSecret, 注意不同的服务使用不同的授权clientId和clientSecret
 
-static NSString *KClientId = @"xxx";
-static NSString *KClientSecret = @"xxx";
+//static NSString *KClientId = @"XXX";
+//static NSString *KClientSecret = @"XXX";
+// 复刻
+static NSString *KClientId = @"dcaf6b482d634649a4fd29ec93e93db0";
+static NSString *KClientSecret = @"f556a352f5334fd59cbc46c38eb74004";
+//static NSString *KClientId = @"df6527d33b644733a2b4e58de710fd9d";
+//static NSString *KClientSecret = @"ca9c99132d3c4d2bb92501410ee21bd8";
 
 #define KUserDefalut [NSUserDefaults standardUserDefaults]
 
@@ -115,6 +120,14 @@ static NSString *KClientSecret = @"xxx";
         }];
      
 }
+- (IBAction)clearAuthInfo:(id)sender {
+    [KUserDefalut removeObjectForKey:keyName_];
+    self.clientIdTextField.text = @"";
+    self.clientSecretTextField.text = @"";
+}
+
+
+
 - (IBAction)comeBack:(UIButton *)sender {
     self.handler(NO);
     [self dismissViewControllerAnimated:YES completion:nil];

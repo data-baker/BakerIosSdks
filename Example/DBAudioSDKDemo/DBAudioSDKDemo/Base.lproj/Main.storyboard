@@ -943,12 +943,26 @@
                                     <action selector="comeBack:" destination="hHi-tO-CQv" eventType="touchUpInside" id="WRE-ox-YVn"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gRr-jL-ymL">
+                                <rect key="frame" x="158" y="614" width="98" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="fVH-wm-EIo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="清除授权">
+                                    <color key="titleColor" systemColor="linkColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearAuthInfo:" destination="hHi-tO-CQv" eventType="touchUpInside" id="40U-df-aw8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QE6-zW-mZA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="fHb-bY-7Ge" firstAttribute="top" secondItem="QE6-zW-mZA" secondAttribute="top" constant="50" id="2aZ-oC-ydg"/>
                             <constraint firstItem="8uw-PE-Nvs" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="20" id="3Yt-PX-DWy"/>
+                            <constraint firstItem="gRr-jL-ymL" firstAttribute="top" secondItem="c3q-NH-5dX" secondAttribute="bottom" constant="15" id="72R-Sy-ZH9"/>
                             <constraint firstItem="26E-tZ-Hrk" firstAttribute="top" secondItem="QE6-zW-mZA" secondAttribute="top" constant="10" id="78V-5g-3pf"/>
                             <constraint firstItem="QE6-zW-mZA" firstAttribute="trailing" secondItem="8uw-PE-Nvs" secondAttribute="trailing" constant="20" id="C1k-YR-c6r"/>
                             <constraint firstItem="Sfw-oM-jyb" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="20" id="GzS-7c-sZJ"/>
@@ -967,6 +981,7 @@
                             <constraint firstItem="26E-tZ-Hrk" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="15" id="nAL-uj-EV0"/>
                             <constraint firstItem="2KS-IU-N5M" firstAttribute="top" secondItem="fHb-bY-7Ge" secondAttribute="bottom" id="pJJ-nX-wHN"/>
                             <constraint firstItem="Sfw-oM-jyb" firstAttribute="top" secondItem="fHb-bY-7Ge" secondAttribute="bottom" constant="50" id="uJ5-U8-2Ls"/>
+                            <constraint firstItem="gRr-jL-ymL" firstAttribute="centerX" secondItem="jIu-5A-uW8" secondAttribute="centerX" id="uqF-8U-VXf"/>
                             <constraint firstItem="2KS-IU-N5M" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="22" id="yoy-Zb-lGf"/>
                         </constraints>
                     </view>
@@ -1252,13 +1267,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前环境音量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ley-yE-bmW">
-                                <rect key="frame" x="122" y="212" width="170.5" height="33.5"/>
+                                <rect key="frame" x="121.5" y="212" width="171" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前环境很适合录音，快开始吧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9A-xF-aKK">
-                                <rect key="frame" x="93" y="558.5" width="228.5" height="19.5"/>
+                                <rect key="frame" x="92.5" y="558.5" width="229" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1706,7 +1721,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ubm-Qx-cTh"/>
+        <segue reference="wHv-Er-kdr"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="1.png" width="333" height="333"/>

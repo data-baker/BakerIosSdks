@@ -29,7 +29,6 @@ typedef NS_ENUM(NSUInteger,DBErrorState){
     DBErrorStateRequestAuthFaild = 40004, // 接口签名不合法
     DBErrorStateInvaildMoile = 40005,// 请填写正确的手机号
     
-    
 };
 
 

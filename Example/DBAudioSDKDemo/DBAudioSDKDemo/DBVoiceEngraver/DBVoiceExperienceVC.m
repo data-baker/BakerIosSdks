@@ -12,10 +12,7 @@
 #import "XCHudHelper.h"
 #import "UIView+Toast.h"
 
-
-
-NSString *const ttsIPURL      = @"https://openapi.data-baker.com/tts_hot_load";
-
+NSString *const ttsIPURL  = @"https://openapi.data-baker.com/tts_hot_load";
 static NSString *textPlaceHolder = @"请输入要合成的文本";
 
 @interface DBVoiceExperienceVC ()<UITextViewDelegate,UIGestureRecognizerDelegate>
@@ -57,7 +54,6 @@ static NSString *textPlaceHolder = @"请输入要合成的文本";
 
 - (void)appResignActive:(NSNotification *)noti {
     NSLog(@"app 变得不活跃");
-    
 }
 - (void)appBecomeActive:(NSNotification *)noti {
     NSLog(@"app 变活跃");
@@ -91,16 +87,13 @@ static NSString *textPlaceHolder = @"请输入要合成的文本";
 
 
 - (void)downloadWithUrl:(NSURL *)url completeHandler:(BBCompleteHandler)completeHanlder {
-    
     NSString *filename = @"xxx.mp3";
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDownloadTask *downloadTak = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)lastObject];
-        
         NSString *savePath = [cachePath stringByAppendingPathComponent:filename];
         NSLog(@"%@",savePath);
-        
         NSURL *saveurl = [NSURL fileURLWithPath:savePath];
         NSError *saveError;
         NSFileManager *fileManager =   [NSFileManager defaultManager];
@@ -109,7 +102,6 @@ static NSString *textPlaceHolder = @"请输入要合成的文本";
             [fileManager removeItemAtURL:saveurl error:&error];
         }
         [[NSFileManager defaultManager]moveItemAtURL:location toURL:saveurl error:&saveError];
-        
         if (saveError) {
             NSLog(@"%@",saveError.localizedDescription);
         }
@@ -126,7 +118,6 @@ static NSString *textPlaceHolder = @"请输入要合成的文本";
 -(void)playMusic {
     //获取缓存目录
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)lastObject];
-    
     NSString *filePath = [cachePath stringByAppendingPathComponent:@"xxx.mp3"];
     NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
     //判断文件存不存在
@@ -182,30 +173,24 @@ static NSString *textPlaceHolder = @"请输入要合成的文本";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    
     if ([keyPath isEqualToString:@"status"]) {
         [self moniPlayBackAction];
         [self.player play];
         NSLog(@"3");
     }
-    
 }
-
 
 - (void)moniPlayBackAction {
     __weak typeof(self)weakSelf = self;
- self.timeObserve =  [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1, NSEC_PER_SEC)
-                                                queue:NULL
-                                                          usingBlock:^(CMTime time) {
-     
-      CGFloat  totalTime = self.playTextView.text.length *0.265;
-     
-     CGFloat progress = CMTimeGetSeconds(weakSelf.playItem.currentTime) / totalTime;
-     
-     NSLog(@"progress : %f  currntTime: %f totalTime %f",progress,CMTimeGetSeconds(weakSelf.playItem.currentTime),CMTimeGetSeconds(weakSelf.playItem.duration));
-     weakSelf.progressView.progress = progress;
-     weakSelf.playSlider.value = progress;
- }];
+    self.timeObserve =  [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1, NSEC_PER_SEC)
+                                                                  queue:NULL
+                                                             usingBlock:^(CMTime time) {
+        CGFloat  totalTime = self.playTextView.text.length *0.265;
+        CGFloat progress = CMTimeGetSeconds(weakSelf.playItem.currentTime) / totalTime;
+        NSLog(@"progress : %f  currntTime: %f totalTime %f",progress,CMTimeGetSeconds(weakSelf.playItem.currentTime),CMTimeGetSeconds(weakSelf.playItem.duration));
+        weakSelf.progressView.progress = progress;
+        weakSelf.playSlider.value = progress;
+    }];
 }
 
 - (void)videoPlayEnd {
@@ -274,12 +259,10 @@ static NSString *textPlaceHolder = @"请输入要合成的文本";
 - (void)handleTap:(UILongPressGestureRecognizer *)ges {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSString *subString = [self.titleLabel.text substringWithRange:NSMakeRange(3, self.titleLabel.text.length-3)];
-    
     [pasteboard setString:subString];
     [self.view makeToast:@"复制成功" duration:2 position:CSToastPositionCenter];
 }
 // MARK: UIResponder Methods
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.playTextView resignFirstResponder];
     [self updataTextCountWithTextLength:self.playTextView.text.length];

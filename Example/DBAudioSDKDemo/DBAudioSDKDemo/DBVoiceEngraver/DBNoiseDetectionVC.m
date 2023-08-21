@@ -26,12 +26,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.volumeNumberButton.layer.cornerRadius = 81;
     self.volumeNumberButton.layer.masksToBounds = YES;
     self.volumeNumberButton.layer.borderWidth = 1;
-   [self setButtonNumberColor:[UIColor systemBlueColor]];
-    self.volumeNumberButton.backgroundColor = [UIColor whiteColor];
+    [self recoverUIState];
+
     self.voiceEngraverManager = [DBVoiceEngraverManager sharedInstance];
     /// 声明噪音检测的工具，开启噪音检测
     self.voiceDetectionUtil = [[DBVoiceDetectionUtil alloc]init];
@@ -50,7 +49,17 @@
     [super viewWillAppear:animated];
 }
 
+
+// MARK:
+
+- (void)recoverUIState {
+    self.volumeTextLabel.hidden = YES;
+    [self setButtonNumberColor:[UIColor systemBlueColor]];
+    self.volumeNumberButton.backgroundColor = [UIColor whiteColor];
+}
+
 - (IBAction)resumeDetectNoise:(id)sender {
+    [self recoverUIState];
     [self.voiceDetectionUtil startDBDetection];
 }
 - (IBAction)startEngraverAction:(id)sender {
@@ -71,11 +80,13 @@
     }];
 }
 
-
 // MARK: DBVoiceDetectionDelegate
-
 - (void)dbDetecting:(NSInteger)volumeDB {
      [self.volumeNumberButton setTitle:[NSString stringWithFormat:@"%@分贝",@(volumeDB).stringValue] forState:UIControlStateNormal];
+}
+
+- (void)dbAudioInterrupted {
+    [self detectFailedWithText:@"音频被打断，检测失败"];
 }
 
 - (void)dbDetectionResult:(BOOL)result value:(NSInteger)volumeDB {
@@ -84,26 +95,31 @@
         NSLog(@"检测分贝数失败");
         return ;
     }
-    
-    self.volumeTextLabel.hidden = NO;
     [self.volumeNumberButton setTitle:[NSString stringWithFormat:@"%@分贝",@(volumeDB).stringValue] forState:UIControlStateNormal];
     if (volumeDB > 70) {
-        self.volumeTextLabel.text = @"环境太差，请稍后再试吧";
-        self.startEngraverVoiceButton.enabled = NO;
-        self.resumeDetectButton.hidden = NO;
-        [self setButtonNumberColor:[UIColor orangeColor]];
+        [self detectFailedWithText:@"环境太差，请稍后再试吧"];
     }else if (volumeDB > 50) {
+        self.volumeTextLabel.hidden = NO;
         self.resumeDetectButton.hidden = YES;
         self.volumeTextLabel.text = @"环境一般，换个地方吧";
         self.startEngraverVoiceButton.enabled = YES;
         [self setButtonNumberColor:[UIColor systemBlueColor]];
     }else {
+        self.volumeTextLabel.hidden = NO;
         self.volumeTextLabel.text = @"环境很静，开始复刻吧";
         self.startEngraverVoiceButton.enabled = YES;
         self.resumeDetectButton.hidden = YES;
         [self setButtonNumberColor:[UIColor greenColor]];
     }
 }
+- (void)detectFailedWithText:(NSString *)text {
+    self.volumeTextLabel.hidden = NO;
+    self.volumeTextLabel.text = text;
+    self.startEngraverVoiceButton.enabled = NO;
+    self.resumeDetectButton.hidden = NO;
+    [self setButtonNumberColor:[UIColor orangeColor]];
+}
+
 
 - (void)setButtonNumberColor:(UIColor *)color {
     self.volumeNumberButton.layer.borderColor = color.CGColor;
@@ -120,14 +136,6 @@
 }
 
 #pragma mark - Navigation
-
-
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-}
-
 - (void)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC {
     self.navigationController.tabBarController.hidesBottomBarWhenPushed= NO;
 }

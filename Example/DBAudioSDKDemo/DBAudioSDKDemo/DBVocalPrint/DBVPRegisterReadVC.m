@@ -179,7 +179,6 @@ NSString * const matchName = @"matchName";
 - (void)audioCallBackVoiceGrade:(NSInteger)grade {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"dbValue:%@",@(grade));
-        
         NSUInteger volumeDB = grade;
         static NSInteger index = 0;
         index++;

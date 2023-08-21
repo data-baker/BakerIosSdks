@@ -14,6 +14,7 @@
 #import "DBZSocketRocketUtility.h"
 #import "DBParamsDelegate.h"
 #import "DBRecordPCMDataPlayer.h"
+#import "DBLogManager.h"
 
 static NSString *sdkVersion = @"1.0.90";
 
@@ -135,7 +136,6 @@ static NSString *sdkVersion = @"1.0.90";
 // MARK: 初始化SDK
 
 - (void)setupWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret queryId:(nullable NSString *)queryId SuccessHandler:(nonnull DBSuccessHandler)successHandler failureHander:(nonnull DBFailureHandler)failureHandler {
-    
     NSAssert(successHandler, @"请设置DBSuccessHandler的回调");
     NSAssert(failureHandler, @"请设置DBFailureHandler的回调");
     NSError *error;
@@ -185,9 +185,6 @@ static NSString *sdkVersion = @"1.0.90";
     
 }
 
-
-
-
 // MARK: 设置queryID
 - (void)setupQueryId:(NSString *)queryId {
     self.queryId = queryId;
@@ -195,17 +192,14 @@ static NSString *sdkVersion = @"1.0.90";
 
 // MARK: 请求录音文本
 - (void)networkGetContentsArrayISCallBack:(BOOL)isCallBack textHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failrueHandler {
-    
     NSAssert(textHandler, @"请设置DBTextBlock回调");
     NSAssert(failrueHandler, @"请设置DBFailureHandler回调");
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [self.networkHelper postWithUrlString:join_string1(DBBaseURL, DBURLRecordTextList) parameters:params success:^(NSDictionary * _Nonnull data) {
         NSString *textString = data[@"data"];
         NSArray *textArray = [textString componentsSeparatedByString:@"#"];
         self.textArray = textArray;
         [self.audioDataArray removeAllObjects];
-        
         /// 将文本数组添加到全局Array当中
         [self.textArray enumerateObjectsUsingBlock:^(NSString  *  _Nonnull text, NSUInteger idx, BOOL * _Nonnull stop) {
             DBVoiceRecognizeModel *model = [[DBVoiceRecognizeModel alloc]init];
@@ -226,11 +220,8 @@ static NSString *sdkVersion = @"1.0.90";
     
 }
 // MARK: 第一次录制，开启一个sessionId
-
 - (void)startRecordWithTextIndex:(NSInteger )textIndex failureHander:(DBFailureHandler)failureHandler {
-   
     NSAssert(failureHandler, @"请设置DBFailureHandler的回调");
-    
     if (textIndex > self.textArray.count -1) {
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateNetworkDataError userInfo:@{@"info":@"textIndex超过了数组的上界"}];
         failureHandler(error);
@@ -346,7 +337,6 @@ static NSString *sdkVersion = @"1.0.90";
 - (void)getRecordTextArrayTextHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler {
     NSAssert(textHandler, @"请设置DBTextBlock回调");
     NSAssert(failureHandler, @"请设置DBFailureHandler回调");
-    
     if (self.textArray) {
         textHandler(self.textArray);
     }else {
@@ -360,44 +350,32 @@ static NSString *sdkVersion = @"1.0.90";
 
 //MARK:  获取声音限制
 - (void)getRecordLimitSuccessHandler:(DBSuccessHandler)successHandler failureHander:(DBFailureHandler)failureHandler {
-    
     NSAssert(successHandler, @"请设置DBSuccessHandler的回调");
     NSAssert(failureHandler, @"请设置DBFailureHandler的回调");
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [self.networkHelper postWithUrlString:join_string1(DBBaseURL, DBURLVoliceLimit) parameters:params success:^(NSDictionary * _Nonnull data) {
         successHandler(data);
-        
     } failure:^(NSError * _Nonnull error) {
         failureHandler(error);
     }];
 }
 
-
-
-
 // MARK: 开始录音
 - (void)startRecord {
-    
     if (self.audioDataArray.count-1 < self.currentRecordIndex) {
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateFailureInvalidParams userInfo:@{@"info":@"音频文本为空"}];
         [self delegateError:error];
         return;
     }
-    
     [self recordAddTimer];
-    
 //    [self.paramsDelegate removeFileWithFilePath:filePath];
-
     NSString * filePath = [self filePathWithIndex:self.currentRecordIndex];
-    
     DBVoiceRecognizeModel *model = self.audioDataArray[self.currentRecordIndex];
     model.filePath = filePath;
-    
     // TODO: 测试数据
 //    [self testAudioData];
     NSLog(@"当前录制路径 ：%@",filePath);
     self.micPCMFile = fopen(filePath.UTF8String, "wb");
-    
     if (self.microphone) {
         [self.microphone stop];
         self.microphone.delegate = nil;
@@ -410,7 +388,6 @@ static NSString *sdkVersion = @"1.0.90";
 
 
 // TODO: TEST AudioData
-
 - (void)testAudioData {
     [self.audioDataArray enumerateObjectsUsingBlock:^(DBVoiceRecognizeModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSLog(@"obj %@",obj);
@@ -420,7 +397,6 @@ static NSString *sdkVersion = @"1.0.90";
 // MARK: 主动结束录音
 - (void)unNormalStopRecordSeesionSuccessHandler:(DBSuccessHandler)successBlock failureHandler:(DBFailureHandler)failureHandler {
     [self pauseRecord];
-    
     if (!self.sessionId) { // 如果未开启session,直接回调
         successBlock(nil);
         return;
@@ -441,26 +417,21 @@ static NSString *sdkVersion = @"1.0.90";
 
 // MARK: 试听
 - (void)listenAudioWithTextIndex:(NSInteger)index {
-    
        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
        [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
        [audioSession setActive:YES error:nil];
-       
        NSString *filePath = [self filePathWithIndex:index];
        BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
        if (!exist) {
            return;
        }
        NSData *data = [[NSData alloc] initWithContentsOfFile:filePath];
-    
     if (!self.pcmDataPlayer) {
         self.pcmDataPlayer = [[DBRecordPCMDataPlayer alloc]init];
         self.pcmDataPlayer.delegate = self;
     }
-    
     [self.pcmDataPlayer stop];
     [self.pcmDataPlayer play:data];
-    
 }
 
 - (void)stopCurrentListen {
@@ -470,11 +441,8 @@ static NSString *sdkVersion = @"1.0.90";
 
 // MARK: 开启模型训练
 - (void)startModelTrainRecordVoiceWithPhoneNumber:(NSString *)phoneNumber notifyUrl:(NSString *)notifyUrl successHandler:(DBSuccessOneModelHandler)successHandler failureHander:(DBFailureHandler)failureHandler {
-    
     NSAssert(successHandler, @"请设置DBSuccessOneModelHandler的回调");
     NSAssert(failureHandler, @"请设置DBFailureHandler的回调");
-    
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"sessionId"] = self.sessionId;
     if (phoneNumber) {
@@ -484,7 +452,6 @@ static NSString *sdkVersion = @"1.0.90";
         params[@"notifyUrl"] = notifyUrl;
     }
     [self.networkHelper postWithUrlString:join_string1(DBBaseURL, DBuploadInformation) parameters:params success:^(NSDictionary * _Nonnull data) {
-        
         /// 异常处理
         if ([data isEqual:[NSNull null]] ) {
             NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateNetworkDataError userInfo:nil];
@@ -497,7 +464,6 @@ static NSString *sdkVersion = @"1.0.90";
             modelId = [self.sessionId substringToIndex:36];
         }
         [self resetParams];
-
         DBVoiceModel *model = [[DBVoiceModel alloc]init];
         model.modelId = modelId;
         successHandler(model);
@@ -509,23 +475,18 @@ static NSString *sdkVersion = @"1.0.90";
 // MARK: 进入下一条
 
 - (BOOL)canNextStepByCurrentIndex:(NSInteger)currentIndex {
-    
     __block  NSInteger recordedMaxIndex = 0;
     [self.audioDataArray enumerateObjectsUsingBlock:^(DBVoiceRecognizeModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.passStatus integerValue] == 1) {
             recordedMaxIndex = MAX(obj.index, recordedMaxIndex)+1;
         }
     }];
-    
     if (currentIndex < recordedMaxIndex) {
         return YES;
     }else {
         return NO;
     }
 }
-
-
-
 // MARK: 停止录音
 - (void)pauseRecord {
     [self recordCancelTimer];
@@ -539,11 +500,10 @@ static NSString *sdkVersion = @"1.0.90";
     }
 }
 - (void)recordAddTimer {
-    __block NSInteger timeout = 120; //倒计时时间
+    __block NSInteger timeout = 60*3; //倒计时时间
     if (_timer) {
         dispatch_source_cancel(_timer);
     }
-    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
     _timer = timer;
@@ -567,14 +527,12 @@ static NSString *sdkVersion = @"1.0.90";
 
 
 - (void)audioMicrophone:(DBEngraverAudioMicrophone *)microphone hasAudioPCMByte:(Byte *)pcmByte audioByteSize:(UInt32)byteSize  {
-      NSLog(@"内置mic 数据长度: %u", byteSize);
+    NSLog(@"内置mic 数据长度: %u", byteSize);
     fwrite(pcmByte, 1, byteSize, self.micPCMFile);
-    
     NSData*data = [[NSData alloc]initWithBytes:pcmByte length:byteSize];
     NSData *base64Data = [data base64EncodedDataWithOptions:0];
     NSString *audioString = [[NSString alloc] initWithData:base64Data encoding:NSUTF8StringEncoding];
     self.socketDic[@"info"] = audioString;
-    
     if (self.issocketStatusEnd) {
         self.issocketStatusEnd = NO;
         [self pauseRecord];
@@ -605,17 +563,21 @@ static NSString *sdkVersion = @"1.0.90";
             [self.delegate dbDetecting:grade];
         }
     });
-    
 }
+
+- (void)audioMicrophonInterrupted {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(dbAudioInterrupted)]) {
+        [self.delegate dbAudioInterrupted];
+    }
+}
+
 // MARK: 播放完成回调
 
 - (void)PCMPlayerDidFinishPlaying{
-    
     if (self.delegate && [self.delegate respondsToSelector:@selector(playToEnd)]) {
         [self.delegate playToEnd];
     }
 }
-
 // MARK: 请求数据的代理
 - (void)updateTokenSuccessHandler:(nonnull DBSuccessHandler)successHandler failureHander:(nonnull DBFailureHandler)failureHandler {
     [self setupWithClientId:self.clientId clientSecret:self.clientSecret queryId:self.queryId SuccessHandler:successHandler failureHander:failureHandler];
@@ -639,7 +601,6 @@ static NSString *sdkVersion = @"1.0.90";
 }
 
 - (void)webSocketdidReceiveMessageNote:(id)note {
-    
     NSLog(@"note:%@",note);
     NSString *message = (NSString *)note;
     NSDictionary * dic =[NSMutableDictionary dictionaryWithDictionary:[self.paramsDelegate dictionaryWithJsonString:message]];
@@ -652,11 +613,10 @@ static NSString *sdkVersion = @"1.0.90";
         }];
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:code userInfo:@{@"message":@"token失效，请重试"}];
         [self delegateError:error];
-        
         return ;
     }
     
-    if ( code != 20000) {
+    if (code != 20000) {
         [self.paramsDelegate logMessage:@"返回结果出错"];
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:code userInfo:@{@"message":dic[@"message"]}];
         [self delegateError:error];
@@ -669,7 +629,6 @@ static NSString *sdkVersion = @"1.0.90";
         [self delegateError:error];
         return;
     }
-    
     
     if ([dic[@"data"][@"type"] integerValue] == 0) {
         self.socketDic = dic[@"data"];
@@ -702,12 +661,10 @@ static NSString *sdkVersion = @"1.0.90";
 }
 - (void)webSocketDidCloseNote:(id)object {
     NSLog(@"socket 连接关闭");
-//    [self logMessage:@"socket关闭"];
 }
 
 - (void)webSocketdidConnectFailed:(id)noti {
     NSLog(@"%@",noti);
-    
     NSError *error = [NSError errorWithDomain:DBErrorDomain code:20002 userInfo:@{@"errorInfo":@"服务器连接错误"}];
     [self delegateError:error];
 }

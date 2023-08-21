@@ -131,7 +131,7 @@
 		35CE9A4826B6B834002D9337 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		35CE9A4926B6B834002D9337 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		35CE9A4A26B6B834002D9337 /* SceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		35CE9A4B26B6B834002D9337 /* DBASRLongVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBASRLongVC.m; sourceTree = "<group>"; };
+		35CE9A4B26B6B834002D9337 /* DBASRLongVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBASRLongVC.m; sourceTree = "<group>"; wrapsLines = 0; };
 		35CE9A4C26B6B834002D9337 /* DBASRVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBASRVC.h; sourceTree = "<group>"; };
 		35CE9A4D26B6B834002D9337 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		35CE9A5326B6B834002D9337 /* DBASRVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBASRVC.m; sourceTree = "<group>"; };
@@ -300,9 +300,9 @@
 				3542CD1F27268ACA0091E76E /* DBOfflineVoiceConvert */,
 				351D6A222738FD9700A88418 /* DBVocalPrint */,
 				35631C94273E69C100A7343B /* DBUserIdentify */,
-				35CE9A4826B6B834002D9337 /* AppDelegate.m */,
 				35D756AD2A2487B3007C64E9 /* Util */,
 				35CE9AD826B8F6EF002D9337 /* AppDelegate.h */,
+				35CE9A4826B6B834002D9337 /* AppDelegate.m */,
 				35CE9A4926B6B834002D9337 /* ViewController.h */,
 				35CE9A4D26B6B834002D9337 /* ViewController.m */,
 				35CE9A4726B6B834002D9337 /* SceneDelegate.h */,

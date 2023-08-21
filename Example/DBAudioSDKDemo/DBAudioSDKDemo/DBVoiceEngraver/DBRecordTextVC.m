@@ -84,7 +84,6 @@
 }
 
 - (IBAction)nextRecordAction:(id)sender {
-
     if (![self.voiceEngraverManager canNextStepByCurrentIndex:self.index]) {
         [self.view makeToast:@"请录制完当前条目再点击下一步" duration:2.f position:CSToastPositionCenter];
         return;
@@ -94,7 +93,6 @@
     if (!ret) {
         self.index--;
     }
-    
 }
 
 - (IBAction)lastRecordAction:(id)sender {
@@ -119,7 +117,6 @@
         }else {
             [self.view makeToast:[NSString stringWithFormat:@"上传识别失败：准确率：%@",model.percent] duration:2 position:CSToastPositionCenter];
         }
-        
     }];
 
 }
@@ -145,11 +142,9 @@
         self.lastRecordButton.hidden = NO;
     }
     
-    
     [self p_setTextViewAttributeText:self.textArray[phaseIndex]];
     self.phaseLabel.text =  [NSString stringWithFormat:@"第%@段",@(self.index+1)];
     self.allPhaseLabel.text = [NSString stringWithFormat:@"共%@段",@(self.textArray.count)];
-    
     [self.voiceEngraverManager stopCurrentListen];
     return YES;
 }
@@ -157,7 +152,6 @@
 
 - (void)beginRecordState {
     self.voiceImageView.hidden =  NO;
-
     self.lastRecordButton.hidden = YES;
     self.nextRecordButton.hidden = YES;
     self.startRecordButton.hidden = NO;
@@ -165,7 +159,6 @@
 }
 
 - (void)endRecordState {
-    
     if (self.index >0) {
         self.lastRecordButton.hidden = NO;
     }else {
@@ -175,11 +168,7 @@
     self.nextRecordButton.hidden = NO;
     self.startRecordButton.hidden = NO;
     self.listenButton.hidden = NO;
-    
 }
-
-
-
 
 // MARK: delegate Methods -
 
@@ -214,6 +203,10 @@
     self.startTime = CFAbsoluteTimeGetCurrent();
 }
 
+- (void)dbAudioInterrupted {
+    NSLog(@"[debug]: 当前的录制音频被打断");
+}
+
 - (void)dbVoiceRecognizeError:(NSError *)error {
     [self endRecordState];
     [self.view makeToast:error.description duration:2.f position:CSToastPositionCenter];
@@ -227,29 +220,20 @@
 // MARK: private Method
 - (void)p_setTextViewAttributeText:(NSString *)text {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-       paragraphStyle.lineSpacing = 10;// 字体的行间距
-        
-       NSDictionary *attributes = @{
-                                    NSFontAttributeName:[UIFont systemFontOfSize:18],
-                                    NSParagraphStyleAttributeName:paragraphStyle
-                                    };
-       self.recordTextView.attributedText = [[NSAttributedString alloc] initWithString:text attributes:attributes];
+    paragraphStyle.lineSpacing = 10;// 字体的行间距
+    NSDictionary *attributes = @{
+        NSFontAttributeName:[UIFont systemFontOfSize:18],
+        NSParagraphStyleAttributeName:paragraphStyle
+    };
+    self.recordTextView.attributedText = [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
-
-//- (BOOL)canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController sender:(id)sender {
-//}
-//
-//- (void)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC {
-//}
 
 // MARK: 通过拦截方法获取返回事件
 - (BOOL)navigationShouldPopOnBackButton
 {
     NSLog(@"clicked navigationbar back button");
-    
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"返回了当前录制结果将会取消？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-           
        }];
     [alertVC addAction:cancelAction];
 
@@ -265,10 +249,7 @@
         
     }];
     [alertVC addAction:doneAction];
-   
-    
     [self presentViewController:alertVC animated:YES completion:nil];
-
     return NO;
 
 }

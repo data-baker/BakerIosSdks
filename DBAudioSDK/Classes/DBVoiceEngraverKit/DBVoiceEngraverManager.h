@@ -11,8 +11,6 @@
 #import "DBVoiceDetectionDelegate.h"
 
 
-
-
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^DBSuccessHandler)(NSDictionary *dict);
@@ -40,9 +38,6 @@ typedef void (^DBFailureHandler)(NSError *error);
 
 /// 默认为NO，开启Yes可打印log日志
 @property(nonatomic,assign)BOOL  enableLog;
-
-
-
 
 // 实例化对象
 + (instancetype )sharedInstance;

@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString * modelId;
 /*2：录制中 3：启动训练失败 4：训练中 5： 训练失败  6： 训练成功 */
 @property(nonatomic,copy)NSNumber * modelStatus;
+//模型状态中文(值)
 @property(nonatomic,copy)NSString * statusName;
 
 @end

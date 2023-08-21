@@ -27,7 +27,6 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
 
 
 
-@property (nonatomic, strong) NSLock *synlock; // 同步锁
 @property (nonatomic, assign) AudioQueueRef audioQueue;//音频播放队列
 
 @property (nonatomic, assign) BOOL isAudioSetup;
@@ -63,7 +62,6 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
 - (instancetype)initWithSampleRate:(NSInteger)sampleRate numerOfChannel:(NSInteger)numOfChannel configAudioSession:(void (^)(AVAudioSession *audioSesson))sessionConfig {
     self = [super init];
     if (self) {
-        _synlock = [[NSLock alloc] init];
         _sampleRate = sampleRate;
         _numOfChannel = numOfChannel;
         _audioDescription = [DBEngraverAudioMicrophone defaultAudioDescriptionWithSampleRate:sampleRate numOfChannel:numOfChannel];
@@ -158,7 +156,6 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
     
     for(int i=0; i<kAudioQueueBufferCount; i++) {
         int result = AudioQueueFreeBuffer(_audioQueue, _audioQueueBuffers[i]);
-        
         NSLog(@"AudioQueueFreeBuffer i = %d,result = %d", i, result);
     }
     AudioQueueDispose(_audioQueue, YES);
@@ -168,7 +165,6 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
 
 - (void)processAudioBuffer:(AudioQueueBufferRef)inBuffer withQueue:(AudioQueueRef)inAudioQueue {
     if (self.delegate && [self.delegate respondsToSelector:@selector(audioMicrophone:hasAudioPCMByte:audioByteSize:)]) {
-        
         NSData *data = [NSData dataWithBytes:inBuffer->mAudioData length:inBuffer->mAudioDataByteSize];
         [self.delegate audioMicrophone:self hasAudioPCMByte:(Byte *)data.bytes audioByteSize:(UInt32)data.length];
         [self getVoiceVolume:data];
@@ -197,9 +193,56 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
     double mean = pcmAllLenght / (double)pcmData.length;
     double volume =10*log10(mean);//volume为分贝数大小
 //    NSLog(@"volume :%@",@(volume));
-   
     if([self.delegate respondsToSelector:@selector(audioCallBackVoiceGrade:)]) {
         [self.delegate audioCallBackVoiceGrade:volume];
+    }
+}
+// 增加音频录制过程中被打断的拦截处理
+- (void)addInterruptAbserver {
+    // 监听音频打断事件
+    // setup our audio session
+    AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+    [self removeObserve];
+    // add interruption handler
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(audioSessionWasInterrupted:)
+                                                 name:AVAudioSessionInterruptionNotification
+                                               object:sessionInstance];
+    NSError *error = nil;
+    [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    if(nil != error) NSLog(@"Error setting audio session category! %@", error);
+    else {
+        [sessionInstance setActive:YES error:&error];
+        if (nil != error) NSLog(@"Error setting audio session active! %@", error);
+    }
+}
+- (void)audioSessionWasInterrupted:(NSNotification *)notification
+{
+    NSLog(@"the notification is %@",notification);
+    if (AVAudioSessionInterruptionTypeBegan == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
+    {
+        NSLog(@"begin");
+        if (!_isOn) {
+            return;
+        };
+        if(self.delegate && [self.delegate respondsToSelector:@selector(audioMicrophonInterrupted)]) {
+            [self.delegate audioMicrophonInterrupted];
+        }
+        
+    }
+    else if (AVAudioSessionInterruptionTypeEnded == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
+    {
+        NSLog(@"begin - end");
+    }
+}
+
+- (void)removeObserve {
+    AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:sessionInstance];
+    NSError *error = nil;
+    [sessionInstance setActive:YES error:&error];
+    if (error) {
+        NSLog(@"%@",error.description);
     }
 }
 
