@@ -25,7 +25,7 @@
     
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
     NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    [[DBVoiceEngraverManager sharedInstance] setupWithClientId:clientId clientSecret:clientSecret queryId:idfa SuccessHandler:^(NSDictionary * _Nonnull dict) {
+    [[DBVoiceEngraverManager sharedInstance] setupWithClientId:clientId clientSecret:clientSecret queryId:idfa rePrintType:DBReprintTypeNormal successHandler:^(NSString * _Nonnull msg) {
         [[XCHudHelper sharedInstance] hideHud];
         NSLog(@"获取token成功");
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -34,7 +34,6 @@
         NSLog(@"获取token失败:%@",error);
         NSString *msg = [NSString stringWithFormat:@"获取token失败:%@",error.description];
         [self.view makeToast:msg duration:2 position:CSToastPositionCenter];
-        
     }];}
 
 /*

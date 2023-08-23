@@ -1228,16 +1228,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎体验 声音复刻技术" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSd-bb-CFV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎体验 声音复刻技术" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSd-bb-CFV">
                                 <rect key="frame" x="62" y="275" width="290" height="33.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvb-5c-N41">
-                                <rect key="frame" x="125" y="485.5" width="164" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="50" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvb-5c-N41">
+                                <rect key="frame" x="107" y="485.5" width="200" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="cNf-Ga-C80"/>
+                                    <constraint firstAttribute="height" constant="50" id="iHH-pB-on4"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="点我开启噪音检测"/>
+                                <state key="normal" title="点我开启噪音检测">
+                                    <color key="titleColor" systemColor="tintColor"/>
+                                </state>
                                 <connections>
                                     <segue destination="aoz-PD-HVC" kind="show" id="axj-l7-QMi"/>
                                 </connections>
@@ -1256,7 +1263,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nTa-HH-feY" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="535" y="1583"/>
+            <point key="canvasLocation" x="299" y="1596"/>
         </scene>
         <!--噪声检测-->
         <scene sceneID="ubp-OA-kSQ">
@@ -1339,7 +1346,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bwC-ug-mzA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1774" y="1590"/>
+            <point key="canvasLocation" x="1261" y="1590"/>
         </scene>
         <!--第二步：声音录制-->
         <scene sceneID="XqB-BK-LV4">
@@ -1350,10 +1357,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="5SL-KL-5NU">
-                                <rect key="frame" x="207" y="802" width="0.0" height="0.0"/>
+                                <rect key="frame" x="94.5" y="761" width="225" height="41"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeZ-iH-F08">
-                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="41"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeZ-iH-F08">
+                                        <rect key="frame" x="0.0" y="0.0" width="73" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="上一条"/>
                                         <state key="selected" title="上一条"/>
@@ -1361,8 +1368,16 @@
                                             <action selector="lastRecordAction:" destination="jCG-Ou-TJy" eventType="touchUpInside" id="dq8-SH-3Eq"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRt-XR-J2B">
-                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="41"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luK-Pd-sMP">
+                                        <rect key="frame" x="88" y="0.0" width="49" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="试听"/>
+                                        <connections>
+                                            <action selector="lisenAction:" destination="jCG-Ou-TJy" eventType="touchUpInside" id="8vv-Up-xdI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRt-XR-J2B">
+                                        <rect key="frame" x="152" y="0.0" width="73" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="下一条"/>
                                         <connections>
@@ -1429,18 +1444,14 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="yD5-DU-M4v">
-                                <rect key="frame" x="158" y="752" width="98" height="41"/>
+                                <rect key="frame" x="132" y="702" width="150" height="50"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luK-Pd-sMP">
-                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="41"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="试听"/>
-                                        <connections>
-                                            <action selector="lisenAction:" destination="jCG-Ou-TJy" eventType="touchUpInside" id="8vv-Up-xdI"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Nu-XD-M7r">
-                                        <rect key="frame" x="0.0" y="0.0" width="98" height="41"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="CNZ-dl-Rfo"/>
+                                            <constraint firstAttribute="height" constant="50" id="sdu-pE-jj8"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="24"/>
                                         <state key="normal" title="开始朗读"/>
                                         <state key="selected" title="上传识别"/>
@@ -1760,6 +1771,9 @@
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

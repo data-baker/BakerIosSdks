@@ -22,7 +22,7 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
 
 
 //GET请求
-+ (void)getWithUrlString:(NSString *)url parameters:(id)parameters success:(DBSuccessHandler)successBlock failure:(DBFailureHandler)failureBlock
++ (void)getWithUrlString:(NSString *)url parameters:(id)parameters success:(DBNSuccessHandler)successBlock failure:(DBFailureHandler)failureBlock
 {
     NSMutableString *mutableUrl = [[NSMutableString alloc] initWithString:url];
     if ([parameters allKeys]) {
@@ -50,11 +50,10 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
 }
 
 //POST请求 使用NSMutableURLRequest可以加入请求头
-- (void)postWithUrlString:(NSString *)url parameters:(id)parameters success:(DBSuccessHandler)successBlock failure:(DBFailureHandler)failureBlock
+- (void)postWithUrlString:(NSString *)url parameters:(id)parameters success:(DBNSuccessHandler)successBlock failure:(DBFailureHandler)failureBlock
 {
     NSAssert(successBlock, @"请设置successBlock");
     NSAssert(failureBlock, @"请设置failureBlock");
-
     NSURL *nsurl = [NSURL URLWithString:url];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:nsurl];
     //如果想要设置网络超时的时间的话，可以使用下面的方法：    
@@ -73,7 +72,6 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     headerDic[@"token"] = self.token;
     headerDic[@"clientId"] = self.clientId;
     [request setValue:[self getSignature:headerDic] forHTTPHeaderField:@"signature"];
-    
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     //把参数放到请求体内
     NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionary];
@@ -99,12 +97,19 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
                             failureBlock(error);
                             return;
                         }
-                        [self.delegate updateTokenSuccessHandler:^(NSDictionary * _Nonnull dict) {
+                        [self.delegate updateTokenSuccessHandler:^(NSString * _Nonnull message) {
                             [self postWithUrlString:url parameters:parameters success:successBlock failure:failureBlock];
                         } failureHander:failureBlock];
                         retry--;
                         return;
                     }
+                    NSString *errorServer = dic[@"error"];
+                    if (errorServer.length > 0) {
+                        NSError *error = [NSError errorWithDomain:DBErrorDomain code:115002 userInfo:dic];
+                        failureBlock(error);
+                        return;
+                    }
+                    
                     NSError *error = [NSError errorWithDomain:DBErrorDomain code:[dic[@"code"] integerValue] userInfo:@{@"message":dic[@"message"]}];
                     failureBlock(error);
                 }
@@ -142,7 +147,7 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     return result;
 }
 
-- (void)uploadWithUrlString:(NSString *)url parameters:(id)parameters success:(DBSuccessHandler)successBlock failure:(DBFailureHandler)failureBlock {
+- (void)uploadWithUrlString:(NSString *)url parameters:(id)parameters success:(DBNSuccessHandler)successBlock failure:(DBFailureHandler)failureBlock {
     
     NSString *path = parameters[@"path"];
     NSString *name = parameters[@"name"];
@@ -262,15 +267,12 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
 }
 
 - (NSString *)getUnixTime {
-    
     NSTimeInterval time=[[NSDate date] timeIntervalSince1970];
     long long int currentTime = (long long int)time;
     NSString *unixTime = [NSString stringWithFormat:@"%llu", currentTime];
     return unixTime;
-    
 }
-- (NSString *)getSignature:(NSMutableDictionary*) params{
-    
+- (NSString *)getSignature:(NSMutableDictionary*)params {
     NSArray *keyArray = [params allKeys];
     NSArray *sortArray = [keyArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [obj1 compare:obj2 options:NSNumericSearch];
@@ -285,7 +287,7 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
         [signArray addObject:keyValueStr];
     }
     NSString *sign = [signArray componentsJoinedByString:@"&"];
-    sign = [NSString stringWithFormat:@"%@&v2",sign];
+    sign = [NSString stringWithFormat:@"%@&v3",sign];
     sign = [self MD5ForLower32Bate:sign];
     if ([self isBlank:sign]) {
         NSString *occurrencesString = @"s";
@@ -306,23 +308,18 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
 }
 
 -(NSString *)MD5ForLower32Bate:(NSString *)str{
-    
-    //要进行UTF8的转码
     const char* input = [str UTF8String];
     unsigned char result[CC_MD5_DIGEST_LENGTH];
     CC_MD5(input, (CC_LONG)strlen(input), result);
-    
     NSMutableString *digest = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     for (NSInteger i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
         [digest appendFormat:@"%02x", result[i]];
     }
-    
     return digest;
 }
 
 
 // MARK: 设置代理的回调 -- DBParamsDelegate
-
 - (NSDictionary *)paramasDelegateRequestParamas {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"token"] = self.token;
@@ -333,7 +330,6 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     dict[@"nounce"] = nounce;
     dict[@"signature"] = [self getSignature:dict];
     return dict;
-    
 }
 
 - (void)logMessage:(NSString *)format, ... {

@@ -9,22 +9,6 @@
 #import "DBAuthentication.h"
 #import "DBNetworkHelper.h"
 
-// TODO: 鉴权地址
-#ifndef DBRelease
-#define DBRelease 1
-#endif
-
-#if DBRelease
-#define baseURL @"https://openapi.data-baker.com"
-#else
-#define baseURL @"http://10.10.50.23:9904"
-#endif
-
-#define getTokenURL [NSString stringWithFormat:@"%@/oauth/2.0/token",baseURL]
-
-
-//static  NSString *const getTokenURL = @"https://openapi.data-baker.com/oauth/2.0/token";
-
 
 @implementation DBAuthentication
 
@@ -48,7 +32,7 @@
     parameters[@"client_secret"] = clientSecret;
     parameters[@"grant_type"] = @"client_credentials";
     
-    [DBNetworkHelper getWithUrlString:getTokenURL parameters:parameters success:^(NSDictionary * _Nonnull data) {
+    [DBNetworkHelper getWithUrlString:KGET_TOKENT_URL parameters:parameters success:^(NSDictionary * _Nonnull data) {
         NSString *accessToken = data[@"access_token"];
         if (!accessToken) {
             static NSInteger rectryCount = 2;

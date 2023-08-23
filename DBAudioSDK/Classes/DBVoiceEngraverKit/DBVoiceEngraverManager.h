@@ -5,17 +5,15 @@
 //  Created by linxi on 2020/3/3.
 //  Copyright © 2020 biaobei. All rights reserved.
 //
-
 #import <Foundation/Foundation.h>
 #import "DBVoiceModel.h"
 #import "DBVoiceDetectionDelegate.h"
-
-
+#import "DBVoiceEngraverEnumerte.h"
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^DBSuccessHandler)(NSDictionary *dict);
 ///  上传识别回调的block
 typedef void (^DBVoiceRecogizeHandler)(DBVoiceRecognizeModel *model);
+
 /// 获取识别文本的block
 typedef void (^DBTextBlock)(NSArray <NSString *> *textArray);
 
@@ -27,6 +25,11 @@ typedef void (^DBSuccessOneModelHandler)(DBVoiceModel  *voiceModel);
 
 /// 失败的回调
 typedef void (^DBFailureHandler)(NSError *error);
+
+typedef NS_ENUM(NSUInteger,DBReprintType) {
+    DBReprintTypeNormal = 1, // 普通复刻
+    DBReprintTypeFine, // 精品复刻
+};
 
 
 @interface DBVoiceEngraverManager : NSObject
@@ -46,13 +49,23 @@ typedef void (^DBFailureHandler)(NSError *error);
 /// @param clientId ID
 /// @param clientSecret secret
 /// @param queryId 查询Id，选填项
+/// @param reprintType 复刻类型
 /// @param successHandler 成功回调
 /// @param failureHandler 失败回调
-- (void)setupWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret queryId:(nullable NSString * )queryId SuccessHandler:(DBSuccessHandler)successHandler failureHander:(DBFailureHandler)failureHandler;
+- (void)setupWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret queryId:(nullable NSString * )queryId rePrintType:(DBReprintType)reprintType successHandler:(DBMessageHandler)successHandler failureHander:(DBFailureHandler)failureHandler;
 
 
-/// 获取复刻的录音文本
-- (void)getRecordTextArrayTextHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler;
+/// 获取复刻的录音文本(没有历史会话的录制请求)
+//- (void)getRecordTextArrayTextHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler __attribute__ ((deprecated("废弃（version >= 1.1.0）,使用`- (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler` 替代")));
+;
+
+// TODO:
+
+// 获取噪音的上限，通过handler进行回调处理
+- (void)getNoiseLimit:(DBMessageHandler)handler;
+
+/// 通过SessionId（恢复录制），通过sessionId恢复录制ID, 回调的TextHandler中包含录制的相关信息
+- (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler;
 
 
 /// 设置查询Id，需要在执行获取sessionId前设置，此参数不是必填参数，但是强烈建议使用
@@ -66,7 +79,7 @@ typedef void (^DBFailureHandler)(NSError *error);
 - (void)pauseRecord;
 
 // 非正常录音结束
-- (void)unNormalStopRecordSeesionSuccessHandler:(DBSuccessHandler)successBlock failureHandler:(DBFailureHandler)failureHandler;
+- (void)unNormalStopRecordSeesionSuccessHandler:(DBMessageHandler)successBlock failureHandler:(DBFailureHandler)failureHandler;
 
 /// 上传录音的声音到服务器,失败的情况通过代理进行回调
 /// @param successHandler 上传成功的回调
@@ -94,7 +107,6 @@ typedef void (^DBFailureHandler)(NSError *error);
 
 /// 停止试听
 - (void)stopCurrentListen;
-
 
 /// 当前的条目能否进入下一条,Yes：可以,NO:不可以
 /// @param currentIndex 当前条目的Index

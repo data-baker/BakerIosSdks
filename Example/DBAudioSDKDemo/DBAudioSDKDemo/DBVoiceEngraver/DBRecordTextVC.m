@@ -13,6 +13,13 @@
 #import "XCHudHelper.h"
 #import "DBRecordCompleteVC.h"
 
+#ifndef KUserDefalut
+#define KUserDefalut [NSUserDefaults standardUserDefaults]
+#endif
+
+static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生成的SessionId
+
+
 @interface DBRecordTextVC ()<UITextViewDelegate,DBVoiceDetectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *phaseTitleLabel;
 @property (weak, nonatomic) IBOutlet UITextView *recordTextView;
@@ -27,7 +34,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *allPhaseLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *voiceImageView;
 @property (weak, nonatomic) IBOutlet UIButton *listenButton;
-
 @property(nonatomic,assign) CFAbsoluteTime startTime;
 
 /// 表示当前录制的是第几条
@@ -39,6 +45,7 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.index = 0;
     self.view.backgroundColor = [UIColor whiteColor];
@@ -67,14 +74,19 @@
     UIButton *button = (UIButton *)sender;
     button.selected = !button.isSelected;
     if (button.isSelected) {
-        self.startTime = CFAbsoluteTimeGetCurrent();
-        [self.voiceEngraverManager startRecordWithTextIndex:self.index failureHander:^(NSError * _Nonnull error) {
-            NSLog(@"error %@",error);
-            // 发生错误停止录音
-            [self.view makeToast:error.description duration:2 position:CSToastPositionCenter];
-            [self.voiceEngraverManager pauseRecord];
-            [self endRecordState];
-        }];
+        NSString *sessionId =  [KUserDefalut objectForKey:KRecordSessionID];
+        if ([self _isEmpty:sessionId]) {
+            self.startTime = CFAbsoluteTimeGetCurrent();
+            [self.voiceEngraverManager startRecordWithTextIndex:self.index failureHander:^(NSError * _Nonnull error) {
+                NSLog(@"error %@",error);
+                // 发生错误停止录音
+                [self.view makeToast:error.description duration:2 position:CSToastPositionCenter];
+                [self.voiceEngraverManager pauseRecord];
+                [self endRecordState];
+            }];
+        }else {
+        }
+    
         [self beginRecordState];
         
     }else {
@@ -84,6 +96,10 @@
 }
 
 - (IBAction)nextRecordAction:(id)sender {
+    [self nextItemAction];
+}
+
+- (void)nextItemAction {
     if (![self.voiceEngraverManager canNextStepByCurrentIndex:self.index]) {
         [self.view makeToast:@"请录制完当前条目再点击下一步" duration:2.f position:CSToastPositionCenter];
         return;
@@ -108,14 +124,41 @@
 }
 
 
+// MARK： 恢复录制
+- (void)recoverReprintWithSessionId:(NSString *)sessionId {
+    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSArray<NSString *> * _Nonnull textArray) {
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"error:%@",error.description);
+    }];
+}
+
+- (void)showContinueReprint {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到您有复刻录制正在进行中，是否继续?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *resume = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertVC addAction:resume];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertVC addAction:cancelAction];
+    [self presentViewController:alertVC animated:YES completion:nil];
+    
+}
+
+
 - (void)uploadRecoginizeVoice {
     [self showHUD];
     [self.voiceEngraverManager uploadRecordVoiceRecogizeHandler:^(DBVoiceRecognizeModel * _Nonnull model) {
         [self hiddenHUD];
         if ([model.passStatus.stringValue isEqualToString:@"1"]) {
-            [self.view makeToast:[NSString stringWithFormat:@"上传识别成功：准确率：%@",model.percent] duration:2 position:CSToastPositionCenter];
+            [self.view makeToast:[NSString stringWithFormat:@"太棒了：准确率：%@%%，请录制下一段吧。",model.percent] duration:2 position:CSToastPositionCenter];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self nextItemAction];
+//            });
         }else {
-            [self.view makeToast:[NSString stringWithFormat:@"上传识别失败：准确率：%@",model.percent] duration:2 position:CSToastPositionCenter];
+            [self.view makeToast:[NSString stringWithFormat:@"准确率：%@%%，请重新录制文本",model.percent] duration:2 position:CSToastPositionCenter];
         }
     }];
 
@@ -238,7 +281,7 @@
     [alertVC addAction:cancelAction];
 
     UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self.voiceEngraverManager unNormalStopRecordSeesionSuccessHandler:^(NSDictionary * _Nonnull dict) {
+        [self.voiceEngraverManager unNormalStopRecordSeesionSuccessHandler:^(NSString * _Nonnull message) {
             [self.navigationController popToRootViewControllerAnimated:YES];
         } failureHandler:^(NSError * _Nonnull error) {
             [self.view makeToast:@"退出session失败" duration:2 position:CSToastPositionCenter];
@@ -262,6 +305,10 @@
 
 
 // MARK: Pricate Methods -
+
+- (BOOL)_isEmpty:(NSString *)str {
+    return str.length == 0 || str == nil;
+}
 
 - (void)showHUD {
     [[XCHudHelper sharedInstance]showHudOnView:self.view caption:@"上传识别中" image:nil

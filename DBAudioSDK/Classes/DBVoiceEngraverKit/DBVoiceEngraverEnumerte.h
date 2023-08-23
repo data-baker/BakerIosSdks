@@ -31,5 +31,10 @@ typedef NS_ENUM(NSUInteger,DBErrorState){
     
 };
 
+typedef void (^DBSuccessHandler)(NSDictionary *dict) __attribute__ ((deprecated("废弃（version >= 1.1.0）,使用`void (^DBMessageHandler)(NSString *msg)` 替代")));
+
+// 回调信息
+typedef void (^DBMessageHandler)(NSString *msg);
+
 
 #endif /* DBVoiceCopyEnumerte_h */

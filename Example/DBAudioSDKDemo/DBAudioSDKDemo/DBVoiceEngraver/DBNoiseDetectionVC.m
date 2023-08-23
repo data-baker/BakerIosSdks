@@ -13,6 +13,13 @@
 #import "DBRecordTextVC.h"
 #import "XCHudHelper.h"
 
+#ifndef KUserDefalut
+#define KUserDefalut [NSUserDefaults standardUserDefaults]
+#endif
+
+static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生成的SessionId
+
+
 @interface DBNoiseDetectionVC ()<DBVoiceDetectionDelegate>
 @property(nonatomic,strong)DBVoiceDetectionUtil * voiceDetectionUtil;
 @property(nonatomic,strong)DBVoiceEngraverManager * voiceEngraverManager;
@@ -64,7 +71,9 @@
 }
 - (IBAction)startEngraverAction:(id)sender {
     [self showHUD];
-    [self.voiceEngraverManager getRecordTextArrayTextHandler:^(NSArray * _Nonnull textArray) {
+    NSString *sessionId =  [KUserDefalut objectForKey:KRecordSessionID];
+    
+    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSArray<NSString *> * _Nonnull textArray) {
         [self hiddenHUD];
         if (textArray.count == 0) {
             [self.view makeToast:@"获取录制文本失败" duration:2 position:CSToastPositionCenter];
@@ -78,6 +87,7 @@
         [self hiddenHUD];
         [self.view makeToast:error.description duration:2 position:CSToastPositionCenter];
     }];
+    
 }
 
 // MARK: DBVoiceDetectionDelegate
@@ -139,6 +149,7 @@
 - (void)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC {
     self.navigationController.tabBarController.hidesBottomBarWhenPushed= NO;
 }
+
 
 
 @end

@@ -25,10 +25,17 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
 //static NSString *KClientId = @"XXX";
 //static NSString *KClientSecret = @"XXX";
 // 复刻
-static NSString *KClientId = @"dcaf6b482d634649a4fd29ec93e93db0";
-static NSString *KClientSecret = @"f556a352f5334fd59cbc46c38eb74004";
+//static NSString *KClientId = @"dcaf6b482d634649a4fd29ec93e93db0";
+//static NSString *KClientSecret = @"f556a352f5334fd59cbc46c38eb74004";
 //static NSString *KClientId = @"df6527d33b644733a2b4e58de710fd9d";
 //static NSString *KClientSecret = @"ca9c99132d3c4d2bb92501410ee21bd8";
+// 声音复刻 - 测试环境
+static NSString *KClientId = @"1fed232b78b04eae9fa21b464d6d2db9";
+static NSString *KClientSecret = @"3e98fedaa8584ee193c2050423652066";
+
+// 在线声音转换
+//static NSString *KClientId = @"4c41ba67b97a424aa46f3c686a98ddd9";
+//static NSString *KClientSecret = @"426db40f36c241e183571207939a5ca1";
 
 #define KUserDefalut [NSUserDefaults standardUserDefaults]
 
