@@ -9,7 +9,12 @@
 #import "DBVoiceModel.h"
 #import "DBVoiceDetectionDelegate.h"
 #import "DBVoiceEngraverEnumerte.h"
+#import "DBTextModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
+@class DBTextModel;
+
+typedef void (^DBTextModelArrayHandler)(NSString *sessionId,NSArray<DBTextModel *> *array);
 
 ///  上传识别回调的block
 typedef void (^DBVoiceRecogizeHandler)(DBVoiceRecognizeModel *model);
@@ -62,10 +67,10 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 // TODO:
 
 // 获取噪音的上限，通过handler进行回调处理
-- (void)getNoiseLimit:(DBMessageHandler)handler;
+- (void)getNoiseLimit:(DBMessageHandler)handler failuer:(DBFailureHandler)failureHandler;
 
 /// 通过SessionId（恢复录制），通过sessionId恢复录制ID, 回调的TextHandler中包含录制的相关信息
-- (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler;
+- (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextModelArrayHandler)textHandler failure:(DBFailureHandler)failureHandler;
 
 
 /// 设置查询Id，需要在执行获取sessionId前设置，此参数不是必填参数，但是强烈建议使用
@@ -73,7 +78,10 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 - (void)setupQueryId:(nullable NSString *)queryId;
 
 // 开始录音，第一次录音会开启一个会话session,如果开启失败会通过failureHandler回调错误
-- (void)startRecordWithTextIndex:(NSInteger )textIndex failureHander:(DBFailureHandler)failureHandler;
+- (void)startRecordWithSessionId:(NSString *)sessionId
+                       TextIndex:(NSInteger )textIndex
+                  messageHandler:(DBMessageHandler)messageHandler
+                   failureHander:(DBFailureHandler)failureHandler;
 
 // 结束录音
 - (void)pauseRecord;

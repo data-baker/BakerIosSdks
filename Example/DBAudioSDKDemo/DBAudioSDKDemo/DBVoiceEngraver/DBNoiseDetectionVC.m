@@ -33,29 +33,41 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.volumeNumberButton.layer.cornerRadius = 81;
     self.volumeNumberButton.layer.masksToBounds = YES;
     self.volumeNumberButton.layer.borderWidth = 1;
     [self recoverUIState];
 
     self.voiceEngraverManager = [DBVoiceEngraverManager sharedInstance];
-    /// 声明噪音检测的工具，开启噪音检测
-    self.voiceDetectionUtil = [[DBVoiceDetectionUtil alloc]init];
-    self.startEngraverVoiceButton.enabled = NO;
-    self.voiceDetectionUtil.delegate = self;
-    DBErrorState state =  [self.voiceDetectionUtil startDBDetection];
-    if (state == DBErrorStateMircrophoneNotPermission) {
-        [self.view makeToast:@"请打开麦克风权限再试" duration:2 position:CSToastPositionCenter];
-    }else  if (state == DBErrorStateNOError) {
-        NSLog(@"开启检测成功");
-    }else {
-        NSLog(@"开启检测失败");
-    }
+    [self loadNoiseConfigure:^(NSString *msg) {
+        /// 声明噪音检测的工具，开启噪音检测
+        self.voiceDetectionUtil = [[DBVoiceDetectionUtil alloc]init];
+        self.startEngraverVoiceButton.enabled = NO;
+        self.voiceDetectionUtil.delegate = self;
+        DBErrorState state =  [self.voiceDetectionUtil startDBDetection];
+        if (state == DBErrorStateMircrophoneNotPermission) {
+            [self.view makeToast:@"请打开麦克风权限再试" duration:2 position:CSToastPositionCenter];
+        }else  if (state == DBErrorStateNOError) {
+            NSLog(@"开启检测成功");
+        }else {
+            NSLog(@"开启检测失败");
+        }
+    }];
+    
+   
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
-
+// MARK: Load Noise configure
+- (void)loadNoiseConfigure:(DBMessageHandler)handler {
+    [self.voiceEngraverManager getNoiseLimit:^(NSString *msg) {
+        handler(msg);
+    } failuer:^(NSError * _Nonnull error) {
+        [self.view makeToast:error.localizedDescription];
+    }];
+}
 
 // MARK:
 
@@ -72,16 +84,15 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 - (IBAction)startEngraverAction:(id)sender {
     [self showHUD];
     NSString *sessionId =  [KUserDefalut objectForKey:KRecordSessionID];
-    
-    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSArray<NSString *> * _Nonnull textArray) {
+    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSString * _Nonnull sessionId, NSArray<DBTextModel *> * _Nonnull array) {
         [self hiddenHUD];
-        if (textArray.count == 0) {
+        if (array.count == 0) {
             [self.view makeToast:@"获取录制文本失败" duration:2 position:CSToastPositionCenter];
             return ;
         }
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         DBRecordTextVC *recordVC  =   [story instantiateViewControllerWithIdentifier:@"DBRecordTextVC"];
-        recordVC.textArray = textArray;
+        recordVC.textArray = array;
         [self.navigationController pushViewController:recordVC animated:YES];
     } failure:^(NSError * _Nonnull error) {
         [self hiddenHUD];

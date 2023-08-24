@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 #endif
 
-
+#define KAUDIO_SDK_VERSION @"1.1.0"
 
 
 @interface DBCommonConst : NSObject

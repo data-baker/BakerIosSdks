@@ -15,7 +15,6 @@
 
 static NSString *DBErrorDomain = @"com.BiaoBeri.DBVoiceTransferUtil";
 static NSString *DBFileName = @"transferPCMFile";
-static NSString *sdkVersion = @"1.0.90";
 
 typedef NS_ENUM(NSUInteger,DBTransferState) {
     DBTransferStateInit  = 0, // 初始化
@@ -584,7 +583,7 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     return hasMicrophonePermission;
 }
 + (NSString *)sdkVersion {
-    return sdkVersion;
+    return KAUDIO_SDK_VERSION;
 }
 
 @end

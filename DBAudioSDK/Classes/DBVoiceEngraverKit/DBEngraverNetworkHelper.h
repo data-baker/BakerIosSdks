@@ -22,6 +22,7 @@
 #define KBASE_HOST_WEBSOCKET @"ws://10.10.20.107:9922"
 #endif
 #define KREPRINT_PATH  @"/gramophone/v3"
+
 #define join_string1(str1 ,str2) [NSString stringWithFormat:@"%@%@",str1, str2]
 #define KDB_BASE_PATH join_string1(KBASE_HOST,KREPRINT_PATH)
 #define KDB_WEBSOCKET_URL  join_string1(KBASE_HOST_WEBSOCKET,@"/gramophone/websocket/fuke/v3")
@@ -29,8 +30,11 @@
 NS_ASSUME_NONNULL_BEGIN
 typedef void (^DBFailureHandler)(NSError *error);
 typedef void (^DBNSuccessHandler)(NSDictionary * __nullable dict);
+
+// 获取本地的录音配置信息
+static NSString *const DBURLConfigQuery = @"/user/record/config/query";
 /// 文件上传
-static NSString *const DBURLUploadFile = @"/user/record/result/check";
+//static NSString *const DBURLUploadFile = @"/user/record/result/check";
 /// 获取录音文本接口
 static NSString *const DBURLRecordTextList = @"/record/context/list";
 /// 开始录音前获取session

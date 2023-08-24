@@ -30,7 +30,6 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     DBAsrStateDidEnd = 3  // 结束
 };
 
-static NSString * LongTimeASRSDKVersion = @"1.0.90";
 
 static NSString * LongTimeASRSDKInstallation = @"LongTimeASRSDKInstallation";
 
@@ -396,7 +395,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     parameters[@"sdkType"] = @"iOS";//sdk类型：IOS/ANDROID/JAVA/... ,
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     parameters[@"sdkUuid"] = [userDefaults valueForKey:DBLongTimeASRUDID];//唯一标志一个客户端 ,
-    parameters[@"sdkVersion"] = LongTimeASRSDKVersion;//sdk版本 ,
+    parameters[@"sdkVersion"] = KAUDIO_SDK_VERSION;//sdk版本 ,
     parameters[@"submitType"] = [NSString stringWithFormat:@"%zd",type];//提交类型：1首次激活 2日常上报 3错误上报
     parameters[@"sdkName"] = @"LongTimeASR";//区分sdk是asr,tts等SDK类型
     
@@ -511,7 +510,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 
 
 +(NSString *)sdkVersion {
-    return LongTimeASRSDKVersion;
+    return KAUDIO_SDK_VERSION;
 }
 
 @end

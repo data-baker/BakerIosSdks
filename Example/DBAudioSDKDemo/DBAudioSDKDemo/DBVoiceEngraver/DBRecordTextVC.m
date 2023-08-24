@@ -13,6 +13,7 @@
 #import "XCHudHelper.h"
 #import "DBRecordCompleteVC.h"
 
+
 #ifndef KUserDefalut
 #define KUserDefalut [NSUserDefaults standardUserDefaults]
 #endif
@@ -52,7 +53,11 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     self.voiceEngraverManager =  [DBVoiceEngraverManager sharedInstance];
     self.voiceEngraverManager.delegate= self;
     [self addBoardOfTitleBackgroundView:self.titileBackGroundView cornerRadius:50];
-    [self p_setTextViewAttributeText:self.textArray.firstObject];
+    DBTextModel *textModel = self.textArray.firstObject;
+    
+
+    
+//    [self p_setTextViewAttributeText:model.];
     self.allPhaseLabel.text = [NSString stringWithFormat:@"共%@段",@(self.textArray.count)];
 }
 
@@ -75,20 +80,17 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     button.selected = !button.isSelected;
     if (button.isSelected) {
         NSString *sessionId =  [KUserDefalut objectForKey:KRecordSessionID];
-        if ([self _isEmpty:sessionId]) {
-            self.startTime = CFAbsoluteTimeGetCurrent();
-            [self.voiceEngraverManager startRecordWithTextIndex:self.index failureHander:^(NSError * _Nonnull error) {
-                NSLog(@"error %@",error);
-                // 发生错误停止录音
-                [self.view makeToast:error.description duration:2 position:CSToastPositionCenter];
-                [self.voiceEngraverManager pauseRecord];
-                [self endRecordState];
-            }];
-        }else {
-        }
-    
-        [self beginRecordState];
-        
+        self.startTime = CFAbsoluteTimeGetCurrent();
+        [self.voiceEngraverManager startRecordWithSessionId:sessionId TextIndex:self.index  messageHandler:^(NSString *sessionId) {
+            [KUserDefalut setObject:sessionId forKey:KRecordSessionID]; // 保存当前的SessionId
+            [self beginRecordState];
+        } failureHander:^(NSError * _Nonnull error) {
+            NSLog(@"error %@",error);
+            // 发生错误停止录音
+            [self.view makeToast:error.description duration:2 position:CSToastPositionCenter];
+            [self.voiceEngraverManager pauseRecord];
+            [self endRecordState];
+        }];
     }else {
         [self endRecordState];
         [self uploadRecoginizeVoice];
@@ -126,7 +128,8 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
 // MARK： 恢复录制
 - (void)recoverReprintWithSessionId:(NSString *)sessionId {
-    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSArray<NSString *> * _Nonnull textArray) {
+    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSString * _Nonnull sessionId, NSArray<DBTextModel *> * _Nonnull array) {
+
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"error:%@",error.description);
     }];
@@ -275,21 +278,21 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 - (BOOL)navigationShouldPopOnBackButton
 {
     NSLog(@"clicked navigationbar back button");
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"返回了当前录制结果将会取消？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"返回了当前录制结果将会保存，再次进入可以恢复使用？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
        }];
     [alertVC addAction:cancelAction];
 
     UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self.voiceEngraverManager unNormalStopRecordSeesionSuccessHandler:^(NSString * _Nonnull message) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        } failureHandler:^(NSError * _Nonnull error) {
-            [self.view makeToast:@"退出session失败" duration:2 position:CSToastPositionCenter];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            });
-        }];
-        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+//        [self.voiceEngraverManager unNormalStopRecordSeesionSuccessHandler:^(NSString * _Nonnull message) {
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+//        } failureHandler:^(NSError * _Nonnull error) {
+//            [self.view makeToast:@"退出session失败" duration:2 position:CSToastPositionCenter];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [self.navigationController popToRootViewControllerAnimated:YES];
+//            });
+//        }];
     }];
     [alertVC addAction:doneAction];
     [self presentViewController:alertVC animated:YES completion:nil];

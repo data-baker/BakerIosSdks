@@ -15,8 +15,6 @@
 #import "DBSynthesizer.h"
 #import "DBLogManager.h"
 
-// TODO:更新前修改版本号
-static NSString * TTSSDKVersion = @"1.0.90";
 
 static NSString * TTSSDKInstallation = @"TTSSDKInstallation";
 
@@ -525,7 +523,7 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     parameters[@"sdkType"] = @"iOS";//sdk类型：IOS/ANDROID/JAVA/... ,
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     parameters[@"sdkUuid"] = [userDefaults valueForKey:DBTTSUDID];//唯一标志一个客户端 ,
-    parameters[@"sdkVersion"] = TTSSDKVersion;//sdk版本 ,
+    parameters[@"sdkVersion"] = KAUDIO_SDK_VERSION;//sdk版本 ,
     parameters[@"submitType"] = [NSString stringWithFormat:@"%zd",type];//提交类型：1首次激活 2日常上报 3错误上报
     parameters[@"sdkName"] = @"tts";//区分sdk是asr,tts等SDK类型
     
@@ -591,6 +589,6 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
 }
 
 + (NSString *)sdkVersion {
-    return TTSSDKVersion;
+    return KAUDIO_SDK_VERSION;
 }
 @end

@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DBCommonConst.h"
+
 
 #ifdef DEBUG
 #define DBLog(FORMAT, ...) {\

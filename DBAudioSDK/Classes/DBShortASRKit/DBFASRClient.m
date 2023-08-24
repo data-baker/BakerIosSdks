@@ -16,7 +16,6 @@
 #import "DBResponseModel.h"
 
 
-static NSString * OneSpeechASRSDKVersion = @"1.0.90";
 
 static NSString * OneSpeechASRSDKInstallation = @"OneSpeechASRSDKInstallation";
 
@@ -455,7 +454,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     parameters[@"sdkType"] = @"iOS";//sdk类型：IOS/ANDROID/JAVA/... ,
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     parameters[@"sdkUuid"] = [userDefaults valueForKey:DBOneSpeechASRUDID];//唯一标志一个客户端 ,
-    parameters[@"sdkVersion"] = OneSpeechASRSDKVersion;//sdk版本 ,
+    parameters[@"sdkVersion"] = KAUDIO_SDK_VERSION;//sdk版本 ,
     parameters[@"submitType"] = [NSString stringWithFormat:@"%zd",type];//提交类型：1首次激活 2日常上报 3错误上报
     parameters[@"sdkName"] = @"OneSpeechASR";//区分sdk是asr,tts等SDK类型
     
@@ -568,7 +567,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     self.flag = YES;
 }
 + (NSString *)sdkVersion {
-    return OneSpeechASRSDKVersion;
+    return KAUDIO_SDK_VERSION;
 }
 
 @end

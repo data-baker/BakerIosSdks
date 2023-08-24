@@ -12,8 +12,6 @@
 #import "DBRegisterAudioModel.h"
 
 
-static NSString *vocalPrintSDKVersion = @"1.0.90";
-
 /// 创建声纹验证
 static NSString *VPCreateIdURL = @"https://openapi.data-baker.com/vpr/createid";
 
@@ -190,7 +188,7 @@ static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status"
 }
 
 + (NSString *)sdkVersion {
-    return vocalPrintSDKVersion;
+    return KAUDIO_SDK_VERSION;
 }
 
 @end

@@ -51,6 +51,8 @@
 		35671C1A2A384534000C3676 /* DBEngraverAudioMicrophone.m in Sources */ = {isa = PBXBuildFile; fileRef = 35671C182A384534000C3676 /* DBEngraverAudioMicrophone.m */; };
 		356996F42A945777006C59FC /* NSString+Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 356996F22A945777006C59FC /* NSString+Util.h */; };
 		356996F52A945777006C59FC /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 356996F32A945777006C59FC /* NSString+Util.m */; };
+		35CB20882A975C9D000678A4 /* DBTextModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CB20862A975C9D000678A4 /* DBTextModel.h */; };
+		35CB20892A975C9D000678A4 /* DBTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CB20872A975C9D000678A4 /* DBTextModel.m */; };
 		397BA568B8F7E0B282AC51382DF3FD59 /* IQUIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 10913791E5AB5F6D38D5C072061CB7B0 /* IQUIViewController+Additions.m */; };
 		3A732F8B50CED7A4A6D6959D082E2026 /* DBZURLUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 16660453D98F87D9A9C8B309B147DE4B /* DBZURLUtilities.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3B1CCCE296400626407F7F7C43A05CD3 /* DBVoiceTransferUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A76FA7666E280A2C74582E35793B41 /* DBVoiceTransferUtil.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -253,6 +255,8 @@
 		35671C182A384534000C3676 /* DBEngraverAudioMicrophone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBEngraverAudioMicrophone.m; sourceTree = "<group>"; };
 		356996F22A945777006C59FC /* NSString+Util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		356996F32A945777006C59FC /* NSString+Util.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
+		35CB20862A975C9D000678A4 /* DBTextModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBTextModel.h; sourceTree = "<group>"; };
+		35CB20872A975C9D000678A4 /* DBTextModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBTextModel.m; sourceTree = "<group>"; };
 		3717B41B1B9FEE3DD30CA9C9EF7184C8 /* IQKeyboardManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IQKeyboardManager.release.xcconfig; sourceTree = "<group>"; };
 		374663C4E472F4ACAEF29F1228624BEF /* Pods-DBAudioSDKDemoTests */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "Pods-DBAudioSDKDemoTests"; path = "libPods-DBAudioSDKDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3803903913AF9CA292AD7636B117CFD5 /* DBAudioSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DBAudioSDK-prefix.pch"; sourceTree = "<group>"; };
@@ -715,6 +719,8 @@
 				356996F32A945777006C59FC /* NSString+Util.m */,
 				E831AED58EFC92CCDC772BC4DF9ADD40 /* DBVoiceModel.h */,
 				03D6001CB3801AB4D79F405F4EB2237B /* DBVoiceModel.m */,
+				35CB20862A975C9D000678A4 /* DBTextModel.h */,
+				35CB20872A975C9D000678A4 /* DBTextModel.m */,
 			);
 			name = DBVoiceEngraverKit;
 			path = DBAudioSDK/Classes/DBVoiceEngraverKit;
@@ -1043,6 +1049,7 @@
 				0704771E39D72139C09F8FFBED8250B2 /* DBVoiceEngraverManager.h in Headers */,
 				74260D921A4079F0A5C4C73E4B65C244 /* DBVoiceModel.h in Headers */,
 				3B1CCCE296400626407F7F7C43A05CD3 /* DBVoiceTransferUtil.h in Headers */,
+				35CB20882A975C9D000678A4 /* DBTextModel.h in Headers */,
 				557D10780FB37F72F666DA04E1A80A8B /* DBVPResponseModel.h in Headers */,
 				337D746012F4BDDB12AAAAB406A609CF /* DBZConstants.h in Headers */,
 				2A9F8DC96A125996A240AE5ED187C827 /* DBZDelegateController.h in Headers */,
@@ -1319,6 +1326,7 @@
 				1269EDECE479F5A26FD70D84EAC1FDB3 /* DBMatchMoreAudioModel.m in Sources */,
 				59EBB884CBDD25F85C9F749905C5C06F /* DBMatchOneAudioModel.m in Sources */,
 				6F3110989C065A750C0C5B7B2885C373 /* DBNetworkHelper.m in Sources */,
+				35CB20892A975C9D000678A4 /* DBTextModel.m in Sources */,
 				CB5759E49C47E8D050EACEB337615879 /* DBOnlineResponseModel.m in Sources */,
 				AEBE6E82C33F5463EE520D9518E8436E /* DBPCMDataPlayer.m in Sources */,
 				CB8F7CB122F6CDBC11B7007328FF7A68 /* DBRecordPCMDataPlayer.m in Sources */,

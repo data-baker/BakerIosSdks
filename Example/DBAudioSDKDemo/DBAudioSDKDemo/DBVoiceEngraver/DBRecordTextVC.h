@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class DBTextModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DBRecordTextVC : UIViewController
-
-@property(nonatomic,copy)NSArray * textArray;
+@property(nonatomic,copy)NSArray <DBTextModel *>* textArray;
 @end
 
 NS_ASSUME_NONNULL_END

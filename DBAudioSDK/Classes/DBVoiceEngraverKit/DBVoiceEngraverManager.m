@@ -17,8 +17,7 @@
 #import "DBLogManager.h"
 #import "NSString+Util.h"
 #import "DBAuthentication.h"
-
-static NSString *sdkVersion = @"1.0.90";
+#import "DBTextModel.h"
 
 @interface DBVoiceEngraverManager ()<DBAudioMicrophoneDelegate,DBRecordPCMDataPlayerDelegate,DBUpdateTokenDelegate,DBZSocketCallBcakDelegate>
 
@@ -169,6 +168,20 @@ static NSString *sdkVersion = @"1.0.90";
     self.queryId = queryId;
 }
 
+// MARK: ------------------------ 发起网络请求 -----------------------------
+- (void)getNoiseLimit:(DBMessageHandler)handler failuer:(DBFailureHandler)failureHandler {
+    NSAssert2(handler&&failureHandler, @"Handler can't be nil", handler, failureHandler);
+    [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBURLConfigQuery) parameters:@{} success:^(NSDictionary * _Nullable dict) {
+        NSString *noise = dict[@"environmentalNoiseDetectionThreshold"];
+        if([self p_isEmpty:noise]) { // 默认限为60
+            handler(@"60");
+            return;
+        }
+        handler(noise);
+    } failure:failureHandler];
+}
+
+
 // MARK: 请求录音文本
 - (void)networkGetContentsArrayISCallBack:(BOOL)isCallBack textHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failrueHandler {
     NSAssert(textHandler, @"请设置DBTextBlock回调");
@@ -180,10 +193,9 @@ static NSString *sdkVersion = @"1.0.90";
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBURLRecordTextList) parameters:params success:^(NSDictionary * _Nonnull data) {
         NSString *textString = data[@"data"];
         NSArray *textArray = [textString componentsSeparatedByString:@"#"];
-        self.textArray = textArray;
         [self.audioDataArray removeAllObjects];
         /// 将文本数组添加到全局Array当中
-        [self.textArray enumerateObjectsUsingBlock:^(NSString  *  _Nonnull text, NSUInteger idx, BOOL * _Nonnull stop) {
+        [textArray enumerateObjectsUsingBlock:^(NSString  *  _Nonnull text, NSUInteger idx, BOOL * _Nonnull stop) {
             DBVoiceRecognizeModel *model = [[DBVoiceRecognizeModel alloc]init];
             model.recordText = text;
             model.passStatus = @0;
@@ -191,9 +203,8 @@ static NSString *sdkVersion = @"1.0.90";
             [self.audioDataArray addObject:model];
         }];
         if (isCallBack) {
-            textHandler(self.textArray);
+            textHandler(textArray);
         }
-        
     } failure:^(NSError * _Nonnull error) {
         if (isCallBack) {
             failrueHandler(error);
@@ -202,8 +213,10 @@ static NSString *sdkVersion = @"1.0.90";
     
 }
 // MARK: 第一次录制，开启一个sessionId
-- (void)startRecordWithTextIndex:(NSInteger )textIndex failureHander:(DBFailureHandler)failureHandler {
-    NSAssert(failureHandler, @"请设置DBFailureHandler的回调");
+
+- (void)startRecordWithSessionId:(NSString *)sessionId TextIndex:(NSInteger)textIndex messageHandler:(DBMessageHandler)messageHandler failureHander:(DBFailureHandler)failureHandler {
+    NSAssert2(failureHandler&&messageHandler, @"请设置messageHandler:%@,failureHandler:%@", messageHandler, failureHandler);
+    
     if (textIndex > self.textArray.count -1) {
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateNetworkDataError userInfo:@{@"info":@"textIndex超过了数组的上界"}];
         failureHandler(error);
@@ -212,11 +225,13 @@ static NSString *sdkVersion = @"1.0.90";
     
     self.originText = self.textArray[textIndex];
     self.currentRecordIndex = textIndex;
+    
     if (self.startSession == NO) { // 第一次需要开启session
         self.startSession = YES;
-        [self networkGetSessionIdSuccess:^(NSString * _Nonnull sessionId) {
+        [self networkGetSessionId:sessionId success:^(NSString * _Nonnull sessionId, NSArray<DBTextModel *> * _Nonnull array) {
             self.sessionId = sessionId;
             [self startSocket];
+            messageHandler(sessionId);
         } failureBlock:^(NSError * _Nonnull error) {
             failureHandler(error);
         }];
@@ -233,13 +248,18 @@ static NSString *sdkVersion = @"1.0.90";
 }
 
 // MARK: 获取sessionId
-- (void)networkGetSessionIdSuccess:(DBMessageHandler )succeessBlock failureBlock:(DBFailureHandler)failureBlock {
+- (void)networkGetSessionId:(NSString *)sessionId
+                    success:(DBTextModelArrayHandler)succeessBlock
+               failureBlock:(DBFailureHandler)failureBlock {
     NSAssert(succeessBlock, @"请设置DBSuccessHandler回调");
     NSAssert(failureBlock, @"请设置DBFailureHandler的回调");
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (![self p_isEmpty:self.queryId]) {
         params[@"queryId"] = self.queryId;
+    }
+    if (![self p_isEmpty:sessionId]) {
+        params[@"sessionId"] = sessionId;
     }
     params[@"modelType"] = @(self.reprintType).stringValue;
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBURLStartSession) parameters:params success:^(NSDictionary * _Nonnull data) {
@@ -249,7 +269,14 @@ static NSString *sdkVersion = @"1.0.90";
             return ;
         }
         NSString *sessionId = data[@"data"][@"sessionId"];
-        succeessBlock(sessionId);
+        NSArray *sentenceList = data[@"data"][@"sentenceList"];
+        NSMutableArray *sentenceModelList = [NSMutableArray array];
+        for (NSDictionary *sentenceDic in sentenceList) {
+            DBTextModel *model = [[DBTextModel alloc]init];
+            [model setValuesForKeysWithDictionary:sentenceDic];
+            [sentenceModelList addObject:model];
+        }
+        succeessBlock(sessionId,sentenceModelList);
     } failure:^(NSError * _Nonnull error) {
         failureBlock(error);
     }];
@@ -318,29 +345,32 @@ static NSString *sdkVersion = @"1.0.90";
 - (void)getRecordTextArrayTextHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler {
     NSAssert(textHandler, @"请设置DBTextBlock回调");
     NSAssert(failureHandler, @"请设置DBFailureHandler回调");
-    if (self.textArray) {
-        textHandler(self.textArray);
-    }else {
-        [self networkGetContentsArrayISCallBack:YES textHandler:^(NSArray * _Nonnull textArray) {
-            textHandler(textArray);
-        } failure:^(NSError * _Nonnull error) {
-            failureHandler(error);
-        }];
-    }
+    [self networkGetContentsArrayISCallBack:YES textHandler:^(NSArray * _Nonnull textArray) {
+        self.textArray = textArray;
+        textHandler(textArray);
+    } failure:^(NSError * _Nonnull error) {
+        failureHandler(error);
+    }];
 }
 //MARK:  --- TODO: -----------------------------
-- (void)getNoiseLimit:(DBMessageHandler)handler {
-    NSAssert(handler, @"请先设置DBMessageHandler");
-}
 
-- (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler {
+- (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextModelArrayHandler)textHandler failure:(DBFailureHandler)failureHandler {
     NSAssert2(textHandler&&failureHandler, @"请设置textHanlder:%@,failureHandler:%@", textHandler, failureHandler);
     self.sessionId = sessionId;
-    if ([self p_isEmpty:sessionId]) {
-        [self getRecordTextArrayTextHandler:textHandler failure:failureHandler];
-    }else {
+    [self networkGetSessionId:sessionId success:^(NSString * _Nonnull sessionId, NSArray<DBTextModel *> * _Nonnull array) {
+        NSMutableArray *reConstructModelArray = [NSMutableArray arrayWithArray:array];
+        NSInteger index = 0;
+        for (NSString *text in self.textArray) {
+            if(index >= array.count) {
+                DBTextModel *textModel = [DBTextModel textModelWithText:text];
+                [reConstructModelArray addObject:textModel];
+            }
+            index++;
+            textHandler(sessionId,reConstructModelArray.copy);
+        }
         
-    }
+    } failureBlock:failureHandler];
+
     
 }
 
@@ -593,18 +623,19 @@ static NSString *sdkVersion = @"1.0.90";
 - (void)stopSocket {
     [self.socketManager DBZWebSocketClose];
 }
-
+- (void)webSocketDidOpenNote {
+    [self.paramsDelegate logMessage:@"scoket连接成功 self %@",self];
+//    [self resetParams];
+}
 - (void)webSocketdidReceiveMessageNote:(id)note {
     NSLog(@"note:%@",note);
     NSString *message = (NSString *)note;
     NSDictionary * dic =[NSMutableDictionary dictionaryWithDictionary:[self.paramsDelegate dictionaryWithJsonString:message]];
     NSInteger code = [dic[@"code"] integerValue];
     if (code == 11 || code == 00011) { // token 失效
-    
         [self updateTokenSuccessHandler:^(NSString * _Nonnull message) {
         } failureHander:^(NSError * _Nonnull error) {
         }];
-        
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:code userInfo:@{@"message":@"token失效，请重试"}];
         [self delegateError:error];
         return ;
@@ -663,12 +694,6 @@ static NSString *sdkVersion = @"1.0.90";
     [self delegateError:error];
 }
 
-- (void)webSocketDidOpenNote {
-    [self.paramsDelegate logMessage:@"scoket连接成功 self %@",self];
-//    [self resetParams];
-}
-
-
 - (NSString *)jsonData:(NSMutableDictionary *) socket isEncodedString:(BOOL)encodedString{
     NSDictionary *dict =  [self.paramsDelegate paramasDelegateRequestParamas];
    NSString * params = [self headerParams:dict jsonData:socket isEncodedString:encodedString];
@@ -676,11 +701,9 @@ static NSString *sdkVersion = @"1.0.90";
 }
 
 - (NSString *)headerParams:(NSDictionary *)params jsonData:(NSDictionary *)socket isEncodedString:(BOOL)encodedString {
-    
     if (!socket) {
         socket = [[NSMutableDictionary alloc]init];
     }
-    
     NSString * rerecordingFileName = @"";
     if (self.fileNameArr.count != 0) {
         if (self.fileNameArr.count  > self.currentRecordIndex) {
@@ -698,11 +721,9 @@ static NSString *sdkVersion = @"1.0.90";
     };
     
 //    NSLog(@"request params :%@",dic);
-    
     NSString * urlStr = [self.paramsDelegate dictionaryToJson:dic];
     NSString* encodedURL;
     if (encodedString) {
-//        encodedURL = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSCharacterSet *allowedCharacterSet = NSCharacterSet.URLQueryAllowedCharacterSet;
         encodedURL =  [urlStr stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
     }else {
@@ -773,6 +794,6 @@ static NSString *sdkVersion = @"1.0.90";
     return _audioDataArray;
 }
 +(NSString *)sdkVersion {
-    return sdkVersion;
+    return KAUDIO_SDK_VERSION;
 }
 @end
