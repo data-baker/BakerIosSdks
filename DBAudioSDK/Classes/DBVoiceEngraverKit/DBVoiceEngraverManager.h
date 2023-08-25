@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @class DBTextModel;
 
-typedef void (^DBTextModelArrayHandler)(NSString *sessionId,NSArray<DBTextModel *> *array);
+typedef void (^DBTextModelArrayHandler)(NSInteger index,NSArray<DBTextModel *> *array);
 
 ///  上传识别回调的block
 typedef void (^DBVoiceRecogizeHandler)(DBVoiceRecognizeModel *model);
@@ -62,9 +62,7 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 
 /// 获取复刻的录音文本(没有历史会话的录制请求)
 //- (void)getRecordTextArrayTextHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler __attribute__ ((deprecated("废弃（version >= 1.1.0）,使用`- (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler` 替代")));
-;
-
-// TODO:
+//;
 
 // 获取噪音的上限，通过handler进行回调处理
 - (void)getNoiseLimit:(DBMessageHandler)handler failuer:(DBFailureHandler)failureHandler;
@@ -79,7 +77,7 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 
 // 开始录音，第一次录音会开启一个会话session,如果开启失败会通过failureHandler回调错误
 - (void)startRecordWithSessionId:(NSString *)sessionId
-                       TextIndex:(NSInteger )textIndex
+                       textIndex:(NSInteger )textIndex
                   messageHandler:(DBMessageHandler)messageHandler
                    failureHander:(DBFailureHandler)failureHandler;
 
@@ -109,6 +107,7 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 
 
 
+
 /// 试听音频
 /// @param index 当前音频的第几段
 - (void)listenAudioWithTextIndex:(NSInteger)index;
@@ -118,7 +117,6 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 
 /// 当前的条目能否进入下一条,Yes：可以,NO:不可以
 /// @param currentIndex 当前条目的Index
-
 - (BOOL)canNextStepByCurrentIndex:(NSInteger)currentIndex;
 
 

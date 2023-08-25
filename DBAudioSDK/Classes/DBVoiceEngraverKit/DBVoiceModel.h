@@ -35,7 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Type: 0 第一次数据， 1：识别结束
 @property(nonatomic,copy)NSNumber * type;
 
-
 /// 标记当前录制的是第几条
 @property(nonatomic,assign)NSInteger  index;
 
@@ -44,6 +43,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 当前录制音频的路径
 @property(nonatomic,copy)NSString  * filePath;
+
+// 播放使用的远程URL
+@property(nonatomic,copy)NSString  * audioUrl;
+
 
 
 

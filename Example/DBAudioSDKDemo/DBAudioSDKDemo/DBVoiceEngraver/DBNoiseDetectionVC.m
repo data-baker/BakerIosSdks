@@ -27,6 +27,7 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 @property (weak, nonatomic) IBOutlet UILabel *volumeTextLabel;
 @property (weak, nonatomic) IBOutlet UIButton *startEngraverVoiceButton;
 @property (weak, nonatomic) IBOutlet UIButton *resumeDetectButton;
+@property(nonatomic,assign)NSInteger noiseMaxLimit; // 噪音的上限
 @end
 
 @implementation DBNoiseDetectionVC
@@ -41,6 +42,8 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
     self.voiceEngraverManager = [DBVoiceEngraverManager sharedInstance];
     [self loadNoiseConfigure:^(NSString *msg) {
+        
+        self.noiseMaxLimit = [msg integerValue];
         /// 声明噪音检测的工具，开启噪音检测
         self.voiceDetectionUtil = [[DBVoiceDetectionUtil alloc]init];
         self.startEngraverVoiceButton.enabled = NO;
@@ -84,20 +87,62 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 - (IBAction)startEngraverAction:(id)sender {
     [self showHUD];
     NSString *sessionId =  [KUserDefalut objectForKey:KRecordSessionID];
-    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSString * _Nonnull sessionId, NSArray<DBTextModel *> * _Nonnull array) {
+    [KUserDefalut setObject:sessionId forKey:KRecordSessionID];
+    
+    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array) {
         [self hiddenHUD];
         if (array.count == 0) {
             [self.view makeToast:@"获取录制文本失败" duration:2 position:CSToastPositionCenter];
             return ;
         }
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        DBRecordTextVC *recordVC  =   [story instantiateViewControllerWithIdentifier:@"DBRecordTextVC"];
-        recordVC.textArray = array;
-        [self.navigationController pushViewController:recordVC animated:YES];
+        if (index == 0) {
+            [self pushTextVCWithIndex:0 textArray:array];
+            return;
+        }
+        
+        [self showContinueReprintAlertHandler:^{
+            [self pushTextVCWithIndex:index textArray:array];
+        }cancelHandler:^{
+            [self.voiceEngraverManager unNormalStopRecordSeesionSuccessHandler:^(NSString *msg) {
+                [KUserDefalut removeObjectForKey:KRecordSessionID];
+                [self pushTextVCWithIndex:0 textArray:array];
+            } failureHandler:^(NSError * _Nonnull error) {
+                [self.view makeToast:error.localizedDescription duration:2 position:CSToastPositionCenter];
+            }];
+        }];
+
     } failure:^(NSError * _Nonnull error) {
+        if (error.code == 10008) {
+            [KUserDefalut removeObjectForKey:KRecordSessionID];
+        }
         [self hiddenHUD];
         [self.view makeToast:error.description duration:2 position:CSToastPositionCenter];
     }];
+    
+}
+
+- (void)pushTextVCWithIndex:(NSInteger)index textArray:(NSArray<DBTextModel *> *)modelArray {
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    DBRecordTextVC *recordVC  =   [story instantiateViewControllerWithIdentifier:@"DBRecordTextVC"];
+    recordVC.textArray = modelArray;
+    recordVC.index = index;
+    [self.navigationController pushViewController:recordVC animated:YES];
+}
+// 展示检测的弹窗
+
+- (void)showContinueReprintAlertHandler:(dispatch_block_t)handler cancelHandler:(dispatch_block_t)cancelHandler {
+    NSAssert2(handler&&cancelHandler, @"Please setting the handler:%@, cancel handler:%@", handler, cancelHandler);
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到您有复刻录制正在进行中，是否继续?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *resume = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        handler();
+    }];
+    [alertVC addAction:resume];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        cancelHandler();
+    }];
+    [alertVC addAction:cancelAction];
+    [self presentViewController:alertVC animated:YES completion:nil];
     
 }
 

@@ -18,8 +18,13 @@
 #define KBASE_HOST @"https://openapi.data-baker.com"
 #define KBASE_HOST_WEBSOCKET @"ws://10.10.20.107:9922"
 #else
-#define KBASE_HOST @"http://10.10.20.107:9922"
-#define KBASE_HOST_WEBSOCKET @"ws://10.10.20.107:9922"
+// TEST
+#define KBASE_HOST @"http://10.10.50.23:9922"
+#define KBASE_HOST_WEBSOCKET @"ws://10.10.50.23:9922"
+
+// dev
+//#define KBASE_HOST @"http://10.10.20.107:9922"
+//#define KBASE_HOST_WEBSOCKET @"ws://10.10.20.107:9922"
 #endif
 #define KREPRINT_PATH  @"/gramophone/v3"
 

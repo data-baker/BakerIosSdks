@@ -1,20 +1,20 @@
 PODS:
-  - DBAudioSDK (1.0.7):
-    - DBAudioSDK/DBLongASRKit (= 1.0.7)
-    - DBAudioSDK/DBOfflineVCKit (= 1.0.7)
-    - DBAudioSDK/DBOnlineTTSKit (= 1.0.7)
-    - DBAudioSDK/DBShortASRKit (= 1.0.7)
-    - DBAudioSDK/DBVocalPrintKit (= 1.0.7)
-    - DBAudioSDK/DBVoiceEngraverKit (= 1.0.7)
-    - DBAudioSDK/DBVoiceTransferKit (= 1.0.7)
-  - DBAudioSDK/DBLongASRKit (1.0.7)
-  - DBAudioSDK/DBOfflineVCKit (1.0.7):
+  - DBAudioSDK (1.0.90):
+    - DBAudioSDK/DBLongASRKit (= 1.0.90)
+    - DBAudioSDK/DBOfflineVCKit (= 1.0.90)
+    - DBAudioSDK/DBOnlineTTSKit (= 1.0.90)
+    - DBAudioSDK/DBShortASRKit (= 1.0.90)
+    - DBAudioSDK/DBVocalPrintKit (= 1.0.90)
+    - DBAudioSDK/DBVoiceEngraverKit (= 1.0.90)
+    - DBAudioSDK/DBVoiceTransferKit (= 1.0.90)
+  - DBAudioSDK/DBLongASRKit (1.0.90)
+  - DBAudioSDK/DBOfflineVCKit (1.0.90):
     - DBAudioSDK/DBVoiceTransferKit
-  - DBAudioSDK/DBOnlineTTSKit (1.0.7)
-  - DBAudioSDK/DBShortASRKit (1.0.7)
-  - DBAudioSDK/DBVocalPrintKit (1.0.7)
-  - DBAudioSDK/DBVoiceEngraverKit (1.0.7)
-  - DBAudioSDK/DBVoiceTransferKit (1.0.7)
+  - DBAudioSDK/DBOnlineTTSKit (1.0.90)
+  - DBAudioSDK/DBShortASRKit (1.0.90)
+  - DBAudioSDK/DBVocalPrintKit (1.0.90)
+  - DBAudioSDK/DBVoiceEngraverKit (1.0.90)
+  - DBAudioSDK/DBVoiceTransferKit (1.0.90)
   - IQKeyboardManager (6.5.6)
   - Toast (4.0.0)
 
@@ -33,7 +33,7 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  DBAudioSDK: 1acc25654eb848ed9d16f5e232656f247de3ed59
+  DBAudioSDK: 99c7406c2a1ad8f35b975a4e0f09f003a6df126e
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 

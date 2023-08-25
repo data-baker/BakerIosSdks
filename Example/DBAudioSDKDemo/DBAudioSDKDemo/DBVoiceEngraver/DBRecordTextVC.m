@@ -13,13 +13,11 @@
 #import "XCHudHelper.h"
 #import "DBRecordCompleteVC.h"
 
-
 #ifndef KUserDefalut
 #define KUserDefalut [NSUserDefaults standardUserDefaults]
 #endif
 
 static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生成的SessionId
-
 
 @interface DBRecordTextVC ()<UITextViewDelegate,DBVoiceDetectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *phaseTitleLabel;
@@ -37,29 +35,20 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 @property (weak, nonatomic) IBOutlet UIButton *listenButton;
 @property(nonatomic,assign) CFAbsoluteTime startTime;
 
-/// 表示当前录制的是第几条
-@property (nonatomic, assign) int index;
-
 @end
 
 @implementation DBRecordTextVC
 
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    self.index = 0;
     self.view.backgroundColor = [UIColor whiteColor];
     self.voiceEngraverManager =  [DBVoiceEngraverManager sharedInstance];
     self.voiceEngraverManager.delegate= self;
     [self addBoardOfTitleBackgroundView:self.titileBackGroundView cornerRadius:50];
-    DBTextModel *textModel = self.textArray.firstObject;
-    
-
-    
-//    [self p_setTextViewAttributeText:model.];
-    self.allPhaseLabel.text = [NSString stringWithFormat:@"共%@段",@(self.textArray.count)];
+    [self updateTextPhaseWithIndex:self.index];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -74,6 +63,12 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     }
 }
 
+- (void)positionCurrentIndexState {
+    DBTextModel *textModel = self.textArray[self.index];
+    [self p_setTextViewAttributeText:textModel.text];
+    self.allPhaseLabel.text = [NSString stringWithFormat:@"共%@段",@(self.textArray.count)];
+}
+
 
 - (IBAction)startRecordAction:(id)sender {
     UIButton *button = (UIButton *)sender;
@@ -81,7 +76,7 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     if (button.isSelected) {
         NSString *sessionId =  [KUserDefalut objectForKey:KRecordSessionID];
         self.startTime = CFAbsoluteTimeGetCurrent();
-        [self.voiceEngraverManager startRecordWithSessionId:sessionId TextIndex:self.index  messageHandler:^(NSString *sessionId) {
+        [self.voiceEngraverManager startRecordWithSessionId:sessionId textIndex:self.index  messageHandler:^(NSString *sessionId) {
             [KUserDefalut setObject:sessionId forKey:KRecordSessionID]; // 保存当前的SessionId
             [self beginRecordState];
         } failureHander:^(NSError * _Nonnull error) {
@@ -128,27 +123,14 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
 // MARK： 恢复录制
 - (void)recoverReprintWithSessionId:(NSString *)sessionId {
-    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSString * _Nonnull sessionId, NSArray<DBTextModel *> * _Nonnull array) {
+    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array) {
 
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"error:%@",error.description);
     }];
 }
 
-- (void)showContinueReprint {
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到您有复刻录制正在进行中，是否继续?" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *resume = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [alertVC addAction:resume];
 
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [alertVC addAction:cancelAction];
-    [self presentViewController:alertVC animated:YES completion:nil];
-    
-}
 
 
 - (void)uploadRecoginizeVoice {
@@ -175,6 +157,7 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     
     if (phaseIndex >= self.textArray.count) {
         NSLog(@"最后一段");
+        [KUserDefalut removeObjectForKey:KRecordSessionID]; // 清除这个用户的SessionId
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         DBRecordCompleteVC *completedVC  = [story instantiateViewControllerWithIdentifier:@"DBRecordCompleteVC"];
         [self.navigationController pushViewController:completedVC animated:YES];
@@ -187,8 +170,8 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     }else {
         self.lastRecordButton.hidden = NO;
     }
-    
-    [self p_setTextViewAttributeText:self.textArray[phaseIndex]];
+    DBTextModel *model = self.textArray[phaseIndex];
+    [self p_setTextViewAttributeText:model.text];
     self.phaseLabel.text =  [NSString stringWithFormat:@"第%@段",@(self.index+1)];
     self.allPhaseLabel.text = [NSString stringWithFormat:@"共%@段",@(self.textArray.count)];
     [self.voiceEngraverManager stopCurrentListen];
@@ -308,7 +291,8 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
 
 // MARK: Pricate Methods -
-
+    
+   
 - (BOOL)_isEmpty:(NSString *)str {
     return str.length == 0 || str == nil;
 }

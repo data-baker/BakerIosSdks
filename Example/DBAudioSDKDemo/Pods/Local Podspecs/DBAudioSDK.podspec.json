@@ -1,6 +1,6 @@
 {
   "name": "DBAudioSDK",
-  "version": "1.0.7",
+  "version": "1.0.90",
   "summary": "标贝科技语音SDK库",
   "description": "标贝科技语音SDK库",
   "homepage": "https://github.com/data-baker/BakerIosSdks",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/data-baker/BakerIosSdks.git",
-    "tag": "1.0.7"
+    "tag": "1.0.90"
   },
   "platforms": {
     "ios": "9.0"

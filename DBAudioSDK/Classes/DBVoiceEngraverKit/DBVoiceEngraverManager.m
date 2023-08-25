@@ -33,7 +33,7 @@
 @property(nonatomic,strong)DBEngraverNetworkHelper * networkHelper;
 
 /// 复刻的文本
-@property(nonatomic,copy)NSArray * textArray;
+@property(nonatomic,copy)NSArray<DBTextModel *> * textModelArray;
 
 // 每段复刻声音的sessionId
 @property(nonatomic,copy)NSString * sessionId;
@@ -120,7 +120,7 @@
     [self.socketDic removeAllObjects];
     self.sessionId = nil;
     self.startSession = NO;
-    self.textArray = nil;
+    self.textModelArray = nil;
 }
 
 - (void)dealloc {
@@ -187,9 +187,7 @@
     NSAssert(textHandler, @"请设置DBTextBlock回调");
     NSAssert(failrueHandler, @"请设置DBFailureHandler回调");
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    // TODO: 此处需要传入sessionId
     params[@"modelType"] = @(self.reprintType).stringValue;
-    
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBURLRecordTextList) parameters:params success:^(NSDictionary * _Nonnull data) {
         NSString *textString = data[@"data"];
         NSArray *textArray = [textString componentsSeparatedByString:@"#"];
@@ -214,30 +212,29 @@
 }
 // MARK: 第一次录制，开启一个sessionId
 
-- (void)startRecordWithSessionId:(NSString *)sessionId TextIndex:(NSInteger)textIndex messageHandler:(DBMessageHandler)messageHandler failureHander:(DBFailureHandler)failureHandler {
+- (void)startRecordWithSessionId:(NSString *)sessionId textIndex:(NSInteger)textIndex messageHandler:(DBMessageHandler)messageHandler failureHander:(DBFailureHandler)failureHandler {
     NSAssert2(failureHandler&&messageHandler, @"请设置messageHandler:%@,failureHandler:%@", messageHandler, failureHandler);
-    
-    if (textIndex > self.textArray.count -1) {
+    if (textIndex > self.textModelArray.count -1) {
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateNetworkDataError userInfo:@{@"info":@"textIndex超过了数组的上界"}];
         failureHandler(error);
         return;
     }
-    
-    self.originText = self.textArray[textIndex];
+    DBTextModel *model = self.textModelArray[textIndex];
+    self.originText = model.text;
     self.currentRecordIndex = textIndex;
     
-    if (self.startSession == NO) { // 第一次需要开启session
-        self.startSession = YES;
-        [self networkGetSessionId:sessionId success:^(NSString * _Nonnull sessionId, NSArray<DBTextModel *> * _Nonnull array) {
-            self.sessionId = sessionId;
-            [self startSocket];
-            messageHandler(sessionId);
-        } failureBlock:^(NSError * _Nonnull error) {
-            failureHandler(error);
-        }];
-    }else {
+//    if (self.startSession == NO) { // 第一次需要开启session
+//        self.startSession = YES;
+//        [self networkGetSessionId:sessionId success:^(NSInteger  index, NSArray<DBTextModel *> * _Nonnull array) {
+//            self.sessionId = sessionId;
+//            [self startSocket];
+//            messageHandler(sessionId);
+//        } failureBlock:^(NSError * _Nonnull error) {
+//            failureHandler(error);
+//        }];
+//    }else {
         [self startSocket];
-    }
+//    }
 }
 
 
@@ -269,6 +266,8 @@
             return ;
         }
         NSString *sessionId = data[@"data"][@"sessionId"];
+        self.sessionId = sessionId;
+        
         NSArray *sentenceList = data[@"data"][@"sentenceList"];
         NSMutableArray *sentenceModelList = [NSMutableArray array];
         for (NSDictionary *sentenceDic in sentenceList) {
@@ -276,7 +275,7 @@
             [model setValuesForKeysWithDictionary:sentenceDic];
             [sentenceModelList addObject:model];
         }
-        succeessBlock(sessionId,sentenceModelList);
+        succeessBlock(sentenceList.count,sentenceModelList);
     } failure:^(NSError * _Nonnull error) {
         failureBlock(error);
     }];
@@ -346,7 +345,6 @@
     NSAssert(textHandler, @"请设置DBTextBlock回调");
     NSAssert(failureHandler, @"请设置DBFailureHandler回调");
     [self networkGetContentsArrayISCallBack:YES textHandler:^(NSArray * _Nonnull textArray) {
-        self.textArray = textArray;
         textHandler(textArray);
     } failure:^(NSError * _Nonnull error) {
         failureHandler(error);
@@ -356,23 +354,31 @@
 
 - (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextModelArrayHandler)textHandler failure:(DBFailureHandler)failureHandler {
     NSAssert2(textHandler&&failureHandler, @"请设置textHanlder:%@,failureHandler:%@", textHandler, failureHandler);
-    self.sessionId = sessionId;
-    [self networkGetSessionId:sessionId success:^(NSString * _Nonnull sessionId, NSArray<DBTextModel *> * _Nonnull array) {
-        NSMutableArray *reConstructModelArray = [NSMutableArray arrayWithArray:array];
-        NSInteger index = 0;
-        for (NSString *text in self.textArray) {
-            if(index >= array.count) {
-                DBTextModel *textModel = [DBTextModel textModelWithText:text];
-                [reConstructModelArray addObject:textModel];
+   
+    [self networkGetSessionId:sessionId success:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array) {
+        self.textModelArray = array;
+        [self.audioDataArray removeAllObjects];
+        __block NSInteger p_index = 0;
+        [array enumerateObjectsUsingBlock:^(DBTextModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            DBVoiceRecognizeModel *model = [[DBVoiceRecognizeModel alloc]init];
+            model.recordText = obj.text;
+            if(![self p_isEmpty:obj.audioUrl]) {
+                p_index++;
+                model.passStatus = @1;
+            }else {
+                model.passStatus = @0;
             }
-            index++;
-            textHandler(sessionId,reConstructModelArray.copy);
-        }
-        
+            model.audioUrl = obj.audioUrl;
+            model.index = idx;
+            [self.audioDataArray addObject:model];
+        }];
+        textHandler(p_index,array);
     } failureBlock:failureHandler];
-
     
 }
+
+
+
 
 //MARK:  获取声音限制
 //- (void)getRecordLimitSuccessHandler:(DBSuccessHandler)successHandler failureHander:(DBFailureHandler)failureHandler {
@@ -394,10 +400,13 @@
         return;
     }
     [self recordAddTimer];
-//    [self.paramsDelegate removeFileWithFilePath:filePath];
+
     NSString * filePath = [self filePathWithIndex:self.currentRecordIndex];
     DBVoiceRecognizeModel *model = self.audioDataArray[self.currentRecordIndex];
     model.filePath = filePath;
+    
+    
+    
     // TODO: 测试数据
 //    [self testAudioData];
     NSLog(@"当前录制路径 ：%@",filePath);
@@ -446,12 +455,23 @@
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     [audioSession setActive:YES error:nil];
-    NSString *filePath = [self filePathWithIndex:index];
-    BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-    if (!exist) {
+    
+    DBVoiceRecognizeModel *model = self.audioDataArray[index];
+    NSData *data;
+    if (![self p_isEmpty:model.filePath]) {
+        NSString *filePath = model.filePath;
+        BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+        if (!exist) {
+            NSLog(@"No file Exsits");
+            return;
+        }
+       data = [[NSData alloc] initWithContentsOfFile:filePath];
+    }else if(![self p_isEmpty:model.audioUrl]) {
+        data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.audioUrl]];
+    }else {
+        NSLog(@"No Audio Data");
         return;
     }
-    NSData *data = [[NSData alloc] initWithContentsOfFile:filePath];
     if (!self.pcmDataPlayer) {
         self.pcmDataPlayer = [[DBRecordPCMDataPlayer alloc]init];
         self.pcmDataPlayer.delegate = self;
@@ -656,6 +676,9 @@
     }
     
     if ([dic[@"data"][@"type"] integerValue] == 0) {
+        
+        self.socketStatus = 0;
+        self.socketSequence = 0;
         self.socketDic = dic[@"data"];
         self.socketDic[@"status"] = @(self.socketStatus);
         self.socketDic[@"sequence"] = @(self.socketSequence);
@@ -715,7 +738,9 @@
         @"param": @{
                 @"sessionId": self.sessionId,
                 @"originText": self.originText,
-                @"rerecordingFileName":rerecordingFileName
+                @"rerecordingFileName":rerecordingFileName,
+                @"index": @(self.currentRecordIndex)
+                
         },
         @"audio": socket
     };

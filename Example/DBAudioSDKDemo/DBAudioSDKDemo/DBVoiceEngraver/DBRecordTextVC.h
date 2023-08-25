@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DBRecordTextVC : UIViewController
 @property(nonatomic,copy)NSArray <DBTextModel *>* textArray;
+/// 表示当前录制的是第几条
+@property (nonatomic, assign) NSInteger index;
 @end
 
 NS_ASSUME_NONNULL_END
