@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^DBTextModelArrayHandler)(NSInteger index,NSArray<DBTextModel *> *array,NSString *sessionId);
 
 ///  上传识别回调的block
-typedef void (^DBVoiceRecogizeHandler)(DBVoiceRecognizeModel *model);
+typedef void (^DBVoiceRecogizeHandler)(DBTextModel *model);
 
 /// 获取识别文本的block
 typedef void (^DBTextBlock)(NSArray <NSString *> *textArray);

@@ -22,34 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-/// 声音识别的model
-@interface DBVoiceRecognizeModel : NSObject
 
-// 分数，90分以上可通过
-
-@property(nonatomic,copy)NSNumber * percent;
-
-// 通过结果 1:通过 0:未通过
-@property(nonatomic,copy)NSNumber *  passStatus;
-
-// Type: 0 第一次数据， 1：识别结束
-@property(nonatomic,copy)NSNumber * type;
-
-/// 标记当前录制的是第几条
-@property(nonatomic,assign)NSInteger  index;
-
-/// 当前录制的文本
-@property(nonatomic,copy)NSString *recordText;
-
-/// 当前录制音频的路径
-@property(nonatomic,copy)NSString  * filePath;
-
-// 播放使用的远程URL
-@property(nonatomic,copy)NSString  * audioUrl;
-
-
-
-
-@end
 
 NS_ASSUME_NONNULL_END

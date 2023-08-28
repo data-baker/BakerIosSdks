@@ -135,7 +135,7 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
 - (void)uploadRecoginizeVoice {
     [self showHUD];
-    [self.voiceEngraverManager uploadRecordVoiceRecogizeHandler:^(DBVoiceRecognizeModel * _Nonnull model) {
+    [self.voiceEngraverManager uploadRecordVoiceRecogizeHandler:^(DBTextModel * _Nonnull model) {
         [self hiddenHUD];
         if ([model.passStatus.stringValue isEqualToString:@"1"]) {
             [self.view makeToast:[NSString stringWithFormat:@"太棒了：准确率：%@%%，请录制下一段吧。",model.percent] duration:2 position:CSToastPositionCenter];

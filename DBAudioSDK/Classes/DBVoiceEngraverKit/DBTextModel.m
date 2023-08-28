@@ -30,4 +30,9 @@
     return model;
 }
 
+- (NSString *)description {
+    NSString *info = [NSString stringWithFormat:@" filePath:%@, index :%@ ,text:%@",self.filePath,@(self.index),self.recordText];
+    return info;
+}
+
 @end

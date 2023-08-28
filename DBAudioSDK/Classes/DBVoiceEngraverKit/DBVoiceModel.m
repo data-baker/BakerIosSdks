@@ -18,17 +18,4 @@
 
 @end
 
-@implementation DBVoiceRecognizeModel
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-//    if ([key isEqualToString:@"id"]) {
-////        self.myId = value;
-//    }
-}
-
-- (NSString *)description {
-    NSString *info = [NSString stringWithFormat:@" filePath:%@, index :%@ ,text:%@",self.filePath,@(self.index),self.recordText];
-    return info;
-}
-
-@end
