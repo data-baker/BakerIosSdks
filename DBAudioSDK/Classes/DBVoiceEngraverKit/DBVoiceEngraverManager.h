@@ -14,7 +14,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @class DBTextModel;
 
-typedef void (^DBTextModelArrayHandler)(NSInteger index,NSArray<DBTextModel *> *array);
+/// 获取当前录制的Session的进度
+typedef void (^DBTextModelArrayHandler)(NSInteger index,NSArray<DBTextModel *> *array,NSString *sessionId);
 
 ///  上传识别回调的block
 typedef void (^DBVoiceRecogizeHandler)(DBVoiceRecognizeModel *model);
@@ -67,7 +68,8 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 // 获取噪音的上限，通过handler进行回调处理
 - (void)getNoiseLimit:(DBMessageHandler)handler failuer:(DBFailureHandler)failureHandler;
 
-/// 通过SessionId（恢复录制），通过sessionId恢复录制ID, 回调的TextHandler中包含录制的相关信息
+/// 通过SessionId（恢复录制），如果是首次录制，传入空字符串即可
+/// 通过sessionId恢复录制ID, 回调的TextHandler中包含录制的相关信息
 - (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextModelArrayHandler)textHandler failure:(DBFailureHandler)failureHandler;
 
 

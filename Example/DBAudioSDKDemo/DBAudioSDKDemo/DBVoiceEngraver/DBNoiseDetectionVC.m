@@ -87,14 +87,17 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 - (IBAction)startEngraverAction:(id)sender {
     [self showHUD];
     NSString *sessionId =  [KUserDefalut objectForKey:KRecordSessionID];
-    [KUserDefalut setObject:sessionId forKey:KRecordSessionID];
-    
-    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array) {
+    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array,NSString *sessionId) {
         [self hiddenHUD];
         if (array.count == 0) {
             [self.view makeToast:@"获取录制文本失败" duration:2 position:CSToastPositionCenter];
             return ;
         }
+        // 保存当前录制的SessionId和进度
+        if(sessionId) {
+            [KUserDefalut setObject:sessionId forKey:KRecordSessionID];
+        }
+        
         if (index == 0) {
             [self pushTextVCWithIndex:0 textArray:array];
             return;

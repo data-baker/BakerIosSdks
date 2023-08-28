@@ -222,19 +222,7 @@
     DBTextModel *model = self.textModelArray[textIndex];
     self.originText = model.text;
     self.currentRecordIndex = textIndex;
-    
-//    if (self.startSession == NO) { // 第一次需要开启session
-//        self.startSession = YES;
-//        [self networkGetSessionId:sessionId success:^(NSInteger  index, NSArray<DBTextModel *> * _Nonnull array) {
-//            self.sessionId = sessionId;
-//            [self startSocket];
-//            messageHandler(sessionId);
-//        } failureBlock:^(NSError * _Nonnull error) {
-//            failureHandler(error);
-//        }];
-//    }else {
-        [self startSocket];
-//    }
+    [self startSocket];
 }
 
 
@@ -275,7 +263,7 @@
             [model setValuesForKeysWithDictionary:sentenceDic];
             [sentenceModelList addObject:model];
         }
-        succeessBlock(sentenceList.count,sentenceModelList);
+        succeessBlock(sentenceList.count,sentenceModelList,sessionId);
     } failure:^(NSError * _Nonnull error) {
         failureBlock(error);
     }];
@@ -350,13 +338,12 @@
         failureHandler(error);
     }];
 }
-//MARK:  --- TODO: -----------------------------
-
+// MARK: public 通过SessionID开启一个新的会话
 - (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextModelArrayHandler)textHandler failure:(DBFailureHandler)failureHandler {
     NSAssert2(textHandler&&failureHandler, @"请设置textHanlder:%@,failureHandler:%@", textHandler, failureHandler);
-   
-    [self networkGetSessionId:sessionId success:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array) {
+    [self networkGetSessionId:sessionId success:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array,NSString *sessionId) {
         self.textModelArray = array;
+        self.sessionId = sessionId;
         [self.audioDataArray removeAllObjects];
         __block NSInteger p_index = 0;
         [array enumerateObjectsUsingBlock:^(DBTextModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -372,7 +359,7 @@
             model.index = idx;
             [self.audioDataArray addObject:model];
         }];
-        textHandler(p_index,array);
+        textHandler(p_index,array,sessionId);
     } failureBlock:failureHandler];
     
 }
@@ -404,8 +391,6 @@
     NSString * filePath = [self filePathWithIndex:self.currentRecordIndex];
     DBVoiceRecognizeModel *model = self.audioDataArray[self.currentRecordIndex];
     model.filePath = filePath;
-    
-    
     
     // TODO: 测试数据
 //    [self testAudioData];
@@ -455,7 +440,6 @@
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     [audioSession setActive:YES error:nil];
-    
     DBVoiceRecognizeModel *model = self.audioDataArray[index];
     NSData *data;
     if (![self p_isEmpty:model.filePath]) {

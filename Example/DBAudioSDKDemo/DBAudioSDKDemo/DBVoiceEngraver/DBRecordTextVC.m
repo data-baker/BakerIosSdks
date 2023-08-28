@@ -123,11 +123,11 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
 // MARK： 恢复录制
 - (void)recoverReprintWithSessionId:(NSString *)sessionId {
-    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array) {
-
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"error:%@",error.description);
-    }];
+//    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array) {
+//
+//    } failure:^(NSError * _Nonnull error) {
+//        NSLog(@"error:%@",error.description);
+//    }];
 }
 
 
