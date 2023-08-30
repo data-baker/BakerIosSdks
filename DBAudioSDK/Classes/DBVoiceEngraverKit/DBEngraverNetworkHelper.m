@@ -9,6 +9,7 @@
 #import "DBEngraverNetworkHelper.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "DBVoiceEngraverEnumerte.h"
+#import "DBCommonConst.h"
 
 static NSString *DBUploadBoundary = @"DBUploadBoundary";
 #define DBEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
@@ -86,6 +87,11 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
                 failureBlock(error);
             } else {  //请求成功
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                if (dic == nil) {
+                    NSError *error = throwError(DBErrorDomain, DBErrorStateParseFailed, @"网络请求数据数据解析失败");
+                    failureBlock(error);
+                    return;
+                }
                 
                 NSInteger errorCode = [dic[@"code"] integerValue];
                 
@@ -93,7 +99,7 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
                     if (errorCode == 00011 || errorCode == 11) {
                         static NSInteger retry = 3;
                         if (retry < 0) {
-                            NSError *error = [NSError errorWithDomain:DBErrorDomain code:[dic[@"code"] integerValue] userInfo:@{@"message":dic[@"message"]}];
+                            NSError *error = throwError(DBErrorDomain,[dic[@"code"] integerValue] , dic[@"message"]);
                             failureBlock(error);
                             return;
                         }
@@ -105,12 +111,11 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
                     }
                     NSString *errorServer = dic[@"error"];
                     if (errorServer.length > 0) {
-                        NSError *error = [NSError errorWithDomain:DBErrorDomain code:115002 userInfo:dic];
+                        NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateParseFailed userInfo:dic];
                         failureBlock(error);
                         return;
                     }
-                    
-                    NSError *error = [NSError errorWithDomain:DBErrorDomain code:[dic[@"code"] integerValue] userInfo:@{@"message":dic[@"message"]}];
+                    NSError *error = throwError(DBErrorDomain,[dic[@"code"] integerValue] , dic[@"message"]);
                     failureBlock(error);
                 }
                 else {
@@ -153,11 +158,8 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     NSString *name = parameters[@"name"];
     NSParameterAssert(path);
     NSParameterAssert(name);
-    
-    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.timeoutInterval = 60;
-    
     // 校验签名
     NSMutableDictionary * headerDic = [[NSMutableDictionary alloc]init];
     NSString * unixTime = [self getUnixTime];
@@ -212,23 +214,18 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
 
 -(NSData *)getDataWithPath:(NSString *)path params:(NSDictionary *)params
 {
-    
     NSMutableData *data = [NSMutableData data];
-    
     [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             // 拼接普通参数的上传格式.
             // 1. 普通参数上边界
             NSMutableString *headerStrM = [NSMutableString stringWithFormat:@"\r\n--%@\r\n",DBUploadBoundary];
             // 服务器接收参数的key值.
             [headerStrM appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",key];
-            
             // 将普通参数上边界添加到请求体中
             [data appendData:[headerStrM dataUsingEncoding:NSUTF8StringEncoding]];
-            
             // 2. 普通参数内容
             NSString * objValue = [NSString stringWithFormat:@"%@",obj];
             NSData *parameterData = [objValue dataUsingEncoding:NSUTF8StringEncoding];
-            
             // 将普通参数内容添加到请求体中
             [data appendData:parameterData];
         }];
@@ -237,19 +234,14 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     [data appendData:DBEncode(DBUploadBoundary)];
     [data appendData:DBEnter];
     [data appendData:DBEncode(@"Content-Disposition: form-data; name=\"file\"; filename=\"record.wav\"")];
-    
     [data appendData:DBEnter];
-    
     [data appendData:DBEncode(@"Content-Type: audio/wav")];
     [data appendData:DBEnter];
-    
     [data appendData:DBEnter];
 
     NSData *wavData = [NSData dataWithContentsOfFile:path];
     [data appendData:wavData];
-    
     [data appendData:DBEnter];
-        
     [data appendData:DBEncode(@"--")];
     [data appendData:DBEncode(DBUploadBoundary)];
     [data appendData:DBEncode(@"--")];
@@ -336,7 +328,7 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     if (self.enableLog) {
         // 1. 首先创建多参数列表
         va_list args;
-            // 2. 开始初始化参数, start会从format中 依次提取参数, 类似于类结构体中的偏移量 offset 的 方式
+        // 2. 开始初始化参数, start会从format中 依次提取参数, 类似于类结构体中的偏移量 offset 的 方式
         va_start(args, format);
         NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
         va_end(args);
@@ -354,21 +346,18 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     if (jsonString == nil) {
         return nil;
     }
-
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
                                                         options:NSJSONReadingMutableContainers
                                                           error:&err];
-    if(err)
-    {
+    if(err) {
         return nil;
     }
     return dic;
 }
 
 - (NSString *)makeFile {
-    
     NSString *docPath= NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
     NSString *PCMPath = [docPath stringByAppendingPathComponent:@"PCM"];
     NSFileManager *manager = [NSFileManager defaultManager];
@@ -388,9 +377,7 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
 
 - (BOOL)clearAudioFile {
     NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-    
     NSString *pcmPath = [cachePath stringByAppendingPathComponent:@"PCM"];
-    
     NSFileManager *manager = [NSFileManager defaultManager];
     if ([manager fileExistsAtPath:pcmPath]) {
         NSError *error;
@@ -401,7 +388,6 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
         return ret;
     }
     return YES;
-    
 }
 
 - (BOOL)removeFileWithFilePath:(NSString *)filePath {

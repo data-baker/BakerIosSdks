@@ -15,9 +15,10 @@
 #import "DBParamsDelegate.h"
 #import "DBRecordPCMDataPlayer.h"
 #import "DBLogManager.h"
-#import "NSString+Util.h"
 #import "DBAuthentication.h"
 #import "DBTextModel.h"
+
+static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 
 @interface DBVoiceEngraverManager ()<DBAudioMicrophoneDelegate,DBRecordPCMDataPlayerDelegate,DBUpdateTokenDelegate,DBZSocketCallBcakDelegate>
 
@@ -33,7 +34,7 @@
 @property(nonatomic,strong)DBEngraverNetworkHelper * networkHelper;
 
 /// 复刻的文本
-@property(nonatomic,copy)NSMutableArray<DBTextModel *> * textModelArray;
+@property(nonatomic,strong)NSMutableArray<DBTextModel *> * textModelArray;
 
 // 每段复刻声音的sessionId
 @property(nonatomic,copy)NSString * sessionId;
@@ -43,7 +44,6 @@
 @property (nonatomic,strong) NSMutableArray * fileNameArr;
 
 @property(nonatomic,weak)id<DBParamsDelegate>  paramsDelegate;
-
 
 @property (nonatomic,strong) NSMutableDictionary * socketDic;
 
@@ -58,19 +58,14 @@
 
 /// PCM数据，存放PCM文件的路径
 @property (nonatomic, copy) NSString * PCMFilePath;
-
 @property(nonatomic,copy)DBVoiceRecogizeHandler  voiceHandler;
-
 /// 试听播放器
 @property (nonatomic, strong) DBRecordPCMDataPlayer * pcmDataPlayer;
-
 /// 当前录制到第几条
 @property (nonatomic, assign,readwrite) NSInteger currentRecordIndex;
-
 /// 当前复刻的类型
 @property (nonatomic,assign) DBReprintType reprintType;
-
-
+@property (nonatomic, copy,readwrite) NSString * accessToken;
 @end
 
 @implementation DBVoiceEngraverManager
@@ -148,7 +143,8 @@
             failureHandler(error);
         }
         self.networkHelper.token = token;
-        successHandler(@"0");
+        self.accessToken = token;
+        successHandler(@"");
     }];
 }
 
@@ -162,7 +158,7 @@
     NSAssert2(handler&&failureHandler, @"Handler can't be nil", handler, failureHandler);
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBURLConfigQuery) parameters:@{} success:^(NSDictionary * _Nullable dict) {
         NSString *noise = dict[@"environmentalNoiseDetectionThreshold"];
-        if([self p_isEmpty:noise]) { // 默认限为60
+        if(IsEmpty(noise)) { // 默认限为60
             handler(@"60");
             return;
         }
@@ -172,7 +168,6 @@
 
 
 // MARK: 第一次录制，开启一个sessionId
-
 - (void)startRecordWithSessionId:(NSString *)sessionId textIndex:(NSInteger)textIndex messageHandler:(DBMessageHandler)messageHandler failureHander:(DBFailureHandler)failureHandler {
     NSAssert2(failureHandler&&messageHandler, @"请设置messageHandler:%@,failureHandler:%@", messageHandler, failureHandler);
     if (textIndex > self.textModelArray.count -1) {
@@ -180,7 +175,6 @@
         failureHandler(error);
         return;
     }
-
     self.currentRecordIndex = textIndex;
     [self startSocket];
 }
@@ -198,12 +192,11 @@
                failureBlock:(DBFailureHandler)failureBlock {
     NSAssert(succeessBlock, @"请设置DBSuccessHandler回调");
     NSAssert(failureBlock, @"请设置DBFailureHandler的回调");
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    if (![self p_isEmpty:self.queryId]) {
+    if (!IsEmpty(self.queryId)) {
         params[@"queryId"] = self.queryId;
     }
-    if (![self p_isEmpty:sessionId]) {
+    if (!IsEmpty(sessionId)) {
         params[@"sessionId"] = sessionId;
     }
     params[@"modelType"] = @(self.reprintType).stringValue;
@@ -231,10 +224,8 @@
 
 // MARK: 根据modelId查询模型状态
 - (void)queryModelStatusByModelId:(NSString *)modelId SuccessHandler:(DBSuccessOneModelHandler)successHandler failureHander:(DBFailureHandler)failureHandler {
-    
     NSAssert(successHandler, @"请设置DBSuccessOneModelHandler的回调");
     NSAssert(failureHandler, @"请设置DBFailureHandler的回调");
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (modelId) {
         params[@"modelId"] = modelId;
@@ -266,6 +257,7 @@
     if (queryId) {
         params[@"queryId"] = queryId;
     }
+    
     params[@"limit"] = @(100);
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBQueryModelStatusBatch) parameters:params success:^(NSDictionary * _Nonnull data) {
         /// 异常处理
@@ -282,7 +274,6 @@
             [tempArray addObject:model];
         }
         successHandler(tempArray);
-        
     } failure:^(NSError * _Nonnull error) {
         failureHandler(error);
     }];
@@ -298,8 +289,8 @@
         __block NSInteger p_index = 0;
         [array enumerateObjectsUsingBlock:^(DBTextModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             DBTextModel *model = [[DBTextModel alloc]init];
-            model.recordText = obj.text;
-            if(![self p_isEmpty:obj.audioUrl]) {
+            model.text = obj.text;
+            if(!IsEmpty(obj.audioUrl)) {
                 p_index++;
                 model.passStatus = @1;
             }else {
@@ -369,6 +360,8 @@
     [self pauseRecord];
     if (!self.sessionId) { // 如果未开启session,直接回调
         successBlock(@"115001"); // 不存在session Id的相关信息
+        NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateEmptySessionId userInfo:@{@"message":@"传入的SessionId不能为空"}];
+        failureHandler(error);
         return;
     }
     NSAssert(successBlock, @"请设置DBSuccessHandler回调");
@@ -384,6 +377,7 @@
     }];
 }
 
+
 // MARK: 试听
 - (void)listenAudioWithTextIndex:(NSInteger)index {
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -391,7 +385,7 @@
     [audioSession setActive:YES error:nil];
     DBTextModel *model = self.textModelArray[index];
     NSData *data;
-    if (![self p_isEmpty:model.filePath]) {
+    if (!IsEmpty(model.filePath)) {
         NSString *filePath = model.filePath;
         BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
         if (!exist) {
@@ -399,7 +393,7 @@
             return;
         }
        data = [[NSData alloc] initWithContentsOfFile:filePath];
-    }else if(![self p_isEmpty:model.audioUrl]) {
+    }else if(!IsEmpty(model.audioUrl)) {
         data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.audioUrl]];
     }else {
         NSLog(@"No Audio Data");
@@ -578,7 +572,6 @@
 }
 - (void)webSocketDidOpenNote {
     [self.paramsDelegate logMessage:@"scoket连接成功 self %@",self];
-//    [self resetParams];
 }
 - (void)webSocketdidReceiveMessageNote:(id)note {
     NSLog(@"note:%@",note);
@@ -595,6 +588,8 @@
     }
     
     if (code != 20000) {
+        [self resetSocketState];
+
         [self.paramsDelegate logMessage:@"返回结果出错"];
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:code userInfo:@{@"message":dic[@"message"]}];
         [self delegateError:error];
@@ -602,6 +597,7 @@
     }
     
     if ([dic[@"data"] isEqual:[NSNull null]]) {
+        [self resetSocketState];
         [self.paramsDelegate logMessage:@"返回结果出错"];
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:20001 userInfo:@{@"errorInfo":@"返回结果为空"}];
         [self delegateError:error];
@@ -625,9 +621,7 @@
         [self startRecord];
         
     }else {
-        [self stopSocket];
-        self.socketStatus = 0;
-        self.socketSequence = 0;
+        [self resetSocketState];
         if ([dic[@"data"][@"passStatus"] integerValue] == 1) {
             DBTextModel *model = self.textModelArray[self.currentRecordIndex];
             [model setValuesForKeysWithDictionary:dic[@"data"]];
@@ -640,6 +634,13 @@
         }
     }
 }
+
+- (void)resetSocketState {
+    [self stopSocket];
+    self.socketStatus = 0;
+    self.socketSequence = 0;
+}
+
 - (void)webSocketDidCloseNote:(id)object {
     NSLog(@"socket 连接关闭");
 }
@@ -673,7 +674,6 @@
                 @"originText": [self currentText],
                 @"rerecordingFileName":rerecordingFileName,
                 @"index": @(self.currentRecordIndex)
-                
         },
         @"audio": socket
     };
@@ -715,14 +715,10 @@
     return filePath;
 }
 
-// MARK: private Methods
-
-- (BOOL)p_isEmpty:(NSString *)str {
-    if (str.length == 0 || str == nil) {
-        return YES;
-    }
-    return NO;
+- (NSError *)throwError:(DBErrorState)code message:(NSString *)msg {
+    return throwError(DBErrorDomain, code, msg);
 }
+
 
 
 // MARK: Custom Accessor Methods
@@ -749,7 +745,18 @@
     return _socketDic;
 }
 
+- (DBReprintType)currentType {
+    return self.reprintType;
+}
+
 +(NSString *)sdkVersion {
     return KAUDIO_SDK_VERSION;
 }
+
++ (NSString *)ttsIPURL {
+    return ttsIPURL;
+}
+
+
+
 @end

@@ -22,10 +22,12 @@
     [super viewDidLoad];
     NSString *clientId = [DBUserInfoManager shareManager].clientId;
     NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
+    NSString * sdkType = [DBUserInfoManager shareManager].sdkType;
+    
     
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
     NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    [[DBVoiceEngraverManager sharedInstance] setupWithClientId:clientId clientSecret:clientSecret queryId:idfa rePrintType:DBReprintTypeNormal successHandler:^(NSString * _Nonnull msg) {
+    [[DBVoiceEngraverManager sharedInstance] setupWithClientId:clientId clientSecret:clientSecret queryId:idfa rePrintType:[self reprintSDKType:sdkType] successHandler:^(NSString * _Nonnull msg) {
         [[XCHudHelper sharedInstance] hideHud];
         NSLog(@"获取token成功");
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -35,6 +37,17 @@
         NSString *msg = [NSString stringWithFormat:@"获取token失败:%@",error.description];
         [self.view makeToast:msg duration:2 position:CSToastPositionCenter];
     }];}
+
+- (DBReprintType)reprintSDKType:(NSString *)sdkType {
+    if ([sdkType isEqualToString:@"声音复刻普通"]) {
+        return DBReprintTypeNormal;
+    }else if ([sdkType isEqualToString:@"声音复刻精品"]) {
+        return DBReprintTypeFine;
+    }
+    NSLog(@"[error], default select Reprint Normal");
+    return DBReprintTypeNormal;
+    
+}
 
 /*
 #pragma mark - Navigation

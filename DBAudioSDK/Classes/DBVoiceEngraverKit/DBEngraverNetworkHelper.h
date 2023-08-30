@@ -10,17 +10,23 @@
 #import "DBParamsDelegate.h"
 #import "DBVoiceEngraverEnumerte.h"
 
-
 // MARK: 此处的开关定义在'DBAuthentication' 类中
 #if DBRelease
-//#define KBASE_HOST @"http://10.10.20.107:9922"
-//#define KBASE_HOST_WEBSOCKET @"wss://10.10.20.107:9922"
-#define KBASE_HOST @"https://openapi.data-baker.com"
-#define KBASE_HOST_WEBSOCKET @"ws://10.10.20.107:9922"
+
+//#define KBASE_HOST @"https://openapi.data-baker.com"
+//#define KBASE_HOST_WEBSOCKET @"ws://10.10.20.107:9922"
+#define KBASE_HOST @"https://gramophone.data-baker.com/"
+#define KBASE_HOST_WEBSOCKET @"wss://gramophone.data-baker.com"
 #else
 // TEST
-#define KBASE_HOST @"http://10.10.50.23:9922"
-#define KBASE_HOST_WEBSOCKET @"ws://10.10.50.23:9922"
+//#define KBASE_HOST @"http://10.10.50.23:9922"
+//#define KBASE_HOST_WEBSOCKET @"ws://10.10.50.23:9922"
+
+// 沙盒环境
+//https://openapitest.data-baker.com/oauth/2.0/token
+//https://gramophonetest.data-baker.com:9050/gramophone/
+#define KBASE_HOST @"https://gramophonetest.data-baker.com:9050"
+#define KBASE_HOST_WEBSOCKET @"wss://gramophonetest.data-baker.com:9050"
 
 // dev
 //#define KBASE_HOST @"http://10.10.20.107:9922"
@@ -89,7 +95,6 @@ static NSString *const DBErrorDomain = @"DBVoiceEngraverErrorDomain";
 
 /// multipart上传表单数据
 - (void)uploadWithUrlString:(NSString *)url parameters:(id)parameters success:(DBNSuccessHandler)successBlock failure:(DBFailureHandler)failureBlock;
-
 
 
 @end

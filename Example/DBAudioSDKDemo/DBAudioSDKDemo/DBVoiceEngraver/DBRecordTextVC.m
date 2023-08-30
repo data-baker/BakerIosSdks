@@ -12,12 +12,11 @@
 #import "UIView+Toast.h"
 #import "XCHudHelper.h"
 #import "DBRecordCompleteVC.h"
+#import "DBUserInfoManager.h"
 
-#ifndef KUserDefalut
-#define KUserDefalut [NSUserDefaults standardUserDefaults]
-#endif
 
-static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生成的SessionId
+
+
 
 @interface DBRecordTextVC ()<UITextViewDelegate,DBVoiceDetectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *phaseTitleLabel;
@@ -74,10 +73,10 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     UIButton *button = (UIButton *)sender;
     button.selected = !button.isSelected;
     if (button.isSelected) {
-        NSString *sessionId =  [KUserDefalut objectForKey:KRecordSessionID];
+        NSString *sessionId = [self getCurrentSessionId];
         self.startTime = CFAbsoluteTimeGetCurrent();
         [self.voiceEngraverManager startRecordWithSessionId:sessionId textIndex:self.index  messageHandler:^(NSString *sessionId) {
-            [KUserDefalut setObject:sessionId forKey:KRecordSessionID]; // 保存当前的SessionId
+            [self removeCurrentSessionId];// 保存当前的SessionId
             [self beginRecordState];
         } failureHander:^(NSError * _Nonnull error) {
             NSLog(@"error %@",error);
@@ -89,6 +88,27 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     }else {
         [self endRecordState];
         [self uploadRecoginizeVoice];
+    }
+}
+// MARK: ----sessionId
+
+- (NSString *)getCurrentSessionId {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(getCurrentSessionId)]) {
+        return [self.delegate getCurrentSessionId];
+    }
+    return @"";
+}
+
+- (void)setCurrentSessionId:(NSString *)sessionId {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(setCurrentSessionId:)]) {
+        [self.delegate setCurrentSessionId:sessionId];
+    }
+}
+
+
+- (void)removeCurrentSessionId {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(removeCurrentSessionId)]) {
+        [self.delegate removeCurrentSessionId];
     }
 }
 
@@ -120,33 +140,17 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     [self.voiceEngraverManager listenAudioWithTextIndex:self.index];
 }
 
-
-// MARK： 恢复录制
-- (void)recoverReprintWithSessionId:(NSString *)sessionId {
-//    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array) {
-//
-//    } failure:^(NSError * _Nonnull error) {
-//        NSLog(@"error:%@",error.description);
-//    }];
-}
-
-
-
-
 - (void)uploadRecoginizeVoice {
     [self showHUD];
     [self.voiceEngraverManager uploadRecordVoiceRecogizeHandler:^(DBTextModel * _Nonnull model) {
         [self hiddenHUD];
         if ([model.passStatus.stringValue isEqualToString:@"1"]) {
             [self.view makeToast:[NSString stringWithFormat:@"太棒了：准确率：%@%%，请录制下一段吧。",model.percent] duration:2 position:CSToastPositionCenter];
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self nextItemAction];
-//            });
+            [self nextItemAction];
         }else {
             [self.view makeToast:[NSString stringWithFormat:@"准确率：%@%%，请重新录制文本",model.percent] duration:2 position:CSToastPositionCenter];
         }
     }];
-
 }
 
 - (BOOL)updateTextPhaseWithIndex:(NSInteger)phaseIndex {
@@ -157,7 +161,7 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     
     if (phaseIndex >= self.textArray.count) {
         NSLog(@"最后一段");
-        [KUserDefalut removeObjectForKey:KRecordSessionID]; // 清除这个用户的SessionId
+        [self removeCurrentSessionId];
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         DBRecordCompleteVC *completedVC  = [story instantiateViewControllerWithIdentifier:@"DBRecordCompleteVC"];
         [self.navigationController pushViewController:completedVC animated:YES];
@@ -237,6 +241,7 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 }
 
 - (void)dbVoiceRecognizeError:(NSError *)error {
+    [self hiddenHUD];
     [self endRecordState];
     [self.view makeToast:error.description duration:2.f position:CSToastPositionCenter];
 }
@@ -257,10 +262,11 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     self.recordTextView.attributedText = [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
+
 // MARK: 通过拦截方法获取返回事件
+
 - (BOOL)navigationShouldPopOnBackButton
 {
-    NSLog(@"clicked navigationbar back button");
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"返回了当前录制结果将会保存，再次进入可以恢复使用？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
        }];
@@ -268,14 +274,6 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
     UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController popToRootViewControllerAnimated:YES];
-//        [self.voiceEngraverManager unNormalStopRecordSeesionSuccessHandler:^(NSString * _Nonnull message) {
-//            [self.navigationController popToRootViewControllerAnimated:YES];
-//        } failureHandler:^(NSError * _Nonnull error) {
-//            [self.view makeToast:@"退出session失败" duration:2 position:CSToastPositionCenter];
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [self.navigationController popToRootViewControllerAnimated:YES];
-//            });
-//        }];
     }];
     [alertVC addAction:doneAction];
     [self presentViewController:alertVC animated:YES completion:nil];
@@ -291,11 +289,6 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
 
 // MARK: Pricate Methods -
-    
-   
-- (BOOL)_isEmpty:(NSString *)str {
-    return str.length == 0 || str == nil;
-}
 
 - (void)showHUD {
     [[XCHudHelper sharedInstance]showHudOnView:self.view caption:@"上传识别中" image:nil

@@ -81,8 +81,6 @@
           
        }];
        [alertVC addAction:doneAction];
-      
-       
        [self presentViewController:alertVC animated:YES completion:nil];
 }
 

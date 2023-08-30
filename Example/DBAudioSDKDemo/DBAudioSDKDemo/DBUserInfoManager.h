@@ -7,6 +7,10 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef KUserDefalut
+#define KUserDefalut [NSUserDefaults standardUserDefaults]
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DBUserInfoManager : NSObject

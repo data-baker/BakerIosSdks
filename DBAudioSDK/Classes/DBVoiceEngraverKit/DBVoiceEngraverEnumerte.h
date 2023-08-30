@@ -28,8 +28,12 @@ typedef NS_ENUM(NSUInteger,DBErrorState){
     DBErrorStateExpiredRquest = 40003, // 接口请在有效期内使用
     DBErrorStateRequestAuthFaild = 40004, // 接口签名不合法
     DBErrorStateInvaildMoile = 40005,// 请填写正确的手机号
+    DBErrorStateEmptySessionId = 115001, // 传入的SessionId不能为空
+    DBErrorStateParseFailed = 115002, // 解析网络数据失败
     
 };
+
+
 
 typedef void (^DBSuccessHandler)(NSDictionary *dict) __attribute__ ((deprecated("废弃（version >= 1.1.0）,使用`void (^DBMessageHandler)(NSString *msg)` 替代")));
 

@@ -35,7 +35,6 @@
 		26044B7395BB7F93DF2BF7221552899C /* DBVocalPrintClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A68A2CBCC3724CC48A91957E276C56F /* DBVocalPrintClient.m */; };
 		28C83900A22A73D08B8B644ABAE748BE /* IQUIViewController+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = D270D6E64B6F16E8A12D19679FFC274E /* IQUIViewController+Additions.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		29C8061FD0B5D9387F8BD4CF241CE8BE /* Pods-DBAudioSDKDemoTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1369678043804D06FE0B6FFEB9ACB8 /* Pods-DBAudioSDKDemoTests-dummy.m */; };
-		2A8A0CC62C1B3284978BBDFCF98D327C /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9F2B4C0395F4C1E73384509E877AFD /* NSString+Util.m */; };
 		2B6CF0A028799B4E7BAB7F2882F54CFD /* IQTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA4ED46B177AE2BAE9B5D7ACF571E198 /* IQTextView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2CEE0AF083F8D7D4915C6EAF43CE1722 /* DBZSocketRocketUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = DABF9FA323DB00D9F1E789196BEA8393 /* DBZSocketRocketUtility.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2F3D17BCCBE6AA20AF9B2623FA4E751C /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EBB9BB43909E80D87211B2564A017D4 /* UIView+Toast.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -121,7 +120,6 @@
 		B335DC802661CDC929CDC1F3EA480F2F /* DBSynthesizerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7189B9C29C140B1B3F48F6E31E2181DE /* DBSynthesizerManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B3DA2D7DE30EF8B82BF905666828AD62 /* DBZError.h in Headers */ = {isa = PBXBuildFile; fileRef = 2261660FCB0C57730EEECC431680A643 /* DBZError.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B9A80BB6DF7BAD056A0F5F0394339E4B /* DBVoiceEngraverManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B6B831A01B41B283075A7DE377A013DA /* DBVoiceEngraverManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		BAFCEFEC9828385CB899A38562B8D559 /* NSString+Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 5621F0DC01DBC6823B11D7A7AC05C948 /* NSString+Util.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BB310C6E7F9A1A0833E0C9249AA9FCBA /* NSRunLoop+DBZWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E652BAA05903E6DF5DCE8C70AAB38D2 /* NSRunLoop+DBZWebSocket.m */; };
 		BE3F50E0A32EEEE70DDE9142D1B06E58 /* DBRecordPCMDataPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4740D925268187710E7322FAF97506 /* DBRecordPCMDataPlayer.m */; };
 		BE6AA09B002DF8AC0F974DA76511670F /* DBFLongASRClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FE32148415CA70F3A14FEAF8417FCDC8 /* DBFLongASRClient.m */; };
@@ -229,7 +227,6 @@
 		098AC5BFF7E16D23312A6665AA266DFA /* DBAudioSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DBAudioSDK.release.xcconfig; sourceTree = "<group>"; };
 		0993507B08E3305F4FA9E45AA501F9FC /* DSAQPool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DSAQPool.h; sourceTree = "<group>"; };
 		0B491A24CD455A2895667855DF03D8C6 /* DSAQPool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DSAQPool.m; sourceTree = "<group>"; };
-		0B9F2B4C0395F4C1E73384509E877AFD /* NSString+Util.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		0C142244434A985A76694D7B36E89418 /* DBSynthesizerRequestParam.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBSynthesizerRequestParam.m; sourceTree = "<group>"; };
 		0C4F9A7581F9807E4F01FC58CA8308F7 /* DBZLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBZLog.h; sourceTree = "<group>"; };
 		0E9161752E4AE0FA25DB6254823B368B /* DBZSocketRocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBZSocketRocket.h; sourceTree = "<group>"; };
@@ -274,7 +271,6 @@
 		5354550E83C424E062C0DF1AF5824424 /* IQTitleBarButtonItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IQTitleBarButtonItem.h; path = IQKeyboardManager/IQToolbar/IQTitleBarButtonItem.h; sourceTree = "<group>"; };
 		5492C5BFFA9F9FC8AF0C615404FCFA58 /* IQKeyboardManagerConstantsInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IQKeyboardManagerConstantsInternal.h; path = IQKeyboardManager/Constants/IQKeyboardManagerConstantsInternal.h; sourceTree = "<group>"; };
 		55E0AFD333353D71ACC2207149E879D6 /* Toast */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = Toast; path = libToast.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		5621F0DC01DBC6823B11D7A7AC05C948 /* NSString+Util.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		57909166AA4C6B1B7596203407C705E3 /* DBZIOConsumerPool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBZIOConsumerPool.m; sourceTree = "<group>"; };
 		58BAEABE3EC5A7B45B8E13178F93251F /* DBAuthentication.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBAuthentication.h; sourceTree = "<group>"; };
 		5A6ECC105F00D6B3F01C8350D6514DB5 /* DBSynthesizerManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBSynthesizerManager.m; sourceTree = "<group>"; };
@@ -311,7 +307,7 @@
 		8AB8C41BBA0EAE85331C46FF0DEC3CD5 /* DBZWebSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBZWebSocket.h; sourceTree = "<group>"; };
 		8DF5F0AC5079D9DDAFDDF16C508DB366 /* DBZSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBZSecurityPolicy.h; sourceTree = "<group>"; };
 		8E2EAD0B56DF2739BFAC09A46422AC7E /* DBAuthentication.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBAuthentication.m; sourceTree = "<group>"; };
-		9009CAB5E572A22DE10755D21D3922A9 /* DBAudioSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = DBAudioSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9009CAB5E572A22DE10755D21D3922A9 /* DBAudioSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = DBAudioSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		928B8E317D16B342A09BAA0B9CB33307 /* Toast-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Toast-dummy.m"; sourceTree = "<group>"; };
 		92B1F2FFD363F8D748DA32BA3E2C39FA /* DBZURLUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBZURLUtilities.m; sourceTree = "<group>"; };
 		94C269EA246B56FDE01CD147A7AF6772 /* DBResponseModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBResponseModel.m; sourceTree = "<group>"; };
@@ -320,7 +316,7 @@
 		98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = IQKeyboardManager; path = libIQKeyboardManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C32A9C13F6343DE7459C9D60CCCB80C /* Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DBAudioSDKDemo-DBAudioSDKDemoUITests-acknowledgements.plist"; sourceTree = "<group>"; };
 		9D18FA766E8B01CD059AE84D6F29E213 /* DBVoiceDetectionDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBVoiceDetectionDelegate.h; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E0EDC582F189654FB15E54D2869F775 /* DBFASRClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBFASRClient.h; sourceTree = "<group>"; };
 		9F334CFDEA53C43EFAB9B99A5F511A00 /* DBEngraverAudioMicrophone.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBEngraverAudioMicrophone.h; sourceTree = "<group>"; };
 		A10028593F88BBBFF60EAFE4D7A3C0C3 /* DBVoiceDetectionUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBVoiceDetectionUtil.m; sourceTree = "<group>"; };
@@ -366,7 +362,7 @@
 		DB080E46DB7DBF9EBD653325FDB7E4E1 /* Toast-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Toast-prefix.pch"; sourceTree = "<group>"; };
 		DD4740D925268187710E7322FAF97506 /* DBRecordPCMDataPlayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBRecordPCMDataPlayer.m; sourceTree = "<group>"; };
 		DE17E86142795756A05C745EE028477E /* DBTextSplitUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBTextSplitUtil.m; sourceTree = "<group>"; };
-		DE45E1B7648DE2E89B2B74DDE42AA8E2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		DE45E1B7648DE2E89B2B74DDE42AA8E2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DEC75F92789826697CFD0B798D661782 /* DBTransferModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBTransferModel.h; sourceTree = "<group>"; };
 		DF4DBD3D870D4CE44E780BD63B616F78 /* DBAudioMicrophone.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DBAudioMicrophone.h; sourceTree = "<group>"; };
 		E034BC5D24351CDE1AC0F4CEC6E83AB3 /* DBZError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBZError.m; sourceTree = "<group>"; };
@@ -469,7 +465,6 @@
 				EF38CF156048CD0B6F2E191EC9323B79 /* DBZURLUtilities.h */,
 				92B1F2FFD363F8D748DA32BA3E2C39FA /* DBZURLUtilities.m */,
 			);
-			name = Utilities;
 			path = Utilities;
 			sourceTree = "<group>";
 		};
@@ -545,7 +540,6 @@
 				436F302A742A9D2DA48C6B8345FC8EBE /* Security */,
 				07E7A4A6B83B34F86E58E9C9BC6011B5 /* Utilities */,
 			);
-			name = Internal;
 			path = Internal;
 			sourceTree = "<group>";
 		};
@@ -568,7 +562,6 @@
 				FDCDD58407E0AC0F907FAD8F394E9BD3 /* DBZDelegateController.h */,
 				0FC34FE198C4D27962CC83127478D9FD /* DBZDelegateController.m */,
 			);
-			name = Delegate;
 			path = Delegate;
 			sourceTree = "<group>";
 		};
@@ -590,7 +583,6 @@
 				D91077926B440C6896C014AFF222C5CD /* DBZProxyConnect.h */,
 				7CF3D0CDE01B95F2874B431F18342B65 /* DBZProxyConnect.m */,
 			);
-			name = Proxy;
 			path = Proxy;
 			sourceTree = "<group>";
 		};
@@ -600,7 +592,6 @@
 				ADD18E9A06240592FE772B9B3E728BA2 /* DBZPinningSecurityPolicy.h */,
 				3EE43E05AF0F4FF5397E69A139160701 /* DBZPinningSecurityPolicy.m */,
 			);
-			name = Security;
 			path = Security;
 			sourceTree = "<group>";
 		};
@@ -618,7 +609,6 @@
 				8767230A43B16195F388560D5BAD39F0 /* DBZRunLoopThread.h */,
 				83DE53CF7B9EAA5A74C40E6EB7538A16 /* DBZRunLoopThread.m */,
 			);
-			name = RunLoop;
 			path = RunLoop;
 			sourceTree = "<group>";
 		};
@@ -638,7 +628,6 @@
 				BBB9A012927D29EC62452C1261E18342 /* DBNetworkHelper.h */,
 				6C47B40A8C3EFF2E22C2CDCDFAB05569 /* DBNetworkHelper.m */,
 			);
-			name = DBHttpRequest;
 			path = DBHttpRequest;
 			sourceTree = "<group>";
 		};
@@ -699,8 +688,6 @@
 				CA563AA456BC534A891236FBDBB236D2 /* DBVoiceEngraverManager.m */,
 				F5B7495D1D317B520471AE7D003E5B32 /* DBVoiceModel.h */,
 				E9BCA6F979707FAFB1F54072AA6E6048 /* DBVoiceModel.m */,
-				5621F0DC01DBC6823B11D7A7AC05C948 /* NSString+Util.h */,
-				0B9F2B4C0395F4C1E73384509E877AFD /* NSString+Util.m */,
 			);
 			name = DBVoiceEngraverKit;
 			path = DBAudioSDK/Classes/DBVoiceEngraverKit;
@@ -776,7 +763,6 @@
 				2537454C361E73B07ABBCFDC3D82FB13 /* DBZIOConsumerPool.h */,
 				57909166AA4C6B1B7596203407C705E3 /* DBZIOConsumerPool.m */,
 			);
-			name = IOConsumer;
 			path = IOConsumer;
 			sourceTree = "<group>";
 		};
@@ -886,7 +872,6 @@
 				7EBB9BB43909E80D87211B2564A017D4 /* UIView+Toast.m */,
 				7AEB102464472F4FFF96123AFE02EC9E /* Support Files */,
 			);
-			name = Toast;
 			path = Toast;
 			sourceTree = "<group>";
 		};
@@ -979,7 +964,6 @@
 				10913791E5AB5F6D38D5C072061CB7B0 /* IQUIViewController+Additions.m */,
 				609B3174D82D0DF59D088EA707D34556 /* Support Files */,
 			);
-			name = IQKeyboardManager;
 			path = IQKeyboardManager;
 			sourceTree = "<group>";
 		};
@@ -1076,7 +1060,6 @@
 				120003CAA7ADF5077F8603B70333CED2 /* DSAQPool.h in Headers */,
 				CFDDF9E53FB0DC141592298D6DF35250 /* NSRunLoop+DBZWebSocket.h in Headers */,
 				F266702214B0A473F66E47C2FF8530AF /* NSRunLoop+DBZWebSocketPrivate.h in Headers */,
-				BAFCEFEC9828385CB899A38562B8D559 /* NSString+Util.h in Headers */,
 				FEF3700FC1D819849E1651A7C2F84339 /* NSURLRequest+DBZWebSocket.h in Headers */,
 				FF4CBEB5B82F29CAF390CECAFBF1E602 /* NSURLRequest+DBZWebSocketPrivate.h in Headers */,
 			);
@@ -1376,7 +1359,6 @@
 				52AE9F9F0BF6CC90E84501874067B19C /* DBZWebSocket.m in Sources */,
 				70139B9943BF978A71E4D447DBC62990 /* DSAQPool.m in Sources */,
 				BB310C6E7F9A1A0833E0C9249AA9FCBA /* NSRunLoop+DBZWebSocket.m in Sources */,
-				2A8A0CC62C1B3284978BBDFCF98D327C /* NSString+Util.m in Sources */,
 				37BA98A2413CAE977791A0EBA03E3A4B /* NSURLRequest+DBZWebSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

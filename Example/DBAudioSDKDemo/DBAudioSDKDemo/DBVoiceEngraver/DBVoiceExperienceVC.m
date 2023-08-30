@@ -12,7 +12,6 @@
 #import "XCHudHelper.h"
 #import "UIView+Toast.h"
 
-NSString *const ttsIPURL  = @"https://openapi.data-baker.com/tts_hot_load";
 static NSString *textPlaceHolder = @"请输入要合成的文本";
 
 @interface DBVoiceExperienceVC ()<UITextViewDelegate,UIGestureRecognizerDelegate>
@@ -134,7 +133,8 @@ static NSString *textPlaceHolder = @"请输入要合成的文本";
 
 - (NSURL *)playWithText:(NSString *)playText {
     NSString *accesstoken = [DBVoiceEngraverManager sharedInstance].accessToken;
-    NSString * path = [NSString stringWithFormat:@"%@?access_token=%@&domain=1&language=zh&voice_name=%@&text=%@",ttsIPURL,accesstoken,self.voiceModel.modelId,playText];
+    NSString *ttsIpUrl = [DBVoiceEngraverManager ttsIPURL];
+    NSString * path = [NSString stringWithFormat:@"%@?access_token=%@&domain=1&language=zh&voice_name=%@&text=%@",ttsIpUrl,accesstoken,self.voiceModel.modelId,playText];
     NSString *encodeString = [path stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSURL * url = [NSURL URLWithString:encodeString];
     return url;
@@ -182,7 +182,7 @@ static NSString *textPlaceHolder = @"请输入要合成的文本";
 
 - (void)moniPlayBackAction {
     __weak typeof(self)weakSelf = self;
-    self.timeObserve =  [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1, NSEC_PER_SEC)
+    self.timeObserve =  [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(0.1, NSEC_PER_SEC)
                                                                   queue:NULL
                                                              usingBlock:^(CMTime time) {
         CGFloat  totalTime = self.playTextView.text.length *0.265;

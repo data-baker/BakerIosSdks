@@ -72,13 +72,24 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="OzL-lO-Llf"/>
                                         </constraints>
-                                        <state key="normal" title="声音复刻"/>
+                                        <state key="normal" title="声音复刻普通"/>
                                         <connections>
                                             <segue destination="PZD-1W-d9h" kind="show" id="ZTc-BZ-ZlP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cj-eo-uMx">
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4I-Jd-UVk">
                                         <rect key="frame" x="0.0" y="420" width="374" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ljv-lJ-qD6"/>
+                                        </constraints>
+                                        <state key="normal" title="声音复刻精品"/>
+                                        <connections>
+                                            <segue destination="PZD-1W-d9h" kind="show" id="JD8-td-lC1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cj-eo-uMx">
+                                        <rect key="frame" x="0.0" y="504" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="EBE-45-V01"/>
@@ -88,8 +99,8 @@
                                             <segue destination="BWA-kF-GEY" kind="show" id="8nY-Yr-u4e"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMc-Dd-ngP">
-                                        <rect key="frame" x="0.0" y="504" width="374" height="50"/>
+                                    <button hidden="YES" opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMc-Dd-ngP">
+                                        <rect key="frame" x="0.0" y="554" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="AJq-gK-aGN"/>
@@ -180,7 +191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erJ-OG-aSh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="529" y="690"/>
+            <point key="canvasLocation" x="-925" y="-171"/>
         </scene>
         <!--语音识别-->
         <scene sceneID="nDX-eV-Lxp">
@@ -1733,6 +1744,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="wHv-Er-kdr"/>
+        <segue reference="ZTc-BZ-ZlP"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="1.png" width="333" height="333"/>

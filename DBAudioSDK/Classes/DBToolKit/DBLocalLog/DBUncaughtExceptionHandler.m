@@ -141,9 +141,7 @@ void DBSignalHandler(int signal) {
     [[DBUncaughtExceptionHandler shareInstance] performSelectorOnMainThread:@selector(db_handleException:) withObject: [NSException exceptionWithName:DBUncaughtExceptionHandlerSignalExceptionName reason: [NSString stringWithFormat: NSLocalizedString(@"Signal %d was raised.", nil), signal] userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:signal] forKey:DBUncaughtExceptionHandlerSignalKey]] waitUntilDone:YES];
 }
 DBUncaughtExceptionHandler* DBInstallUncaughtExceptionHandler(void) {
-    
     _previousHandler = NSGetUncaughtExceptionHandler();
-    
     NSSetUncaughtExceptionHandler(&DB_HandleException);
     signal(SIGABRT, DBSignalHandler);
     signal(SIGILL, DBSignalHandler);

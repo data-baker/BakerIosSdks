@@ -127,7 +127,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     self.transferState = DBTransferStateInit;
     [self.socketManager DBZWebSocketOpenWithURLString:self.socketURL];
     _transferTime = CFAbsoluteTimeGetCurrent();
-//    NSLog(@"websocket connect:%@",@(_transferTime));
     [self logMessage:@"socket开始链接"];
 }
 

@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSNumber * modelStatus;
 //模型状态中文(值)
 @property(nonatomic,copy)NSString * statusName;
+/// 1: 普通复刻 2:精品复刻
+@property(nonatomic,copy)NSString * type;
 
 @end
 

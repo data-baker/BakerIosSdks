@@ -17,13 +17,6 @@
     
 }
 
-//- (instancetype)initWithText:(NSString *)text {
-//    if (self = [super init]) {
-//        self.text = text;
-//    }
-//    return self;
-//}
-
 + (instancetype)textModelWithText:(NSString *)text {
     DBTextModel *model = [[DBTextModel alloc]init];
     model.text = text;
@@ -31,7 +24,7 @@
 }
 
 - (NSString *)description {
-    NSString *info = [NSString stringWithFormat:@" filePath:%@, index :%@ ,text:%@",self.filePath,@(self.index),self.recordText];
+    NSString *info = [NSString stringWithFormat:@" filePath:%@, index :%@ ,text:%@",self.filePath,@(self.index),self.text];
     return info;
 }
 

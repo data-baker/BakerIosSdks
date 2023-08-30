@@ -34,7 +34,7 @@ typedef void (^DBFailureHandler)(NSError *error);
 
 typedef NS_ENUM(NSUInteger,DBReprintType) {
     DBReprintTypeNormal = 1, // 普通复刻
-    DBReprintTypeFine, // 精品复刻
+    DBReprintTypeFine = 2, // 精品复刻
 };
 
 
@@ -47,6 +47,7 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 
 /// 默认为NO，开启Yes可打印log日志
 @property(nonatomic,assign)BOOL  enableLog;
+
 
 // 实例化对象
 + (instancetype )sharedInstance;
@@ -63,7 +64,6 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 
 /// 获取复刻的录音文本(没有历史会话的录制请求)
 //- (void)getRecordTextArrayTextHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler __attribute__ ((deprecated("废弃（version >= 1.1.0）,使用`- (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextBlock)textHandler failure:(DBFailureHandler)failureHandler` 替代")));
-//;
 
 // 获取噪音的上限，通过handler进行回调处理
 - (void)getNoiseLimit:(DBMessageHandler)handler failuer:(DBFailureHandler)failureHandler;
@@ -121,9 +121,12 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 /// @param currentIndex 当前条目的Index
 - (BOOL)canNextStepByCurrentIndex:(NSInteger)currentIndex;
 
+- (DBReprintType)currentType;
+
 
 + (NSString *)sdkVersion;
 
++ (NSString *)ttsIPURL;
 @end
 
 NS_ASSUME_NONNULL_END

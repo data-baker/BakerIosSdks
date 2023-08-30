@@ -15,7 +15,8 @@
 #if DBRelease
 #define KBASE_URL @"https://openapi.data-baker.com"
 #else
-#define KBASE_URL @"http://10.10.50.23:9904"
+//#define KBASE_URL @"http://10.10.50.23:9904"
+#define KBASE_URL @"https://openapitest.data-baker.com"
 #endif
 
 #define KGET_TOKENT_URL [NSString stringWithFormat:@"%@/oauth/2.0/token",KBASE_URL]

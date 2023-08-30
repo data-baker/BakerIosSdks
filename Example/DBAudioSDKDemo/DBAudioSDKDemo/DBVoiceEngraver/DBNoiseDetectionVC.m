@@ -17,10 +17,10 @@
 #define KUserDefalut [NSUserDefaults standardUserDefaults]
 #endif
 
-static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生成的SessionId
+static NSString * KRecordSessionIDNormal = @"KRecordSessionIdNormal"; // 录制过程中生成的SessionId,普通
+static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过程中生成的SessionId，精品
 
-
-@interface DBNoiseDetectionVC ()<DBVoiceDetectionDelegate>
+@interface DBNoiseDetectionVC ()<DBVoiceDetectionDelegate,DBSessionIdDelegate>
 @property(nonatomic,strong)DBVoiceDetectionUtil * voiceDetectionUtil;
 @property(nonatomic,strong)DBVoiceEngraverManager * voiceEngraverManager;
 @property (weak, nonatomic) IBOutlet UIButton *volumeNumberButton;
@@ -42,7 +42,6 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
     self.voiceEngraverManager = [DBVoiceEngraverManager sharedInstance];
     [self loadNoiseConfigure:^(NSString *msg) {
-        
         self.noiseMaxLimit = [msg integerValue];
         /// 声明噪音检测的工具，开启噪音检测
         self.voiceDetectionUtil = [[DBVoiceDetectionUtil alloc]init];
@@ -86,7 +85,7 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 }
 - (IBAction)startEngraverAction:(id)sender {
     [self showHUD];
-    NSString *sessionId =  [KUserDefalut objectForKey:KRecordSessionID];
+    NSString *sessionId =   [self getCurrentSessionId];
     [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array,NSString *sessionId) {
         [self hiddenHUD];
         if (array.count == 0) {
@@ -95,7 +94,7 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
         }
         // 保存当前录制的SessionId和进度
         if(sessionId) {
-            [KUserDefalut setObject:sessionId forKey:KRecordSessionID];
+            [self setCurrentSessionId:sessionId];
         }
         
         if (index == 0) {
@@ -107,7 +106,7 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
             [self pushTextVCWithIndex:index textArray:array];
         }cancelHandler:^{
             [self.voiceEngraverManager unNormalStopRecordSeesionSuccessHandler:^(NSString *msg) {
-                [KUserDefalut removeObjectForKey:KRecordSessionID];
+                [self removeCurrentSessionId];
                 [self pushTextVCWithIndex:0 textArray:array];
             } failureHandler:^(NSError * _Nonnull error) {
                 [self.view makeToast:error.localizedDescription duration:2 position:CSToastPositionCenter];
@@ -116,12 +115,11 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 
     } failure:^(NSError * _Nonnull error) {
         if (error.code == 10008) {
-            [KUserDefalut removeObjectForKey:KRecordSessionID];
+            [self removeCurrentSessionId];
         }
         [self hiddenHUD];
         [self.view makeToast:error.description duration:2 position:CSToastPositionCenter];
     }];
-    
 }
 
 - (void)pushTextVCWithIndex:(NSInteger)index textArray:(NSArray<DBTextModel *> *)modelArray {
@@ -129,24 +127,24 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
     DBRecordTextVC *recordVC  =   [story instantiateViewControllerWithIdentifier:@"DBRecordTextVC"];
     recordVC.textArray = modelArray;
     recordVC.index = index;
+    recordVC.delegate = self;
     [self.navigationController pushViewController:recordVC animated:YES];
 }
 // 展示检测的弹窗
 
 - (void)showContinueReprintAlertHandler:(dispatch_block_t)handler cancelHandler:(dispatch_block_t)cancelHandler {
     NSAssert2(handler&&cancelHandler, @"Please setting the handler:%@, cancel handler:%@", handler, cancelHandler);
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到您有复刻录制正在进行中，是否继续?" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *resume = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        handler();
-    }];
-    [alertVC addAction:resume];
-
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到您有复刻录制正在进行中，是否继续录制? " preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"重新录制" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         cancelHandler();
     }];
     [alertVC addAction:cancelAction];
-    [self presentViewController:alertVC animated:YES completion:nil];
     
+    UIAlertAction *resume = [UIAlertAction actionWithTitle:@"继续录制" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        handler();
+    }];
+    [alertVC addAction:resume];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 // MARK: DBVoiceDetectionDelegate
@@ -207,6 +205,41 @@ static NSString * KRecordSessionID = @"KRecordSessionId"; // 录制过程中生�
 #pragma mark - Navigation
 - (void)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC {
     self.navigationController.tabBarController.hidesBottomBarWhenPushed= NO;
+}
+
+
+- (NSString *)getCurrentSessionId {
+    DBReprintType type = [self.voiceEngraverManager currentType];
+    switch (type) {
+        case DBReprintTypeNormal:
+            return  [KUserDefalut objectForKey:KRecordSessionIDNormal];
+        case DBReprintTypeFine:
+            return  [KUserDefalut objectForKey:KRecordSessionIDFine];
+    }
+}
+
+- (void)setCurrentSessionId:(NSString *)sessionId {
+    DBReprintType type = [self.voiceEngraverManager currentType];
+    switch (type) {
+        case DBReprintTypeNormal:
+            [KUserDefalut setObject:sessionId forKey:KRecordSessionIDNormal];
+            break;
+        case DBReprintTypeFine:
+            [KUserDefalut setObject:sessionId forKey:KRecordSessionIDFine];
+            break;
+    }
+}
+
+- (void)removeCurrentSessionId {
+    DBReprintType type = [self.voiceEngraverManager currentType];
+    switch (type) {
+        case DBReprintTypeNormal:
+            [KUserDefalut removeObjectForKey:KRecordSessionIDNormal];
+            break;
+        case DBReprintTypeFine:
+            [KUserDefalut removeObjectForKey:KRecordSessionIDFine];
+            break;
+    }
 }
 
 

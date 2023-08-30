@@ -30,8 +30,12 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
 //static NSString *KClientId = @"df6527d33b644733a2b4e58de710fd9d";
 //static NSString *KClientSecret = @"ca9c99132d3c4d2bb92501410ee21bd8";
 // 声音复刻 - 测试环境
-static NSString *KClientId = @"1fed232b78b04eae9fa21b464d6d2db9";
-static NSString *KClientSecret = @"3e98fedaa8584ee193c2050423652066";
+//static NSString *KClientId = @"1fed232b78b04eae9fa21b464d6d2db9";
+//static NSString *KClientSecret = @"3e98fedaa8584ee193c2050423652066";
+
+// 声音复刻 - 沙盒环境
+static NSString *KClientId = @"163c3768d40c49a5affded6f2e9522a8";
+static NSString *KClientSecret = @"ba7f73aeac004377a3b80864be1641ca";
 
 // 在线声音转换
 //static NSString *KClientId = @"4c41ba67b97a424aa46f3c686a98ddd9";
@@ -66,7 +70,8 @@ static NSString *KClientSecret = @"3e98fedaa8584ee193c2050423652066";
         @"实时长语音识别":@"longSpeech",
         @"在线语音合成":@"onlineTTS",
         @"声音转换":@"voiceConvert",
-        @"声音复刻":@"voiceReprint",
+        @"声音复刻普通":@"voiceReprintNormal",
+        @"声音复刻精品":@"voiceReprintFine",
         @"离线变声":@"offlieVC",
         @"声纹服务":@"voiceprint"
     };
@@ -111,7 +116,6 @@ static NSString *KClientSecret = @"3e98fedaa8584ee193c2050423652066";
         }
         [[XCHudHelper sharedInstance] hideHud];
         DBUserInfoManager *infoManager = [DBUserInfoManager shareManager];
-        
         infoManager.clientId = clientId;
         infoManager.clientSecret = clientSecret;
         infoManager.sdkType = self.sdkName;
