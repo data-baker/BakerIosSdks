@@ -39,6 +39,11 @@ static inline NSError * throwError(NSString *errorDomain, NSInteger code, NSStri
 + (NSString *)currentTimeString;
 
 + (NSString *)currentDateString;
+
++ (NSString *)systemVersion;
+
++ (NSString *)getCurrentDeviceModel;
+
 @end
 
 NS_ASSUME_NONNULL_END

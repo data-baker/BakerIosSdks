@@ -13,7 +13,7 @@ target 'DBAudioSDKDemo' do
 #pod 'DBAudioSDK/DBLongASRKit', :path => '../../'
 #pod 'DBAudioSDK/DBShortASRKit', :path => '../../'
 
-  pod 'IQKeyboardManager', '~> 6.5.6'
+  pod 'IQKeyboardManager', '~> 6.5.6' #asr的Demo地方会使用到
 #  pod 'DBCommonLib', '~> 2.2.5'
 #  pod 'Masonry'
 #  pod 'FrameAccessor' ##布局快速设置frame

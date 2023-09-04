@@ -131,7 +131,6 @@ NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/t
     [resModel setValuesForKeysWithDictionary:dataDict];
     [self logMessage:[NSString stringWithFormat:@"合成器收到服务器发过来的数据 %@",resModel]];
     _synthesizerIndex++;
-    
   
     // 首包返回
     if (_synthesizerIndex == 1) {

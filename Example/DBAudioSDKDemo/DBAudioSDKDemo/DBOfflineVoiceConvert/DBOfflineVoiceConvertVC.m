@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *voiceImageView;
 /// 声音转换的client
 @property(nonatomic,strong)DBOfflineConvertVoiceClient * convertClient;
-
 // 数据相关
 @property(nonatomic,strong)NSArray * pickerArray;
 

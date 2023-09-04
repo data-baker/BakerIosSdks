@@ -16,6 +16,8 @@
 static NSString *DBErrorDomain = @"com.BiaoBeri.DBVoiceTransferUtil";
 static NSString *DBFileName = @"transferPCMFile";
 
+static NSString *const DBSocketURL = @"wss://openapi.data-baker.com/ws/voice_conversion";
+
 typedef NS_ENUM(NSUInteger,DBTransferState) {
     DBTransferStateInit  = 0, // 初始化
     DBTransferStateStart = 1, // 开始
@@ -55,7 +57,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 
 @property (nonatomic,assign) DBTransferState transferState;
 
-@property (nonatomic, strong) NSString * socketURL;
 
 @property (nonatomic, assign) BOOL firstFlag;
 
@@ -74,6 +75,8 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 @property (nonatomic) int sizeToRead;
 @property (nonatomic, retain) NSFileHandle *fileHandle;
 @property (nonatomic, retain) NSThread *fileReadThread;
+/// 私有化部署的url地址
+@property(nonatomic,copy)NSString * privacyDeployUrl;
 
 @end
 
@@ -92,10 +95,17 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 
 - (void)setupClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret block:(DBAuthenticationBlock)block {
     NSAssert(block, @"请设置setupClientId回调");
+    self.privacyDeployUrl = nil; // 如果设置clientId就不支持私有化
     [DBAuthentication setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nullable token, NSError * _Nullable error) {
         self.accessToken = token;
         block(token,error);
     }];
+}
+
+- (void)setupPrivacyDeployUrl:(NSString *)urlString {
+    self.clientId = nil;
+    self.clientSecret = nil;
+    self.privacyDeployUrl = urlString;
 }
 
 //----  MARK: 用户按钮的状态控制
@@ -121,11 +131,12 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 - (void)startSocketAndRecognize {
     [self closedAudioResource];
     self.socketManager.timeOut = 6;
-    if (self.socketURL.length == 0) {
-        self.socketURL = @"wss://openapi.data-baker.com/ws/voice_conversion";
-    }
     self.transferState = DBTransferStateInit;
-    [self.socketManager DBZWebSocketOpenWithURLString:self.socketURL];
+    if (self.privacyDeployUrl) {
+        [self.socketManager DBZWebSocketOpenWithURLString:self.privacyDeployUrl];
+    }else {
+        [self.socketManager DBZWebSocketOpenWithURLString:DBSocketURL];
+    }
     _transferTime = CFAbsoluteTimeGetCurrent();
     [self logMessage:@"socket开始链接"];
 }
@@ -196,10 +207,8 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 }
 
 - (void)playAudioData:(NSData *)data endFlag:(BOOL)endflag {
-    [self logMessage:@"---------- 准备播放--------"];
     [self.player play:data];
     [self readlyToPlay];
-    [self logMessage:@"---------- 开始播放--------"];
 }
 
 - (void)configureAudioSeesion {
@@ -235,7 +244,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     [self logMessage:@"sever 连接成功"];
 //    NSLog(@"websocket connect success:%@",@(CFAbsoluteTimeGetCurrent() - _transferTime));
     _transferTime = CFAbsoluteTimeGetCurrent();
-    
     self.transferState = DBTransferStateStart;
     switch (self.transferMode) {
         case DBTransferModeMicro: {
@@ -331,7 +339,11 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     parameter[@"enable_vad"] = @(self.enableVad);
     parameter[@"align_input"] = @(self.align_input);
     parameter[@"voice_name"] = self.voiceName;
-    parameter[@"access_token"] = self.accessToken;
+    if(self.privacyDeployUrl) {
+        parameter[@"access_token"] = @"default";
+    }else {
+        parameter[@"access_token"] = self.accessToken;
+    }
     NSData *data = [self transferData:parameter audioData:audioData];
     [self.socketManager sendData:data];
 }
@@ -392,7 +404,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
             [self.transferPCMFileHandle seekToEndOfFile];
             [self.transferPCMFileHandle writeData:subData];
             [self.transferPCMFileHandle closeFile];
-            [self logMessage:[NSString stringWithFormat:@"path:%@",path]];
         }
         
 //        NSLog(@"websocket connect received data:%@ ,dataLenth:%@",@(CFAbsoluteTimeGetCurrent() - _transferTime),@(subData.length));
@@ -499,7 +510,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
             [self.delegate onError:code message:message];
         }
     });
- 
 }
 
 - (void)delegateResponseData:(NSData *)data lastFlag:(BOOL)lastFlag {
@@ -526,8 +536,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     });
 }
 
-
-
 - (DBZSocketRocketUtility *)socketManager {
     if (!_socketManager) {
         _socketManager = [DBZSocketRocketUtility instance];
@@ -535,8 +543,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     }
     return _socketManager;
 }
-    
-    
 
 - (DBAudioMicrophone *)microphone {
     if (!_microphone) {
@@ -553,7 +559,6 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
     }
     return _player;
 }
-
 
 - (NSString *)audioDir {
     if (_audioDir==nil) {

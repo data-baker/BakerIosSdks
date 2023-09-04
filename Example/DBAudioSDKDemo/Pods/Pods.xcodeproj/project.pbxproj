@@ -42,6 +42,17 @@
 		31DBE17A117FD63EA72AC45CE0F2BC9F /* DBVPResponseModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F63D0CE8A179FE20ECD525130D08C96 /* DBVPResponseModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		31F4C6982FF40BD4E84749C3B9B5B6B4 /* DBZIOConsumerPool.h in Headers */ = {isa = PBXBuildFile; fileRef = 2537454C361E73B07ABBCFDC3D82FB13 /* DBZIOConsumerPool.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3503AD1515001D3E8B226285CA6598E5 /* DBAudioMicrophone.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC8F6BA883E2F839AB39F3AAA778C34 /* DBAudioMicrophone.m */; };
+		35DAC11A2AA08D5E00C5262E /* DBLogCollectKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DAC1182AA08D5E00C5262E /* DBLogCollectKit.h */; };
+		35DAC11B2AA08D5E00C5262E /* DBLogCollectKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC1192AA08D5E00C5262E /* DBLogCollectKit.m */; };
+		35DAC11E2AA08D6500C5262E /* NSString+DBCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DAC11C2AA08D6500C5262E /* NSString+DBCrypto.h */; };
+		35DAC11F2AA08D6500C5262E /* NSString+DBCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC11D2AA08D6500C5262E /* NSString+DBCrypto.m */; };
+		35DAC1222AA08D6E00C5262E /* DBLogerConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC1202AA08D6E00C5262E /* DBLogerConfigure.m */; };
+		35DAC1232AA08D6E00C5262E /* DBLogerConfigure.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DAC1212AA08D6E00C5262E /* DBLogerConfigure.h */; };
+		35DAC1262AA08D7800C5262E /* DBFNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC1242AA08D7800C5262E /* DBFNetworkHelper.m */; };
+		35DAC1272AA08D7800C5262E /* DBFNetworkHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DAC1252AA08D7800C5262E /* DBFNetworkHelper.h */; };
+		35DAC12B2AA08D8600C5262E /* DBPermanentThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DAC1282AA08D8500C5262E /* DBPermanentThread.h */; };
+		35DAC12C2AA08D8600C5262E /* DBPermanentThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DAC1292AA08D8500C5262E /* DBPermanentThread.m */; };
+		35DAC12D2AA08D8600C5262E /* DBEnmerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DAC12A2AA08D8600C5262E /* DBEnmerator.h */; };
 		35E53FF438648D93EB47F4E82C031688 /* DBAuthentication.h in Headers */ = {isa = PBXBuildFile; fileRef = 58BAEABE3EC5A7B45B8E13178F93251F /* DBAuthentication.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		36526CCE7C4E84BF8DB5D4FBB1F5F4DB /* DBZPinningSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD18E9A06240592FE772B9B3E728BA2 /* DBZPinningSecurityPolicy.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		37BA98A2413CAE977791A0EBA03E3A4B /* NSURLRequest+DBZWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C04A0FF910B75920DBB01D3337B4C8A /* NSURLRequest+DBZWebSocket.m */; };
@@ -249,6 +260,17 @@
 		2EFCE3397B03D09A4D35FE5945AB1E8C /* IQTitleBarButtonItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IQTitleBarButtonItem.m; path = IQKeyboardManager/IQToolbar/IQTitleBarButtonItem.m; sourceTree = "<group>"; };
 		3049D505377314C89E463CCD4613C46C /* DBZSocketRocketUtility.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DBZSocketRocketUtility.m; sourceTree = "<group>"; };
 		33ED0444E3D39E530B2E87B4B2BDC13B /* IQKeyboardManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IQKeyboardManager.m; path = IQKeyboardManager/IQKeyboardManager.m; sourceTree = "<group>"; };
+		35DAC1182AA08D5E00C5262E /* DBLogCollectKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBLogCollectKit.h; sourceTree = "<group>"; };
+		35DAC1192AA08D5E00C5262E /* DBLogCollectKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBLogCollectKit.m; sourceTree = "<group>"; };
+		35DAC11C2AA08D6500C5262E /* NSString+DBCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DBCrypto.h"; sourceTree = "<group>"; };
+		35DAC11D2AA08D6500C5262E /* NSString+DBCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DBCrypto.m"; sourceTree = "<group>"; };
+		35DAC1202AA08D6E00C5262E /* DBLogerConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBLogerConfigure.m; sourceTree = "<group>"; };
+		35DAC1212AA08D6E00C5262E /* DBLogerConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBLogerConfigure.h; sourceTree = "<group>"; };
+		35DAC1242AA08D7800C5262E /* DBFNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBFNetworkHelper.m; sourceTree = "<group>"; };
+		35DAC1252AA08D7800C5262E /* DBFNetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBFNetworkHelper.h; sourceTree = "<group>"; };
+		35DAC1282AA08D8500C5262E /* DBPermanentThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPermanentThread.h; sourceTree = "<group>"; };
+		35DAC1292AA08D8500C5262E /* DBPermanentThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPermanentThread.m; sourceTree = "<group>"; };
+		35DAC12A2AA08D8600C5262E /* DBEnmerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBEnmerator.h; sourceTree = "<group>"; };
 		3717B41B1B9FEE3DD30CA9C9EF7184C8 /* IQKeyboardManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IQKeyboardManager.release.xcconfig; sourceTree = "<group>"; };
 		374663C4E472F4ACAEF29F1228624BEF /* Pods-DBAudioSDKDemoTests */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "Pods-DBAudioSDKDemoTests"; path = "libPods-DBAudioSDKDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		399405896F6BF08E63BE1F2681DF651E /* DBAudioSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DBAudioSDK-dummy.m"; sourceTree = "<group>"; };
@@ -910,6 +932,17 @@
 		E0D90B8705EB96F9CD97445D61CFF20B /* DBLocalLog */ = {
 			isa = PBXGroup;
 			children = (
+				35DAC1182AA08D5E00C5262E /* DBLogCollectKit.h */,
+				35DAC1192AA08D5E00C5262E /* DBLogCollectKit.m */,
+				35DAC11C2AA08D6500C5262E /* NSString+DBCrypto.h */,
+				35DAC11D2AA08D6500C5262E /* NSString+DBCrypto.m */,
+				35DAC1212AA08D6E00C5262E /* DBLogerConfigure.h */,
+				35DAC1202AA08D6E00C5262E /* DBLogerConfigure.m */,
+				35DAC1252AA08D7800C5262E /* DBFNetworkHelper.h */,
+				35DAC1242AA08D7800C5262E /* DBFNetworkHelper.m */,
+				35DAC12A2AA08D8600C5262E /* DBEnmerator.h */,
+				35DAC1282AA08D8500C5262E /* DBPermanentThread.h */,
+				35DAC1292AA08D8500C5262E /* DBPermanentThread.m */,
 				2A63D96307CEEA1D7823415447E71863 /* DBCommonConst.h */,
 				96677F2B5601F3C6A6007338FCE97F61 /* DBCommonConst.m */,
 				0874E95E7BBDCF2706904FA90DEF9EE6 /* DBLogManager.h */,
@@ -1000,7 +1033,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35DAC1272AA08D7800C5262E /* DBFNetworkHelper.h in Headers */,
 				82FD5FF71F8E05D4075E1B7F4BA6B8F1 /* DBAudioMicrophone.h in Headers */,
+				35DAC11A2AA08D5E00C5262E /* DBLogCollectKit.h in Headers */,
 				35E53FF438648D93EB47F4E82C031688 /* DBAuthentication.h in Headers */,
 				414A5925857716A08FDDF006C7BABAE9 /* DBCommonConst.h in Headers */,
 				B250089DDDB099A4905026CA97A83497 /* DBEngraverAudioMicrophone.h in Headers */,
@@ -1027,13 +1062,16 @@
 				16C4EAE501A173A122C8F1366E6DACA0 /* DBTextModel.h in Headers */,
 				69F7E0C765C2E68CE4E5E7CC51F02E43 /* DBTextSplitUtil.h in Headers */,
 				0DE7C45C7C3B8CB65EFF4FDF1DA860D7 /* DBTransferEnum.h in Headers */,
+				35DAC1232AA08D6E00C5262E /* DBLogerConfigure.h in Headers */,
 				B20F86EA860E74B66F2DDC5774038AAD /* DBTransferModel.h in Headers */,
 				EFE2E736C0B8363EB3DFF357DC064291 /* DBTransferProtocol.h in Headers */,
+				35DAC12B2AA08D8600C5262E /* DBPermanentThread.h in Headers */,
 				E48585A2968B62B93F336ED9E5C0C699 /* DBUncaughtExceptionHandler.h in Headers */,
 				54A518A4892869C29EF0802A4F1BBB54 /* DBVocalPrintClient.h in Headers */,
 				8B41A5DEBD72FF29B75D80221D5758CD /* DBVoiceDetectionDelegate.h in Headers */,
 				F4541699BEED64EE2C50E23119EF7596 /* DBVoiceDetectionUtil.h in Headers */,
 				810C14F350C755FEBF10E311139BD6F3 /* DBVoiceEngraverEnumerte.h in Headers */,
+				35DAC12D2AA08D8600C5262E /* DBEnmerator.h in Headers */,
 				B9A80BB6DF7BAD056A0F5F0394339E4B /* DBVoiceEngraverManager.h in Headers */,
 				08FFD3F1F1AB2DADDD5AD425CF7EB265 /* DBVoiceModel.h in Headers */,
 				E42434E2EF39D732437A1D72124951A5 /* DBVoiceTransferUtil.h in Headers */,
@@ -1050,6 +1088,7 @@
 				36526CCE7C4E84BF8DB5D4FBB1F5F4DB /* DBZPinningSecurityPolicy.h in Headers */,
 				58981710816FD0EC62FB3810A9F87850 /* DBZProxyConnect.h in Headers */,
 				525932D35AA3488632FE0E2C4DD3B61D /* DBZRandom.h in Headers */,
+				35DAC11E2AA08D6500C5262E /* NSString+DBCrypto.h in Headers */,
 				19192F47639BDF2DAF607F1610066B5C /* DBZRunLoopThread.h in Headers */,
 				9247B64744CAE9244E1333F561A50BFE /* DBZSecurityPolicy.h in Headers */,
 				9B9AE83EC878348039CD840BC77E1EFB /* DBZSIMDHelpers.h in Headers */,
@@ -1315,6 +1354,7 @@
 				CA760E7563D5B6C963B41CEF9CD59AEF /* DBFailureModel.m in Sources */,
 				7AD859E771EAFC69B6A0934FDA3175F5 /* DBFASRClient.m in Sources */,
 				BE6AA09B002DF8AC0F974DA76511670F /* DBFLongASRClient.m in Sources */,
+				35DAC12C2AA08D8600C5262E /* DBPermanentThread.m in Sources */,
 				9BFDBF63B6733DF9BAF549EA57DC783F /* DBLogManager.m in Sources */,
 				C472C6BCDD55AC6195C15E0C5D696573 /* DBLongResponseModel.m in Sources */,
 				3F1AAEB4A6466AEABD0876494A2C31F6 /* DBMatchMoreAudioModel.m in Sources */,
@@ -1322,6 +1362,7 @@
 				ED34DEBDC846CDD60B5BB6A7764EDF45 /* DBNetworkHelper.m in Sources */,
 				5E74B3D8F2940CED6EDC1F3FD7D7F8DB /* DBOnlineResponseModel.m in Sources */,
 				FBDB7A4222866D81E83BFAB7356DACE9 /* DBPCMDataPlayer.m in Sources */,
+				35DAC11F2AA08D6500C5262E /* NSString+DBCrypto.m in Sources */,
 				BE3F50E0A32EEEE70DDE9142D1B06E58 /* DBRecordPCMDataPlayer.m in Sources */,
 				03E32455F773FCFEEB59FE7B6418EA5F /* DBRegisterAudioModel.m in Sources */,
 				A9F26D945897B1A46A9EBF21306DBB98 /* DBResponseModel.m in Sources */,
@@ -1341,9 +1382,12 @@
 				FDE9E75AC11E21A1AF2205844B7B4DDA /* DBVPResponseModel.m in Sources */,
 				684538C37C93D877C2C6D7AC06CE1ABF /* DBZConstants.m in Sources */,
 				79B58DEE93FC097DD4BEAC27BDE847D9 /* DBZDelegateController.m in Sources */,
+				35DAC11B2AA08D5E00C5262E /* DBLogCollectKit.m in Sources */,
+				35DAC1262AA08D7800C5262E /* DBFNetworkHelper.m in Sources */,
 				BF48303F2968E15B7800E52B2EEBEB6D /* DBZError.m in Sources */,
 				604C8B461BBD234E88871BE4BB8E2B21 /* DBZHash.m in Sources */,
 				3E670F403996CE61B93A9D55C282DD05 /* DBZHTTPConnectMessage.m in Sources */,
+				35DAC1222AA08D6E00C5262E /* DBLogerConfigure.m in Sources */,
 				8FFD8DB85F267D459AB599F7B682F7C5 /* DBZIOConsumer.m in Sources */,
 				F1D19E52F2A4E9F96ADD7F3474E6D38F /* DBZIOConsumerPool.m in Sources */,
 				71F1DE061784CE88DC6B34892DE8671F /* DBZLog.m in Sources */,

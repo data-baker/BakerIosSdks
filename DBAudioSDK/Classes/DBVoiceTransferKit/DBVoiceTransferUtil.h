@@ -40,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取token
 - (void)setupClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret block:(DBAuthenticationBlock)block;
 
+// 设置私有化部署的url地址
+- (void)setupPrivacyDeployUrl:(NSString *)urlString;
+
 /// 开始转换，是否需要播放
 /// @param needPlay True: 需要播放； Flase:不需要播放
 - (void)startTransferNeedPlay:(BOOL)needPlay;

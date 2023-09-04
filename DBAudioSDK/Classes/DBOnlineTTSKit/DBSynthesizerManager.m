@@ -97,9 +97,7 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     
     [self logMessage:[NSString stringWithFormat:@"clientId = %@",clientId]];
     [self logMessage:[NSString stringWithFormat:@"clientSecret = %@",clientSecret]];
-
     [self uploadMessage];
-    
     [DBAuthentication setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nullable token, NSError * _Nullable error) {
         if (!error) {
             [self logMessage:[NSString stringWithFormat:@"鉴权成功,token = %@",token]];
@@ -479,7 +477,6 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *str = [formatter stringFromDate:date];
-    
     if (![[userDefaults valueForKey:TTSSDKStart] isEqualToString:str]) {
         [userDefaults setValue:str forKey:TTSSDKStart];
         [userDefaults synchronize];

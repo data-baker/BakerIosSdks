@@ -1274,7 +1274,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nTa-HH-feY" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="299" y="1596"/>
+            <point key="canvasLocation" x="651" y="1580"/>
         </scene>
         <!--噪声检测-->
         <scene sceneID="ubp-OA-kSQ">
@@ -1357,7 +1357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bwC-ug-mzA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1261" y="1590"/>
+            <point key="canvasLocation" x="1572" y="1568"/>
         </scene>
         <!--第二步：声音录制-->
         <scene sceneID="XqB-BK-LV4">
@@ -1505,7 +1505,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vEM-3S-O84" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2626" y="1624"/>
+            <point key="canvasLocation" x="2384" y="1557"/>
         </scene>
         <!--第三步：开启模型训练-->
         <scene sceneID="dN0-3B-FAI">

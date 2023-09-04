@@ -34,8 +34,13 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
 //static NSString *KClientSecret = @"3e98fedaa8584ee193c2050423652066";
 
 // 声音复刻 - 沙盒环境
-static NSString *KClientId = @"163c3768d40c49a5affded6f2e9522a8";
-static NSString *KClientSecret = @"ba7f73aeac004377a3b80864be1641ca";
+//static NSString *KClientId = @"163c3768d40c49a5affded6f2e9522a8";
+//static NSString *KClientSecret = @"ba7f73aeac004377a3b80864be1641ca";
+
+
+static NSString *KClientId = @"8e0e6b88a7a24dba96e7c1a168b43346";
+static NSString *KClientSecret = @"2922fa36c5094d5db2cc3bfd5daabbd8";
+
 
 // 在线声音转换
 //static NSString *KClientId = @"4c41ba67b97a424aa46f3c686a98ddd9";

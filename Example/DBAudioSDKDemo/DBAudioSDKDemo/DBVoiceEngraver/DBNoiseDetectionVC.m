@@ -34,12 +34,10 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.volumeNumberButton.layer.cornerRadius = 81;
     self.volumeNumberButton.layer.masksToBounds = YES;
     self.volumeNumberButton.layer.borderWidth = 1;
     [self recoverUIState];
-
     self.voiceEngraverManager = [DBVoiceEngraverManager sharedInstance];
     [self loadNoiseConfigure:^(NSString *msg) {
         self.noiseMaxLimit = [msg integerValue];
@@ -86,15 +84,15 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
 - (IBAction)startEngraverAction:(id)sender {
     [self showHUD];
     NSString *sessionId =   [self getCurrentSessionId];
-    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array,NSString *sessionId) {
+    [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array,NSString *backSessionId) {
         [self hiddenHUD];
         if (array.count == 0) {
             [self.view makeToast:@"获取录制文本失败" duration:2 position:CSToastPositionCenter];
             return ;
         }
         // 保存当前录制的SessionId和进度
-        if(sessionId) {
-            [self setCurrentSessionId:sessionId];
+        if(backSessionId) {
+            [self setCurrentSessionId:backSessionId];
         }
         
         if (index == 0) {
@@ -163,7 +161,7 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
         return ;
     }
     [self.volumeNumberButton setTitle:[NSString stringWithFormat:@"%@分贝",@(volumeDB).stringValue] forState:UIControlStateNormal];
-    if (volumeDB > 70) {
+    if (volumeDB > self.noiseMaxLimit) {
         [self detectFailedWithText:@"环境太差，请稍后再试吧"];
     }else if (volumeDB > 50) {
         self.volumeTextLabel.hidden = NO;
@@ -207,18 +205,26 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
     self.navigationController.tabBarController.hidesBottomBarWhenPushed= NO;
 }
 
-
+// MARK: ---DBSessionIdDelegate ---
 - (NSString *)getCurrentSessionId {
     DBReprintType type = [self.voiceEngraverManager currentType];
+    NSString *sessionId;
     switch (type) {
         case DBReprintTypeNormal:
-            return  [KUserDefalut objectForKey:KRecordSessionIDNormal];
+            sessionId =  [KUserDefalut objectForKey:KRecordSessionIDNormal];
+            break;
         case DBReprintTypeFine:
-            return  [KUserDefalut objectForKey:KRecordSessionIDFine];
+            sessionId =  [KUserDefalut objectForKey:KRecordSessionIDFine];
+            break;
     }
+    return sessionId;
 }
 
 - (void)setCurrentSessionId:(NSString *)sessionId {
+    if(sessionId.length == 0 || sessionId == nil) {
+        NSLog(@"[debug]:保存的SessionId 不能为空");
+        return;
+    }
     DBReprintType type = [self.voiceEngraverManager currentType];
     switch (type) {
         case DBReprintTypeNormal:

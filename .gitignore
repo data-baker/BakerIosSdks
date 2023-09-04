@@ -1,2 +1,5 @@
 Example/DBAudioSDKDemo/DBAudioSDKDemo.xcworkspace/xcuserdata/linxi.xcuserdatad/UserInterfaceState.xcuserstate
 Example/DBAudioSDKDemo/DBAudioSDKDemo.xcworkspace/xcuserdata/linxi.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+*.sh
+Example/DBAudioSDKDemo/Build
+ExportOptions.plist

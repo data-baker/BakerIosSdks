@@ -195,13 +195,11 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     [self logMessage:message];
     DBLongResponseModel *resModel = [[DBLongResponseModel alloc]init];
     [resModel setValuesForKeysWithDictionary:dict];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.delegate && [self.delegate respondsToSelector:@selector(resultTraceId:)]) {
             [self.delegate resultTraceId:dict[@"trace_id"]];
         }
     });
-    
     //报错
     if (resModel.code != 90000) {
         [self logMessage:@"后台报错"];
@@ -261,7 +259,6 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 
 
 - (void)webSocketPostData:(NSData *)audioData {
-    
     if (audioData.length != 5120) {
         DBLongResponseModel *failrModel = [[DBLongResponseModel alloc]init];
         failrModel.code = DBLongTimeErrorStateDataLength;
@@ -271,9 +268,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     NSData *base64Data = [audioData base64EncodedDataWithOptions:0];
     NSString *audioString = [[NSString alloc] initWithData:base64Data encoding:NSUTF8StringEncoding];
-    
     parameter[@"audio_data"]= audioString;
-    
     if (self.AudioFormat == DBLongTimeAudioFormatWAV) {
         parameter[@"audio_format"] = @"WAV";
     }else {

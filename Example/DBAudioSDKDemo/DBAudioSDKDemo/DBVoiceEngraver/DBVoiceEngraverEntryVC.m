@@ -24,10 +24,12 @@
     NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
     NSString * sdkType = [DBUserInfoManager shareManager].sdkType;
     
-    
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
-    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    [[DBVoiceEngraverManager sharedInstance] setupWithClientId:clientId clientSecret:clientSecret queryId:idfa rePrintType:[self reprintSDKType:sdkType] successHandler:^(NSString * _Nonnull msg) {
+    NSString *UDID = [[NSUUID UUID] UUIDString];
+    UDID = [clientId stringByAppendingFormat:@"_%@",UDID];
+    [KUserDefalut setObject:UDID forKey:KUDID];
+    NSLog(@"queryId:%@",UDID);
+    [[DBVoiceEngraverManager sharedInstance] setupWithClientId:clientId clientSecret:clientSecret queryId:UDID rePrintType:[self reprintSDKType:sdkType] successHandler:^(NSString * _Nonnull msg) {
         [[XCHudHelper sharedInstance] hideHud];
         NSLog(@"获取token成功");
         [self dismissViewControllerAnimated:YES completion:nil];

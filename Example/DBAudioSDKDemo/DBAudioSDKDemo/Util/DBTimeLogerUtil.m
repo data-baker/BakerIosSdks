@@ -8,7 +8,8 @@
 
 typedef NS_ENUM(NSUInteger,LogType) {
     LogTypeTTS = 1, // 合成
-    LogTypeASR    , // 识别
+    LogTypeASR = 2   , // 识别
+    LogTypeConvert = 3, // 声音转换
 };
 
 @interface DBTimeLogerUtil ()
@@ -75,13 +76,15 @@ typedef NS_ENUM(NSUInteger,LogType) {
     self.logFlag = YES;
     self.firstPime = CFAbsoluteTimeGetCurrent() - self.startTime;
     [self logerCurrentSynthessis];
-    self.packageIndex ++;
+    self.packageIndex++;
+}
+
+- (void)setTimeComplete {
+    self.isComplete = YES;
 }
 
 
-
 - (void)logerCurrentSynthessis {
-    
     NSString *typeInfo = @"首包";
     NSString *text = @"";
     switch (self.logerType) {
@@ -92,6 +95,9 @@ typedef NS_ENUM(NSUInteger,LogType) {
         case LogTypeASR:
             typeInfo = @"尾包";
             text = self.asrText;
+            break;
+        case LogTypeConvert:
+            typeInfo = @"首包";
             break;
     }
     
@@ -117,7 +123,9 @@ typedef NS_ENUM(NSUInteger,LogType) {
 }
 
 - (void)logTransferStart {
-    
+    [self resetPageIndex];
+    self.isComplete = NO;
+    self.startTime = CFAbsoluteTimeGetCurrent();
 }
 
 

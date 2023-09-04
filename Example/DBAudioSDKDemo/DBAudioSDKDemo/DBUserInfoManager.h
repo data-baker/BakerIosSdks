@@ -11,6 +11,10 @@
 #define KUserDefalut [NSUserDefaults standardUserDefaults]
 #endif
 
+#define KUDID @"UDID"
+
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DBUserInfoManager : NSObject

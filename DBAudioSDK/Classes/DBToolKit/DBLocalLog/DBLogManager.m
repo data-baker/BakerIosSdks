@@ -12,13 +12,14 @@
 @implementation DBLogManager
 
 + (void)saveCriticalSDKRunData:(NSString *)string {
+    
+    
     NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [docPath stringByAppendingPathComponent:@"DBRunLog.txt"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:filePath]) {
         [fileManager createFileAtPath:filePath contents:[@">>>>>>>程序运行日志<<<<<<<<\n" dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
     }
-    
     NSFileHandle *handle = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
     [handle seekToEndOfFile];
     NSString *dateStr = [DBCommonConst currentDateString];

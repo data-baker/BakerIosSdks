@@ -75,8 +75,7 @@
     if (button.isSelected) {
         NSString *sessionId = [self getCurrentSessionId];
         self.startTime = CFAbsoluteTimeGetCurrent();
-        [self.voiceEngraverManager startRecordWithSessionId:sessionId textIndex:self.index  messageHandler:^(NSString *sessionId) {
-            [self removeCurrentSessionId];// 保存当前的SessionId
+        [self.voiceEngraverManager startRecordWithSessionId:sessionId textIndex:self.index  messageHandler:^(NSString *msg) {
             [self beginRecordState];
         } failureHander:^(NSError * _Nonnull error) {
             NSLog(@"error %@",error);
@@ -200,6 +199,7 @@
     self.voiceImageView.hidden = YES;
     self.nextRecordButton.hidden = NO;
     self.startRecordButton.hidden = NO;
+    self.startRecordButton.selected = NO;
     self.listenButton.hidden = NO;
 }
 
@@ -243,7 +243,9 @@
 - (void)dbVoiceRecognizeError:(NSError *)error {
     [self hiddenHUD];
     [self endRecordState];
-    [self.view makeToast:error.description duration:2.f position:CSToastPositionCenter];
+    NSDictionary *dict = error.userInfo;
+    NSString *msg = dict[@"message"];
+    [self.view makeToast:msg duration:2.f position:CSToastPositionCenter];
 }
 
 - (void)playToEnd {

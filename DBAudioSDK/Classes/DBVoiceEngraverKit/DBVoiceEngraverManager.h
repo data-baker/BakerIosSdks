@@ -12,16 +12,12 @@
 #import "DBTextModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@class DBTextModel;
 
 /// 获取当前录制的Session的进度
 typedef void (^DBTextModelArrayHandler)(NSInteger index,NSArray<DBTextModel *> *array,NSString *sessionId);
 
 ///  上传识别回调的block
 typedef void (^DBVoiceRecogizeHandler)(DBTextModel *model);
-
-/// 获取识别文本的block
-typedef void (^DBTextBlock)(NSArray <NSString *> *textArray);
 
 /// 获取声音模型的block,多个
 typedef void (^DBSuccessModelHandler)(NSArray<DBVoiceModel *> *array);
@@ -36,17 +32,12 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
     DBReprintTypeNormal = 1, // 普通复刻
     DBReprintTypeFine = 2, // 精品复刻
 };
-
-
 @interface DBVoiceEngraverManager : NSObject
 
 /// 录音和错误相关的回调
 @property(nonatomic,weak)id<DBVoiceDetectionDelegate>  delegate;
 
 @property(nonatomic,copy,readonly)NSString * accessToken;
-
-/// 默认为NO，开启Yes可打印log日志
-@property(nonatomic,assign)BOOL  enableLog;
 
 
 // 实例化对象
@@ -98,7 +89,10 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 - (void)queryModelStatusByModelId:(NSString *)modelId SuccessHandler:(DBSuccessOneModelHandler)successHandler failureHander:(DBFailureHandler)failureHandler;
 
 /// 批量查询模型状态
-- (void)batchQueryModelStatusByQueryId:(NSString *_Nullable)queryId SuccessHandler:(DBSuccessModelHandler)successHandler failureHander:(DBFailureHandler)failureHandler;
+/// type ->  1： 普通复刻 2:精品复刻
+- (void)batchQueryModelStatusByQueryId:(NSString *)queryId
+                              type:(NSString *)type
+                        SuccessHandler:(DBSuccessModelHandler)successHandler failureHander:(DBFailureHandler)failureHandler;
 
 
 /// 开启模型训练
@@ -127,6 +121,10 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 + (NSString *)sdkVersion;
 
 + (NSString *)ttsIPURL;
+
+/// 默认为YES，YES: 开启日志记录， NO:关闭日志记录；
++ (void)enableLog:(BOOL)enableLog;
+
 @end
 
 NS_ASSUME_NONNULL_END

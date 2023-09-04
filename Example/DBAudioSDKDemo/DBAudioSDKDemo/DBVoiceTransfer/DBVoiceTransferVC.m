@@ -17,10 +17,6 @@
 static NSString *DBAudioMicroData = @"audioMicroData";
 
 @interface DBVoiceTransferVC ()<UIPickerViewDelegate,UIPickerViewDataSource,DBTransferProtocol>
-{
-    CFAbsoluteTime startTime;
-    BOOL startLog;
-}
 
 @property (weak, nonatomic) IBOutlet UILabel *desLabel;
 @property (weak, nonatomic) IBOutlet UILabel *msgLabel;
@@ -42,7 +38,8 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     self.pickerArray = @[@"Vc_jiaojiao",@"Vc_tiantian",@"Vc_baklong",@"Vc_ledi",@"Vc_weimian"];
     self.micAudioData = [NSMutableData data];
     [self setupSubView];
-    [self setupAuthorInfo];
+//    [self setupAuthorInfo];
+    [self setupPrivacyDeploy];
 }
 
 - (void)setupAuthorInfo {
@@ -62,6 +59,10 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     }];
 }
 
+- (void)setupPrivacyDeploy {
+    NSString *url = @"ws://10.10.50.62:9900/ws/voice_conversion";
+    [[DBVoiceTransferUtil shareInstance] setupPrivacyDeployUrl:url];
+}
 
 - (void)setupSubView {
     _desLabel.text = @"使用说明：\n 1.选择音色；\n 2.点击开始录音转换，录音结束后点击停止录音转换； \n 3.声音转换完全直接进行播放；\n 4.本地文件转换会直接读取本地录音音频文件进行声音转换。";
@@ -105,7 +106,9 @@ static NSString *DBAudioMicroData = @"audioMicroData";
         [self.micAudioData resetBytesInRange:NSMakeRange(0, self.micAudioData.length)];
         self.micAudioData = [NSMutableData data];
         BOOL needPlay = YES;
+        KTimeUtil.logTransferStart;
         [self.voiceTransferUtil startTransferNeedPlay:needPlay];
+        self.voiceImageView.hidden = NO;
         if (needPlay) {
             [self setupAudioSession];
         }
@@ -138,9 +141,7 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     button.selected = !button.isSelected;
     if (button.isSelected) {
         [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"文件转换中..." image:nil acitivity:YES autoHideTime:0];
-        startTime = CFAbsoluteTimeGetCurrent();
-        startLog = YES;
-        NSLog(@"start time:%@",@(startTime));
+        KTimeUtil.logTransferStart;
         BOOL needPlay = YES;
         [self.voiceTransferUtil startTransferWithFilePath:[self.voiceTransferUtil getSavePath:DBAudioMicroData] needPaley:needPlay];
     }else {
@@ -203,21 +204,16 @@ static NSString *DBAudioMicroData = @"audioMicroData";
 - (void)microphoneAudioData:(NSData *)data isLast:(BOOL)isLast {
     [self.micAudioData appendData:data];
     if (isLast) {
-        
         NSString *path = [self.voiceTransferUtil getSavePath:DBAudioMicroData];
         BOOL ret = [[NSFileManager defaultManager] fileExistsAtPath:path];
         if (ret) {
             [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
             NSLog(@"清除历史文件");
         }
-        
         [self.micAudioData writeToFile:path atomically:YES];
         NSLog(@"self.micAudioData length:%@",@(self.micAudioData.length));
     }
 }
-
-
-
 
 - (void)dbValues:(NSInteger)db {
     NSUInteger volumeDB = db;
@@ -248,11 +244,9 @@ static NSString *DBAudioMicroData = @"audioMicroData";
 }
 
 - (void)readyToTransfer {
-    [KTimeUtil logTransferStart];
+//    [KTimeUtil logTransferStart];
     NSLog(@"开始声音转换");
-    if (self.startButton.isSelected) {
-        self.voiceImageView.hidden = NO;
-    }
+   
 }
 
 - (void)transferCallBack:(NSData *)data isLast:(BOOL)isLast {
@@ -262,15 +256,10 @@ static NSString *DBAudioMicroData = @"audioMicroData";
     }
     if(KTimeUtil.isLogTime == NO) {
         [KTimeUtil logerPackageTime];
-//        [self.voiceTransferUtil endFileTransferAndCloseSocket];
+        [KTimeUtil setTimeComplete];
     }
     // MARK: --- end
-    
     NSLog(@"dataLength:%@ isLast:%@,",@(data.length),@(isLast));
-    if (startLog) {
-        NSLog(@"start time - 02:%@",@(CFAbsoluteTimeGetCurrent() - startTime));
-        startLog = NO;
-    }
     self.fileButton.selected = NO;
     [self setButton:self.startButton enable:YES];
     [[XCHudHelper sharedInstance] hideHud];
@@ -281,7 +270,6 @@ static NSString *DBAudioMicroData = @"audioMicroData";
         [self setupAuthorInfo];
         return;
     }
-
     NSString *desMessage = [NSString stringWithFormat:@"code:%@ message:%@",@(code),message];
     // 保存信息到本地日志
     [DBLogManager saveCriticalSDKRunData:desMessage];
@@ -307,7 +295,7 @@ static NSString *DBAudioMicroData = @"audioMicroData";
 // MARK: Play Method
 
 - (void)readlyToPlay {
-    NSLog(@"%s readlyToPlay",__func__);
+//    NSLog(@"%s readlyToPlay",__func__);
 }
 - (void)playFinished {
     NSLog(@"%s playFinished",__func__);

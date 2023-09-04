@@ -35,15 +35,8 @@
     [DBNetworkHelper getWithUrlString:KGET_TOKENT_URL parameters:parameters success:^(NSDictionary * _Nonnull data) {
         NSString *accessToken = data[@"access_token"];
         if (!accessToken) {
-            static NSInteger rectryCount = 2;
-            if (rectryCount >0) {
-                [self setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nonnull token, NSError * _Nonnull error) {
-                }];
-                rectryCount--;
-            }else {
-                NSError * error = [NSError errorWithDomain:@"tokenError" code:80001 userInfo:@{@"info":@"token获取失败"}];
-                block(nil,error);
-            }
+            NSError * error = [NSError errorWithDomain:@"tokenError" code:80001 userInfo:@{@"info":@"token获取失败"}];
+            block(nil,error);
         }else {
             block(accessToken,nil);
         }

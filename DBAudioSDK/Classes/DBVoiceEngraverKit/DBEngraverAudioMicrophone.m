@@ -49,7 +49,6 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
     asbd.mBitsPerChannel = 16;//每个采样点16bit量化
     asbd.mBytesPerFrame = (asbd.mBitsPerChannel/8) * asbd.mChannelsPerFrame;
     asbd.mBytesPerPacket = asbd.mBytesPerFrame * asbd.mFramesPerPacket;
-    
     return asbd;
 }
 

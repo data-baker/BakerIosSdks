@@ -17,8 +17,10 @@
 #import "DBLogManager.h"
 #import "DBAuthentication.h"
 #import "DBTextModel.h"
+#import "DBLogCollectKit.h"
 
-static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
+// TODO: 上线前需要替换
+static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 
 @interface DBVoiceEngraverManager ()<DBAudioMicrophoneDelegate,DBRecordPCMDataPlayerDelegate,DBUpdateTokenDelegate,DBZSocketCallBcakDelegate>
 
@@ -76,6 +78,7 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     dispatch_once(&once, ^{
         sharedInstance = [self new];
         [sharedInstance initParams];
+        [sharedInstance setupLogerConfig];
     });
     return sharedInstance;
 }
@@ -87,7 +90,6 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     self.networkHelper.delegate = self;
     self.paramsDelegate = self.networkHelper;
     [self.paramsDelegate clearAudioFile];
-    self.enableLog = NO;
     self.currentRecordIndex = 0;
     self.socketStatus = 0;
     self.socketSequence = 0;
@@ -109,6 +111,12 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)setupLogerConfig {
+    DBLogCollectKit *logKit = [DBLogCollectKit sharedInstance];
+    [logKit configureDefaultWithCrashLogLevel:DBLogLevelInfo];
+    [logKit updateCollectAppName:@"DBVoiceReprint"]; // 声音复刻
 }
 
 // MARK: Network Methods -
@@ -136,14 +144,13 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     [DBAuthentication setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nullable token, NSError * _Nullable error) {
         if(error) {
             failureHandler(error);
+            LogerInfo(@"Failed get token：%@",error.userInfo);
             return;
         }
-        if(!token) {
-            NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateFailureToAccessToken userInfo:@{@"userInfo":@"获取token失败"}];
-            failureHandler(error);
-        }
+        LogerInfo(@"Get token success clientId：%@",clientId);
         self.networkHelper.token = token;
         self.accessToken = token;
+        [[DBLogCollectKit sharedInstance] updateCollectUserId:clientId];
         successHandler(@"");
     }];
 }
@@ -166,7 +173,6 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     } failure:failureHandler];
 }
 
-
 // MARK: 第一次录制，开启一个sessionId
 - (void)startRecordWithSessionId:(NSString *)sessionId textIndex:(NSInteger)textIndex messageHandler:(DBMessageHandler)messageHandler failureHander:(DBFailureHandler)failureHandler {
     NSAssert2(failureHandler&&messageHandler, @"请设置messageHandler:%@,failureHandler:%@", messageHandler, failureHandler);
@@ -177,6 +183,7 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     }
     self.currentRecordIndex = textIndex;
     [self startSocket];
+    messageHandler(@"0");
 }
 
 
@@ -207,8 +214,6 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
             return ;
         }
         NSString *sessionId = data[@"data"][@"sessionId"];
-        self.sessionId = sessionId;
-        
         NSArray *sentenceList = data[@"data"][@"sentenceList"];
         NSMutableArray *sentenceModelList = [NSMutableArray array];
         for (NSDictionary *sentenceDic in sentenceList) {
@@ -244,9 +249,11 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
         failureHandler(error);
     }];
 }
-
+   
 //MARK: 根据queryId 批量查询模型状态
-- (void)batchQueryModelStatusByQueryId:(NSString *)queryId SuccessHandler:(DBSuccessModelHandler)successHandler failureHander:(DBFailureHandler)failureHandler {
+- (void)batchQueryModelStatusByQueryId:(NSString *)queryId
+                              type:(NSString *)type
+                        SuccessHandler:(DBSuccessModelHandler)successHandler failureHander:(DBFailureHandler)failureHandler {
     
     NSAssert(successHandler, @"请设置DBSuccessModelHandler的回调");
     NSAssert(failureHandler, @"请设置failureHandler的回调");
@@ -257,7 +264,9 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     if (queryId) {
         params[@"queryId"] = queryId;
     }
-    
+    if(type) {
+        params[@"type"] = type;
+    }
     params[@"limit"] = @(100);
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBQueryModelStatusBatch) parameters:params success:^(NSDictionary * _Nonnull data) {
         /// 异常处理
@@ -282,10 +291,9 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 // MARK: public 通过SessionID开启一个新的会话
 - (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextModelArrayHandler)textHandler failure:(DBFailureHandler)failureHandler {
     NSAssert2(textHandler&&failureHandler, @"请设置textHanlder:%@,failureHandler:%@", textHandler, failureHandler);
-    [self networkGetSessionId:sessionId success:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array,NSString *sessionId) {
+    [self networkGetSessionId:sessionId success:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array,NSString *sessionId_) {
         self.textModelArray = [NSMutableArray array];
-        self.sessionId = sessionId;
-        
+        self.sessionId = sessionId_;
         __block NSInteger p_index = 0;
         [array enumerateObjectsUsingBlock:^(DBTextModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             DBTextModel *model = [[DBTextModel alloc]init];
@@ -300,25 +308,9 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
             model.index = idx;
             [self.textModelArray addObject:model];
         }];
-        textHandler(p_index,array,sessionId);
+        textHandler(p_index,array,self.sessionId);
     } failureBlock:failureHandler];
-    
 }
-
-
-
-
-//MARK:  获取声音限制
-//- (void)getRecordLimitSuccessHandler:(DBSuccessHandler)successHandler failureHander:(DBFailureHandler)failureHandler {
-//    NSAssert(successHandler, @"请设置DBSuccessHandler的回调");
-//    NSAssert(failureHandler, @"请设置DBFailureHandler的回调");
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBURLVoliceLimit) parameters:params success:^(NSDictionary * _Nonnull data) {
-//        successHandler(data);
-//    } failure:^(NSError * _Nonnull error) {
-//        failureHandler(error);
-//    }];
-//}
 
 // MARK: 开始录音
 - (void)startRecord {
@@ -332,9 +324,7 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     NSString * filePath = [self filePathWithIndex:self.currentRecordIndex];
     DBTextModel *model = self.textModelArray[self.currentRecordIndex];
     model.filePath = filePath;
-    
     // TODO: 测试数据
-//    [self testAudioData];
     NSLog(@"当前录制路径 ：%@",filePath);
     self.micPCMFile = fopen(filePath.UTF8String, "wb");
     if (self.microphone) {
@@ -366,7 +356,6 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     }
     NSAssert(successBlock, @"请设置DBSuccessHandler回调");
     NSAssert(failureHandler, @"请设置DBFailureHandler回调");
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"sessionId"] = self.sessionId;
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBURLStopSession) parameters:params success:^(NSDictionary * _Nonnull data) {
@@ -376,7 +365,6 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
         failureHandler(error);
     }];
 }
-
 
 // MARK: 试听
 - (void)listenAudioWithTextIndex:(NSInteger)index {
@@ -389,14 +377,14 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
         NSString *filePath = model.filePath;
         BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
         if (!exist) {
-            NSLog(@"No file Exsits");
+            LogerInfo(@"No file Exsits:%@",@(index));
             return;
         }
        data = [[NSData alloc] initWithContentsOfFile:filePath];
     }else if(!IsEmpty(model.audioUrl)) {
         data = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.audioUrl]];
     }else {
-        NSLog(@"No Audio Data");
+        LogerInfo(@"No Audio Data:%@",@(index));
         return;
     }
     if (!self.pcmDataPlayer) {
@@ -472,7 +460,7 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     }
 }
 - (void)recordAddTimer {
-    __block NSInteger timeout = 60*2; //倒计时时间
+    __block NSInteger timeout = 60; //倒计时时间
     if (_timer) {
         dispatch_source_cancel(_timer);
     }
@@ -486,7 +474,10 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置界面的按钮显示 根据自己需求设置
                 [self pauseRecord];
-                NSLog(@"录音时长超过限制2Min");
+                [self resetSocketState];
+                NSError *error = throwError(DBErrorDomain, 115004, @"录音超时");
+                [self delegateError:error];
+                LogerInfo(@"录音时长超过限制:%@",@(timeout));
             });
         }else{
             timeout--;
@@ -499,7 +490,6 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 
 
 - (void)audioMicrophone:(DBEngraverAudioMicrophone *)microphone hasAudioPCMByte:(Byte *)pcmByte audioByteSize:(UInt32)byteSize  {
-    NSLog(@"内置mic 数据长度: %u", byteSize);
     fwrite(pcmByte, 1, byteSize, self.micPCMFile);
     NSData*data = [[NSData alloc]initWithBytes:pcmByte length:byteSize];
     NSData *base64Data = [data base64EncodedDataWithOptions:0];
@@ -510,18 +500,16 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
         [self pauseRecord];
         self.socketStatus = 2;
         self.socketDic[@"status"] = @(self.socketStatus);
-        NSLog(@"开始传输最后一帧数据%@",self.socketDic[@"status"]);
+        LogerInfo(@"开始传输最后一帧数据%@",self.socketDic[@"status"]);
         [self.socketManager sendData:[self jsonData:self.socketDic isEncodedString:NO]];
         NSLog(@"socketDict:%@",self.socketDic);
         return;
     }
     if (self.socketStatus == 2) {
-        NSLog(@"传输数据结束");
+        LogerInfo(@"传输数据结束 socketStatus:2");
         return;
     }
-    NSLog(@"开始传输数据%@",self.socketDic[@"status"]);
-    NSLog(@"数据序号%@",self.socketDic[@"sequence"]);
-    NSLog(@"socketDict:%@",self.socketDic);
+    LogerInfo(@"开始传输数据%@,数据序号%@",self.socketDic[@"status"],self.socketDic[@"sequence"]);
     [self.socketManager sendData:[self jsonData:self.socketDic isEncodedString:NO]];
     self.socketStatus = 1;
     self.socketSequence++;
@@ -561,20 +549,19 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     // 超时时间为10秒
     self.socketManager.timeOut = 6;
     NSDictionary *dict =  [self.paramsDelegate paramasDelegateRequestParamas];
-    NSLog(@"dict :%@",dict);
     NSString * url = [NSString stringWithFormat:@"%@?data=%@",KDB_WEBSOCKET_URL,[self  headerParams:dict jsonData:nil isEncodedString:YES]];
-    NSLog(@"开始建立连接url %@",url);
+    LogerInfo(@"start url:%@",url);
     [self.socketManager DBZWebSocketOpenWithURLString:url];
 }
 
 - (void)stopSocket {
+    LogerInfo(@"关闭Socket");
     [self.socketManager DBZWebSocketClose];
 }
 - (void)webSocketDidOpenNote {
-    [self.paramsDelegate logMessage:@"scoket连接成功 self %@",self];
+    LogerInfo(@"scoket连接成功 self %@",self);
 }
 - (void)webSocketdidReceiveMessageNote:(id)note {
-    NSLog(@"note:%@",note);
     NSString *message = (NSString *)note;
     NSDictionary * dic =[NSMutableDictionary dictionaryWithDictionary:[self.paramsDelegate dictionaryWithJsonString:message]];
     NSInteger code = [dic[@"code"] integerValue];
@@ -584,13 +571,12 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
         }];
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:code userInfo:@{@"message":@"token失效，请重试"}];
         [self delegateError:error];
+        LogerWarning(@"token失效，请重试");
         return ;
     }
-    
     if (code != 20000) {
         [self resetSocketState];
-
-        [self.paramsDelegate logMessage:@"返回结果出错"];
+        LogerWarning(@"%@",dic[@"message"]);
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:code userInfo:@{@"message":dic[@"message"]}];
         [self delegateError:error];
         return ;
@@ -598,26 +584,25 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     
     if ([dic[@"data"] isEqual:[NSNull null]]) {
         [self resetSocketState];
-        [self.paramsDelegate logMessage:@"返回结果出错"];
+        LogerWarning(@"返回结果为空");
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:20001 userInfo:@{@"errorInfo":@"返回结果为空"}];
         [self delegateError:error];
         return;
     }
     
     if ([dic[@"data"][@"type"] integerValue] == 0) {
-        
         self.socketStatus = 0;
         self.socketSequence = 0;
         self.socketDic = dic[@"data"];
         self.socketDic[@"status"] = @(self.socketStatus);
         self.socketDic[@"sequence"] = @(self.socketSequence);
-        NSLog(@"%@",self.fileNameArr);
+        LogerInfo(@"%@",self.fileNameArr);
         if (self.fileNameArr.count > self.currentRecordIndex) {
             [self.fileNameArr replaceObjectAtIndex:self.currentRecordIndex withObject:dic[@"data"][@"fileName"]];
         }else {
             [self.fileNameArr addObject:dic[@"data"][@"fileName"]];
         }
-        NSLog(@"打开麦克风");
+        LogerInfo(@"打开麦克风");
         [self startRecord];
         
     }else {
@@ -627,7 +612,7 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
             [model setValuesForKeysWithDictionary:dic[@"data"]];
             self.voiceHandler(model);
         }else{
-            [self.paramsDelegate logMessage:@"录音不合格"];
+            LogerInfo(@"录音不合格");
             DBTextModel *model = self.textModelArray[self.currentRecordIndex];
             [model setValuesForKeysWithDictionary:dic[@"data"]];
             self.voiceHandler(model);
@@ -642,11 +627,11 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 }
 
 - (void)webSocketDidCloseNote:(id)object {
-    NSLog(@"socket 连接关闭");
+    LogerInfo(@"socket 连接关闭");
 }
 
 - (void)webSocketdidConnectFailed:(id)noti {
-    NSLog(@"%@",noti);
+    LogerError(@"%@",noti);
     NSError *error = [NSError errorWithDomain:DBErrorDomain code:20002 userInfo:@{@"errorInfo":@"服务器连接错误"}];
     [self delegateError:error];
 }
@@ -667,6 +652,7 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
             rerecordingFileName = self.fileNameArr[self.currentRecordIndex];
         }
     }
+    NSAssert(self.sessionId, @"session Id can't be nil");
     NSDictionary * dic = @{
         @"header": params ? params:@"",
         @"param": @{
@@ -677,8 +663,6 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
         },
         @"audio": socket
     };
-    
-//    NSLog(@"request params :%@",dic);
     NSString * urlStr = [self.paramsDelegate dictionaryToJson:dic];
     NSString* encodedURL;
     if (encodedString) {
@@ -719,10 +703,7 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     return throwError(DBErrorDomain, code, msg);
 }
 
-
-
 // MARK: Custom Accessor Methods
-
 - (DBZSocketRocketUtility *)socketManager {
     if (!_socketManager) {
         _socketManager = [DBZSocketRocketUtility instance];
@@ -754,9 +735,11 @@ static NSString *const ttsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 }
 
 + (NSString *)ttsIPURL {
-    return ttsIPURL;
+    return KTtsIPURL;
 }
-
++ (void)enableLog:(BOOL)enableLog {
+    [[DBLogCollectKit sharedInstance] setEnableLog:enableLog];
+}
 
 
 @end
