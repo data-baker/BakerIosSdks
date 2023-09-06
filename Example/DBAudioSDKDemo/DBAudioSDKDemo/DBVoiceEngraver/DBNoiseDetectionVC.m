@@ -112,7 +112,7 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
         }];
 
     } failure:^(NSError * _Nonnull error) {
-        if (error.code == 10008) {
+        if (error.code == DBErrorStateModuleIdInvailid) { // 模型不存在
             [self removeCurrentSessionId];
         }
         [self hiddenHUD];

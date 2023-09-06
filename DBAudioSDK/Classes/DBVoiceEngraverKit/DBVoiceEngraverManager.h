@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 /// 初始化SDK，使用分配的clientiD，ClientSecret,其中querId为选填项
 /// @param clientId ID
 /// @param clientSecret secret
-/// @param queryId 查询Id，选填项
+/// @param queryId 查询Id，必填项，用于查询用户复刻的模型
 /// @param reprintType 复刻类型
 /// @param successHandler 成功回调
 /// @param failureHandler 失败回调
@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 - (void)getNoiseLimit:(DBMessageHandler)handler failuer:(DBFailureHandler)failureHandler;
 
 /// 通过SessionId（恢复录制），如果是首次录制，传入空字符串即可
-/// 通过sessionId恢复录制ID, 回调的TextHandler中包含录制的相关信息
+/// 首次录制会在回调中返回用户的SessionId,后期可以根据该S essionId恢复中途退出的录制；
 - (void)getTextArrayWithSeesionId:(NSString *)sessionId textHandler:(DBTextModelArrayHandler)textHandler failure:(DBFailureHandler)failureHandler;
 
 
@@ -69,20 +69,19 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 - (void)setupQueryId:(nullable NSString *)queryId;
 
 // 开始录音，第一次录音会开启一个会话session,如果开启失败会通过failureHandler回调错误
-- (void)startRecordWithSessionId:(NSString *)sessionId
-                       textIndex:(NSInteger )textIndex
+- (void)startRecordWithTextIndex:(NSInteger )textIndex
                   messageHandler:(DBMessageHandler)messageHandler
                    failureHander:(DBFailureHandler)failureHandler;
 
 // 结束录音
-- (void)pauseRecord;
+- (void)stopRecord;
 
 // 非正常录音结束
 - (void)unNormalStopRecordSeesionSuccessHandler:(DBMessageHandler)successBlock failureHandler:(DBFailureHandler)failureHandler;
 
 /// 上传录音的声音到服务器,失败的情况通过代理进行回调
 /// @param successHandler 上传成功的回调
-- (void)uploadRecordVoiceRecogizeHandler:(DBVoiceRecogizeHandler)successHandler;
+- (void)uploadRecordVoiceRecognizeHandler:(DBVoiceRecogizeHandler)successHandler;
 
 
 /// 查询模型状态
@@ -115,14 +114,15 @@ typedef NS_ENUM(NSUInteger,DBReprintType) {
 /// @param currentIndex 当前条目的Index
 - (BOOL)canNextStepByCurrentIndex:(NSInteger)currentIndex;
 
+/// 当前的复刻类型
 - (DBReprintType)currentType;
 
-
+// sdk版本
 + (NSString *)sdkVersion;
-
+// 获取复刻成功后模型的加载地址
 + (NSString *)ttsIPURL;
 
-/// 默认为YES，YES: 开启日志记录， NO:关闭日志记录；
+/// SDK的日志记录，默认为YES，YES: 开启日志记录， NO:关闭日志记录；
 + (void)enableLog:(BOOL)enableLog;
 
 @end

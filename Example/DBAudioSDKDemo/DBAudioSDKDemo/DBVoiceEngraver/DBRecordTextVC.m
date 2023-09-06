@@ -15,9 +15,6 @@
 #import "DBUserInfoManager.h"
 
 
-
-
-
 @interface DBRecordTextVC ()<UITextViewDelegate,DBVoiceDetectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *phaseTitleLabel;
 @property (weak, nonatomic) IBOutlet UITextView *recordTextView;
@@ -73,15 +70,14 @@
     UIButton *button = (UIButton *)sender;
     button.selected = !button.isSelected;
     if (button.isSelected) {
-        NSString *sessionId = [self getCurrentSessionId];
         self.startTime = CFAbsoluteTimeGetCurrent();
-        [self.voiceEngraverManager startRecordWithSessionId:sessionId textIndex:self.index  messageHandler:^(NSString *msg) {
+        [self.voiceEngraverManager startRecordWithTextIndex:self.index  messageHandler:^(NSString *msg) {
             [self beginRecordState];
         } failureHander:^(NSError * _Nonnull error) {
             NSLog(@"error %@",error);
             // 发生错误停止录音
             [self.view makeToast:error.description duration:2 position:CSToastPositionCenter];
-            [self.voiceEngraverManager pauseRecord];
+            [self.voiceEngraverManager stopRecord];
             [self endRecordState];
         }];
     }else {
@@ -141,7 +137,7 @@
 
 - (void)uploadRecoginizeVoice {
     [self showHUD];
-    [self.voiceEngraverManager uploadRecordVoiceRecogizeHandler:^(DBTextModel * _Nonnull model) {
+    [self.voiceEngraverManager uploadRecordVoiceRecognizeHandler:^(DBTextModel * _Nonnull model) {
         [self hiddenHUD];
         if ([model.passStatus.stringValue isEqualToString:@"1"]) {
             [self.view makeToast:[NSString stringWithFormat:@"太棒了：准确率：%@%%，请录制下一段吧。",model.percent] duration:2 position:CSToastPositionCenter];

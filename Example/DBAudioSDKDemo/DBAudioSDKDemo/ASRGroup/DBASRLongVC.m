@@ -69,6 +69,7 @@
     [self.asrAudioClient setupClientId:clientId clientSecret:clientSecret];
     self.isStart = NO;
     [self resumeUserDefault];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

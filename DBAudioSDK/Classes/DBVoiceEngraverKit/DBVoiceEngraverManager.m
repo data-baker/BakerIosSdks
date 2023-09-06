@@ -20,7 +20,7 @@
 #import "DBLogCollectKit.h"
 
 // TODO: 上线前需要替换
-static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
+static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
 
 @interface DBVoiceEngraverManager ()<DBAudioMicrophoneDelegate,DBRecordPCMDataPlayerDelegate,DBUpdateTokenDelegate,DBZSocketCallBcakDelegate>
 
@@ -165,6 +165,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     NSAssert2(handler&&failureHandler, @"Handler can't be nil", handler, failureHandler);
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBURLConfigQuery) parameters:@{} success:^(NSDictionary * _Nullable dict) {
         NSString *noise = dict[@"environmentalNoiseDetectionThreshold"];
+        LogerInfo(@"noise:%@",noise);
         if(IsEmpty(noise)) { // 默认限为60
             handler(@"60");
             return;
@@ -174,7 +175,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 }
 
 // MARK: 第一次录制，开启一个sessionId
-- (void)startRecordWithSessionId:(NSString *)sessionId textIndex:(NSInteger)textIndex messageHandler:(DBMessageHandler)messageHandler failureHander:(DBFailureHandler)failureHandler {
+- (void)startRecordWithTextIndex:(NSInteger)textIndex messageHandler:(DBMessageHandler)messageHandler failureHander:(DBFailureHandler)failureHandler {
     NSAssert2(failureHandler&&messageHandler, @"请设置messageHandler:%@,failureHandler:%@", messageHandler, failureHandler);
     if (textIndex > self.textModelArray.count -1) {
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateNetworkDataError userInfo:@{@"info":@"textIndex超过了数组的上界"}];
@@ -188,7 +189,8 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 
 
 // MARK: 上传声音识别
-- (void)uploadRecordVoiceRecogizeHandler:(DBVoiceRecogizeHandler)successHandler  {
+- (void)uploadRecordVoiceRecognizeHandler:(DBVoiceRecogizeHandler)successHandler  {
+    LogerDebug(@"upload Audio to recognize");
     self.issocketStatusEnd = YES;
     self.voiceHandler = successHandler;
 }
@@ -347,7 +349,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
 
 // MARK: 主动结束录音
 - (void)unNormalStopRecordSeesionSuccessHandler:(DBMessageHandler)successBlock failureHandler:(DBFailureHandler)failureHandler {
-    [self pauseRecord];
+    [self stopRecord];
     if (!self.sessionId) { // 如果未开启session,直接回调
         successBlock(@"115001"); // 不存在session Id的相关信息
         NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateEmptySessionId userInfo:@{@"message":@"传入的SessionId不能为空"}];
@@ -448,7 +450,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     }
 }
 // MARK: 停止录音
-- (void)pauseRecord {
+- (void)stopRecord {
     [self recordCancelTimer];
     [self.microphone pause];
     fclose(self.micPCMFile);
@@ -473,7 +475,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
             dispatch_source_cancel(timer);
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置界面的按钮显示 根据自己需求设置
-                [self pauseRecord];
+                [self stopRecord];
                 [self resetSocketState];
                 NSError *error = throwError(DBErrorDomain, 115004, @"录音超时");
                 [self delegateError:error];
@@ -497,7 +499,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
     self.socketDic[@"info"] = audioString;
     if (self.issocketStatusEnd) {
         self.issocketStatusEnd = NO;
-        [self pauseRecord];
+        [self stopRecord];
         self.socketStatus = 2;
         self.socketDic[@"status"] = @(self.socketStatus);
         LogerInfo(@"开始传输最后一帧数据%@",self.socketDic[@"status"]);
@@ -509,7 +511,6 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:8001/tts_personal";
         LogerInfo(@"传输数据结束 socketStatus:2");
         return;
     }
-    LogerInfo(@"开始传输数据%@,数据序号%@",self.socketDic[@"status"],self.socketDic[@"sequence"]);
     [self.socketManager sendData:[self jsonData:self.socketDic isEncodedString:NO]];
     self.socketStatus = 1;
     self.socketSequence++;

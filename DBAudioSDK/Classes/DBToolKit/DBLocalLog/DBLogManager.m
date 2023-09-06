@@ -9,13 +9,19 @@
 #import "DBLogManager.h"
 #import "DBCommonConst.h"
 
+static NSString *const KLogFileName = @"DBRunLog.txt";
+static NSString *const KBackUpFileName = @"DBRunLog_BackUp.txt";
+static NSUInteger kFileMaxSize = 20; // M
+
+
 @implementation DBLogManager
 
 + (void)saveCriticalSDKRunData:(NSString *)string {
     
+    // 日志文本的备份
+    NSString *filePath = [self getDocPathWithFileName:KLogFileName];
+    [self backFileWithLogFilePath:filePath];
     
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *filePath = [docPath stringByAppendingPathComponent:@"DBRunLog.txt"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:filePath]) {
         [fileManager createFileAtPath:filePath contents:[@">>>>>>>程序运行日志<<<<<<<<\n" dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
@@ -37,6 +43,82 @@
     [handle closeFile];
 
 }
+
++ (void)backFileWithLogFilePath:(NSString *)logFilePath {
+    BOOL isOverSize = [self checkFileIsOversize:logFilePath];
+    if (!isOverSize) {
+        return;
+    }
+    BOOL isDirectory;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *backUpFilePath = [self getDocPathWithFileName:KBackUpFileName];
+    if (![fileManager fileExistsAtPath:backUpFilePath isDirectory:&isDirectory] || !isDirectory) {
+        NSError *error = nil;
+        BOOL success = [fileManager createDirectoryAtPath:backUpFilePath
+                              withIntermediateDirectories:YES
+                                               attributes:nil
+                                                    error:&error];
+        if (!success) {
+            NSLog(@"Failed to create backup directory: %@", error);
+        }
+    }
+    
+    // 先删除旧的备份文件（可选）
+    NSError *deleteError = nil;
+    BOOL deleteSuccess = [fileManager removeItemAtPath:backUpFilePath error:&deleteError];
+    if (!deleteSuccess && deleteError) {
+        NSLog(@"Failed to delete old backup file: %@", deleteError);
+        return;
+    }
+    NSLog(@"delete backUp file:%@",backUpFilePath);
+    
+    // 将日志文件复制到备份目录
+    NSError *copyError = nil;
+    BOOL copySuccess = [fileManager copyItemAtPath:logFilePath toPath:backUpFilePath error:&copyError];
+    if (!copySuccess && copyError) {
+        NSLog(@"Failed to backup log file: %@", copyError);
+    }
+    
+    // 删除日志文件
+     deleteSuccess = [fileManager removeItemAtPath:logFilePath error:&deleteError];
+    if (!deleteSuccess && deleteError) {
+        NSLog(@"Failed to delete log file: %@", deleteError);
+        return;
+    }
+    
+}
+
++ (NSString *)getDocPathWithFileName:(NSString *)fileName {
+    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *filePath = [docPath stringByAppendingPathComponent:fileName];
+    return filePath;
+}
+
++ (BOOL)checkFileIsOversize:(NSString *)filePath {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    // 获取文件属性
+    NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath error:&error];
+    if (fileAttributes) {
+        // 获取文件大小
+        NSNumber *fileSize = fileAttributes[NSFileSize];
+        unsigned long long fileSizeInBytes = [fileSize unsignedLongLongValue];
+        // 转换为MB
+        double fileSizeInMB = (double)fileSizeInBytes / (1024 * 1024);
+        // 检查文件大小是否小于20MB
+        if (fileSizeInMB <= kFileMaxSize) {
+            return NO;
+        } else {
+            NSLog(@"文件超过20MB");
+            return YES;
+        }
+    } else {
+        NSLog(@"无法获取文件属性: %@", error);
+        return NO;
+    }
+    
+}
+
 
 
 @end

@@ -216,9 +216,9 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     NSDictionary *parameters = [self getBodyInfoWithLevel:level content:content time:time];
     NSString *auths = [self getAuthStringWithWithLevel:level content:msg time:time];
     [self log_postWithAuth:auths witDictionary:parameters success:^(NSDictionary * _Nonnull data) {
-        NSLog(@"data:%@",data);
+//        NSLog(@"data:%@",data);
     } failure:^(NSError * _Nonnull error) {
-        NSLog(@"error:%@",error.description);
+//        NSLog(@"error:%@",error.description);
     }];
 
 }
@@ -229,10 +229,8 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     request.HTTPMethod = @"POST";
     //将需要的信息放入请求头 随便定义了几个
     [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];//token
-    NSLog(@"auth:%@",auth);
     [request setValue:auth forHTTPHeaderField:@"authorization"];
     NSString *postStr = [self dictionaryToJsonString:params];
-    NSLog(@"postStr:%@",postStr);
     request.HTTPBody = [postStr dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -268,7 +266,6 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     [mutableDictionary addEntriesFromDictionary:baseDict];
     [mutableDictionary removeObjectForKey:@"contentList"];
     NSString *appendString = [NSString sha256StringWithDictionary:mutableDictionary];
-    NSLog(@"method log:%s ,%d appendString:%@",__func__,__LINE__,appendString);
     NSString *shaString = [NSString sha256StringWithText:appendString];
     return shaString;
 }

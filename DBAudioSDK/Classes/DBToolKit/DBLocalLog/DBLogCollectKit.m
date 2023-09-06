@@ -131,7 +131,6 @@ DEFINE_SINGLETON(DBLogCollectKit)
     va_end(args);
     [self.thread executeTask:^{
         NSString *logMessage = [NSString stringWithFormat:@"log level:%@ message :%@",@(level),msg];
-        NSLog(@"%@",logMessage);
         [DBLogManager saveCriticalSDKRunData:logMessage];
         if(!self.configure.enableLog) {
             return;
