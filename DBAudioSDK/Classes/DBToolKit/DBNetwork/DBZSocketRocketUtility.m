@@ -8,6 +8,7 @@
 
 #import "DBZSocketRocketUtility.h"
 #import <DBZSocketRocket.h>
+#import "DBLogCollectKit.h"
 
 #define dispatch_main_async_safe(block)\
 if ([NSThread isMainThread]) {\
@@ -36,16 +37,15 @@ dispatch_async(dispatch_get_main_queue(), block);\
 @implementation DBZSocketRocketUtility
 
 + (DBZSocketRocketUtility *)instance {
-//    static DBZSocketRocketUtility *Instance = nil;
-//    static dispatch_once_t predicate;
-//    dispatch_once(&predicate, ^{
-        DBZSocketRocketUtility * Instance = [[DBZSocketRocketUtility alloc] init];
-//    });
-    return Instance;
+    static DBZSocketRocketUtility *instance = nil;
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+          instance = [[DBZSocketRocketUtility alloc] init];
+    });
+    return instance;
 }
 
 - (void)setDelegate:(id<DBZSocketCallBcakDelegate>)delegate {
-    
         _delegate = delegate;
         self.availableDelegateMethods = (DBSocketDelegateAvailableMethods){
             .webSocketDidOpenNote = [delegate respondsToSelector:@selector(webSocketDidOpenNote)],
@@ -96,8 +96,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
     _logTimeIntever = timeIntever;
 //    NSLog(@"data:%@ onlineSynthesizerParameters %@",[NSDate date],data);
     WeakSelf(ws);
-    dispatch_queue_t queue =  dispatch_queue_create("zy", NULL);
-    
+    dispatch_queue_t queue =  dispatch_queue_create("socket", NULL);
     dispatch_async(queue, ^{
         if (weakSelf.socket != nil) {
             // 只有 SR_OPEN 开启状态才能调 send 方法啊，不然要崩
@@ -105,7 +104,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
                 [weakSelf.socket send:data];    // 发送数据
             } else if (weakSelf.socket.readyState == SR_CONNECTING) {
                 [self reConnect];
-                
             } else if (weakSelf.socket.readyState == SR_CLOSING || weakSelf.socket.readyState == SR_CLOSED) {
                 
                 [self reConnect];
@@ -124,6 +122,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
         //您的网络状况不是很好，请检查网络后重试
         reConnectTime = 0;
         NSDictionary *message = @{@"code":@"90005",@"message":@"failed connect sever"};
+        LogerInfo(@"reconnect failed:%@",message);
         if (self.availableDelegateMethods.webSocketdidConnectFailed) {
             [self.delegate webSocketdidConnectFailed:message];
         }
@@ -208,9 +207,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
 
 - (void)webSocket:(DBZWebSocket *)webSocket didFailWithError:(NSError *)error {
     if (webSocket == self.socket) {
-//        NSLog(@"************************** socket 连接失败************************** ");
         _socket = nil;
         if (error.code == 50 || error.code == 2145 ) { // 网络错误，就直接回调错误
+            LogerInfo(@"reconnect failederror code:%@",@(error.code));
             NSDictionary *message = @{@"code":@"90005",@"message":@"failed connect sever"};
             if (self.availableDelegateMethods.webSocketdidConnectFailed) {
                 [self.delegate webSocketdidConnectFailed:message];

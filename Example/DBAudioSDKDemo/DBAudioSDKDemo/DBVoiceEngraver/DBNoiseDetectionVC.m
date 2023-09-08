@@ -40,7 +40,7 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
     [self recoverUIState];
     self.voiceEngraverManager = [DBVoiceEngraverManager sharedInstance];
     [self loadNoiseConfigure:^(NSString *msg) {
-        self.noiseMaxLimit = [msg integerValue];
+        self.noiseMaxLimit = [msg integerValue] + 10;
         /// 声明噪音检测的工具，开启噪音检测
         self.voiceDetectionUtil = [[DBVoiceDetectionUtil alloc]init];
         self.startEngraverVoiceButton.enabled = NO;
@@ -83,7 +83,7 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
 }
 - (IBAction)startEngraverAction:(id)sender {
     [self showHUD];
-    NSString *sessionId =   [self getCurrentSessionId];
+    NSString *sessionId = [self getCurrentSessionId];
     [self.voiceEngraverManager getTextArrayWithSeesionId:sessionId textHandler:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array,NSString *backSessionId) {
         [self hiddenHUD];
         if (array.count == 0) {
@@ -94,8 +94,15 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
         if(backSessionId) {
             [self setCurrentSessionId:backSessionId];
         }
+        if(![backSessionId isEqualToString:sessionId] && sessionId != nil) {
+           // Session已经过期，会重新sessionId
+            [self showResumAlertHandler:^{
+                [self pushTextVCWithIndex:0 textArray:array];
+            }];
+            return;
+        }
         
-        if (index == 0) {
+        if (index == 0) { // 如果会话中没有录制，直接进入
             [self pushTextVCWithIndex:0 textArray:array];
             return;
         }
@@ -103,9 +110,11 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
         [self showContinueReprintAlertHandler:^{
             [self pushTextVCWithIndex:index textArray:array];
         }cancelHandler:^{
+            // 先停止会话
             [self.voiceEngraverManager unNormalStopRecordSeesionSuccessHandler:^(NSString *msg) {
                 [self removeCurrentSessionId];
-                [self pushTextVCWithIndex:0 textArray:array];
+                // 再次开启一个会话
+                [self startEngraverAction:nil];
             } failureHandler:^(NSError * _Nonnull error) {
                 [self.view makeToast:error.localizedDescription duration:2 position:CSToastPositionCenter];
             }];
@@ -142,6 +151,17 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
         handler();
     }];
     [alertVC addAction:resume];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+
+- (void)showResumAlertHandler:(dispatch_block_t)handler {
+    NSAssert(handler, @"Please setting the handler:%@", handler);
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到您当前会话已失效，需要重新录制" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"重新录制" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        handler();
+    }];
+    [alertVC addAction:cancelAction];
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 

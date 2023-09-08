@@ -127,12 +127,12 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
     NSAssert(failureHandler, @"请设置DBFailureHandler的回调");
     NSError *error;
     if (!clientId) {
-        error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateInitlizeSDK userInfo:@{@"msg":@"clientId error"}];
+        error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateInitlizeSDK userInfo:@{@"message":@"clientId error"}];
         failureHandler(error);
         return ;
     }
     if (!clientSecret) {
-        error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateInitlizeSDK userInfo:@{@"msg":@"client secret error"}];
+        error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateInitlizeSDK userInfo:@{@"message":@"client secret error"}];
         failureHandler(error);
         return ;
     }
@@ -164,7 +164,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
 - (void)getNoiseLimit:(DBMessageHandler)handler failuer:(DBFailureHandler)failureHandler {
     NSAssert2(handler&&failureHandler, @"Handler can't be nil", handler, failureHandler);
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBURLConfigQuery) parameters:@{} success:^(NSDictionary * _Nullable dict) {
-        NSString *noise = dict[@"environmentalNoiseDetectionThreshold"];
+        NSString *noise = dict[@"data"][@"environmentalNoiseDetectionThreshold"];
         LogerInfo(@"noise:%@",noise);
         if(IsEmpty(noise)) { // 默认限为60
             handler(@"60");
@@ -178,7 +178,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
 - (void)startRecordWithTextIndex:(NSInteger)textIndex messageHandler:(DBMessageHandler)messageHandler failureHander:(DBFailureHandler)failureHandler {
     NSAssert2(failureHandler&&messageHandler, @"请设置messageHandler:%@,failureHandler:%@", messageHandler, failureHandler);
     if (textIndex > self.textModelArray.count -1) {
-        NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateNetworkDataError userInfo:@{@"info":@"textIndex超过了数组的上界"}];
+        NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateNetworkDataError userInfo:@{@"message":@"textIndex超过了数组的上界"}];
         failureHandler(error);
         return;
     }
@@ -296,6 +296,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
     [self networkGetSessionId:sessionId success:^(NSInteger index, NSArray<DBTextModel *> * _Nonnull array,NSString *sessionId_) {
         self.textModelArray = [NSMutableArray array];
         self.sessionId = sessionId_;
+        LogerInfo("sessionId:%@",self.sessionId);
         __block NSInteger p_index = 0;
         [array enumerateObjectsUsingBlock:^(DBTextModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             DBTextModel *model = [[DBTextModel alloc]init];
@@ -317,7 +318,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
 // MARK: 开始录音
 - (void)startRecord {
     if (self.textModelArray.count-1 < self.currentRecordIndex) {
-        NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateFailureInvalidParams userInfo:@{@"info":@"音频文本为空"}];
+        NSError *error = [NSError errorWithDomain:DBErrorDomain code:DBErrorStateFailureInvalidParams userInfo:@{@"message":@"音频文本为空"}];
         [self delegateError:error];
         return;
     }
@@ -633,7 +634,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
 
 - (void)webSocketdidConnectFailed:(id)noti {
     LogerError(@"%@",noti);
-    NSError *error = [NSError errorWithDomain:DBErrorDomain code:20002 userInfo:@{@"errorInfo":@"服务器连接错误"}];
+    NSError *error = [NSError errorWithDomain:DBErrorDomain code:20002 userInfo:@{@"message":@"服务器连接错误"}];
     [self delegateError:error];
 }
 
@@ -687,7 +688,6 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
         });
     }
 }
-
 
 // MARK: custom Accessors
 

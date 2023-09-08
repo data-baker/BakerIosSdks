@@ -26,6 +26,9 @@
 		357E966926B2ADF400A789E2 /* DBAudioSDKDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E966826B2ADF400A789E2 /* DBAudioSDKDemoTests.m */; };
 		357E967426B2ADF400A789E2 /* DBAudioSDKDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 357E967326B2ADF400A789E2 /* DBAudioSDKDemoUITests.m */; };
 		358A656E27328B6A0063C0B4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 358A656D27328B6A0063C0B4 /* libc++.tbd */; };
+		35B73D612AAB0F1E0021C5DB /* DBFCountDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B73D602AAB0F1E0021C5DB /* DBFCountDownView.m */; };
+		35B73D642AAB12BE0021C5DB /* UIView+Factory_hzj.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B73D622AAB12BE0021C5DB /* UIView+Factory_hzj.m */; };
+		35B73D682AAB19D20021C5DB /* NSTimer+BlocksSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B73D662AAB19D10021C5DB /* NSTimer+BlocksSupport.m */; };
 		35CE9A5E26B6B835002D9337 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4826B6B834002D9337 /* AppDelegate.m */; };
 		35CE9A5F26B6B835002D9337 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4A26B6B834002D9337 /* SceneDelegate.m */; };
 		35CE9A6026B6B835002D9337 /* DBASRLongVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35CE9A4B26B6B834002D9337 /* DBASRLongVC.m */; };
@@ -118,6 +121,12 @@
 		357E967526B2ADF400A789E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		358A656D27328B6A0063C0B4 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		358A656F27328B940063C0B4 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/lib/libc++.1.tbd"; sourceTree = DEVELOPER_DIR; };
+		35B73D5F2AAB0F1E0021C5DB /* DBFCountDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBFCountDownView.h; sourceTree = "<group>"; };
+		35B73D602AAB0F1E0021C5DB /* DBFCountDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBFCountDownView.m; sourceTree = "<group>"; };
+		35B73D622AAB12BE0021C5DB /* UIView+Factory_hzj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Factory_hzj.m"; sourceTree = "<group>"; };
+		35B73D632AAB12BE0021C5DB /* UIView+Factory_hzj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Factory_hzj.h"; sourceTree = "<group>"; };
+		35B73D662AAB19D10021C5DB /* NSTimer+BlocksSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+BlocksSupport.m"; sourceTree = "<group>"; };
+		35B73D672AAB19D20021C5DB /* NSTimer+BlocksSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+BlocksSupport.h"; sourceTree = "<group>"; };
 		35CE9A4726B6B834002D9337 /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		35CE9A4826B6B834002D9337 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		35CE9A4926B6B834002D9337 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -247,6 +256,7 @@
 				357B2E0B26BC02D2006C15FD /* DBVoiceListVC.m */,
 				357B2E2226BC150E006C15FD /* DBVoiceEngraverEntryVC.h */,
 				357B2E2326BC150E006C15FD /* DBVoiceEngraverEntryVC.m */,
+				35B73D652AAB12C20021C5DB /* CustomView */,
 			);
 			path = DBVoiceEngraver;
 			sourceTree = "<group>";
@@ -318,6 +328,19 @@
 				357E967526B2ADF400A789E2 /* Info.plist */,
 			);
 			path = DBAudioSDKDemoUITests;
+			sourceTree = "<group>";
+		};
+		35B73D652AAB12C20021C5DB /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				35B73D672AAB19D20021C5DB /* NSTimer+BlocksSupport.h */,
+				35B73D662AAB19D10021C5DB /* NSTimer+BlocksSupport.m */,
+				35B73D5F2AAB0F1E0021C5DB /* DBFCountDownView.h */,
+				35B73D602AAB0F1E0021C5DB /* DBFCountDownView.m */,
+				35B73D632AAB12BE0021C5DB /* UIView+Factory_hzj.h */,
+				35B73D622AAB12BE0021C5DB /* UIView+Factory_hzj.m */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		35CE9A5526B6B834002D9337 /* DBVoiceResource */ = {
@@ -639,6 +662,7 @@
 				35F0B3F32726A6C700D9313D /* DBOfflineVoiceConvertVC.m in Sources */,
 				357B2E1226BC02D2006C15FD /* DBRecordCompleteVC.m in Sources */,
 				357B2E1126BC02D2006C15FD /* DBVoiceListVC.m in Sources */,
+				35B73D642AAB12BE0021C5DB /* UIView+Factory_hzj.m in Sources */,
 				35631C90273D11EF00A7343B /* DBVPHomeVC.m in Sources */,
 				35D756B02A248B02007C64E9 /* DBTimeLogerUtil.m in Sources */,
 				357B2E0E26BC02D2006C15FD /* DBRecordTextVC.m in Sources */,
@@ -647,9 +671,11 @@
 				357B2E2426BC150E006C15FD /* DBVoiceEngraverEntryVC.m in Sources */,
 				35CE9A6426B6B835002D9337 /* DBASRVC.m in Sources */,
 				357E965F26B2ADF300A789E2 /* main.m in Sources */,
+				35B73D612AAB0F1E0021C5DB /* DBFCountDownView.m in Sources */,
 				35631C93273D230200A7343B /* DBVPMatchMoreListVC.m in Sources */,
 				351D6A3A273A50CC00A88418 /* DBVPRegisterReadVC.m in Sources */,
 				357B2E1826BC033D006C15FD /* UIViewController+DBBackButtonHandler.m in Sources */,
+				35B73D682AAB19D20021C5DB /* NSTimer+BlocksSupport.m in Sources */,
 				35D3925E273CECEC00406B61 /* DBVPMatchReadVC.m in Sources */,
 				35CE9B2726BA2E18002D9337 /* XCHudHelper.m in Sources */,
 				357B2E0F26BC02D2006C15FD /* DBVoiceExperienceVC.m in Sources */,

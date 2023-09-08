@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeCurrentSessionId;
 
-
 @end
 
 @interface DBRecordTextVC : UIViewController

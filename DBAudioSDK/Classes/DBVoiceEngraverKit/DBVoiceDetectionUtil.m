@@ -9,6 +9,7 @@
 #import "DBVoiceDetectionUtil.h"
 #import <AVFoundation/AVFoundation.h>
 #import "DBVoiceEngraverEnumerte.h"
+#import "DBLogCollectKit.h"
 
 @interface DBVoiceDetectionUtil ()
 {
@@ -51,7 +52,6 @@
      setCategory: AVAudioSessionCategoryPlayAndRecord error: nil];
     /* 不需要保存录音文件 */
     NSURL *url = [NSURL fileURLWithPath:@"/dev/null"];
-    
     NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithFloat: 16000.0], AVSampleRateKey,
                               [NSNumber numberWithInt: kAudioFormatAppleLossless], AVFormatIDKey,
@@ -71,7 +71,7 @@
     }
     else
     {
-        NSLog(@"%@", [error description]);
+        LogerError(@"%@",[error description]);
     }
     return DBErrorStateNOError;
 }
@@ -139,18 +139,21 @@
                                                object:sessionInstance];
     NSError *error = nil;
     [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-    if(nil != error) NSLog(@"Error setting audio session category! %@", error);
-    else {
+    if(nil != error) {
+        LogerInfo(@"Error setting audio session category! %@", error);
+    }else {
         [sessionInstance setActive:YES error:&error];
-        if (nil != error) NSLog(@"Error setting audio session active! %@", error);
+        if (nil != error){
+            LogerInfo(@"Error setting audio session active! %@", error);
+        }
     }
 }
 - (void)audioSessionWasInterrupted:(NSNotification *)notification
 {
-    NSLog(@"the notification is %@",notification);
+    LogerInfo(@"the notification is %@",notification);
     if (AVAudioSessionInterruptionTypeBegan == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
     {
-        NSLog(@"begin");
+        LogerInfo(@"begin");
         if (!recorder.isRecording) {
             return;
         };
@@ -163,7 +166,7 @@
     }
     else if (AVAudioSessionInterruptionTypeEnded == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
     {
-        NSLog(@"begin - end");
+        LogerInfo(@"begin - end");
     }
 }
 
@@ -173,7 +176,7 @@
     NSError *error = nil;
     [sessionInstance setActive:YES error:&error];
     if (error) {
-        NSLog(@"%@",error.description);
+        LogerInfo(@"%@",error.description);
     }
 }
 

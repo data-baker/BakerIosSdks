@@ -13,7 +13,7 @@
 #import "XCHudHelper.h"
 #import "DBRecordCompleteVC.h"
 #import "DBUserInfoManager.h"
-
+#import "DBFCountDownView.h"
 
 @interface DBRecordTextVC ()<UITextViewDelegate,DBVoiceDetectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *phaseTitleLabel;
@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextRecordButton;
 /// 上一条
 @property (weak, nonatomic) IBOutlet UIButton *lastRecordButton;
+
 @property(nonatomic,strong)DBVoiceEngraverManager * voiceEngraverManager;
 @property (weak, nonatomic) IBOutlet UIView *titileBackGroundView;
 @property (weak, nonatomic) IBOutlet UILabel *phaseLabel;
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *voiceImageView;
 @property (weak, nonatomic) IBOutlet UIButton *listenButton;
 @property(nonatomic,assign) CFAbsoluteTime startTime;
+@property(nonatomic,strong)DBFCountDownView * countDownView;
 
 @end
 
@@ -43,6 +45,7 @@
     self.voiceEngraverManager.delegate= self;
     [self addBoardOfTitleBackgroundView:self.titileBackGroundView cornerRadius:50];
     [self updateTextPhaseWithIndex:self.index];
+    [self addCountDownView];
 }
 
 
@@ -59,6 +62,15 @@
     }
 }
 
+- (void)addCountDownView {
+    [self.view addSubview:self.countDownView];
+    [self.countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(self.view);
+        make.width.mas_equalTo(kFitSize(119+20));
+        make.height.mas_equalTo(kFitSize(125+20));
+    }];
+}
+
 - (void)positionCurrentIndexState {
     DBTextModel *textModel = self.textArray[self.index];
     [self p_setTextViewAttributeText:textModel.text];
@@ -72,7 +84,9 @@
     if (button.isSelected) {
         self.startTime = CFAbsoluteTimeGetCurrent();
         [self.voiceEngraverManager startRecordWithTextIndex:self.index  messageHandler:^(NSString *msg) {
-            [self beginRecordState];
+            [self.countDownView showViewWithIsStart:YES completeHandler:^{
+                [self beginRecordState];
+            }];
         } failureHander:^(NSError * _Nonnull error) {
             NSLog(@"error %@",error);
             // 发生错误停止录音
@@ -82,7 +96,10 @@
         }];
     }else {
         [self endRecordState];
-        [self uploadRecoginizeVoice];
+        [self.countDownView showViewWithIsStart:NO completeHandler:^{
+            [self uploadRecoginizeVoice];
+        }];
+       
     }
 }
 // MARK: ----sessionId
@@ -290,7 +307,7 @@
 
 - (void)showHUD {
     [[XCHudHelper sharedInstance]showHudOnView:self.view caption:@"上传识别中" image:nil
-                                     acitivity:YES autoHideTime:30];
+                                     acitivity:YES autoHideTime:15];
 }
 
 - (void)hiddenHUD {
@@ -308,6 +325,13 @@
     }
     return _voiceEngraverManager;
 }
+- (DBFCountDownView *)countDownView {
+    if (!_countDownView) {
+        _countDownView = [[DBFCountDownView alloc]init];
+    }
+    return _countDownView;
+}
+
 
 
 @end

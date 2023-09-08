@@ -16,16 +16,19 @@ PODS:
   - DBAudioSDK/DBVoiceEngraverKit (1.0.90)
   - DBAudioSDK/DBVoiceTransferKit (1.0.90)
   - IQKeyboardManager (6.5.6)
+  - Masonry (1.1.0)
   - Toast (4.0.0)
 
 DEPENDENCIES:
   - DBAudioSDK (from `../../`)
   - IQKeyboardManager (~> 6.5.6)
+  - Masonry (= 1.1.0)
   - Toast (~> 4.0.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - IQKeyboardManager
+    - Masonry
     - Toast
 
 EXTERNAL SOURCES:
@@ -35,8 +38,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   DBAudioSDK: 99c7406c2a1ad8f35b975a4e0f09f003a6df126e
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 11caa727f356d480f827917566824c7c3a5c852b
+PODFILE CHECKSUM: 0076b6d58fa000082cbfe688af09c94218a7d13a
 
 COCOAPODS: 1.11.3
