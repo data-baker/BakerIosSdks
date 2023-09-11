@@ -13,14 +13,11 @@
 @interface DBFCountDownView ()
 {
     NSTimer *_timer;
+    BOOL _isDownCount; //当前在倒计时
 }
 
 @property(nonatomic,strong)UIView * backView;
 @property(nonatomic,strong)UILabel * countDownLabel;
-
-
-
-
 
 @end
 
@@ -33,6 +30,7 @@
         [self addSubview:self.countDownLabel];
         self.layer.cornerRadius = 4.f;
         self.layer.masksToBounds = YES;
+        _isDownCount = NO;
         [self layoutUI];
         [self hiddenView];
     }
@@ -58,14 +56,22 @@
 }
 // MARK: Public Method
 
+
 - (void)hiddenView {
     self.hidden = YES;
     self.countDownLabel.text = @"";
 }
+
+- (BOOL)isCountDown {
+    return _isDownCount;
+}
 - (void)showViewWithIsStart:(BOOL)isStart completeHandler:(dispatch_block_t)handler {
     NSAssert(handler, @"请设置handler");
+    if(_isDownCount) {
+        return;
+    }
+    _isDownCount = YES;
     __block NSInteger countDownCount = 2;
-  
     NSString *preText;
     if (isStart) {
         preText = @"请保持安静，倒计时结束后开始录制";
@@ -82,11 +88,11 @@
                 [self->_timer invalidate];
             }
             handler();
+           self ->_isDownCount = NO;
             return;
         }
         NSString *allText = [NSString stringWithFormat:@"%@\n%@",preText, @(countDownCount)];
         [self showWithText:allText rangeText:@(countDownCount).stringValue];
-        
     } repeats:YES];
 }
 

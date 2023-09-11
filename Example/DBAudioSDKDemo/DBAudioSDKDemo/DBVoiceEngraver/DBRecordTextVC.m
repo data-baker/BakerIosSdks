@@ -77,8 +77,10 @@
     self.allPhaseLabel.text = [NSString stringWithFormat:@"共%@段",@(self.textArray.count)];
 }
 
-
 - (IBAction)startRecordAction:(id)sender {
+    if([self.countDownView isCountDown]) {
+        return;
+    }
     UIButton *button = (UIButton *)sender;
     button.selected = !button.isSelected;
     if (button.isSelected) {

@@ -20,7 +20,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
 
 @interface DBZSocketRocketUtility()<DBZWebSocketDelegate>
 {
-    int _index;
     NSTimer * heartBeat;
     NSTimeInterval reConnectTime;
     NSTimeInterval _logTimeIntever;
@@ -31,6 +30,8 @@ dispatch_async(dispatch_get_main_queue(), block);\
 @property (nonatomic,copy) NSString *urlString;
 
 @property(atomic,assign,readwrite)DBSocketDelegateAvailableMethods  availableDelegateMethods;
+
+@property (nonatomic,assign) BOOL autoReconnect;
 
 @end
 
@@ -52,13 +53,12 @@ dispatch_async(dispatch_get_main_queue(), block);\
             .webSocketDidCloseNote = [delegate respondsToSelector:@selector(webSocketDidCloseNote:)],
             .webSocketdidReceiveMessageNote = [delegate respondsToSelector:@selector(webSocketdidReceiveMessageNote:)],
             .webSocketdidConnectFailed = [delegate respondsToSelector:@selector(webSocketdidConnectFailed:)]
-            
         };
 }
 
 #pragma mark - **************** public methods
 -(void)DBZWebSocketOpenWithURLString:(NSString *)urlString {
-    
+
     //如果是同一个url return
     if (self.socket) {
         return;
@@ -67,23 +67,18 @@ dispatch_async(dispatch_get_main_queue(), block);\
     if (!urlString) {
         return;
     }
-    
     self.urlString = urlString;
-    
     self.socket = [[DBZWebSocket alloc] initWithURLRequest:
                    [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
-    
-//    NSLog(@"socket %@,请求的websocket地址：%@",self.socket,self.socket.url.absoluteString);
-
-    //DBZWebSocketDelegate 协议
-    self.socket.delegate = self;   
-    
+    self.socket.delegate = self;
     //开始连接
+    self.autoReconnect = YES;
     [self.socket open];
 }
 
 - (void)DBZWebSocketClose {
     if (self.socket){
+        self.autoReconnect = NO;
         [self.socket close];
         self.socket = nil;
     }
@@ -94,7 +89,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
     // 记录时间
     NSTimeInterval timeIntever = [[NSDate date] timeIntervalSince1970];
     _logTimeIntever = timeIntever;
-//    NSLog(@"data:%@ onlineSynthesizerParameters %@",[NSDate date],data);
     WeakSelf(ws);
     dispatch_queue_t queue =  dispatch_queue_create("socket", NULL);
     dispatch_async(queue, ^{
@@ -103,10 +97,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
             if (weakSelf.socket.readyState == SR_OPEN) {
                 [weakSelf.socket send:data];    // 发送数据
             } else if (weakSelf.socket.readyState == SR_CONNECTING) {
-                [self reConnect];
+                LogerInfo(@"socket state:%@",@(weakSelf.socket.readyState));
             } else if (weakSelf.socket.readyState == SR_CLOSING || weakSelf.socket.readyState == SR_CLOSED) {
-                
-                [self reConnect];
+                LogerInfo(@"socket state:%@",@(weakSelf.socket.readyState));
             }
         } else {
 //            NSLog(@"没网络，发送失败，一旦断网 socket 会被我设置 nil 的");
@@ -117,6 +110,10 @@ dispatch_async(dispatch_get_main_queue(), block);\
 #pragma mark - **************** private mothodes
 //重连机制
 - (void)reConnect {
+    if (!self.autoReconnect) {
+           return;
+       }
+    
     [self DBZWebSocketClose];
     if (reConnectTime > self.timeOut) {
         //您的网络状况不是很好，请检查网络后重试
@@ -181,7 +178,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
 {
     NSError *parseError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
-
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 //pingPong
@@ -195,10 +191,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
 - (void)webSocketDidOpen:(DBZWebSocket *)webSocket {
     //每次正常连接的时候清零重连时间
     reConnectTime = 0;
-    //开启心跳
     _logTimeIntever = [[NSDate date] timeIntervalSince1970];
     if (webSocket == self.socket) {
-//        NSLog(@"************************** socket 连接成功************************** ");
+        LogerInfo(@"socket connect success");
         if (self.availableDelegateMethods.webSocketDidOpenNote) {
             [self.delegate webSocketDidOpenNote];
         }
@@ -224,7 +219,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 - (void)webSocket:(DBZWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
 
     if (webSocket == self.socket) {
-//        NSLog(@"************************** socket连接断开************************** ");
+        LogerInfo("socket disconnect:%@",self.socket);
         [self DBZWebSocketClose];
     }
     if (self.availableDelegateMethods.webSocketDidCloseNote) {
@@ -240,7 +235,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
  */
 - (void)webSocket:(DBZWebSocket *)webSocket didReceivePong:(NSData *)pongPayload {
     NSString *reply = [[NSString alloc] initWithData:pongPayload encoding:NSUTF8StringEncoding];
-//    NSLog(@"reply===%@",reply);
 }
 
 - (void)webSocket:(DBZWebSocket *)webSocket didReceiveMessage:(id)message  {
@@ -250,8 +244,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
     _logTimeIntever = timeIntever;
     
     if (webSocket == self.socket) {
-//        NSLog(@"************************** socket收到数据了 时间差%3f************************** ",countIntever);
-//        NSLog(@"message:%@",message);
         if (self.availableDelegateMethods.webSocketdidReceiveMessageNote) {
             [self.delegate webSocketdidReceiveMessageNote:message];
         }

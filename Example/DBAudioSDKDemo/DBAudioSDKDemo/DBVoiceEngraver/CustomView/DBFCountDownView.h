@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DBFCountDownView : UIView
 
+// yes: 表示当前的前后静音段时间，这个时候会提示用户保持安静
+- (BOOL)isCountDown;
 
 - (void)showViewWithIsStart:(BOOL)isStart completeHandler:(dispatch_block_t)handler;
 
