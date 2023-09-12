@@ -11,6 +11,7 @@
 #import "DBUncaughtExceptionHandler.h"
 #import "DBLogManager.h"
 #import "DBRecordPCMDataPlayer.h"
+#import "DBLogCollectKit.h"
 #define kAudioFolder @"AudioFolder" // 音频文件夹
 
 static NSString *DBErrorDomain = @"com.BiaoBeri.DBVoiceTransferUtil";
@@ -496,10 +497,7 @@ typedef NS_ENUM(NSUInteger,DBTransferMode) {
 // 记录运行日志
 - (void)logMessage:(NSString *)string {
     if (self.log) {
-        NSLog(@"运行日志:%@",string);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [DBLogManager saveCriticalSDKRunData:string];
-        });
+        LogerInfo(@"运行日志:%@",string);
     }
 }
     

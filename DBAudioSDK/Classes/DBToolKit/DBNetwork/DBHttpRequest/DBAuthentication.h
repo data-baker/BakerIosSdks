@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DBCommonConst.h"
 
-#ifndef DBRelease
-#define DBRelease 0
-#endif
+
 
 #if DBRelease
 #define KBASE_URL @"https://openapi.data-baker.com"

@@ -9,16 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "DBParamsDelegate.h"
 #import "DBVoiceEngraverEnumerte.h"
+#import "DBCommonConst.h"
 
-// MARK: 此处的开关定义在'DBAuthentication' 类中
+
 #if DBRelease
 
-//#define KBASE_HOST @"https://openapi.data-baker.com"
-//#define KBASE_HOST_WEBSOCKET @"ws://10.10.20.107:9922"
 #define KBASE_HOST @"https://gramophone.data-baker.com/"
 #define KBASE_HOST_WEBSOCKET @"wss://gramophone.data-baker.com"
-#else
 
+#else
 
 // TEST
 //#define KBASE_HOST @"http://10.10.50.23:9922"
@@ -30,10 +29,16 @@
 #define KBASE_HOST @"https://gramophonetest.data-baker.com:9050"
 #define KBASE_HOST_WEBSOCKET @"wss://gramophonetest.data-baker.com:9050"
 
+//#define KBASE_HOST @"https://gramophone.data-baker.com/"
+//#define KBASE_HOST_WEBSOCKET @"wss://gramophone.data-baker.com"
+
 // dev
 //#define KBASE_HOST @"http://10.10.20.107:9922"
 //#define KBASE_HOST_WEBSOCKET @"ws://10.10.20.107:9922"
 #endif
+
+
+
 #define KREPRINT_PATH  @"/gramophone/v3"
 
 #define join_string1(str1 ,str2) [NSString stringWithFormat:@"%@%@",str1, str2]

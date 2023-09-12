@@ -8,6 +8,7 @@
 
 #import "DBLogManager.h"
 #import "DBCommonConst.h"
+#import "DBLogCollectKit.h"
 
 static NSString *const KLogFileName = @"DBRunLog.txt";
 static NSString *const KBackUpFileName = @"DBRunLog_BackUp.txt";
@@ -59,7 +60,7 @@ static NSUInteger kFileMaxSize = 20; // M
                                                attributes:nil
                                                     error:&error];
         if (!success) {
-            NSLog(@"Failed to create backup directory: %@", error);
+            LogerInfo(@"Failed to create backup directory: %@", error);
         }
     }
     
@@ -67,22 +68,22 @@ static NSUInteger kFileMaxSize = 20; // M
     NSError *deleteError = nil;
     BOOL deleteSuccess = [fileManager removeItemAtPath:backUpFilePath error:&deleteError];
     if (!deleteSuccess && deleteError) {
-        NSLog(@"Failed to delete old backup file: %@", deleteError);
+        LogerInfo(@"Failed to delete old backup file: %@", deleteError);
         return;
     }
-    NSLog(@"delete backUp file:%@",backUpFilePath);
+    LogerInfo(@"delete backUp file:%@",backUpFilePath);
     
     // 将日志文件复制到备份目录
     NSError *copyError = nil;
     BOOL copySuccess = [fileManager copyItemAtPath:logFilePath toPath:backUpFilePath error:&copyError];
     if (!copySuccess && copyError) {
-        NSLog(@"Failed to backup log file: %@", copyError);
+        LogerInfo(@"Failed to backup log file: %@", copyError);
     }
     
     // 删除日志文件
      deleteSuccess = [fileManager removeItemAtPath:logFilePath error:&deleteError];
     if (!deleteSuccess && deleteError) {
-        NSLog(@"Failed to delete log file: %@", deleteError);
+        LogerInfo(@"Failed to delete log file: %@", deleteError);
         return;
     }
     
@@ -109,11 +110,11 @@ static NSUInteger kFileMaxSize = 20; // M
         if (fileSizeInMB <= kFileMaxSize) {
             return NO;
         } else {
-            NSLog(@"文件超过20MB");
+            LogerInfo(@"文件超过20MB");
             return YES;
         }
     } else {
-        NSLog(@"无法获取文件属性: %@", error);
+        LogerInfo(@"无法获取文件属性: %@", error);
         return NO;
     }
     

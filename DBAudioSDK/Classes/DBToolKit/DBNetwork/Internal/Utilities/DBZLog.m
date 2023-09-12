@@ -8,6 +8,7 @@
 //
 
 #import "DBZLog.h"
+#import "DBLogCollectKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +21,7 @@ extern void DBZErrorLog(NSString *format, ...)
 
     va_end(arg_list);
 
-    NSLog(@"[SocketRocket] %@", formattedString);
+    LogerInfo(@"[SocketRocket] %@", formattedString);
 }
 
 extern void SRDebugLog(NSString *format, ...)

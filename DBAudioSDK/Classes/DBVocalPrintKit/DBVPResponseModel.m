@@ -6,11 +6,12 @@
 //
 
 #import "DBVPResponseModel.h"
+#import "DBLogCollectKit.h"
 
 @implementation DBVPResponseModel
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    NSLog(@"key:%@",key);
+    LogerInfo(@"key:%@",key);
 }
 
 + (instancetype)responseModelWithError:(NSError *)error {
@@ -25,7 +26,7 @@
 @implementation DBRegisterVPResponseModel
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    NSLog(@"key:%@",key);
+    LogerInfo(@"key:%@",key);
 }
 
 

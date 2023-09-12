@@ -10,6 +10,7 @@
 #import "DBNetworkHelper.h"
 #import "DBLogManager.h"
 #import "DBRegisterAudioModel.h"
+#import "DBLogCollectKit.h"
 
 
 /// 创建声纹验证
@@ -182,8 +183,7 @@ static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status"
 
 - (void)logMessage:(NSString *)message {
     if (self.isLog) {
-        NSLog(@"%@", message);
-        [DBLogManager saveCriticalSDKRunData:message];
+        LogerInfo(@"%@", message);
     }
 }
 

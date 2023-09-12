@@ -19,8 +19,12 @@
 #import "DBTextModel.h"
 #import "DBLogCollectKit.h"
 
-// TODO: 上线前需要替换
-static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
+
+#if DBRelease
+#define KTtsIPURL @"https://openapi.data-baker.com/tts_personal"
+#else
+#define KTtsIPURL @"http://10.10.50.18:32016/tts_personal"
+#endif
 
 @interface DBVoiceEngraverManager ()<DBAudioMicrophoneDelegate,DBRecordPCMDataPlayerDelegate,DBUpdateTokenDelegate,DBZSocketCallBcakDelegate>
 
@@ -138,6 +142,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
     }
     self.reprintType = reprintType;
     self.queryId = queryId;
+    LogerInfo(@"ClientId：%@,queryId:%@",clientId,self.queryId);
     // 给网络请求设置clientId
     self.networkHelper.clientId = clientId;
     self.networkHelper.clientSecret = clientSecret;
@@ -147,7 +152,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
             LogerInfo(@"Failed get token：%@",error.userInfo);
             return;
         }
-        LogerInfo(@"Get token success clientId：%@",clientId);
+        LogerInfo(@"Get token success");
         self.networkHelper.token = token;
         self.accessToken = token;
         [[DBLogCollectKit sharedInstance] updateCollectUserId:clientId];
@@ -327,8 +332,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
     NSString * filePath = [self filePathWithIndex:self.currentRecordIndex];
     DBTextModel *model = self.textModelArray[self.currentRecordIndex];
     model.filePath = filePath;
-    // TODO: 测试数据
-    NSLog(@"当前录制路径 ：%@",filePath);
+    LogerInfo(@"当前录制路径 ：%@",filePath);
     self.micPCMFile = fopen(filePath.UTF8String, "wb");
     if (self.microphone) {
         [self.microphone stop];
@@ -344,7 +348,6 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
 // TODO: TEST AudioData
 - (void)testAudioData {
     [self.textModelArray enumerateObjectsUsingBlock:^(DBTextModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSLog(@"obj %@",obj);
     }];
 }
 
@@ -505,7 +508,6 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
         self.socketDic[@"status"] = @(self.socketStatus);
         LogerInfo(@"开始传输最后一帧数据%@",self.socketDic[@"status"]);
         [self.socketManager sendData:[self jsonData:self.socketDic isEncodedString:NO]];
-        NSLog(@"socketDict:%@",self.socketDic);
         return;
     }
     if (self.socketStatus == 2) {
@@ -598,7 +600,7 @@ static NSString *const KTtsIPURL  = @"http://10.10.50.18:32016/tts_personal";
         self.socketDic = dic[@"data"];
         self.socketDic[@"status"] = @(self.socketStatus);
         self.socketDic[@"sequence"] = @(self.socketSequence);
-        LogerInfo(@"%@",self.fileNameArr);
+        LogerInfo(@"%@",@(self.fileNameArr.count));
         if (self.fileNameArr.count > self.currentRecordIndex) {
             [self.fileNameArr replaceObjectAtIndex:self.currentRecordIndex withObject:dic[@"data"][@"fileName"]];
         }else {

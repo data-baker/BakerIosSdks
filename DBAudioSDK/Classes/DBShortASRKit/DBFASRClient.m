@@ -14,6 +14,7 @@
 #import "DBLogManager.h"
 #import "DBAudioMicrophone.h"
 #import "DBResponseModel.h"
+#import "DBLogCollectKit.h"
 
 
 
@@ -511,7 +512,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 // 记录运行日志
 - (void)logMessage:(NSString *)string {
     if (self.log) {
-        NSLog(@"运行日志:%@",string);
+        LogerInfo(@"运行日志:%@",string);
         dispatch_async(dispatch_get_main_queue(), ^{
 //         [DBLogManager saveCriticalSDKRunData:string fileName:@"DBOneSpeechASR"];
         });

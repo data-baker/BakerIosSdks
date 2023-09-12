@@ -8,7 +8,7 @@
 #import "DBLogerConfigure.h"
 #import "DBCommonConst.h"
 
-static NSString *KUserIdKey = @"KUserIdKety";
+static NSString *KUserIdKey = @"KUserIdKey";
 
 @implementation DBLogerConfigure
 

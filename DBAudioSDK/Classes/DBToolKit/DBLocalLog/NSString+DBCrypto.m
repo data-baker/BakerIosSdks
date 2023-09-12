@@ -9,7 +9,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
 
-static NSString *sha256 =  @"15sMTZ4tzrGwf28NloSWCyEHUipnXhmgu9O37RDLa0ceIkP6qxVvFYAbBdJKQj";
+static NSString *sha256 =  @"18sMTZ4tzrGwf11NloSWCyEHUip7Xhmgu2O37RILa0ceIkP1qxVvFTAbBdJKQo";
 
 @implementation NSString (DBCrypto)
 

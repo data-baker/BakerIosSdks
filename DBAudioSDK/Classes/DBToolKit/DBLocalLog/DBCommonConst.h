@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define KAUDIO_SDK_VERSION @"1.1.0"
 
+#define DBRelease 1
+
 static inline BOOL IsEmpty(id thing) {
     return (thing == nil) || [thing isEqual:[NSNull null]] ||
     ([thing isKindOfClass:[NSString class]] && [[(NSString *)thing stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) ||

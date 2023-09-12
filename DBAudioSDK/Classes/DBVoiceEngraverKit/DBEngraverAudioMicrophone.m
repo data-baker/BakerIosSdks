@@ -7,6 +7,7 @@
 //
 
 #import "DBEngraverAudioMicrophone.h"
+#import "DBLogCollectKit.h"
 
 
 #define kAudioQueueBufferCount (4)
@@ -55,7 +56,7 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
 - (void)dealloc {
     [self stop];
     [self freeAudioBuffers];
-    NSLog(@"%@ Dealloc", self);
+    LogerInfo(@"%@ Dealloc", self);
 }
 
 - (instancetype)initWithSampleRate:(NSInteger)sampleRate numerOfChannel:(NSInteger)numOfChannel configAudioSession:(void (^)(AVAudioSession *audioSesson))sessionConfig {
@@ -118,7 +119,7 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
             [[AVAudioSession sharedInstance] setPreferredSampleRate:self.sampleRate error:&error];
             [[AVAudioSession sharedInstance] setActive:YES error:&error];
             if (error) {
-                NSLog(@"AVAudioSession Error: %@", error.localizedDescription);
+                LogerInfo(@"AVAudioSession Error: %@", error.localizedDescription);
             }
         }
         self.isAudioSetup = YES;
@@ -191,7 +192,6 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
     }
     double mean = pcmAllLenght / (double)pcmData.length;
     double volume =10*log10(mean);//volume为分贝数大小
-//    NSLog(@"volume :%@",@(volume));
     if([self.delegate respondsToSelector:@selector(audioCallBackVoiceGrade:)]) {
         [self.delegate audioCallBackVoiceGrade:volume];
     }
@@ -209,18 +209,18 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
                                                object:sessionInstance];
     NSError *error = nil;
     [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-    if(nil != error) NSLog(@"Error setting audio session category! %@", error);
+    if(nil != error) LogerInfo(@"Error setting audio session category! %@", error);
     else {
         [sessionInstance setActive:YES error:&error];
-        if (nil != error) NSLog(@"Error setting audio session active! %@", error);
+        if (nil != error) LogerInfo(@"Error setting audio session active! %@", error);
     }
 }
 - (void)audioSessionWasInterrupted:(NSNotification *)notification
 {
-    NSLog(@"the notification is %@",notification);
+    LogerInfo(@"the notification is %@",notification);
     if (AVAudioSessionInterruptionTypeBegan == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
     {
-        NSLog(@"begin");
+        LogerInfo(@"begin");
         if (!_isOn) {
             return;
         };
@@ -231,7 +231,7 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
     }
     else if (AVAudioSessionInterruptionTypeEnded == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
     {
-        NSLog(@"begin - end");
+        LogerInfo(@"begin - end");
     }
 }
 
@@ -241,7 +241,7 @@ void EngraverAudioAQInputCallback(void * __nullable               inUserData,
     NSError *error = nil;
     [sessionInstance setActive:YES error:&error];
     if (error) {
-        NSLog(@"%@",error.description);
+        LogerInfo(@"%@",error.description);
     }
 }
 

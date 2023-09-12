@@ -7,21 +7,15 @@
 //
 
 #import "DBFLongASRClient.h"
-//#import <DBCommon/DBAuthentication.h>
 #import "DBAuthentication.h"
-
-//#import <DBCommon/DBZSocketRocketUtility.h>
 #import "DBZSocketRocketUtility.h"
-//#import <DBCommon/DBUncaughtExceptionHandler.h>
 #import "DBUncaughtExceptionHandler.h"
-//#import <DBCommon/DBZSocketRocketUtility.h>
 #import "DBZSocketRocketUtility.h"
-//#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
-//#import <DBCommon/DBAudioMicrophone.h>
 #import "DBAudioMicrophone.h"
 #import "DBNetworkHelper.h"
 #import "DBLongResponseModel.h"
+#import "DBLogCollectKit.h"
 
 typedef NS_ENUM(NSUInteger,DBAsrState) {
     DBAsrStateInit  = 0, // 初始化
@@ -447,7 +441,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 // 记录运行日志
 - (void)logMessage:(NSString *)string {
     if (self.log) {
-        NSLog(@"运行日志:%@",string);
+        LogerInfo(@"运行日志:%@",string);
         dispatch_async(dispatch_get_main_queue(), ^{
 //            [DBLogManager saveCriticalSDKRunData:string fileName:@"DBLongTimeASR"];
         });

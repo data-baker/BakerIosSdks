@@ -54,7 +54,6 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
             NSLog(@"开启检测失败");
         }
     }];
-    
    
 }
 - (void)viewWillAppear:(BOOL)animated {

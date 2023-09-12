@@ -22,29 +22,8 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
 
 #warning  请联系标贝科技获取clientId 和clientSecret, 注意不同的服务使用不同的授权clientId和clientSecret
 
-//static NSString *KClientId = @"XXX";
-//static NSString *KClientSecret = @"XXX";
-// 复刻
-//static NSString *KClientId = @"dcaf6b482d634649a4fd29ec93e93db0";
-//static NSString *KClientSecret = @"f556a352f5334fd59cbc46c38eb74004";
-//static NSString *KClientId = @"df6527d33b644733a2b4e58de710fd9d";
-//static NSString *KClientSecret = @"ca9c99132d3c4d2bb92501410ee21bd8";
-// 声音复刻 - 测试环境
-//static NSString *KClientId = @"1fed232b78b04eae9fa21b464d6d2db9";
-//static NSString *KClientSecret = @"3e98fedaa8584ee193c2050423652066";
-
-// 声音复刻 - 沙盒环境
-//static NSString *KClientId = @"163c3768d40c49a5affded6f2e9522a8";
-//static NSString *KClientSecret = @"ba7f73aeac004377a3b80864be1641ca";
-
-
-static NSString *KClientId = @"8e0e6b88a7a24dba96e7c1a168b43346";
-static NSString *KClientSecret = @"2922fa36c5094d5db2cc3bfd5daabbd8";
-
-
-// 在线声音转换
-//static NSString *KClientId = @"4c41ba67b97a424aa46f3c686a98ddd9";
-//static NSString *KClientSecret = @"426db40f36c241e183571207939a5ca1";
+static NSString *KClientId = @"XXX";
+static NSString *KClientSecret = @"XXX";
 
 #define KUserDefalut [NSUserDefaults standardUserDefaults]
 

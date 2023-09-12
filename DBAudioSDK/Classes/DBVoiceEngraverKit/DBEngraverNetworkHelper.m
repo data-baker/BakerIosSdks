@@ -10,6 +10,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "DBVoiceEngraverEnumerte.h"
 #import "DBCommonConst.h"
+#import "DBLogCollectKit.h"
 
 static NSString *DBUploadBoundary = @"DBUploadBoundary";
 #define DBEncode(string) [string dataUsingEncoding:NSUTF8StringEncoding]
@@ -135,7 +136,7 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
 {
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:params];
     [parameters setValue:@"zh_CN" forKey:@"language"];
-    NSLog(@"请求参数:%@",parameters);
+    LogerInfo(@"请求参数:%@",parameters);
     NSString *keyValueFormat;
     NSMutableString *result = [NSMutableString new];
     //实例化一个key枚举器用来存放dictionary的key
@@ -332,7 +333,6 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
         va_start(args, format);
         NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
         va_end(args);
-        NSLog(@"%@",str);
     }
 }
 
@@ -366,11 +366,9 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
     }
     BOOL isSuccess = [manager createDirectoryAtPath:PCMPath withIntermediateDirectories:YES attributes:nil error:nil];
     
-    if (isSuccess) {
-        NSLog(@"文件夹创建成功");
-    }else {
+    if (!isSuccess) {
         PCMPath = @"";
-        NSLog(@"文件夹创建失败");
+        LogerInfo(@"文件夹创建失败");
     }
     return PCMPath;
 }
@@ -396,7 +394,7 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
         NSError *error;
         [fileManager removeItemAtPath:filePath error:&error];
         if (error) {
-            NSLog(@"error%@",error);
+            LogerInfo(@"error%@",error);
             return NO;
         }
     }
