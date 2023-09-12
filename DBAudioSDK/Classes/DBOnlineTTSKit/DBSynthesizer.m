@@ -8,13 +8,11 @@
 
 #import "DBSynthesizer.h"
 #import "DBOnlineResponseModel.h"
-//#import <DBCommon/DBZSocketRocketUtility.h>
 #import "DBZSocketRocketUtility.h"
-//#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
 
-NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/wss";
-//NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/tts/wsapi";
+//NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/wss";
+NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/tts/wsapi";
 
 @interface DBSynthesizer ()<DBZSocketCallBcakDelegate>
 
@@ -133,7 +131,6 @@ NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/w
     [resModel setValuesForKeysWithDictionary:dataDict];
     [self logMessage:[NSString stringWithFormat:@"合成器收到服务器发过来的数据 %@",resModel]];
     _synthesizerIndex++;
-    
   
     // 首包返回
     if (_synthesizerIndex == 1) {

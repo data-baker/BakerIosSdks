@@ -7,12 +7,21 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef KUserDefalut
+#define KUserDefalut [NSUserDefaults standardUserDefaults]
+#endif
+
+#define KUDID @"UDID"
+
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DBUserInfoManager : NSObject
 
 @property(nonatomic,copy)NSString * clientId;
 @property(nonatomic,copy)NSString * clientSecret;
+@property(nonatomic,copy)NSString * sdkType;
 
 + (instancetype)shareManager;
 

@@ -10,9 +10,8 @@
 #import "DBNetworkHelper.h"
 #import "DBLogManager.h"
 #import "DBRegisterAudioModel.h"
+#import "DBLogCollectKit.h"
 
-
-static NSString *vocalPrintSDKVersion = @"1.0.81";
 
 /// 创建声纹验证
 static NSString *VPCreateIdURL = @"https://openapi.data-baker.com/vpr/createid";
@@ -184,13 +183,12 @@ static NSString *VPQueryStatusURL = @"https://openapi.data-baker.com/vpr/status"
 
 - (void)logMessage:(NSString *)message {
     if (self.isLog) {
-        NSLog(@"%@", message);
-        [DBLogManager saveCriticalSDKRunData:message];
+        LogerInfo(@"%@", message);
     }
 }
 
 + (NSString *)sdkVersion {
-    return vocalPrintSDKVersion;
+    return KAUDIO_SDK_VERSION;
 }
 
 @end

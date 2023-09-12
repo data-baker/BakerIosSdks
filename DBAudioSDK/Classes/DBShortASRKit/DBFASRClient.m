@@ -14,9 +14,9 @@
 #import "DBLogManager.h"
 #import "DBAudioMicrophone.h"
 #import "DBResponseModel.h"
+#import "DBLogCollectKit.h"
 
 
-static NSString * OneSpeechASRSDKVersion = @"1.0.81";
 
 static NSString * OneSpeechASRSDKInstallation = @"OneSpeechASRSDKInstallation";
 
@@ -25,6 +25,9 @@ static NSString * OneSpeechASRSDKStart = @"OneSpeechASRSDKStart";
 static NSString * DBOneSpeechASRUDID = @"DBOneSpeechASRUDID";
 
 static NSString *KAsrServer = @"wss://asr.data-baker.com/";
+
+//static NSString *KAsrServer = @"ws://10.10.50.61:56530/";
+
 
 typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     DBOneSpeechASRUploadLogTypeInstall = 1, // 上传安装统计
@@ -168,7 +171,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     self.idx = 0;
     self.asrState = DBAsrStateStart;
     self.socketManager.timeOut = 6;
-    if (self.socketURL.length == 0) {
+    if (self.socketURL.length == 0) { // default url
         self.socketURL = @"wss://asr.data-baker.com/";
     }
     [self.socketManager DBZWebSocketOpenWithURLString:self.socketURL];
@@ -452,7 +455,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     parameters[@"sdkType"] = @"iOS";//sdk类型：IOS/ANDROID/JAVA/... ,
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     parameters[@"sdkUuid"] = [userDefaults valueForKey:DBOneSpeechASRUDID];//唯一标志一个客户端 ,
-    parameters[@"sdkVersion"] = OneSpeechASRSDKVersion;//sdk版本 ,
+    parameters[@"sdkVersion"] = KAUDIO_SDK_VERSION;//sdk版本 ,
     parameters[@"submitType"] = [NSString stringWithFormat:@"%zd",type];//提交类型：1首次激活 2日常上报 3错误上报
     parameters[@"sdkName"] = @"OneSpeechASR";//区分sdk是asr,tts等SDK类型
     
@@ -509,7 +512,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 // 记录运行日志
 - (void)logMessage:(NSString *)string {
     if (self.log) {
-        NSLog(@"运行日志:%@",string);
+        LogerInfo(@"运行日志:%@",string);
         dispatch_async(dispatch_get_main_queue(), ^{
 //         [DBLogManager saveCriticalSDKRunData:string fileName:@"DBOneSpeechASR"];
         });
@@ -565,7 +568,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     self.flag = YES;
 }
 + (NSString *)sdkVersion {
-    return OneSpeechASRSDKVersion;
+    return KAUDIO_SDK_VERSION;
 }
 
 @end

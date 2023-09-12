@@ -25,12 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//#ifdef DEBUG
-//    [[DoraemonManager shareInstance] installWithPid:@"749a0600b5e48dd77cf8ee680be7b1b7"];//productId为在“平台端操作指南”中申请的产品id
-//    
-//    [[DoraemonManager shareInstance] addPluginWithTitle:DoraemonDemoLocalizedString(@"测试插件") icon:@"doraemon_default" desc:DoraemonDemoLocalizedString(@"测试插件") pluginName:@"TestPlugin" atModule:DoraemonDemoLocalizedString(@"业务工具")];
-//#endif
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
@@ -40,7 +34,7 @@
     NSLog(@"点击了：%@",title);
     
     DBUserInfoManager *manager = [DBUserInfoManager shareManager];
-    if (!manager.clientId || !manager.clientSecret) {
+    if (!manager.clientId || !manager.clientSecret || ![manager.sdkType isEqualToString:title]) {
         [self showLogInVCWithTitle:title identifier:identifier sender:sender];
     }
     return YES;
@@ -51,18 +45,23 @@
     UIViewController *vc = segue.destinationViewController;
 }
 
-- (void)showLogInVCWithTitle:(NSString *)title identifier:(NSString *)identifier sender:(id)sender {
+- (BOOL)showLogInVCWithTitle:(NSString *)title identifier:(NSString *)identifier sender:(id)sender {
+    __block BOOL enter = YES;
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    DBLoginVC *loginVC  =   [story instantiateViewControllerWithIdentifier:@"DBLoginVC"];
+    DBLoginVC *loginVC = [story instantiateViewControllerWithIdentifier:@"DBLoginVC"];
     loginVC.sdkName = title;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
-    loginVC.handler = ^{
+    loginVC.handler = ^(BOOL ret){
+        enter = ret;
         dispatch_semaphore_signal(semaphore);
+        if(ret == NO) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     };
     loginVC.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.navigationController presentViewController:loginVC animated:YES completion:nil];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
- 
+    return enter;
 }
 
 

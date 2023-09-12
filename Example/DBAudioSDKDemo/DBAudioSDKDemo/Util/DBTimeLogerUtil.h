@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (void)logTransferStart;
+// 设置记录完成
+- (void)setTimeComplete;
 
 @end
 

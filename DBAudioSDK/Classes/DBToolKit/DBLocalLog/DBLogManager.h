@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DBCommonConst.h"
+
 
 #ifdef DEBUG
 #define DBLog(FORMAT, ...) {\
@@ -25,9 +27,13 @@ fprintf(stderr,"TIME：%s【FILE：%s--LINE：%d】FUNCTION：%s\n%s\n",[str UTF
  # define DBLog(...);
 #endif
 
+
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DBLogManager : NSObject
+
 + (void)saveCriticalSDKRunData:(NSString *)string;
 @end
 

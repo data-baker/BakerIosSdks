@@ -8,6 +8,7 @@
 
 #import "DBPCMDataPlayer.h"
 #import <AVFoundation/AVFoundation.h>
+#import "DBLogCollectKit.h"
 
 #define QUEUE_BUFFER_SIZE  3      //缓冲器个数
 #define SAMPLE_RATE_16K        16000 //采样频率
@@ -65,12 +66,11 @@
         AVAudioSessionCategoryOptions recOptions = AVAudioSessionCategoryOptionMixWithOthers|AVAudioSessionCategoryOptionDefaultToSpeaker;
         [[AVAudioSession sharedInstance] setCategory:recCategory withOptions:recOptions error:&error];
         if (error) {
-            NSLog(@"setCategory error:%@", error);
+            LogerInfo(@"setCategory error:%@", error);
         }
         
 //        [session setActive:YES error:nil];
 //        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-        
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AVAudioSessionInterruptionNotification:) name:AVAudioSessionInterruptionNotification object:session];
         

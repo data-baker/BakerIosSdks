@@ -27,21 +27,17 @@ static NSUncaughtExceptionHandler *_previousHandler;
 @property (nonatomic, retain) NSString *logFilePath;
 @end
 
-
-
 @implementation DBUncaughtExceptionHandler
 + (instancetype)shareInstance {
     static DBUncaughtExceptionHandler *single = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         single = [[self alloc]init];
-        
         // 1.获取Documents路径
         NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         // 2.创建文件路径
         NSString *filePath = [docPath stringByAppendingPathComponent:@"DBExceptionLog.txt"];
         single.logFilePath = filePath;
-        
     });
     return single;
 }
@@ -59,8 +55,6 @@ static NSUncaughtExceptionHandler *_previousHandler;
     return backtrace;
 }
 
-
-
 - (void)validateAndSaveCriticalApplicationData:(NSException *)exception {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:_logFilePath]) {
@@ -75,8 +69,6 @@ static NSUncaughtExceptionHandler *_previousHandler;
     //NSLog(@"%@", filePath);
 }
 - (void)db_handleException:(NSException *)exception {
-    
-    
     NSArray<NSString *>*callStackSymbols = [exception callStackSymbols];
 //    NSLog(@"堆栈%@",callStackSymbols);
     //mainCallStackSymbolMsg的格式为   +[类名 方法名]  或者 -[类名 方法名]
@@ -90,24 +82,18 @@ static NSUncaughtExceptionHandler *_previousHandler;
         [regularExp enumerateMatchesInString:callStackSymbol options:NSMatchingReportProgress range:NSMakeRange(0, callStackSymbol.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
             if (result) {
                 NSString* tempCallStackSymbolMsg = [callStackSymbol substringWithRange:result.range];
-//                NSLog(@"崩溃行%@",tempCallStackSymbolMsg);
                 //get className
                 NSString *className = [tempCallStackSymbolMsg componentsSeparatedByString:@" "].firstObject;
                 className = [className componentsSeparatedByString:@"["].lastObject;
-//                NSLog(@"崩溃的类名称：%@",className);
 //                NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(className)];
-                
                 //filter category and system class
 //                if (![className hasSuffix:@")"] && bundle == [NSBundle mainBundle]) {
                     if ([className hasPrefix:@"DB"]) {
-//                        NSLog(@"当前崩溃在SDK中");
                         [self validateAndSaveCriticalApplicationData:exception];
                     }else {
 //                        NSLog(@"当前崩溃不在SDK中");
                     }
-                    
                     mainCallStackSymbolMsg = tempCallStackSymbolMsg;
-                    
 //                }
                 *stop = YES;
             }
@@ -155,9 +141,7 @@ void DBSignalHandler(int signal) {
     [[DBUncaughtExceptionHandler shareInstance] performSelectorOnMainThread:@selector(db_handleException:) withObject: [NSException exceptionWithName:DBUncaughtExceptionHandlerSignalExceptionName reason: [NSString stringWithFormat: NSLocalizedString(@"Signal %d was raised.", nil), signal] userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:signal] forKey:DBUncaughtExceptionHandlerSignalKey]] waitUntilDone:YES];
 }
 DBUncaughtExceptionHandler* DBInstallUncaughtExceptionHandler(void) {
-    
     _previousHandler = NSGetUncaughtExceptionHandler();
-    
     NSSetUncaughtExceptionHandler(&DB_HandleException);
     signal(SIGABRT, DBSignalHandler);
     signal(SIGILL, DBSignalHandler);

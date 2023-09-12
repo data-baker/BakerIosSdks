@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--DBAudioDemo-->
+        <!--标贝语音SDK-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" tag="101" contentMode="scaleToFill" axis="vertical" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="Afg-8v-UeY">
-                                <rect key="frame" x="20" y="171" width="374" height="554"/>
+                                <rect key="frame" x="20" y="112" width="374" height="554"/>
                                 <subviews>
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Y-pm-16U">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -72,13 +72,24 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="OzL-lO-Llf"/>
                                         </constraints>
-                                        <state key="normal" title="声音复刻"/>
+                                        <state key="normal" title="声音复刻普通"/>
                                         <connections>
                                             <segue destination="PZD-1W-d9h" kind="show" id="ZTc-BZ-ZlP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cj-eo-uMx">
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4I-Jd-UVk">
                                         <rect key="frame" x="0.0" y="420" width="374" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ljv-lJ-qD6"/>
+                                        </constraints>
+                                        <state key="normal" title="声音复刻精品"/>
+                                        <connections>
+                                            <segue destination="PZD-1W-d9h" kind="show" id="JD8-td-lC1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cj-eo-uMx">
+                                        <rect key="frame" x="0.0" y="504" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="EBE-45-V01"/>
@@ -88,8 +99,8 @@
                                             <segue destination="BWA-kF-GEY" kind="show" id="8nY-Yr-u4e"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMc-Dd-ngP">
-                                        <rect key="frame" x="0.0" y="504" width="374" height="50"/>
+                                    <button hidden="YES" opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMc-Dd-ngP">
+                                        <rect key="frame" x="0.0" y="554" width="374" height="50"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="AJq-gK-aGN"/>
@@ -107,11 +118,17 @@
                         <constraints>
                             <constraint firstItem="Afg-8v-UeY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IJP-oU-OjS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Afg-8v-UeY" secondAttribute="trailing" constant="20" id="TZW-2A-yIb"/>
+                            <constraint firstItem="Afg-8v-UeY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Y7o-eK-qdm"/>
                             <constraint firstItem="Afg-8v-UeY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="aMB-GA-xxx"/>
                             <constraint firstItem="Afg-8v-UeY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="hOo-PZ-geq"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="aMB-GA-xxx"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="DBAudioDemo" id="Ygd-XX-OCd">
+                    <navigationItem key="navigationItem" title="标贝语音SDK" id="Ygd-XX-OCd">
                         <barButtonItem key="rightBarButtonItem" enabled="NO" style="plain" id="yTP-Y7-jz5">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="5tm-mt-gjC">
                                 <rect key="frame" x="302" y="7" width="92" height="30"/>
@@ -123,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1170" y="-897"/>
+            <point key="canvasLocation" x="-2819" y="-1253"/>
         </scene>
         <!--声音复刻-->
         <scene sceneID="Lez-tb-E05">
@@ -174,7 +191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erJ-OG-aSh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="697" y="731"/>
+            <point key="canvasLocation" x="-925" y="-171"/>
         </scene>
         <!--语音识别-->
         <scene sceneID="nDX-eV-Lxp">
@@ -489,7 +506,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFB-4R-Yi8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2049" y="-921"/>
+            <point key="canvasLocation" x="-3829" y="-1234"/>
         </scene>
         <!--在线tts合成-->
         <scene sceneID="GlQ-re-9wr">
@@ -852,7 +869,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HmY-PA-fWd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1507" y="-909"/>
+            <point key="canvasLocation" x="1452" y="-229"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="AKC-2i-hqO">
@@ -924,12 +941,40 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26E-tZ-Hrk">
+                                <rect key="frame" x="15" y="58" width="60" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="v61-M6-lKd"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="返回" image="chevron.backward" catalog="system">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="comeBack:" destination="hHi-tO-CQv" eventType="touchUpInside" id="WRE-ox-YVn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gRr-jL-ymL">
+                                <rect key="frame" x="158" y="614" width="98" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="fVH-wm-EIo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="清除授权">
+                                    <color key="titleColor" systemColor="linkColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearAuthInfo:" destination="hHi-tO-CQv" eventType="touchUpInside" id="40U-df-aw8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QE6-zW-mZA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="fHb-bY-7Ge" firstAttribute="top" secondItem="QE6-zW-mZA" secondAttribute="top" constant="50" id="2aZ-oC-ydg"/>
                             <constraint firstItem="8uw-PE-Nvs" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="20" id="3Yt-PX-DWy"/>
+                            <constraint firstItem="gRr-jL-ymL" firstAttribute="top" secondItem="c3q-NH-5dX" secondAttribute="bottom" constant="15" id="72R-Sy-ZH9"/>
+                            <constraint firstItem="26E-tZ-Hrk" firstAttribute="top" secondItem="QE6-zW-mZA" secondAttribute="top" constant="10" id="78V-5g-3pf"/>
                             <constraint firstItem="QE6-zW-mZA" firstAttribute="trailing" secondItem="8uw-PE-Nvs" secondAttribute="trailing" constant="20" id="C1k-YR-c6r"/>
                             <constraint firstItem="Sfw-oM-jyb" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="20" id="GzS-7c-sZJ"/>
                             <constraint firstItem="QE6-zW-mZA" firstAttribute="trailing" secondItem="Sfw-oM-jyb" secondAttribute="trailing" constant="20" id="Hmt-6R-iln"/>
@@ -944,8 +989,10 @@
                             <constraint firstItem="fHb-bY-7Ge" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="20" id="cEG-o0-5qF"/>
                             <constraint firstItem="QE6-zW-mZA" firstAttribute="trailing" secondItem="hL3-zT-uXf" secondAttribute="trailing" constant="20" id="fQC-Wm-1Fn"/>
                             <constraint firstItem="8uw-PE-Nvs" firstAttribute="top" secondItem="hL3-zT-uXf" secondAttribute="bottom" constant="40" id="kdh-bj-fJL"/>
+                            <constraint firstItem="26E-tZ-Hrk" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="15" id="nAL-uj-EV0"/>
                             <constraint firstItem="2KS-IU-N5M" firstAttribute="top" secondItem="fHb-bY-7Ge" secondAttribute="bottom" id="pJJ-nX-wHN"/>
                             <constraint firstItem="Sfw-oM-jyb" firstAttribute="top" secondItem="fHb-bY-7Ge" secondAttribute="bottom" constant="50" id="uJ5-U8-2Ls"/>
+                            <constraint firstItem="gRr-jL-ymL" firstAttribute="centerX" secondItem="jIu-5A-uW8" secondAttribute="centerX" id="uqF-8U-VXf"/>
                             <constraint firstItem="2KS-IU-N5M" firstAttribute="leading" secondItem="QE6-zW-mZA" secondAttribute="leading" constant="22" id="yoy-Zb-lGf"/>
                         </constraints>
                     </view>
@@ -1070,7 +1117,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </objects>
-            <point key="canvasLocation" x="2199" y="804"/>
+            <point key="canvasLocation" x="1593" y="682"/>
         </scene>
         <!--声音体验-->
         <scene sceneID="0Q4-vV-fYs">
@@ -1182,26 +1229,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VE7-uS-PxU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3014" y="775"/>
+            <point key="canvasLocation" x="2622" y="688"/>
         </scene>
         <!--声音复刻-->
         <scene sceneID="CDz-lF-FoK">
             <objects>
-                <viewController title="声音复刻" id="2TM-ca-sCz" customClass="ViewController" sceneMemberID="viewController">
+                <viewController title="声音复刻" id="2TM-ca-sCz" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="E1N-Rf-8Gu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎体验 声音复刻技术" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSd-bb-CFV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎体验 声音复刻技术" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSd-bb-CFV">
                                 <rect key="frame" x="62" y="275" width="290" height="33.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvb-5c-N41">
-                                <rect key="frame" x="125" y="485.5" width="164" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="50" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvb-5c-N41">
+                                <rect key="frame" x="107" y="485.5" width="200" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="cNf-Ga-C80"/>
+                                    <constraint firstAttribute="height" constant="50" id="iHH-pB-on4"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="点我开启噪音检测"/>
+                                <state key="normal" title="点我开启噪音检测">
+                                    <color key="titleColor" systemColor="tintColor"/>
+                                </state>
                                 <connections>
                                     <segue destination="aoz-PD-HVC" kind="show" id="axj-l7-QMi"/>
                                 </connections>
@@ -1220,7 +1274,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nTa-HH-feY" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="697" y="1624"/>
+            <point key="canvasLocation" x="651" y="1580"/>
         </scene>
         <!--噪声检测-->
         <scene sceneID="ubp-OA-kSQ">
@@ -1231,13 +1285,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前环境音量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ley-yE-bmW">
-                                <rect key="frame" x="122" y="212" width="170.5" height="33.5"/>
+                                <rect key="frame" x="121.5" y="212" width="171" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前环境很适合录音，快开始吧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9A-xF-aKK">
-                                <rect key="frame" x="93" y="558.5" width="228.5" height="19.5"/>
+                                <rect key="frame" x="92.5" y="558.5" width="229" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1303,7 +1357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bwC-ug-mzA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1796" y="1644"/>
+            <point key="canvasLocation" x="1572" y="1568"/>
         </scene>
         <!--第二步：声音录制-->
         <scene sceneID="XqB-BK-LV4">
@@ -1314,10 +1368,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="5SL-KL-5NU">
-                                <rect key="frame" x="207" y="802" width="0.0" height="0.0"/>
+                                <rect key="frame" x="94.5" y="761" width="225" height="41"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeZ-iH-F08">
-                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="41"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeZ-iH-F08">
+                                        <rect key="frame" x="0.0" y="0.0" width="73" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="上一条"/>
                                         <state key="selected" title="上一条"/>
@@ -1325,8 +1379,16 @@
                                             <action selector="lastRecordAction:" destination="jCG-Ou-TJy" eventType="touchUpInside" id="dq8-SH-3Eq"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRt-XR-J2B">
-                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="41"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luK-Pd-sMP">
+                                        <rect key="frame" x="88" y="0.0" width="49" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="试听"/>
+                                        <connections>
+                                            <action selector="lisenAction:" destination="jCG-Ou-TJy" eventType="touchUpInside" id="8vv-Up-xdI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRt-XR-J2B">
+                                        <rect key="frame" x="152" y="0.0" width="73" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="下一条"/>
                                         <connections>
@@ -1393,18 +1455,14 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="yD5-DU-M4v">
-                                <rect key="frame" x="158" y="752" width="98" height="41"/>
+                                <rect key="frame" x="132" y="702" width="150" height="50"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luK-Pd-sMP">
-                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="41"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="试听"/>
-                                        <connections>
-                                            <action selector="lisenAction:" destination="jCG-Ou-TJy" eventType="touchUpInside" id="8vv-Up-xdI"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Nu-XD-M7r">
-                                        <rect key="frame" x="0.0" y="0.0" width="98" height="41"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="CNZ-dl-Rfo"/>
+                                            <constraint firstAttribute="height" constant="50" id="sdu-pE-jj8"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="24"/>
                                         <state key="normal" title="开始朗读"/>
                                         <state key="selected" title="上传识别"/>
@@ -1447,7 +1505,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vEM-3S-O84" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2626" y="1624"/>
+            <point key="canvasLocation" x="2384" y="1557"/>
         </scene>
         <!--第三步：开启模型训练-->
         <scene sceneID="dN0-3B-FAI">
@@ -1685,11 +1743,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ubm-Qx-cTh"/>
+        <segue reference="wHv-Er-kdr"/>
+        <segue reference="ZTc-BZ-ZlP"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="1.png" width="333" height="333"/>
         <image name="5.png" width="333" height="333"/>
+        <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1723,6 +1783,9 @@
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

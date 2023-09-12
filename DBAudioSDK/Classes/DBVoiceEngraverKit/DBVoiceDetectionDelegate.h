@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param volumeDB 音量
 - (void)dbDetecting:(NSInteger)volumeDB;
 
+/// 音频录制过程中被打断
+- (void)dbAudioInterrupted;
+
 
 /// 回调环境检测的结果
 /// @param result 1：检测成功 0：检测失败

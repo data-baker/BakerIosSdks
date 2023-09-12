@@ -12,6 +12,7 @@
 #import "UIView+Toast.h"
 #import "XCHudHelper.h"
 #import <AdSupport/AdSupport.h>
+#import "DBUserInfoManager.h"
 
 @interface DBVoiceListVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITabBarControllerDelegate>
 @property(nonatomic,strong)NSMutableArray * dataSource;
@@ -37,12 +38,20 @@
 }
 
 // MARK: network Methods
-
 - (void)loadListData {
-    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-
+    NSString * UDID = [KUserDefalut objectForKey:KUDID];
+    if (UDID.length == 0 || UDID == nil) {
+        UDID = @"";
+    }
+    NSLog(@"queryId:%@",UDID);
+    
+    
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
-    [self.voiceEngraverManager batchQueryModelStatusByQueryId:idfa SuccessHandler:^(NSArray<DBVoiceModel *> * _Nonnull array) {
+    // 获取当前的类型
+    NSString *type = @(self.voiceEngraverManager.currentType).stringValue;
+    [self.voiceEngraverManager batchQueryModelStatusByQueryId:UDID
+                                                         type:type
+                                               SuccessHandler:^(NSArray<DBVoiceModel *> * _Nonnull array) {
         [[XCHudHelper sharedInstance] hideHud];
         [self.dataSource removeAllObjects];
         [self.dataSource addObjectsFromArray:array];
@@ -57,7 +66,6 @@
     [self.voiceEngraverManager queryModelStatusByModelId:modelId SuccessHandler:^(DBVoiceModel * _Nonnull voiceModel) {
         NSLog(@"voiceMode %@",voiceModel);
     } failureHander:^(NSError * _Nonnull error) {
-        
     }];
 }
   
@@ -111,12 +119,12 @@
 //    if (![[NSString stringWithFormat:@"%@",model.modelStatus] isEqualToString:@"6"]) {
 //        [self.view makeToast:@"请训练成功后再试" duration:2 position:CSToastPositionCenter];
 //        return ;
-//
 //    }
-    UIStoryboard *story = [UIStoryboard storyboardWithName:@"DBVoiceExperience" bundle:[NSBundle mainBundle]];
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     DBVoiceExperienceVC *experienceVC  =  [story instantiateViewControllerWithIdentifier:@"DBVoiceExperienceVC"];
     experienceVC.voiceModel = model;
     [self.navigationController pushViewController:experienceVC animated:YES];
+    
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {

@@ -7,21 +7,15 @@
 //
 
 #import "DBFLongASRClient.h"
-//#import <DBCommon/DBAuthentication.h>
 #import "DBAuthentication.h"
-
-//#import <DBCommon/DBZSocketRocketUtility.h>
 #import "DBZSocketRocketUtility.h"
-//#import <DBCommon/DBUncaughtExceptionHandler.h>
 #import "DBUncaughtExceptionHandler.h"
-//#import <DBCommon/DBZSocketRocketUtility.h>
 #import "DBZSocketRocketUtility.h"
-//#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
-//#import <DBCommon/DBAudioMicrophone.h>
 #import "DBAudioMicrophone.h"
 #import "DBNetworkHelper.h"
 #import "DBLongResponseModel.h"
+#import "DBLogCollectKit.h"
 
 typedef NS_ENUM(NSUInteger,DBAsrState) {
     DBAsrStateInit  = 0, // 初始化
@@ -30,7 +24,6 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
     DBAsrStateDidEnd = 3  // 结束
 };
 
-static NSString * LongTimeASRSDKVersion = @"1.0.81";
 
 static NSString * LongTimeASRSDKInstallation = @"LongTimeASRSDKInstallation";
 
@@ -39,6 +32,8 @@ static NSString * LongTimeASRSDKStart = @"LongTimeASRSDKStart";
 static NSString * DBLongTimeASRUDID = @"DBLongTimeASRUDID";
 
 static NSString *KLongAsr = @"wss://asr.data-baker.com/longspeech";
+// dev
+//static NSString *KLongAsr = @"ws://10.10.50.61:51535";
 
 typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     DBLongTimeASRUploadLogTypeInstall = 1, // 上传安装统计
@@ -194,13 +189,11 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     [self logMessage:message];
     DBLongResponseModel *resModel = [[DBLongResponseModel alloc]init];
     [resModel setValuesForKeysWithDictionary:dict];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.delegate && [self.delegate respondsToSelector:@selector(resultTraceId:)]) {
             [self.delegate resultTraceId:dict[@"trace_id"]];
         }
     });
-    
     //报错
     if (resModel.code != 90000) {
         [self logMessage:@"后台报错"];
@@ -260,7 +253,6 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 
 
 - (void)webSocketPostData:(NSData *)audioData {
-    
     if (audioData.length != 5120) {
         DBLongResponseModel *failrModel = [[DBLongResponseModel alloc]init];
         failrModel.code = DBLongTimeErrorStateDataLength;
@@ -270,9 +262,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     NSData *base64Data = [audioData base64EncodedDataWithOptions:0];
     NSString *audioString = [[NSString alloc] initWithData:base64Data encoding:NSUTF8StringEncoding];
-    
     parameter[@"audio_data"]= audioString;
-    
     if (self.AudioFormat == DBLongTimeAudioFormatWAV) {
         parameter[@"audio_format"] = @"WAV";
     }else {
@@ -394,7 +384,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
     parameters[@"sdkType"] = @"iOS";//sdk类型：IOS/ANDROID/JAVA/... ,
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     parameters[@"sdkUuid"] = [userDefaults valueForKey:DBLongTimeASRUDID];//唯一标志一个客户端 ,
-    parameters[@"sdkVersion"] = LongTimeASRSDKVersion;//sdk版本 ,
+    parameters[@"sdkVersion"] = KAUDIO_SDK_VERSION;//sdk版本 ,
     parameters[@"submitType"] = [NSString stringWithFormat:@"%zd",type];//提交类型：1首次激活 2日常上报 3错误上报
     parameters[@"sdkName"] = @"LongTimeASR";//区分sdk是asr,tts等SDK类型
     
@@ -451,7 +441,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 // 记录运行日志
 - (void)logMessage:(NSString *)string {
     if (self.log) {
-        NSLog(@"运行日志:%@",string);
+        LogerInfo(@"运行日志:%@",string);
         dispatch_async(dispatch_get_main_queue(), ^{
 //            [DBLogManager saveCriticalSDKRunData:string fileName:@"DBLongTimeASR"];
         });
@@ -509,7 +499,7 @@ typedef NS_ENUM(NSUInteger, DBASRUploadLogType){
 
 
 +(NSString *)sdkVersion {
-    return LongTimeASRSDKVersion;
+    return KAUDIO_SDK_VERSION;
 }
 
 @end

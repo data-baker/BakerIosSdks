@@ -7,7 +7,6 @@
 #import "IQKeyboardManager.h"
 #import "DBFLongASRClient.h"
 #import "UIView+Toast.h"
-//#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
 #import "DBUserInfoManager.h"
 #import "DBAudioSDKDemo-Swift.h"
@@ -70,6 +69,7 @@
     [self.asrAudioClient setupClientId:clientId clientSecret:clientSecret];
     self.isStart = NO;
     [self resumeUserDefault];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -89,9 +89,6 @@
     UIToolbar  *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, width, 44)];
     
     //设置toolBar的样式
-    //toolbar.barStyle = UIBarStyleDefault;
-    
-    /***必要步骤****/
     self.modeTextField.inputView = pickerView;
     self.modeTextField.inputAccessoryView = toolBar;
     
@@ -355,11 +352,11 @@
 // MARK: DBASRSettingDeleagte
 
 - (void)updateAserWithLongAsr:(NSString *)server version:(NSString *)version {
+    self.asrAudioClient.version = version;
     if (server.length == 0) {
         return;
     }
     [self.asrAudioClient setupURL:server];
-    self.asrAudioClient.version = version;
 }
 
 // MARK: time result Time
@@ -412,8 +409,4 @@
     [self startRecord:YES];
 }
     
-// segue Methods
-
-
-
 @end

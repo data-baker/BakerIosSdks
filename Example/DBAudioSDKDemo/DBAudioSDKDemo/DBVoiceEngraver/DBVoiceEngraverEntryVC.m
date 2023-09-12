@@ -22,12 +22,12 @@
     [super viewDidLoad];
     NSString *clientId = [DBUserInfoManager shareManager].clientId;
     NSString *clientSecret = [DBUserInfoManager shareManager].clientSecret;
+    NSString * sdkType = [DBUserInfoManager shareManager].sdkType;
     
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
-    NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-
-    
-    [[DBVoiceEngraverManager sharedInstance] setupWithClientId:clientId clientSecret:clientSecret queryId:idfa SuccessHandler:^(NSDictionary * _Nonnull dict) {
+    NSString *UDID = [self getQueryIdWithClientId:clientId];
+    NSLog(@"queryId:%@",UDID);
+    [[DBVoiceEngraverManager sharedInstance] setupWithClientId:clientId clientSecret:clientSecret queryId:UDID rePrintType:[self reprintSDKType:sdkType] successHandler:^(NSString * _Nonnull msg) {
         [[XCHudHelper sharedInstance] hideHud];
         NSLog(@"获取token成功");
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -36,8 +36,32 @@
         NSLog(@"获取token失败:%@",error);
         NSString *msg = [NSString stringWithFormat:@"获取token失败:%@",error.description];
         [self.view makeToast:msg duration:2 position:CSToastPositionCenter];
-        
     }];}
+
+- (DBReprintType)reprintSDKType:(NSString *)sdkType {
+    if ([sdkType isEqualToString:@"声音复刻普通"]) {
+        return DBReprintTypeNormal;
+    }else if ([sdkType isEqualToString:@"声音复刻精品"]) {
+        return DBReprintTypeFine;
+    }
+    NSLog(@"[error], default select Reprint Normal");
+    return DBReprintTypeNormal;
+    
+}
+
+- (NSString *)getQueryIdWithClientId:(NSString *)clientId {
+    // 目前写死
+    NSString *UDID = [KUserDefalut objectForKey:KUDID];
+    UDID = @"89424e6595884f73888268b5cee3ca49_B8BFE784-C338-4460-8A8E-E51B9C5565F1";
+    if ([UDID hasPrefix:clientId]) {
+        [KUserDefalut setObject:UDID forKey:KUDID];
+    }else if(UDID == nil|| UDID.length == 0) {
+        UDID= [[NSUUID UUID] UUIDString];
+        UDID = [clientId stringByAppendingFormat:@"_%@",UDID];
+        [KUserDefalut setObject:UDID forKey:KUDID];
+    }
+    return UDID;
+}
 
 /*
 #pragma mark - Navigation

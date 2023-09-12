@@ -19,7 +19,21 @@ NS_ASSUME_NONNULL_BEGIN
     }
 #endif
 
+#define KAUDIO_SDK_VERSION @"1.1.0"
 
+#define DBRelease 1
+
+static inline BOOL IsEmpty(id thing) {
+    return (thing == nil) || [thing isEqual:[NSNull null]] ||
+    ([thing isKindOfClass:[NSString class]] && [[(NSString *)thing stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) ||
+    ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0) ||
+    ([thing respondsToSelector:@selector(count)] && [(NSArray *)thing count] == 0);
+}
+
+static inline NSError * throwError(NSString *errorDomain, NSInteger code, NSString *msg) {
+    NSError * error = [NSError errorWithDomain:errorDomain code:code userInfo:@{@"msg":msg}];
+    return error;
+}
 
 
 @interface DBCommonConst : NSObject
@@ -27,6 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)currentTimeString;
 
 + (NSString *)currentDateString;
+
++ (NSString *)systemVersion;
+
++ (NSString *)getCurrentDeviceModel;
+
 @end
 
 NS_ASSUME_NONNULL_END

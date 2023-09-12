@@ -7,13 +7,22 @@
 //
 
 #import "UIViewController+DBBackButtonHandler.h"
+#import <objc/runtime.h>
+
 
 @implementation UIViewController (DBBackButtonHandler)
 @end
 @implementation UINavigationController (ShouldPopOnBackButton)
 
++ (void)load {
+    Method originMethod = class_getInstanceMethod([self class], @selector(navigationBar:shouldPopItem:));
+    Method overloadingMethod = class_getInstanceMethod([self class], @selector(overloaded_navigationBar:shouldPopItem:));
+    method_setImplementation(originMethod, method_getImplementation(overloadingMethod));
+}
 
-- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item
+
+
+- (BOOL)overloaded_navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item
 {
     if([self.viewControllers count] < [navigationBar.items count])
     {

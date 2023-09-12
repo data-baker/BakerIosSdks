@@ -8,20 +8,13 @@
 
 #import "DBSynthesizerManager.h"
 #import "DBTextSplitUtil.h"
-//#import <DBCommon/DBSynthesisPlayer.h>
 #import "DBSynthesisPlayer.h"
-//#import <DBCommon/DBNetworkHelper.h>
 #import "DBNetworkHelper.h"
-//#import <DBCommon/DBAuthentication.h>
 #import "DBAuthentication.h"
-//#import <DBCommon/DBUncaughtExceptionHandler.h>
 #import "DBUncaughtExceptionHandler.h"
 #import "DBSynthesizer.h"
-//#import <DBCommon/DBLogManager.h>
 #import "DBLogManager.h"
 
-// TODO:更新前修改版本号
-static NSString * TTSSDKVersion = @"1.0.81";
 
 static NSString * TTSSDKInstallation = @"TTSSDKInstallation";
 
@@ -104,9 +97,7 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     
     [self logMessage:[NSString stringWithFormat:@"clientId = %@",clientId]];
     [self logMessage:[NSString stringWithFormat:@"clientSecret = %@",clientSecret]];
-
     [self uploadMessage];
-    
     [DBAuthentication setupClientId:clientId clientSecret:clientSecret block:^(NSString * _Nullable token, NSError * _Nullable error) {
         if (!error) {
             [self logMessage:[NSString stringWithFormat:@"鉴权成功,token = %@",token]];
@@ -447,12 +438,10 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     [self setupClientId:self.clientId clientSecret:self.clientSecret handler:handler];
 }
 
-
-
 // base64编码
 -(NSString *)base64EncodeString:(NSString *)baseString {
-    NSString *encodeString = [baseString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSData *data = [encodeString dataUsingEncoding:NSUTF8StringEncoding];
+//    NSString *encodeString = [baseString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSData *data = [baseString dataUsingEncoding:NSUTF8StringEncoding];
     NSString *base64EncodeString = [data base64EncodedStringWithOptions:0]; //编码
     return base64EncodeString;
 }
@@ -488,7 +477,6 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *str = [formatter stringFromDate:date];
-    
     if (![[userDefaults valueForKey:TTSSDKStart] isEqualToString:str]) {
         [userDefaults setValue:str forKey:TTSSDKStart];
         [userDefaults synchronize];
@@ -532,7 +520,7 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
     parameters[@"sdkType"] = @"iOS";//sdk类型：IOS/ANDROID/JAVA/... ,
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     parameters[@"sdkUuid"] = [userDefaults valueForKey:DBTTSUDID];//唯一标志一个客户端 ,
-    parameters[@"sdkVersion"] = TTSSDKVersion;//sdk版本 ,
+    parameters[@"sdkVersion"] = KAUDIO_SDK_VERSION;//sdk版本 ,
     parameters[@"submitType"] = [NSString stringWithFormat:@"%zd",type];//提交类型：1首次激活 2日常上报 3错误上报
     parameters[@"sdkName"] = @"tts";//区分sdk是asr,tts等SDK类型
     
@@ -598,6 +586,6 @@ typedef NS_ENUM(NSUInteger, DBUploadLogType){
 }
 
 + (NSString *)sdkVersion {
-    return TTSSDKVersion;
+    return KAUDIO_SDK_VERSION;
 }
 @end

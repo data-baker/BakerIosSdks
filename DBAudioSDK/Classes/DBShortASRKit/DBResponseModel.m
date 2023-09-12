@@ -7,11 +7,12 @@
 //
 
 #import "DBResponseModel.h"
+#import "DBLogCollectKit.h"
 
 @implementation DBResponseModel
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    NSLog(@"%s,undefined key:%@value:%@",__func__,key,value);
+    LogerInfo(@"%s,undefined key:%@value:%@",__func__,key,value);
     if ([key isEqualToString:@"words"]) {
         if ([value isKindOfClass:[NSArray class]]) {
             NSMutableArray *mutableArray = [NSMutableArray array];
@@ -44,7 +45,7 @@
 @implementation WordsItem
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    NSLog(@"%s,undefined key:%@value:%@",__func__,key,value);
+    LogerInfo(@"%s,undefined key:%@value:%@",__func__,key,value);
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "DBVoiceDetectionUtil.h"
 #import <AVFoundation/AVFoundation.h>
 #import "DBVoiceEngraverEnumerte.h"
-
+#import "DBLogCollectKit.h"
 
 @interface DBVoiceDetectionUtil ()
 {
@@ -17,15 +17,9 @@
     NSTimer * levelTimer;
 }
 @property (nonatomic,assign)NSInteger runloopNumber;
-
 @property (nonatomic,assign)float average;
-
 @property(nonatomic)  dispatch_semaphore_t waitMicrophonePermission;
-
 @end
-
-
-
 
 @implementation DBVoiceDetectionUtil
 //检查麦克风权限
@@ -50,17 +44,14 @@
 -(DBErrorState)startDBDetection {
    BOOL hasMicrophonePermission =  [self checkAudioStatus];
     if (!hasMicrophonePermission) {
-        
         return DBErrorStateMircrophoneNotPermission ;
     }
     
     /* 必须添加这句话，否则在模拟器可以，在真机上获取始终是0  */
     [[AVAudioSession sharedInstance]
      setCategory: AVAudioSessionCategoryPlayAndRecord error: nil];
-    
     /* 不需要保存录音文件 */
     NSURL *url = [NSURL fileURLWithPath:@"/dev/null"];
-    
     NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithFloat: 16000.0], AVSampleRateKey,
                               [NSNumber numberWithInt: kAudioFormatAppleLossless], AVFormatIDKey,
@@ -72,6 +63,7 @@
     recorder = [[AVAudioRecorder alloc] initWithURL:url settings:settings error:&error];
     if (recorder)
     {
+        [self addInterruptAbserver];
         [recorder prepareToRecord];
         recorder.meteringEnabled = YES;
         [recorder recordForDuration:3];
@@ -79,7 +71,7 @@
     }
     else
     {
-        NSLog(@"%@", [error description]);
+        LogerError(@"%@",[error description]);
     }
     return DBErrorStateNOError;
 }
@@ -87,15 +79,8 @@
 /* 该方法确实会随环境音量变化而变化，但具体分贝值是否准确暂时没有研究 */
 - (void)levelTimerCallback:(NSTimer *)timer {
     [recorder updateMeters];
-    
     float power = [recorder averagePowerForChannel:0];// 均值
-//    float powerMax = [recorder peakPowerForChannel:0];// 峰值
-//    NSLog(@"power = %f, powerMax = %f",power, powerMax);
-//    CGFloat progress = (1.0 / 160.0) * (power + 160.0);
-    
-    // 关键代码
     power = power + 160  - 50;
-    
     int dB = 0;
     if (power < 0.f) {
         dB = 0;
@@ -138,6 +123,61 @@
     self.runloopNumber = 0;
     [levelTimer setFireDate:[NSDate distantFuture]];
     self.average = 0;
+}
+
+
+// 增加音频录制过程中被打断的拦截处理
+- (void)addInterruptAbserver {
+    // 监听音频打断事件
+    // setup our audio session
+    AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+    [self removeObserve];
+    // add interruption handler
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(audioSessionWasInterrupted:)
+                                                 name:AVAudioSessionInterruptionNotification
+                                               object:sessionInstance];
+    NSError *error = nil;
+    [sessionInstance setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    if(nil != error) {
+        LogerInfo(@"Error setting audio session category! %@", error);
+    }else {
+        [sessionInstance setActive:YES error:&error];
+        if (nil != error){
+            LogerInfo(@"Error setting audio session active! %@", error);
+        }
+    }
+}
+- (void)audioSessionWasInterrupted:(NSNotification *)notification
+{
+    LogerInfo(@"the notification is %@",notification);
+    if (AVAudioSessionInterruptionTypeBegan == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
+    {
+        LogerInfo(@"begin");
+        if (!recorder.isRecording) {
+            return;
+        };
+        if(self.delegate && [self.delegate respondsToSelector:@selector(dbAudioInterrupted)]) {
+            [recorder stop];
+            [self stopTest];
+            [self.delegate dbAudioInterrupted];
+        }
+        
+    }
+    else if (AVAudioSessionInterruptionTypeEnded == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
+    {
+        LogerInfo(@"begin - end");
+    }
+}
+
+- (void)removeObserve {
+    AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:sessionInstance];
+    NSError *error = nil;
+    [sessionInstance setActive:YES error:&error];
+    if (error) {
+        LogerInfo(@"%@",error.description);
+    }
 }
 
 @end

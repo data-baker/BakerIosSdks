@@ -12,6 +12,8 @@
 #import "UIView+Toast.h"
 #import "XCHudHelper.h"
 #import "DBRecordCompleteVC.h"
+#import "DBUserInfoManager.h"
+#import "DBFCountDownView.h"
 
 @interface DBRecordTextVC ()<UITextViewDelegate,DBVoiceDetectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *phaseTitleLabel;
@@ -21,17 +23,15 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextRecordButton;
 /// 上一条
 @property (weak, nonatomic) IBOutlet UIButton *lastRecordButton;
+
 @property(nonatomic,strong)DBVoiceEngraverManager * voiceEngraverManager;
 @property (weak, nonatomic) IBOutlet UIView *titileBackGroundView;
 @property (weak, nonatomic) IBOutlet UILabel *phaseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *allPhaseLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *voiceImageView;
 @property (weak, nonatomic) IBOutlet UIButton *listenButton;
-
 @property(nonatomic,assign) CFAbsoluteTime startTime;
-
-/// 表示当前录制的是第几条
-@property (nonatomic, assign) int index;
+@property(nonatomic,strong)DBFCountDownView * countDownView;
 
 @end
 
@@ -40,14 +40,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.index = 0;
     self.view.backgroundColor = [UIColor whiteColor];
     self.voiceEngraverManager =  [DBVoiceEngraverManager sharedInstance];
     self.voiceEngraverManager.delegate= self;
     [self addBoardOfTitleBackgroundView:self.titileBackGroundView cornerRadius:50];
-    [self p_setTextViewAttributeText:self.textArray.firstObject];
-    self.allPhaseLabel.text = [NSString stringWithFormat:@"共%@段",@(self.textArray.count)];
+    [self updateTextPhaseWithIndex:self.index];
+    [self addCountDownView];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -62,29 +62,75 @@
     }
 }
 
+- (void)addCountDownView {
+    [self.view addSubview:self.countDownView];
+    [self.countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(self.view);
+        make.width.mas_equalTo(kFitSize(119+20));
+        make.height.mas_equalTo(kFitSize(125+20));
+    }];
+}
+
+- (void)positionCurrentIndexState {
+    DBTextModel *textModel = self.textArray[self.index];
+    [self p_setTextViewAttributeText:textModel.text];
+    self.allPhaseLabel.text = [NSString stringWithFormat:@"共%@段",@(self.textArray.count)];
+}
 
 - (IBAction)startRecordAction:(id)sender {
+    if([self.countDownView isCountDown]) {
+        return;
+    }
     UIButton *button = (UIButton *)sender;
     button.selected = !button.isSelected;
     if (button.isSelected) {
         self.startTime = CFAbsoluteTimeGetCurrent();
-        [self.voiceEngraverManager startRecordWithTextIndex:self.index failureHander:^(NSError * _Nonnull error) {
+        [self.voiceEngraverManager startRecordWithTextIndex:self.index  messageHandler:^(NSString *msg) {
+            [self.countDownView showViewWithIsStart:YES completeHandler:^{
+                [self beginRecordState];
+            }];
+        } failureHander:^(NSError * _Nonnull error) {
             NSLog(@"error %@",error);
             // 发生错误停止录音
             [self.view makeToast:error.description duration:2 position:CSToastPositionCenter];
-            [self.voiceEngraverManager pauseRecord];
+            [self.voiceEngraverManager stopRecord];
             [self endRecordState];
         }];
-        [self beginRecordState];
-        
     }else {
         [self endRecordState];
-        [self uploadRecoginizeVoice];
+        [self.countDownView showViewWithIsStart:NO completeHandler:^{
+            [self uploadRecoginizeVoice];
+        }];
+       
+    }
+}
+// MARK: ----sessionId
+
+- (NSString *)getCurrentSessionId {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(getCurrentSessionId)]) {
+        return [self.delegate getCurrentSessionId];
+    }
+    return @"";
+}
+
+- (void)setCurrentSessionId:(NSString *)sessionId {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(setCurrentSessionId:)]) {
+        [self.delegate setCurrentSessionId:sessionId];
+    }
+}
+
+
+- (void)removeCurrentSessionId {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(removeCurrentSessionId)]) {
+        [self.delegate removeCurrentSessionId];
     }
 }
 
 - (IBAction)nextRecordAction:(id)sender {
+    [self nextItemAction];
+}
 
+- (void)nextItemAction {
     if (![self.voiceEngraverManager canNextStepByCurrentIndex:self.index]) {
         [self.view makeToast:@"请录制完当前条目再点击下一步" duration:2.f position:CSToastPositionCenter];
         return;
@@ -94,7 +140,6 @@
     if (!ret) {
         self.index--;
     }
-    
 }
 
 - (IBAction)lastRecordAction:(id)sender {
@@ -109,19 +154,17 @@
     [self.voiceEngraverManager listenAudioWithTextIndex:self.index];
 }
 
-
 - (void)uploadRecoginizeVoice {
     [self showHUD];
-    [self.voiceEngraverManager uploadRecordVoiceRecogizeHandler:^(DBVoiceRecognizeModel * _Nonnull model) {
+    [self.voiceEngraverManager uploadRecordVoiceRecognizeHandler:^(DBTextModel * _Nonnull model) {
         [self hiddenHUD];
         if ([model.passStatus.stringValue isEqualToString:@"1"]) {
-            [self.view makeToast:[NSString stringWithFormat:@"上传识别成功：准确率：%@",model.percent] duration:2 position:CSToastPositionCenter];
+            [self.view makeToast:[NSString stringWithFormat:@"太棒了：准确率：%@%%，请录制下一段吧。",model.percent] duration:2 position:CSToastPositionCenter];
+            [self nextItemAction];
         }else {
-            [self.view makeToast:[NSString stringWithFormat:@"上传识别失败：准确率：%@",model.percent] duration:2 position:CSToastPositionCenter];
+            [self.view makeToast:[NSString stringWithFormat:@"准确率：%@%%，请重新录制文本",model.percent] duration:2 position:CSToastPositionCenter];
         }
-        
     }];
-
 }
 
 - (BOOL)updateTextPhaseWithIndex:(NSInteger)phaseIndex {
@@ -132,6 +175,7 @@
     
     if (phaseIndex >= self.textArray.count) {
         NSLog(@"最后一段");
+        [self removeCurrentSessionId];
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         DBRecordCompleteVC *completedVC  = [story instantiateViewControllerWithIdentifier:@"DBRecordCompleteVC"];
         [self.navigationController pushViewController:completedVC animated:YES];
@@ -144,12 +188,10 @@
     }else {
         self.lastRecordButton.hidden = NO;
     }
-    
-    
-    [self p_setTextViewAttributeText:self.textArray[phaseIndex]];
+    DBTextModel *model = self.textArray[phaseIndex];
+    [self p_setTextViewAttributeText:model.text];
     self.phaseLabel.text =  [NSString stringWithFormat:@"第%@段",@(self.index+1)];
     self.allPhaseLabel.text = [NSString stringWithFormat:@"共%@段",@(self.textArray.count)];
-    
     [self.voiceEngraverManager stopCurrentListen];
     return YES;
 }
@@ -157,7 +199,6 @@
 
 - (void)beginRecordState {
     self.voiceImageView.hidden =  NO;
-
     self.lastRecordButton.hidden = YES;
     self.nextRecordButton.hidden = YES;
     self.startRecordButton.hidden = NO;
@@ -165,7 +206,6 @@
 }
 
 - (void)endRecordState {
-    
     if (self.index >0) {
         self.lastRecordButton.hidden = NO;
     }else {
@@ -174,12 +214,9 @@
     self.voiceImageView.hidden = YES;
     self.nextRecordButton.hidden = NO;
     self.startRecordButton.hidden = NO;
+    self.startRecordButton.selected = NO;
     self.listenButton.hidden = NO;
-    
 }
-
-
-
 
 // MARK: delegate Methods -
 
@@ -214,9 +251,16 @@
     self.startTime = CFAbsoluteTimeGetCurrent();
 }
 
+- (void)dbAudioInterrupted {
+    NSLog(@"[debug]: 当前的录制音频被打断");
+}
+
 - (void)dbVoiceRecognizeError:(NSError *)error {
+    [self hiddenHUD];
     [self endRecordState];
-    [self.view makeToast:error.description duration:2.f position:CSToastPositionCenter];
+    NSDictionary *dict = error.userInfo;
+    NSString *msg = dict[@"message"];
+    [self.view makeToast:msg duration:2.f position:CSToastPositionCenter];
 }
 
 - (void)playToEnd {
@@ -227,48 +271,29 @@
 // MARK: private Method
 - (void)p_setTextViewAttributeText:(NSString *)text {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-       paragraphStyle.lineSpacing = 10;// 字体的行间距
-        
-       NSDictionary *attributes = @{
-                                    NSFontAttributeName:[UIFont systemFontOfSize:18],
-                                    NSParagraphStyleAttributeName:paragraphStyle
-                                    };
-       self.recordTextView.attributedText = [[NSAttributedString alloc] initWithString:text attributes:attributes];
+    paragraphStyle.lineSpacing = 10;// 字体的行间距
+    NSDictionary *attributes = @{
+        NSFontAttributeName:[UIFont systemFontOfSize:18],
+        NSParagraphStyleAttributeName:paragraphStyle
+    };
+    self.recordTextView.attributedText = [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
-//- (BOOL)canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController sender:(id)sender {
-//}
-//
-//- (void)unwindForSegue:(UIStoryboardSegue *)unwindSegue towardsViewController:(UIViewController *)subsequentVC {
-//}
 
 // MARK: 通过拦截方法获取返回事件
+
 - (BOOL)navigationShouldPopOnBackButton
 {
-    NSLog(@"clicked navigationbar back button");
-    
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"返回了当前录制结果将会取消？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"返回了当前录制结果将会保存，再次进入可以恢复使用？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-           
        }];
     [alertVC addAction:cancelAction];
 
     UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self.voiceEngraverManager unNormalStopRecordSeesionSuccessHandler:^(NSDictionary * _Nonnull dict) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        } failureHandler:^(NSError * _Nonnull error) {
-            [self.view makeToast:@"退出session失败" duration:2 position:CSToastPositionCenter];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            });
-        }];
-        
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
     [alertVC addAction:doneAction];
-   
-    
     [self presentViewController:alertVC animated:YES completion:nil];
-
     return NO;
 
 }
@@ -284,7 +309,7 @@
 
 - (void)showHUD {
     [[XCHudHelper sharedInstance]showHudOnView:self.view caption:@"上传识别中" image:nil
-                                     acitivity:YES autoHideTime:30];
+                                     acitivity:YES autoHideTime:15];
 }
 
 - (void)hiddenHUD {
@@ -302,6 +327,13 @@
     }
     return _voiceEngraverManager;
 }
+- (DBFCountDownView *)countDownView {
+    if (!_countDownView) {
+        _countDownView = [[DBFCountDownView alloc]init];
+    }
+    return _countDownView;
+}
+
 
 
 @end

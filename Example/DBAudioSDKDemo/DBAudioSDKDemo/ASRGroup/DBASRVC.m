@@ -402,19 +402,18 @@
 // MARK: DBASRSetting delegate
 
 - (void)updateAsrWithServer:(NSString *)server isVad:(BOOL)isVad maxEndSilence:(NSInteger)maxEndSilence maxBeginSilence:(NSInteger)maxBeginSilence version:(NSString *)version {
-    
     DBFASRClient *asrClient = self.asrAudioClient;
+    asrClient.version = version;
+    if (server.length > 0) {
+       [asrClient setupURL:server];
+    }
     if (!isVad) {
         asrClient.enable_vad = NO;
         return;
     }
-    if (server.length > 0) {
-       [asrClient setupURL:server];
-    }
     asrClient.enable_vad = isVad;
     asrClient.max_end_silence = maxEndSilence;
     asrClient.max_begin_silence = maxBeginSilence;
-    asrClient.version = version;
     DBLog(@"[asr]: update asr info")
 }
 
