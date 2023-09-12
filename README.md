@@ -29,6 +29,8 @@ pod 'DBAudioSDK/DBVoiceEngraverKit'
 
 ```
 
+声音复刻SDK-iOS的Github文档地址：[点击跳转](https://github.com/data-baker/BakerIosSdks/blob/main/%E5%A3%B0%E9%9F%B3%E5%A4%8D%E5%88%BBSDK%E6%8E%A5%E5%85%A5%E6%96%87%E6%A1%A3-iOS.md)
+
 ## 在线声音转换 
 
 ```
