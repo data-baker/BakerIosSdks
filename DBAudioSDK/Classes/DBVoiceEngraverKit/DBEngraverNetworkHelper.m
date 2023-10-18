@@ -95,7 +95,6 @@ static NSString *DBUploadBoundary = @"DBUploadBoundary";
                 }
                 
                 NSInteger errorCode = [dic[@"code"] integerValue];
-                
                 if (errorCode != 20000) {
                     if (errorCode == 00011 || errorCode == 11) {
                         static NSInteger retry = 3;

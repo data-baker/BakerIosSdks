@@ -88,8 +88,8 @@
 }
 
 - (void)initParams {
-    self.microphone = [[DBEngraverAudioMicrophone alloc] initWithSampleRate:16000 numerOfChannel:1];
-    self.microphone.delegate = self;
+//    self.microphone = [[DBEngraverAudioMicrophone alloc] initWithSampleRate:16000 numerOfChannel:1];
+//    self.microphone.delegate = self;
     self.networkHelper = [[DBEngraverNetworkHelper alloc]init];
     self.networkHelper.delegate = self;
     self.paramsDelegate = self.networkHelper;
@@ -195,7 +195,12 @@
 
 // MARK: 上传声音识别
 - (void)uploadRecordVoiceRecognizeHandler:(DBVoiceRecogizeHandler)successHandler  {
-    LogerDebug(@"upload Audio to recognize");
+    LogerDebug(@"upload Audio to recognize websocket state:%@",@(self.socketManager.readyState));
+    if (self.socketManager.readyState != SR_OPEN) {
+        NSError *error = throwError(DBErrorDomain, DBErrorStateNetworkConnectInvalid, @"WebSocket didn't open");
+        [self delegateError:error];
+        return;
+    }
     self.issocketStatusEnd = YES;
     self.voiceHandler = successHandler;
 }
@@ -275,6 +280,7 @@
         params[@"type"] = type;
     }
     params[@"limit"] = @(100);
+    LogerInfo(@"%@",queryId);
     [self.networkHelper postWithUrlString:join_string1(KDB_BASE_PATH, DBQueryModelStatusBatch) parameters:params success:^(NSDictionary * _Nonnull data) {
         /// 异常处理
         if ([data isEqual:[NSNull null]]) {
@@ -282,6 +288,7 @@
             failureHandler(error);
             return ;
         }
+        LogerInfo(@"%@",data);
         NSArray *array = data[@"data"][@"list"];
         NSMutableArray *tempArray = [NSMutableArray array];
         for (NSDictionary *dict in array) {
@@ -291,6 +298,7 @@
         }
         successHandler(tempArray);
     } failure:^(NSError * _Nonnull error) {
+        LogerError(@"%@",error.description);
         failureHandler(error);
     }];
 }
@@ -328,18 +336,17 @@
         return;
     }
     [self recordAddTimer];
-
     NSString * filePath = [self filePathWithIndex:self.currentRecordIndex];
     DBTextModel *model = self.textModelArray[self.currentRecordIndex];
     model.filePath = filePath;
     LogerInfo(@"当前录制路径 ：%@",filePath);
     self.micPCMFile = fopen(filePath.UTF8String, "wb");
-    if (self.microphone) {
-        [self.microphone stop];
-        self.microphone.delegate = nil;
-    }
+//    if (self.microphone) {
+//        [self.microphone stop];
+//        self.microphone = nil;
+//    }
     self.microphone = [[DBEngraverAudioMicrophone alloc] initWithSampleRate:16000 numerOfChannel:1];
-      self.microphone.delegate = self;
+    self.microphone.delegate = self;
     [self.microphone start];
 }
 
@@ -561,12 +568,14 @@
 - (void)stopSocket {
     LogerInfo(@"关闭Socket");
     [self.socketManager DBZWebSocketClose];
+    
 }
 - (void)webSocketDidOpenNote {
     LogerInfo(@"scoket连接成功 self %@",self);
 }
 - (void)webSocketdidReceiveMessageNote:(id)note {
     NSString *message = (NSString *)note;
+    NSLog(@"%@",message);
     NSDictionary * dic =[NSMutableDictionary dictionaryWithDictionary:[self.paramsDelegate dictionaryWithJsonString:message]];
     NSInteger code = [dic[@"code"] integerValue];
     if (code == 11 || code == 00011) { // token 失效
@@ -614,6 +623,7 @@
         if ([dic[@"data"][@"passStatus"] integerValue] == 1) {
             DBTextModel *model = self.textModelArray[self.currentRecordIndex];
             [model setValuesForKeysWithDictionary:dic[@"data"]];
+            LogerInfo(@"录音通过");
             self.voiceHandler(model);
         }else{
             LogerInfo(@"录音不合格");
@@ -632,6 +642,14 @@
 
 - (void)webSocketDidCloseNote:(id)object {
     LogerInfo(@"socket 连接关闭");
+    if(self.socketStatus == 1) {
+        LogerInfo(@"录制过程中，websocket被关闭了");
+        [self stopRecord];
+        [self resetSocketState];
+        NSError *error = throwError(DBErrorDomain, DBErrorStateNetworkConnectInvalid,@"websocket disconnect");
+        [self delegateError:error];
+        return;
+    }
 }
 
 - (void)webSocketdidConnectFailed:(id)noti {
@@ -709,7 +727,7 @@
 // MARK: Custom Accessor Methods
 - (DBZSocketRocketUtility *)socketManager {
     if (!_socketManager) {
-        _socketManager = [DBZSocketRocketUtility instance];
+        _socketManager = [DBZSocketRocketUtility createWebsocketUtility];
         _socketManager.delegate = self;
     }
     return _socketManager;

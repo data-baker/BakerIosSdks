@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <DBZSocketRocket.h>
 
 #if OBJC_BOOL_IS_BOOL
 
@@ -57,6 +58,10 @@ typedef struct DBSocketDelegateAvailableMethods DBSocketDelegateAvailableMethods
 
 @property(atomic,readonly)DBSocketDelegateAvailableMethods  availableDelegateMethods;
 
+@property (atomic, assign, readonly) SRReadyState readyState;
+
+
+
 /** 开始连接 */
 - (void)DBZWebSocketOpenWithURLString:(NSString *)urlString;
 
@@ -67,6 +72,6 @@ typedef struct DBSocketDelegateAvailableMethods DBSocketDelegateAvailableMethods
 - (void)sendData:(id)data;
 
 
-+ (DBZSocketRocketUtility *)instance;
++ (DBZSocketRocketUtility *)createWebsocketUtility;
 
 @end

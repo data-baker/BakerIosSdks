@@ -12,9 +12,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // Uncomment this line to enable debug logging
-//#define SR_DEBUG_LOG_ENABLED
+#define DBZ_DEBUG_LOG_ENABLED
 
 extern void DBZErrorLog(NSString *format, ...);
-extern void SRDebugLog(NSString *format, ...);
+extern void DBZDebugLog(NSString *format, ...);
 
 NS_ASSUME_NONNULL_END

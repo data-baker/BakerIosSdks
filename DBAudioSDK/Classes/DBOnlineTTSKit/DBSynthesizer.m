@@ -218,7 +218,7 @@ NSString *const wssSockDBSocketRocketKitetURL = @"wss://openapi.data-baker.com/t
 // MARK: - custom Accessor -
 - (DBZSocketRocketUtility *)socketManager {
     if (!_socketManager) {
-        _socketManager = [DBZSocketRocketUtility instance];
+        _socketManager = [DBZSocketRocketUtility createWebsocketUtility];
     }
     return _socketManager;
 }

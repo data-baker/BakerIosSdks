@@ -50,15 +50,12 @@
 }
 
 - (NSString *)getQueryIdWithClientId:(NSString *)clientId {
-    // 目前写死
     NSString *UDID = [KUserDefalut objectForKey:KUDID];
-    UDID = @"89424e6595884f73888268b5cee3ca49_B8BFE784-C338-4460-8A8E-E51B9C5565F1";
-    if ([UDID hasPrefix:clientId]) {
-        [KUserDefalut setObject:UDID forKey:KUDID];
-    }else if(UDID == nil|| UDID.length == 0) {
+    if(UDID == nil|| UDID.length == 0) {
         UDID= [[NSUUID UUID] UUIDString];
         UDID = [clientId stringByAppendingFormat:@"_%@",UDID];
         [KUserDefalut setObject:UDID forKey:KUDID];
+        return UDID;
     }
     return UDID;
 }

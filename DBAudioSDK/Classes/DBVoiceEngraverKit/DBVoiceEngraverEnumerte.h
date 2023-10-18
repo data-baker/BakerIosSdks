@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger,DBErrorState){
     DBErrorStateInvaildMoile = 40005,// 请填写正确的手机号
     DBErrorStateEmptySessionId = 115001, // 传入的SessionId不能为空
     DBErrorStateParseFailed = 115002, // 解析网络数据失败
+    DBErrorStateNetworkConnectInvalid = 115003, // 当前的网络错误
     
 };
 

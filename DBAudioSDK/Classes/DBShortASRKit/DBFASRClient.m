@@ -550,7 +550,7 @@ typedef NS_ENUM(NSUInteger,DBAsrState) {
 
 - (DBZSocketRocketUtility *)socketManager {
     if (!_socketManager) {
-        _socketManager = [DBZSocketRocketUtility instance];
+        _socketManager = [DBZSocketRocketUtility createWebsocketUtility];
         _socketManager.delegate = self;
     }
     return _socketManager;

@@ -91,11 +91,11 @@
 
 - (void)_didConnect
 {
-    SRDebugLog(@"_didConnect, return streams");
+    DBZDebugLog(@"_didConnect, return streams");
     if (_connectionRequiresSSL) {
         if (_httpProxyHost) {
             // Must set the real peer name before turning on SSL
-            SRDebugLog(@"proxy set peer name to real host %@", self.url.host);
+            DBZDebugLog(@"proxy set peer name to real host %@", self.url.host);
             [self.outputStream setProperty:self.url.host forKey:@"_kCFStreamPropertySocketPeerName"];
         }
     }
@@ -119,7 +119,7 @@
 
 - (void)_failWithError:(NSError *)error
 {
-    SRDebugLog(@"_failWithError, return error");
+    DBZDebugLog(@"_failWithError, return error");
     if (!error) {
         error = SRHTTPErrorWithCodeDescription(500, 2132,@"Proxy Error");
     }
@@ -144,7 +144,7 @@
 // get proxy setting from device setting
 - (void)_configureProxy
 {
-    SRDebugLog(@"configureProxy");
+    DBZDebugLog(@"configureProxy");
     NSDictionary *proxySettings = CFBridgingRelease(CFNetworkCopySystemProxySettings());
 
     // CFNetworkCopyProxiesForURL doesn't understand ws:// or wss://
@@ -157,7 +157,7 @@
 
     NSArray *proxies = CFBridgingRelease(CFNetworkCopyProxiesForURL((__bridge CFURLRef)httpURL, (__bridge CFDictionaryRef)proxySettings));
     if (proxies.count == 0) {
-        SRDebugLog(@"configureProxy no proxies");
+        DBZDebugLog(@"configureProxy no proxies");
         [self _openConnection];
         return;                 // no proxy
     }
@@ -201,17 +201,17 @@
         _socksProxyPassword = settings[(NSString *)kCFProxyPasswordKey];
     }
     if (_httpProxyHost) {
-        SRDebugLog(@"Using http proxy %@:%u", _httpProxyHost, _httpProxyPort);
+        DBZDebugLog(@"Using http proxy %@:%u", _httpProxyHost, _httpProxyPort);
     } else if (_socksProxyHost) {
-        SRDebugLog(@"Using socks proxy %@:%u", _socksProxyHost, _socksProxyPort);
+        DBZDebugLog(@"Using socks proxy %@:%u", _socksProxyHost, _socksProxyPort);
     } else {
-        SRDebugLog(@"configureProxy no proxies");
+        DBZDebugLog(@"configureProxy no proxies");
     }
 }
 
 - (void)_fetchPAC:(NSURL *)PACurl withProxySettings:(NSDictionary *)proxySettings
 {
-    SRDebugLog(@"DBZWebSocket fetchPAC:%@", PACurl);
+    DBZDebugLog(@"DBZWebSocket fetchPAC:%@", PACurl);
 
     if ([PACurl isFileURL]) {
         NSError *error = nil;
@@ -254,7 +254,7 @@
         [self _openConnection];
         return;
     }
-    SRDebugLog(@"runPACScript");
+    DBZDebugLog(@"runPACScript");
     // From: http://developer.apple.com/samplecode/CFProxySupportTool/listing1.html
     // Work around <rdar://problem/5530166>.  This dummy call to
     // CFNetworkCopyProxiesForURL initialise some state within CFNetwork
@@ -290,6 +290,7 @@
     //                           forMode:NSDefaultRunLoopMode];
     [self.outputStream open];
     [self.inputStream open];
+    DBZErrorLog(@"_openConnection");
 }
 
 - (void)_initializeStreams
@@ -309,14 +310,14 @@
     CFReadStreamRef readStream = NULL;
     CFWriteStreamRef writeStream = NULL;
 
-    SRDebugLog(@"ProxyConnect connect stream to %@:%u", host, port);
+    DBZDebugLog(@"ProxyConnect connect stream to %@:%u", host, port);
     CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)host, port, &readStream, &writeStream);
 
     self.outputStream = CFBridgingRelease(writeStream);
     self.inputStream = CFBridgingRelease(readStream);
 
     if (_socksProxyHost) {
-        SRDebugLog(@"ProxyConnect set sock property stream to %@:%u user %@ password %@", _socksProxyHost, _socksProxyPort, _socksProxyUsername, _socksProxyPassword);
+        DBZDebugLog(@"ProxyConnect set sock property stream to %@:%u user %@ password %@", _socksProxyHost, _socksProxyPort, _socksProxyUsername, _socksProxyPassword);
         NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:4];
         settings[NSStreamSOCKSProxyHostKey] = _socksProxyHost;
         if (_socksProxyPort) {
@@ -337,7 +338,7 @@
 
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode;
 {
-    SRDebugLog(@"stream handleEvent %u", eventCode);
+    DBZDebugLog(@"stream handleEvent %u", eventCode);
     switch (eventCode) {
         case NSStreamEventOpenCompleted: {
             if (aStream == self.inputStream) {
@@ -361,14 +362,14 @@
         } break;
         case NSStreamEventHasSpaceAvailable:
         case NSStreamEventNone:
-            SRDebugLog(@"(default)  %@", aStream);
+            DBZDebugLog(@"(default)  %@", aStream);
             break;
     }
 }
 
 - (void)_proxyDidConnect
 {
-    SRDebugLog(@"Proxy Connected");
+    DBZDebugLog(@"Proxy Connected");
     uint32_t port = _url.port.unsignedIntValue;
     if (port == 0) {
         port = (_connectionRequiresSSL ? 443 : 80);
@@ -377,7 +378,7 @@
     NSString *connectRequestStr = [NSString stringWithFormat:@"CONNECT %@:%u HTTP/1.1\r\nHost: %@\r\nConnection: keep-alive\r\nProxy-Connection: keep-alive\r\n\r\n", _url.host, port, _url.host];
 
     NSData *message = [connectRequestStr dataUsingEncoding:NSUTF8StringEncoding];
-    SRDebugLog(@"Proxy sending %@", connectRequestStr);
+    DBZDebugLog(@"Proxy sending %@", connectRequestStr);
 
     [self _writeData:message];
 }
@@ -424,7 +425,7 @@
 
     CFHTTPMessageAppendBytes(_receivedHTTPHeaders, (const UInt8 *)data.bytes, data.length);
     if (CFHTTPMessageIsHeaderComplete(_receivedHTTPHeaders)) {
-        SRDebugLog(@"Finished reading headers %@", CFBridgingRelease(CFHTTPMessageCopyAllHeaderFields(_receivedHTTPHeaders)));
+        DBZDebugLog(@"Finished reading headers %@", CFBridgingRelease(CFHTTPMessageCopyAllHeaderFields(_receivedHTTPHeaders)));
         [self _proxyHTTPHeadersDidFinish];
         return YES;
     }
@@ -437,14 +438,14 @@
     NSInteger responseCode = CFHTTPMessageGetResponseStatusCode(_receivedHTTPHeaders);
 
     if (responseCode >= 299) {
-        SRDebugLog(@"Connect to Proxy Request failed with response code %d", responseCode);
+        DBZDebugLog(@"Connect to Proxy Request failed with response code %d", responseCode);
         NSError *error = SRHTTPErrorWithCodeDescription(responseCode, 2132,
                                                         [NSString stringWithFormat:@"Received bad response code from proxy server: %d.",
                                                          (int)responseCode]);
         [self _failWithError:error];
         return;
     }
-    SRDebugLog(@"proxy connect return %d, call socket connect", responseCode);
+    DBZDebugLog(@"proxy connect return %d, call socket connect", responseCode);
     [self _didConnect];
 }
 

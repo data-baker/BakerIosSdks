@@ -10,9 +10,9 @@
 #import "DBLogCollectKit.h"
 
 
-#define kAudioQueueBufferCount (4)
+#define kAudioQueueBufferCount (3)
 
-static UInt32 kAudioBufferSize = 1024*2*2;
+static UInt32 kAudioBufferSize = 1024*2;
 
 void EngraverAudioAQInputCallback(void * __nullable               inUserData,
                           AudioQueueRef                   inAQ,

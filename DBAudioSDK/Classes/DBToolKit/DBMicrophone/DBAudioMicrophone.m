@@ -224,7 +224,6 @@ void AudioAQInputCallback(void * __nullable               inUserData,
     
     [self getVoiceVolume:data];
     
-    
     if (_isOn) {
         AudioQueueEnqueueBuffer(inAudioQueue, inBuffer, 0, NULL);
     }
@@ -232,10 +231,8 @@ void AudioAQInputCallback(void * __nullable               inUserData,
 }
 // 移动端关闭方法
 -(void)callBackData {
-    
     while ([_MFEThread isCancelled] == NO) {
         [NSThread sleepForTimeInterval:0.05];
-//        NSLog(@"麦克风:循环休眠");
         if (self.sendData.length < 5120) {
             continue;
         }
@@ -244,7 +241,6 @@ void AudioAQInputCallback(void * __nullable               inUserData,
         //删除已经截取的data
         [self.sendData replaceBytesInRange:NSMakeRange(0, 5120) withBytes:NULL length:0];
         if (data1.length == 5120) {
-//            NSLog(@"麦克风:回调数据");
             [self.delegate audioMicrophone:self hasAudioPCMByte:(Byte *)data1.bytes audioByteSize:(UInt32)data1.length];
         }
     }

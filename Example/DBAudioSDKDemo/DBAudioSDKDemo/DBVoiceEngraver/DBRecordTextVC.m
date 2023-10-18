@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *listenButton;
 @property(nonatomic,assign) CFAbsoluteTime startTime;
 @property(nonatomic,strong)DBFCountDownView * countDownView;
+@property(nonatomic,assign)BOOL errorEncounter;
 
 @end
 
@@ -85,8 +86,14 @@
     button.selected = !button.isSelected;
     if (button.isSelected) {
         self.startTime = CFAbsoluteTimeGetCurrent();
+        self.errorEncounter = NO;
         [self.voiceEngraverManager startRecordWithTextIndex:self.index  messageHandler:^(NSString *msg) {
+            __weak typeof(self) weakSelf = self;
             [self.countDownView showViewWithIsStart:YES completeHandler:^{
+                __strong typeof(self) strongSelf = weakSelf;
+                if(strongSelf.errorEncounter) {
+                    return;
+                }
                 [self beginRecordState];
             }];
         } failureHander:^(NSError * _Nonnull error) {
@@ -258,8 +265,12 @@
 - (void)dbVoiceRecognizeError:(NSError *)error {
     [self hiddenHUD];
     [self endRecordState];
+    self.errorEncounter = YES;
     NSDictionary *dict = error.userInfo;
-    NSString *msg = dict[@"message"];
+    NSString *msg;
+    for (NSString *key in dict) {
+        msg = dict[key];
+    }
     [self.view makeToast:msg duration:2.f position:CSToastPositionCenter];
 }
 

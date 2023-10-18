@@ -384,7 +384,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
 {
     NSInteger responseCode = CFHTTPMessageGetResponseStatusCode(_receivedHTTPHeaders);
     if (responseCode >= 400) {
-        SRDebugLog(@"Request failed with response code %d", responseCode);
+        DBZDebugLog(@"Request failed with response code %d", responseCode);
         NSError *error = SRHTTPErrorWithCodeDescription(responseCode, 2132,
                                                         [NSString stringWithFormat:@"Received bad response code from server: %d.",
                                                          (int)responseCode]);
@@ -434,7 +434,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
         CFHTTPMessageAppendBytes(_receivedHTTPHeaders, (const UInt8 *)data.bytes, data.length);
 
         if (CFHTTPMessageIsHeaderComplete(_receivedHTTPHeaders)) {
-            SRDebugLog(@"Finished reading headers %@", CFBridgingRelease(CFHTTPMessageCopyAllHeaderFields(_receivedHTTPHeaders)));
+            DBZDebugLog(@"Finished reading headers %@", CFBridgingRelease(CFHTTPMessageCopyAllHeaderFields(_receivedHTTPHeaders)));
             [self _HTTPHeadersDidFinish];
         } else {
             [self _readHTTPHeader];
@@ -444,7 +444,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
 
 - (void)didConnect;
 {
-    SRDebugLog(@"Connected");
+    DBZDebugLog(@"Connected");
 
     _secKey = SRBase64EncodedStringFromData(DBZRandomData(16));
     assert([_secKey length] == 24);
@@ -466,7 +466,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
 - (void)_updateSecureStreamOptions
 {
     if (_requestRequiresSSL) {
-        SRDebugLog(@"Setting up security for streams.");
+        DBZDebugLog(@"Setting up security for streams.");
         [_securityPolicy updateSecurityOptionsInStream:_inputStream];
         [_securityPolicy updateSecurityOptionsInStream:_outputStream];
     }
@@ -511,7 +511,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
 
         self.readyState = SR_CLOSING;
 
-        SRDebugLog(@"Closing with code %d reason %@", code, reason);
+        DBZDebugLog(@"Closing with code %d reason %@", code, reason);
 
         if (wasConnecting) {
             [self closeConnection];
@@ -569,7 +569,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
 
             self.readyState = SR_CLOSED;
 
-            SRDebugLog(@"Failing with error %@", error.localizedDescription);
+            DBZDebugLog(@"Failing with error %@", error.localizedDescription);
 
             [self closeConnection];
             [self _scheduleCleanup];
@@ -615,7 +615,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
         if (error) {
             *error = DBZErrorWithCodeDescription(2134, message);
         }
-        SRDebugLog(message);
+        DBZDebugLog(message);
         return NO;
     }
 
@@ -639,7 +639,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
         if (error) {
             *error = DBZErrorWithCodeDescription(2134, message);
         }
-        SRDebugLog(message);
+        DBZDebugLog(message);
         return NO;
     }
 
@@ -660,7 +660,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
         if (error) {
             *error = DBZErrorWithCodeDescription(2134, message);
         }
-        SRDebugLog(message);
+        DBZDebugLog(message);
         return NO;
     }
 
@@ -686,7 +686,7 @@ NSString *const DBZHTTPResponseErrorKey = @"HTTPResponseStatusCode";
 
 - (void)handlePong:(NSData *)pongData;
 {
-    SRDebugLog(@"Received pong");
+    DBZDebugLog(@"Received pong");
     [self.delegateController performDelegateBlock:^(id<DBZWebSocketDelegate>  _Nullable delegate, SRDelegateAvailableMethods availableMethods) {
         if (availableMethods.didReceivePong) {
             [delegate webSocket:self didReceivePong:pongData];
@@ -734,7 +734,7 @@ static inline BOOL closeCodeIsValid(int closeCode) {
     size_t dataSize = data.length;
     __block uint16_t closeCode = 0;
 
-    SRDebugLog(@"Received close frame");
+    DBZDebugLog(@"Received close frame");
 
     if (dataSize == 1) {
         // TODO handle error
@@ -771,7 +771,7 @@ static inline BOOL closeCodeIsValid(int closeCode) {
 - (void)closeConnection;
 {
     [self assertOnWorkQueue];
-    SRDebugLog(@"Trying to disconnect");
+    DBZDebugLog(@"Trying to disconnect");
     _closeWhenFinishedWriting = YES;
     [self _pumpWriting];
 }
@@ -803,7 +803,7 @@ static inline BOOL closeCodeIsValid(int closeCode) {
                 });
                 return;
             }
-            SRDebugLog(@"Received text message.");
+            DBZDebugLog(@"Received text message.");
             [self.delegateController performDelegateBlock:^(id<DBZWebSocketDelegate>  _Nullable delegate, SRDelegateAvailableMethods availableMethods) {
                 // Don't convert into string - iff `delegate` tells us not to. Otherwise - create UTF8 string and handle that.
                 if (availableMethods.shouldConvertTextFrameToString && ![delegate webSocketShouldConvertTextFrameToString:self]) {
@@ -825,7 +825,7 @@ static inline BOOL closeCodeIsValid(int closeCode) {
             break;
         }
         case SROpCodeBinaryFrame: {
-            SRDebugLog(@"Received data message.");
+            DBZDebugLog(@"Received data message.");
             [self.delegateController performDelegateBlock:^(id<DBZWebSocketDelegate>  _Nullable delegate, SRDelegateAvailableMethods availableMethods) {
                 if (availableMethods.didReceiveMessage) {
                     [delegate webSocket:self didReceiveMessage:frameData];
@@ -1435,7 +1435,7 @@ static const size_t SRFrameHeaderOverhead = 32;
 {
     switch (eventCode) {
         case NSStreamEventOpenCompleted: {
-            SRDebugLog(@"NSStreamEventOpenCompleted %@", aStream);
+            DBZDebugLog(@"NSStreamEventOpenCompleted %@", aStream);
             if (self.readyState >= SR_CLOSING) {
                 return;
             }
@@ -1452,7 +1452,7 @@ static const size_t SRFrameHeaderOverhead = 32;
         }
 
         case NSStreamEventErrorOccurred: {
-            SRDebugLog(@"NSStreamEventErrorOccurred %@ %@", aStream, [[aStream streamError] copy]);
+            DBZDebugLog(@"NSStreamEventErrorOccurred %@ %@", aStream, [[aStream streamError] copy]);
             /// TODO specify error better!
             [self _failWithError:aStream.streamError];
             _readBufferOffset = 0;
@@ -1463,7 +1463,7 @@ static const size_t SRFrameHeaderOverhead = 32;
 
         case NSStreamEventEndEncountered: {
             [self _pumpScanner];
-            SRDebugLog(@"NSStreamEventEndEncountered %@", aStream);
+            DBZDebugLog(@"NSStreamEventEndEncountered %@", aStream);
             if (aStream.streamError) {
                 [self _failWithError:aStream.streamError];
             } else {
@@ -1492,7 +1492,7 @@ static const size_t SRFrameHeaderOverhead = 32;
         }
 
         case NSStreamEventHasBytesAvailable: {
-            SRDebugLog(@"NSStreamEventHasBytesAvailable %@", aStream);
+            DBZDebugLog(@"NSStreamEventHasBytesAvailable %@", aStream);
             uint8_t buffer[SRDefaultBufferSize()];
 
             while (_inputStream.hasBytesAvailable) {
@@ -1515,13 +1515,13 @@ static const size_t SRFrameHeaderOverhead = 32;
         }
 
         case NSStreamEventHasSpaceAvailable: {
-            SRDebugLog(@"NSStreamEventHasSpaceAvailable %@", aStream);
+            DBZDebugLog(@"NSStreamEventHasSpaceAvailable %@", aStream);
             [self _pumpWriting];
             break;
         }
 
         case NSStreamEventNone:
-            SRDebugLog(@"(default)  %@", aStream);
+            DBZDebugLog(@"(default)  %@", aStream);
             break;
     }
 }

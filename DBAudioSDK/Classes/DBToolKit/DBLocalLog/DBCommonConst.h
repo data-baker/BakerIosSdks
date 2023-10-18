@@ -31,7 +31,7 @@ static inline BOOL IsEmpty(id thing) {
 }
 
 static inline NSError * throwError(NSString *errorDomain, NSInteger code, NSString *msg) {
-    NSError * error = [NSError errorWithDomain:errorDomain code:code userInfo:@{@"msg":msg}];
+    NSError * error = [NSError errorWithDomain:errorDomain code:code userInfo:@{@"message":msg}];
     return error;
 }
 

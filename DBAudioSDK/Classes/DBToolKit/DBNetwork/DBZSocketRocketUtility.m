@@ -37,12 +37,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
 
 @implementation DBZSocketRocketUtility
 
-+ (DBZSocketRocketUtility *)instance {
-    static DBZSocketRocketUtility *instance = nil;
-    static dispatch_once_t predicate;
-    dispatch_once(&predicate, ^{
-          instance = [[DBZSocketRocketUtility alloc] init];
-    });
++ (DBZSocketRocketUtility *)createWebsocketUtility {
+    DBZSocketRocketUtility * instance = [[DBZSocketRocketUtility alloc] init];
+    instance.autoReconnect = YES;
     return instance;
 }
 
@@ -58,7 +55,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 
 #pragma mark - **************** public methods
 -(void)DBZWebSocketOpenWithURLString:(NSString *)urlString {
-
+    
     //如果是同一个url return
     if (self.socket) {
         return;
@@ -71,22 +68,24 @@ dispatch_async(dispatch_get_main_queue(), block);\
     self.socket = [[DBZWebSocket alloc] initWithURLRequest:
                    [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     self.socket.delegate = self;
-    //开始连接
-    self.autoReconnect = YES;
     [self.socket open];
 }
 
 - (void)DBZWebSocketClose {
     if (self.socket){
+        LogerInfo(@"WebSocket is closed");
         self.autoReconnect = NO;
         [self.socket close];
         self.socket = nil;
     }
 }
 
+- (SRReadyState)readyState {
+    return self.socket.readyState;
+}
+
 #define WeakSelf(ws) __weak __typeof(&*self)weakSelf = self
 - (void)sendData:(id)data {
-    // 记录时间
     NSTimeInterval timeIntever = [[NSDate date] timeIntervalSince1970];
     _logTimeIntever = timeIntever;
     WeakSelf(ws);
@@ -130,7 +129,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
         self.socket = nil;
         [self DBZWebSocketOpenWithURLString:self.urlString];
     });
-    
+
     // default time is 10s
     if (reConnectTime == 0) {
         reConnectTime = 10;
@@ -217,11 +216,16 @@ dispatch_async(dispatch_get_main_queue(), block);\
 }
 
 - (void)webSocket:(DBZWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
+    if (code==SRStatusCodeGoingAway) {
+        [self reConnect];// your reconect code
+    }
 
     if (webSocket == self.socket) {
-        LogerInfo("socket disconnect:%@",self.socket);
+        LogerInfo("socket disconnect:%@,code:%@,reason:%@",self.socket,@(code),reason);
         [self DBZWebSocketClose];
     }
+    
+    
     if (self.availableDelegateMethods.webSocketDidCloseNote) {
         [self.delegate webSocketDidCloseNote:nil];
     }

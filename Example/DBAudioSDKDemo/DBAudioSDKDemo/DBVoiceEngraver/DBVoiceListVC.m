@@ -14,9 +14,10 @@
 #import <AdSupport/AdSupport.h>
 #import "DBUserInfoManager.h"
 
-@interface DBVoiceListVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITabBarControllerDelegate>
+@interface DBVoiceListVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITabBarControllerDelegate,UITextFieldDelegate>
 @property(nonatomic,strong)NSMutableArray * dataSource;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UITextField *queryIdTextFiled;
 
 @property(nonatomic,strong)DBVoiceEngraverManager * voiceEngraverManager;
 
@@ -28,8 +29,13 @@
     [super viewDidLoad];
     self.voiceEngraverManager = [DBVoiceEngraverManager sharedInstance];
     self.tabBarController.delegate = self;
-    [self loadListData];
-  
+    NSString * UDID = [KUserDefalut objectForKey:KUDID];
+    if (UDID.length == 0 || UDID == nil) {
+        UDID = @"";
+    }
+    NSLog(@"queryId:%@",UDID);
+    self.queryIdTextFiled.text = UDID;
+    [self loadModelByModelId:UDID];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -38,18 +44,11 @@
 }
 
 // MARK: network Methods
-- (void)loadListData {
-    NSString * UDID = [KUserDefalut objectForKey:KUDID];
-    if (UDID.length == 0 || UDID == nil) {
-        UDID = @"";
-    }
-    NSLog(@"queryId:%@",UDID);
-    
-    
+- (void)loadListDataWithQueryId:(NSString *)queryId {
     [[XCHudHelper sharedInstance] showHudOnView:self.view caption:@"" image:nil acitivity:YES autoHideTime:0];
     // 获取当前的类型
     NSString *type = @(self.voiceEngraverManager.currentType).stringValue;
-    [self.voiceEngraverManager batchQueryModelStatusByQueryId:UDID
+    [self.voiceEngraverManager batchQueryModelStatusByQueryId:queryId
                                                          type:type
                                                SuccessHandler:^(NSArray<DBVoiceModel *> * _Nonnull array) {
         [[XCHudHelper sharedInstance] hideHud];
@@ -129,8 +128,15 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     if (tabBarController.selectedIndex == 1) {
-        [self loadListData];
+        NSString *queryId = self.queryIdTextFiled.text;
+        [self loadListDataWithQueryId:queryId];
     }
+}
+
+// MARK: UITextFieldDelegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self loadListDataWithQueryId:self.queryIdTextFiled.text];
 }
 
 #pragma mark - Navigation

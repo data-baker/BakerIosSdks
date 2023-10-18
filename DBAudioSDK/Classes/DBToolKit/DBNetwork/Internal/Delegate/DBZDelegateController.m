@@ -117,7 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
     dispatch_sync(self.accessQueue, ^{
         delegate = _delegate; // Not `OK` to go through `self`, since queue sync.
         availableMethods = self.availableDelegateMethods; // `OK` to call through `self`, since no queue sync.
-    });
+});
     [self performDelegateQueueBlock:^{
         block(delegate, availableMethods);
     }];

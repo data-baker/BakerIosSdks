@@ -40,7 +40,8 @@ static NSString * KRecordSessionIDFine = @"KRecordSessionIdFine"; // 录制过�
     [self recoverUIState];
     self.voiceEngraverManager = [DBVoiceEngraverManager sharedInstance];
     [self loadNoiseConfigure:^(NSString *msg) {
-        self.noiseMaxLimit = [msg integerValue] + 10;
+        // 这个地方的值+10是为了测试方便过
+        self.noiseMaxLimit = [msg integerValue];
         /// 声明噪音检测的工具，开启噪音检测
         self.voiceDetectionUtil = [[DBVoiceDetectionUtil alloc]init];
         self.startEngraverVoiceButton.enabled = NO;

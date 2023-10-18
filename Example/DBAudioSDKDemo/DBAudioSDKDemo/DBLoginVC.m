@@ -21,9 +21,11 @@ typedef NS_ENUM(NSInteger,DBAudioSDKType) {
 };
 
 #warning  请联系标贝科技获取clientId 和clientSecret, 注意不同的服务使用不同的授权clientId和clientSecret
-
+//
 static NSString *KClientId = @"XXX";
 static NSString *KClientSecret = @"XXX";
+
+
 
 #define KUserDefalut [NSUserDefaults standardUserDefaults]
 
@@ -132,6 +134,5 @@ static NSString *KClientSecret = @"XXX";
     [self.clientIdTextField resignFirstResponder];
     [self.clientSecretTextField resignFirstResponder];
 }
-// 增加userDefault 的设置
 
 @end

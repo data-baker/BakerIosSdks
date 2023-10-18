@@ -24,10 +24,16 @@ extern void DBZErrorLog(NSString *format, ...)
     LogerInfo(@"[SocketRocket] %@", formattedString);
 }
 
-extern void SRDebugLog(NSString *format, ...)
+extern void DBZDebugLog(NSString *format, ...)
 {
-#ifdef SR_DEBUG_LOG_ENABLED
-    DBZErrorLog(tag, format);
+#ifdef DBZ_DEBUG_LOG_ENABLED
+//    DBZErrorLog(@"%@",format);
+    __block va_list arg_list;
+    va_start (arg_list, format);
+    NSString *formattedString = [[NSString alloc] initWithFormat:format arguments:arg_list];
+    va_end(arg_list);
+    LogerInfo(@"[SocketRocket] %@", formattedString);
+    
 #endif
 }
 
